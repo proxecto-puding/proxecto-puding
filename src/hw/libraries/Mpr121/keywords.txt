@@ -1,0 +1,3 @@
+Mpr121                          KEYWORD1
+getTouchAndProximityInputs      KEYWORD2
+setDevice                       KEYWORD2

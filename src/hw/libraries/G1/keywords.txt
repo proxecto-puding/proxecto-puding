@@ -1,0 +1,11 @@
+G1                      KEYWORD1
+copyFile                KEYWORD2
+getFileSize             KEYWORD2
+listDirectory           KEYWORD2
+moveFile                KEYWORD2
+printDeviceVersionInfo  KEYWORD2
+readFile                KEYWORD2
+removeFile              KEYWORD2
+setDevice               KEYWORD2
+setFatProtection        KEYWORD2
+writeFile               KEYWORD2

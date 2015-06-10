@@ -139,43 +139,46 @@ public class Main extends JFrame {
 		JPanel panelStart = new JPanel();
 		tabbedPane.addTab("Inicio", null, panelStart, null);
 		
-		JLabel lblChanterSelect = new JLabel("Seleccione o punteiro a configurar:");
+		JLabel lblChanterSelection = new JLabel("Seleccione o punteiro a configurar:");
 		
-		JComboBox comboBoxChanterSelect = new JComboBox();
+		JComboBox comboBoxChanterSelection = new JComboBox();
 		
-		JLabel lblReadTone = new JLabel("Seleccione o tipo de lectura a empregar:");
+		JLabel lblReadingTone = new JLabel("Seleccione o tipo de lectura a empregar:");
 		
-		JComboBox comboBoxReadTone = new JComboBox();
+		JComboBox comboBoxReadingTone = new JComboBox();
 		GroupLayout gl_panelStart = new GroupLayout(panelStart);
 		gl_panelStart.setHorizontalGroup(
 			gl_panelStart.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelStart.createSequentialGroup()
-					.addGap(269)
-					.addComponent(comboBoxChanterSelect, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(299, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panelStart.createSequentialGroup()
-					.addContainerGap(214, Short.MAX_VALUE)
 					.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblReadTone)
-						.addComponent(lblChanterSelect))
-					.addGap(181))
-				.addGroup(gl_panelStart.createSequentialGroup()
-					.addGap(274)
-					.addComponent(comboBoxReadTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(294, Short.MAX_VALUE))
+						.addGroup(gl_panelStart.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelStart.createSequentialGroup()
+									.addGap(12)
+									.addComponent(comboBoxChanterSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblChanterSelection)))
+						.addGroup(gl_panelStart.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelStart.createSequentialGroup()
+									.addGap(12)
+									.addComponent(comboBoxReadingTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblReadingTone))))
+					.addContainerGap(291, Short.MAX_VALUE))
 		);
 		gl_panelStart.setVerticalGroup(
 			gl_panelStart.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelStart.createSequentialGroup()
-					.addGap(70)
-					.addComponent(lblChanterSelect)
+					.addContainerGap()
+					.addComponent(lblChanterSelection)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxChanterSelect, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(comboBoxChanterSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(lblReadTone)
-					.addGap(18)
-					.addComponent(comboBoxReadTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(106, Short.MAX_VALUE))
+					.addComponent(lblReadingTone)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboBoxReadingTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(428, Short.MAX_VALUE))
 		);
 		panelStart.setLayout(gl_panelStart);
 		
@@ -184,24 +187,24 @@ public class Main extends JFrame {
 		
 		JLabel lblVolume = new JLabel("Volume");
 		
-		JSlider slider = new JSlider();
+		JSlider sliderVolume = new JSlider();
 		
 		JSeparator separator_1 = new JSeparator();
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblTone = new JLabel("Tonalidade");
+		JLabel lblTuningTone = new JLabel("Tonalidade");
 		
-		JComboBox comboBoxTone = new JComboBox();
+		JComboBox comboBoxTuningTone = new JComboBox();
 		
-		JLabel lblOitava = new JLabel("Oitava");
+		JLabel lblTuningOctave = new JLabel("Oitava");
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboBoxTuningOctave = new JComboBox();
 		
-		JLabel lblMostras = new JLabel("Mostras");
+		JLabel lblSamples = new JLabel("Mostras");
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox comboBoxSamples = new JComboBox();
 		
 		JSeparator separator_3 = new JSeparator();
 		
@@ -210,28 +213,28 @@ public class Main extends JFrame {
 		JSeparator separator_5 = new JSeparator();
 		separator_5.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblDixitacin = new JLabel("Dixitación");
+		JLabel lblFingeringTypes = new JLabel("Dixitación");
 		
-		JCheckBox chckbxAberta = new JCheckBox("Aberta");
+		JCheckBox chckbxAberto = new JCheckBox("Aberto");
 		
-		JCheckBox chckbxPechada = new JCheckBox("Pechada");
+		JCheckBox chckbxPechado = new JCheckBox("Pechado");
 		
-		JCheckBox chckbxPersonalizada = new JCheckBox("Personalizada");
+		JCheckBox chckbxCustom = new JCheckBox("Personalizada");
 		
 		JSeparator separator_6 = new JSeparator();
 		separator_6.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblComplementos = new JLabel("Complementos");
+		JLabel lblComplements = new JLabel("Complementos");
 		
-		JCheckBox chckbxFol = new JCheckBox("Fol");
+		JCheckBox chckbxBag = new JCheckBox("Fol");
 		
-		JLabel lblBordns = new JLabel("Bordóns");
+		JLabel lblDrones = new JLabel("Bordóns");
 		
-		JCheckBox chckbxRonco = new JCheckBox("Ronco");
+		JCheckBox chckbxBassDrone = new JCheckBox("Ronco");
 		
-		JCheckBox chckbxRonqueta = new JCheckBox("Ronqueta");
+		JCheckBox chckbxTenorDrone = new JCheckBox("Ronqueta");
 		
-		JCheckBox chckbxChilln = new JCheckBox("Chillón");
+		JCheckBox chckbxHighDrone = new JCheckBox("Chillón");
 		
 		JSeparator separator_7 = new JSeparator();
 		separator_7.setOrientation(SwingConstants.VERTICAL);
@@ -246,7 +249,7 @@ public class Main extends JFrame {
 						.addGroup(gl_panelSelect.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(slider, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addComponent(sliderVolume, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblVolume))))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
@@ -259,39 +262,39 @@ public class Main extends JFrame {
 							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
 								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 								.addComponent(separator_3, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(lblTone)
-						.addComponent(comboBoxTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblOitava)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblMostras)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblTuningTone)
+						.addComponent(comboBoxTuningTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTuningOctave)
+						.addComponent(comboBoxTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSamples)
+						.addComponent(comboBoxSamples, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator_5, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDixitacin)
+						.addComponent(lblFingeringTypes)
 						.addGroup(gl_panelSelect.createSequentialGroup()
 							.addGap(12)
 							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(chckbxPechada)
-								.addComponent(chckbxAberta)
-								.addComponent(chckbxPersonalizada))))
+								.addComponent(chckbxPechado)
+								.addComponent(chckbxAberto)
+								.addComponent(chckbxCustom))))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblComplementos)
+						.addComponent(lblComplements)
 						.addGroup(gl_panelSelect.createSequentialGroup()
 							.addGap(12)
 							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblBordns)
-								.addComponent(chckbxFol)
+								.addComponent(lblDrones)
+								.addComponent(chckbxBag)
 								.addGroup(gl_panelSelect.createSequentialGroup()
 									.addGap(12)
 									.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-										.addComponent(chckbxRonqueta)
-										.addComponent(chckbxRonco)
-										.addComponent(chckbxChilln))))))
+										.addComponent(chckbxTenorDrone)
+										.addComponent(chckbxBassDrone)
+										.addComponent(chckbxHighDrone))))))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panelSelect.setVerticalGroup(
@@ -300,42 +303,42 @@ public class Main extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblComplementos)
+							.addComponent(lblComplements)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxFol)
+							.addComponent(chckbxBag)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblBordns)
+							.addComponent(lblDrones)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxRonco)
+							.addComponent(chckbxBassDrone)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxRonqueta)
+							.addComponent(chckbxTenorDrone)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxChilln))
+							.addComponent(chckbxHighDrone))
 						.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblDixitacin)
+							.addComponent(lblFingeringTypes)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAberta)
+							.addComponent(chckbxAberto)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxPechada)
+							.addComponent(chckbxPechado)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxPersonalizada))
+							.addComponent(chckbxCustom))
 						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblTone)
+							.addComponent(lblTuningTone)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxTuningTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(lblOitava)
+							.addComponent(lblTuningOctave)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(lblMostras)
+							.addComponent(lblSamples)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxSamples, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelSelect.createSequentialGroup()
 							.addComponent(lblVolume)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(sliderVolume, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(48)
 							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelSelect.createSequentialGroup()
@@ -356,59 +359,59 @@ public class Main extends JFrame {
 		JPanel panelTuning = new JPanel();
 		tabbedPane.addTab("Afinación", null, panelTuning, null);
 		
-		JLabel lblFrecuencia = new JLabel("Frecuencia");
+		JLabel lblTuningFrequency = new JLabel("Frecuencia");
 		
-		JSpinner spinner = new JSpinner();
+		JSpinner spinnerTuningFrequency = new JSpinner();
 		
-		JLabel lblHz = new JLabel("Hz");
+		JLabel lblTuningHz = new JLabel("Hz");
 		
-		JLabel lblModo = new JLabel("Modo");
+		JLabel lblTuningMode = new JLabel("Modo");
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox comboBoxTuningMode = new JComboBox();
 		
 		JSeparator separator_8 = new JSeparator();
 		separator_8.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblAxusteFino = new JLabel("Axuste fino");
+		JLabel lblPreciseTuningSettings = new JLabel("Axuste fino");
 		
-		JLabel lblNota = new JLabel("Nota");
+		JLabel lblPreciseTuningNote = new JLabel("Nota");
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox comboBoxPreciseTuningNote = new JComboBox();
 		
-		JLabel lblOitava_1 = new JLabel("Oitava");
+		JLabel lblPreciseTuningOctave = new JLabel("Oitava");
 		
-		JComboBox comboBox_4 = new JComboBox();
+		JComboBox comboBoxPreciseTuningOctave = new JComboBox();
 		
-		JLabel lblCents = new JLabel("Cents");
+		JLabel lblPreciseTuningCents = new JLabel("Cents");
 		
-		JSpinner spinner_1 = new JSpinner();
+		JSpinner spinnerPreciseTuningCents = new JSpinner();
 		GroupLayout gl_panelTuning = new GroupLayout(panelTuning);
 		gl_panelTuning.setHorizontalGroup(
 			gl_panelTuning.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelTuning.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblFrecuencia)
+						.addComponent(lblTuningFrequency)
 						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(spinnerTuningFrequency, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblHz))
-						.addComponent(lblModo)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblTuningHz))
+						.addComponent(lblTuningMode)
+						.addComponent(comboBoxTuningMode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator_8, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblAxusteFino)
+						.addComponent(lblPreciseTuningSettings)
 						.addGroup(gl_panelTuning.createSequentialGroup()
 							.addGap(12)
 							.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNota)
-								.addComponent(lblOitava_1)
-								.addComponent(comboBox_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCents)
-								.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(comboBoxPreciseTuningNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPreciseTuningNote)
+								.addComponent(lblPreciseTuningOctave)
+								.addComponent(comboBoxPreciseTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPreciseTuningCents)
+								.addComponent(spinnerPreciseTuningCents, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(391, Short.MAX_VALUE))
 		);
 		gl_panelTuning.setVerticalGroup(
@@ -417,30 +420,30 @@ public class Main extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(lblAxusteFino)
+							.addComponent(lblPreciseTuningSettings)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNota)
+							.addComponent(lblPreciseTuningNote)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxPreciseTuningNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(lblOitava_1)
+							.addComponent(lblPreciseTuningOctave)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxPreciseTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(lblCents)
+							.addComponent(lblPreciseTuningCents)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(spinnerPreciseTuningCents, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addComponent(separator_8, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(lblFrecuencia)
+							.addComponent(lblTuningFrequency)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelTuning.createParallelGroup(Alignment.BASELINE)
-								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblHz))
+								.addComponent(spinnerTuningFrequency, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTuningHz))
 							.addGap(18)
-							.addComponent(lblModo)
+							.addComponent(lblTuningMode)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(comboBoxTuningMode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(168, Short.MAX_VALUE))
 		);
 		panelTuning.setLayout(gl_panelTuning);
@@ -448,26 +451,26 @@ public class Main extends JFrame {
 		JPanel panelSensit = new JPanel();
 		tabbedPane.addTab("Sensibilidade", null, panelSensit, null);
 		
-		JLabel lblPresinDoFol = new JLabel("Presión do fol");
+		JLabel lblBagPressure = new JLabel("Presión do fol");
 		
-		JSlider slider_1 = new JSlider();
+		JSlider sliderBagPressure = new JSlider();
 		GroupLayout gl_panelSensit = new GroupLayout(panelSensit);
 		gl_panelSensit.setHorizontalGroup(
 			gl_panelSensit.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelSensit.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelSensit.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPresinDoFol)
-						.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblBagPressure)
+						.addComponent(sliderBagPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(385, Short.MAX_VALUE))
 		);
 		gl_panelSensit.setVerticalGroup(
 			gl_panelSensit.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelSensit.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblPresinDoFol)
+					.addComponent(lblBagPressure)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(slider_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(sliderBagPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(499, Short.MAX_VALUE))
 		);
 		panelSensit.setLayout(gl_panelSensit);
@@ -475,99 +478,99 @@ public class Main extends JFrame {
 		JPanel panelFinger = new JPanel();
 		tabbedPane.addTab("Dixitacións", null, panelFinger, null);
 		
-		JLabel lblNota_1 = new JLabel("Nota");
+		JLabel lblCustomFingeringNote = new JLabel("Nota");
 		
-		JComboBox comboBox_5 = new JComboBox();
+		JComboBox comboBoxCustomFingeringNote = new JComboBox();
 		
-		JLabel lblOitava_2 = new JLabel("Oitava");
+		JLabel lblCustomFingeringOctave = new JLabel("Oitava");
 		
-		JComboBox comboBox_6 = new JComboBox();
+		JComboBox comboBoxCustomFingeringOctave = new JComboBox();
 		
-		JLabel lblDixitacin_1 = new JLabel("Dixitación");
+		JLabel lblCustomFingeringNumber = new JLabel("Dixitación");
 		
-		JComboBox comboBox_7 = new JComboBox();
+		JComboBox comboBoxCustomFingeringNumber = new JComboBox();
 		
-		JButton btnNova = new JButton("Nova");
+		JButton btnCustomFingeringNew = new JButton("Nova");
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnCustomFingeringRemove = new JButton("Eliminar");
 		
 		JSeparator separator_9 = new JSeparator();
 		separator_9.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblImaxeDoPunteiro = new JLabel("Situación dos sensores");
+		JLabel lblChanterImage = new JLabel("Situación dos sensores");
 		
 		JSeparator separator_10 = new JSeparator();
 		separator_10.setOrientation(SwingConstants.VERTICAL);
 		
-		JLabel lblSensores = new JLabel("Sensores");
+		JLabel lblSensors = new JLabel("Sensores");
 		
-		JCheckBox checkBox = new JCheckBox("1");
+		JCheckBox checkBoxSensor1 = new JCheckBox("1");
 		
-		JCheckBox checkBox_1 = new JCheckBox("2");
+		JCheckBox checkBoxSensor2 = new JCheckBox("2");
 		
-		JCheckBox checkBox_2 = new JCheckBox("3");
+		JCheckBox checkBoxSensor3 = new JCheckBox("3");
 		
-		JCheckBox checkBox_3 = new JCheckBox("4");
+		JCheckBox checkBoxSensor4 = new JCheckBox("4");
 		
-		JCheckBox checkBox_4 = new JCheckBox("5");
+		JCheckBox checkBoxSensor5 = new JCheckBox("5");
 		
-		JCheckBox checkBox_5 = new JCheckBox("6");
+		JCheckBox checkBoxSensor6 = new JCheckBox("6");
 		
-		JLabel lblManEsquerda = new JLabel("Man esquerda");
+		JLabel lblLeftHandSensors = new JLabel("Man esquerda");
 		
-		JLabel lblManDereita = new JLabel("Man dereita");
+		JLabel lblRightHandSensors = new JLabel("Man dereita");
 		
-		JCheckBox checkBox_6 = new JCheckBox("7");
+		JCheckBox checkBoxSensor7 = new JCheckBox("7");
 		
-		JCheckBox checkBox_7 = new JCheckBox("8");
+		JCheckBox checkBoxSensor8 = new JCheckBox("8");
 		
-		JCheckBox checkBox_8 = new JCheckBox("9");
+		JCheckBox checkBoxSensor9 = new JCheckBox("9");
 		GroupLayout gl_panelFinger = new GroupLayout(panelFinger);
 		gl_panelFinger.setHorizontalGroup(
 			gl_panelFinger.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelFinger.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNota_1)
-						.addComponent(comboBox_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblOitava_2)
-						.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDixitacin_1)
-						.addComponent(comboBox_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNova)
-						.addComponent(btnEliminar))
+						.addComponent(lblCustomFingeringNote)
+						.addComponent(comboBoxCustomFingeringNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCustomFingeringOctave)
+						.addComponent(comboBoxCustomFingeringOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCustomFingeringNumber)
+						.addComponent(comboBoxCustomFingeringNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCustomFingeringNew)
+						.addComponent(btnCustomFingeringRemove))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator_9, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
 					.addGap(76)
-					.addComponent(lblImaxeDoPunteiro)
+					.addComponent(lblChanterImage)
 					.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
 					.addComponent(separator_10, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
 					.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelFinger.createSequentialGroup()
 							.addGap(33)
 							.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-								.addComponent(checkBox)
+								.addComponent(checkBoxSensor1)
 								.addGroup(gl_panelFinger.createSequentialGroup()
 									.addGap(21)
 									.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-										.addComponent(checkBox_2)
-										.addComponent(checkBox_1)
-										.addComponent(checkBox_3)))
-								.addComponent(lblManEsquerda)
-								.addComponent(lblManDereita)
+										.addComponent(checkBoxSensor3)
+										.addComponent(checkBoxSensor2)
+										.addComponent(checkBoxSensor4)))
+								.addComponent(lblLeftHandSensors)
+								.addComponent(lblRightHandSensors)
 								.addGroup(gl_panelFinger.createSequentialGroup()
 									.addGap(21)
-									.addComponent(checkBox_4))
-								.addComponent(checkBox_5)
+									.addComponent(checkBoxSensor5))
+								.addComponent(checkBoxSensor6)
 								.addGroup(gl_panelFinger.createSequentialGroup()
 									.addGap(21)
 									.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-										.addComponent(checkBox_7)
-										.addComponent(checkBox_6)
-										.addComponent(checkBox_8)))))
+										.addComponent(checkBoxSensor8)
+										.addComponent(checkBoxSensor7)
+										.addComponent(checkBoxSensor9)))))
 						.addGroup(gl_panelFinger.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSensores)))
+							.addComponent(lblSensors)))
 					.addContainerGap())
 		);
 		gl_panelFinger.setVerticalGroup(
@@ -578,50 +581,50 @@ public class Main extends JFrame {
 							.addContainerGap()
 							.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addComponent(lblSensores)
+									.addComponent(lblSensors)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblManEsquerda)
+									.addComponent(lblLeftHandSensors)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox)
+									.addComponent(checkBoxSensor1)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_1)
+									.addComponent(checkBoxSensor2)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_2)
+									.addComponent(checkBoxSensor3)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_3)
+									.addComponent(checkBoxSensor4)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblManDereita)
+									.addComponent(lblRightHandSensors)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_4)
+									.addComponent(checkBoxSensor5)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_5)
+									.addComponent(checkBoxSensor6)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_6)
+									.addComponent(checkBoxSensor7)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_7)
+									.addComponent(checkBoxSensor8)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBox_8))
+									.addComponent(checkBoxSensor9))
 								.addComponent(separator_9, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addComponent(lblNota_1)
+									.addComponent(lblCustomFingeringNote)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBox_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(comboBoxCustomFingeringNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
-									.addComponent(lblOitava_2)
+									.addComponent(lblCustomFingeringOctave)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBox_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(comboBoxCustomFingeringOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
-									.addComponent(lblDixitacin_1)
+									.addComponent(lblCustomFingeringNumber)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBox_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(comboBoxCustomFingeringNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
-									.addComponent(btnNova)
+									.addComponent(btnCustomFingeringNew)
 									.addGap(18)
-									.addComponent(btnEliminar))
+									.addComponent(btnCustomFingeringRemove))
 								.addComponent(separator_10, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panelFinger.createSequentialGroup()
 							.addGap(172)
-							.addComponent(lblImaxeDoPunteiro)))
+							.addComponent(lblChanterImage)))
 					.addContainerGap(168, Short.MAX_VALUE))
 		);
 		panelFinger.setLayout(gl_panelFinger);

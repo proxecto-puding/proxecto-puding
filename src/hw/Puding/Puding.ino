@@ -100,8 +100,8 @@ long minBagPressure = DEF_MBP;
  * Indicate if some drone is enabled.
  * @{
  */
-boolean isLowDroneEnabled = true;
-boolean isMiddleDroneEnabled = true;
+boolean isBassDroneEnabled = true;
+boolean isTenorDroneEnabled = true;
 boolean isHighDroneEnabled = true;
 /** @}
  */
@@ -427,11 +427,11 @@ void play() {
     if (isVibratoEnabled()) {
       midi.sendPitchBend(0, chanterChannel);
     }
-    if (isLowDroneEnabled) {
-      midi.sedNoteOff(lowDroneNote, velocity, dronesChannel);
+    if (isBassDroneEnabled) {
+      midi.sedNoteOff(bassDroneNote, velocity, dronesChannel);
     }
-    if (isMiddleDroneEnabled) {
-      midi.sendNoteOff(middleDroneNote, velocity, dronesChannel);
+    if (isTenorDroneEnabled) {
+      midi.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
     }
     if (isHighDroneEnabled) {
       midi.sendNoteOff(highDroneNote, velocity, dronesChannel);
@@ -451,11 +451,11 @@ void play() {
         midi.sendPitchBend(0, chanterChannel);
       }
     }
-    if (isLowDroneEnabled) {
-      midi.sedNoteOn(lowDroneNote, velocity, dronesChannel);
+    if (isBassDroneEnabled) {
+      midi.sedNoteOn(bassDroneNote, velocity, dronesChannel);
     }
-    if (isMiddleDroneEnabled) {
-      midi.sendNoteOn(middleDroneNote, velocity, dronesChannel);
+    if (isTenorDroneEnabled) {
+      midi.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
     }
     if (isHighDroneEnabled) {
       midi.sendNoteOn(highDroneNote, velocity, dronesChannel);
@@ -698,8 +698,8 @@ void setConfigurationDataTypeSelect(aJsonObject *data) {
   
   velocity = volume;
   setFingerings();
-  isLowDroneEnabled = dronesEnabled[0];
-  isMiddleDroneEnabled = dronesEnabled[1];
+  isBassDroneEnabled = dronesEnabled[0];
+  isTenorDroneEnabled = dronesEnabled[1];
   isHighDroneEnabled = dronesEnabled[2];
 }
 

@@ -7,6 +7,10 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.Enumeration;
 
+import main.model.entities.OperativeSystem;
+import main.model.services.MidiService;
+import main.model.services.impl.MidiServiceImpl;
+
 import org.apache.commons.io.IOUtils;
 
 import gnu.io.CommPortIdentifier;
@@ -25,7 +29,6 @@ public class ConnectionManager implements SerialPortEventListener {
 	// Default bits per second for COM port
 	private static final int DATA_RATE = 9600;
 	
-	private static String OS_NAME;
 	private static String PORT_NAME;
 	
 	private SerialPort serialPort;
@@ -39,9 +42,11 @@ public class ConnectionManager implements SerialPortEventListener {
 	private OutputStream output;
 	
 	private static ConnectionManager connection;
+	private static MidiService midiService;
 	
 	static {
-		setOsName();
+		setPortName();
+		midiService = new MidiServiceImpl();
 	};
 	
 	private ConnectionManager() {
@@ -151,6 +156,9 @@ public class ConnectionManager implements SerialPortEventListener {
 		
 		StringWriter writer = new StringWriter();
 		try {
+			// Before initializing the serial connection, it is needed to stop
+			// the MIDI service to avoid missing data read by it.
+			midiService.stop();
 			initialize();
 			IOUtils.copy(serialPort.getInputStream(), writer, "UTF-8");
 			data = writer.toString();
@@ -160,6 +168,9 @@ public class ConnectionManager implements SerialPortEventListener {
 			e.printStackTrace();
 		} finally {
 			close();
+			// Once we finish reading the data coming from the serial port, we
+			// restart the MIDI service with the same configuration.
+			midiService.start(null, true);
 		}
 		
 		return data;
@@ -190,14 +201,12 @@ public class ConnectionManager implements SerialPortEventListener {
 		}
 	}
 	
-	private static void setOsName() {
-		OS_NAME = System.getProperty("os.name");
-		
-		if (OS_NAME.startsWith("Windows")) {
+	private static void setPortName() {
+		if (OperativeSystem.isWindows()) {
 			PORT_NAME = PORT_NAME_WINDOWS;
-		} else if (OS_NAME.startsWith("Mac OS")) {
+		} else if (OperativeSystem.isMacOs()) {
 			PORT_NAME = PORT_NAME_MACOS;
-		} else { // UNIX-like by default.
+		} else if (OperativeSystem.isUnix()) {
 			PORT_NAME = PORT_NAME_UNIX;
 		}
 	}

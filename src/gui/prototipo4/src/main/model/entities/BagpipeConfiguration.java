@@ -42,6 +42,7 @@ public class BagpipeConfiguration implements Comparable<BagpipeConfiguration> {
 	@Override
 	public boolean equals(Object configuration) {
 		BagpipeConfiguration config = (BagpipeConfiguration) configuration;
+		
 		return productId.equalsIgnoreCase(config.getProductId()) &&
 				type.equalsIgnoreCase(config.getType());
 	}

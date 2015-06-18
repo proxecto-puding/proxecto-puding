@@ -4,7 +4,9 @@ public class PreciseTuning implements Comparable<PreciseTuning> {
 	
 	// From 0 to 11.
 	private int note;
+	// From -1 to 9.
 	private int octave;
+	// From -1200 to 1200.
 	private int cents;
 	
 	public int getNote() {

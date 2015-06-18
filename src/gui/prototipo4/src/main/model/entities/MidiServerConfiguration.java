@@ -6,8 +6,10 @@ import java.util.TreeSet;
 public class MidiServerConfiguration {
 	
 	private boolean useRealSamples;
+	private int tuningTone;
+	private int tuningOctave;
 	private int tuningFrequency;
-	private boolean useNaturalTuningMode;
+	private boolean usePureIntonationMode;
 	private boolean useContinuousVibrato;
 	private Set<PreciseTuning> preciseTunings;
 	
@@ -23,6 +25,22 @@ public class MidiServerConfiguration {
 		this.useRealSamples = useRealSamples;
 	}
 	
+	public int getTuningTone() {
+		return tuningTone;
+	}
+
+	public void setTuningTone(int tuningTone) {
+		this.tuningTone = tuningTone;
+	}
+	
+	public int getTuningOctave() {
+		return tuningOctave;
+	}
+
+	public void setTuningOctave(int tuningOctave) {
+		this.tuningOctave = tuningOctave;
+	}
+
 	public int getTuningFrequency() {
 		return tuningFrequency;
 	}
@@ -31,14 +49,14 @@ public class MidiServerConfiguration {
 		this.tuningFrequency = tuningFrequency;
 	}
 	
-	public boolean useNaturalTuningMode() {
-		return useNaturalTuningMode;
+	public boolean usePureIntonationMode() {
+		return usePureIntonationMode;
 	}
 	
-	public void setUseNaturalTuningMode(boolean useNaturalTuningMode) {
-		this.useNaturalTuningMode = useNaturalTuningMode;
+	public void setUsePureIntonationMode(boolean usePureIntonationMode) {
+		this.usePureIntonationMode = usePureIntonationMode;
 	}
-	
+
 	public Set<PreciseTuning> getPreciseTunings() {
 		return preciseTunings;
 	}

@@ -53,6 +53,10 @@ public class ConnectionManager implements SerialPortEventListener {
 		// Singleton.
 	}
 	
+	/**
+	 * Get the connection manager singleton instance.
+	 * @return The connection manager instance.
+	 */
 	public static ConnectionManager getInstance() {
 		if (connection == null) {
 			connection = new ConnectionManager();
@@ -61,6 +65,9 @@ public class ConnectionManager implements SerialPortEventListener {
 		return connection;
 	}
 	
+	/**
+	 * Initialize the connection manager.
+	 */
 	public void initialize() {
 		
 		// The next line is for Raspberry Pi and 
@@ -142,14 +149,26 @@ public class ConnectionManager implements SerialPortEventListener {
 		
 	}
 	
+	/**
+	 * Get an input buffered reader.
+	 * @return A buffered reader.
+	 */
 	public BufferedReader getBufferedReader() {
 		return input;
 	}
 	
+	/**
+	 * Get an output stream.
+	 * @return An output stream.
+	 */
 	public OutputStream getOutputStream() {
 		return output;
 	}
 	
+	/**
+	 * Read data from the serial port.
+	 * @return A string containing all the received data.
+	 */
 	public String readData() {
 		
 		String data = null;
@@ -176,6 +195,10 @@ public class ConnectionManager implements SerialPortEventListener {
 		return data;
 	}
 	
+	/**
+	 * Write data to the serial port.
+	 * @param data Data to send.
+	 */
 	public void writeData(String data) {
 		try {
 			initialize();
@@ -189,10 +212,17 @@ public class ConnectionManager implements SerialPortEventListener {
 		}
 	}
 	
+	/**
+	 * Send a discovery beacon for finding serial devices.
+	 */
 	public void sendDiscoveryBeacon() {
 		writeData(DISCOVERY_BEACON);
 	}
 	
+	/**
+	 * Delay the execution during a provided amount of milliseconds.
+	 * @param millis Milliseconds the execution is going to be delayed.
+	 */
 	public void delay(long millis) {
 		try {
 		    Thread.sleep(millis);
@@ -201,6 +231,9 @@ public class ConnectionManager implements SerialPortEventListener {
 		}
 	}
 	
+	/**
+	 * Set the serial port name depending on the OS.
+	 */
 	private static void setPortName() {
 		if (OperativeSystem.isWindows()) {
 			PORT_NAME = PORT_NAME_WINDOWS;

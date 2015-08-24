@@ -5,7 +5,7 @@ import java.util.List;
 public class MidiServerMacOs extends MidiServer {
 
 	static {
-		// TODO Assure this path is correct.
+		// TODO Ensure this path is correct.
 		path = "/usr/bin/timidity";
 	};
 

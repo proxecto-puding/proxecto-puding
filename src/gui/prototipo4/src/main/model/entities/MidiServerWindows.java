@@ -5,7 +5,7 @@ import java.util.List;
 public class MidiServerWindows extends MidiServer {
 	
 	static {
-		// TODO Assure this path is correct.
+		// TODO Ensure this path is correct.
 		path = "c:\\timidity\\timw32g.exe";
 	}
 

@@ -15,6 +15,18 @@ public class MidiUtils {
 		{1.0/1, 16.0/15, 8.0/7, 6.0/5, 5.0/4, 4.0/3, 16.0/11, 3.0/2, 8.0/5,
 			5.0/3, 7.0/4, 15.0/8};
 	
+	/**
+	 * Generate a table of tuning frequencies to be used by the MIDI server.
+	 * @param tone Base tone.
+	 * @param octave Base octave.
+	 * @param frequency Base frequency.
+	 * @param usePureIntonation Indicate if it is going to be used pure/just or
+	 * tempered intonation.
+	 * @param preciseTunings List of precise custom tunings for particular
+	 * notes.
+	 * @param path Directory path where the table is going to be stored.
+	 * @return The path to the generated table file.
+	 */
 	public static String generateFrequencyTable(int tone, int octave,
 			int frequency, boolean usePureIntonation,
 			Set<PreciseTuning> preciseTunings, String path) {
@@ -29,6 +41,11 @@ public class MidiUtils {
 		return tablePath;
 	}
 	
+	/**
+	 * Generate the full path to the frequency table file.
+	 * @param path Directory path where the table is going to be stored.
+	 * @return The full path to the frequency table file.
+	 */
 	private static String getTablePath(String path) {
 		
 		String tablePath = path;
@@ -41,10 +58,21 @@ public class MidiUtils {
 		return tablePath;
 	}
 	
+	/**
+	 * Write the frequency table to a file.
+	 * @param path Directory path where the table is going to be stored.
+	 * @param table Table content conformed by a list of frequencies.
+	 */
 	private static void writeFrequencyTabletoFile(String path, String table) {
 		writeFrequencyTabletoFile(path, table, false);
 	}
 	
+	/**
+	 * Write the frequency table to a file.
+	 * @param path Directory path where the table is going to be stored.
+	 * @param table Table content conformed by a list of frequencies.
+	 * @param append Indicate if it should append the content to the file.
+	 */
 	private static void writeFrequencyTabletoFile(String path, String table,
 			boolean append) {
 		try {
@@ -55,7 +83,18 @@ public class MidiUtils {
 			e.printStackTrace();
 		}
 	}
-	
+		
+	/**
+	 * Generate a table of tuning frequencies to be used by the MIDI server.
+	 * @param tone Base tone.
+	 * @param octave Base octave.
+	 * @param frequency Base frequency.
+	 * @param usePureIntonation Indicate if it is going to be used pure/just or
+	 * tempered intonation.
+	 * @param preciseTunings List of precise custom tunings for particular
+	 * notes.
+	 * @return The path to the generated table file.
+	 */
 	private static String generateFrequencyTable(int tone, int octave,
 			int frequency, boolean usePureIntonation,
 			Set<PreciseTuning> preciseTunings) {

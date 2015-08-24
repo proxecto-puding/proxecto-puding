@@ -20,6 +20,9 @@ public abstract class MidiServer {
 		return server;
 	}
 	
+	/**
+	 * Setup the MIDI server depending on the OS.
+	 */
 	private static void setMidiServer() {
 		if (OperativeSystem.isWindows()) {
 			server = new MidiServerWindows();
@@ -34,6 +37,12 @@ public abstract class MidiServer {
 		return path;
 	}
 	
+	/**
+	 * Generate a list of strings containing the command and the parameters
+	 * needed to execute the MIDI server with the provided configuration.
+	 * @param configuration Configuration to apply to the MIDI server.
+	 * @return A command list.
+	 */
 	public abstract List<String> getCommand(MidiServerConfiguration configuration);
 	
 }

@@ -130,6 +130,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		return DeviceManager.findConfigurationByIdAndType(productId, type);
 	}
 	
+	/**
+	 * Send an ACK message to the target device.
+	 * @param device Target device.
+	 */
 	private void sendAck(BagpipeDevice device) {
 		try {
 			String json = gson.toJson(device);

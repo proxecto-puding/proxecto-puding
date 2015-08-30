@@ -13,10 +13,8 @@ public class MidiServerUnix extends MidiServer {
 	
 	private static final String REAL_SAMPLES = "--config-file=";
 	private static final String FREQ_TABLE = "--freq-table=";
-	private static final String TEMP_PATH = "/tmp";
 	private static final String VIBRATO = "--vibrato";
 	private static final String CHORUS = "--chorus=n";
-	private static final String SF2_FILE_PATH = "sounds/FluidR3_GM.sf2";
 	private static final String DEF_CONFIG_FILE_PATH =
 			"/etc/timidity/timidity.cfg";
 	
@@ -25,6 +23,7 @@ public class MidiServerUnix extends MidiServer {
 	
 	static {
 		path = "/usr/bin/timidity";
+		tempPath = "/tmp";
 	};
 
 	@Override
@@ -69,19 +68,31 @@ public class MidiServerUnix extends MidiServer {
 		String realSamplesConfigFilePath = null;
 		
 		try {
+			// Download the SoundFont file.
+			// TODO Download it if needed when starting the app.
+			if (!isSoundFontFileDownloaded()) {
+				FileUtils.copyUrlToFile(
+						getSoundFontUrl(), getSoundFontFilePath());
+			}
+			
 			// Copy the SoundFont file to the temporal path.
-			// TODO Test this line carefully. SF2 file could not be found this way.
-			String soundFontFilePath =
-					FileUtils.copyFileToDirectory(SF2_FILE_PATH, TEMP_PATH);
+			// TODO Copy it if needed when starting the app.
+			String soundFontFilePath = isSoundFontFilePlaced();
+			if (soundFontFilePath == null) {
+				// TODO Test this line carefully. SF2 file could not be found this way.
+				FileUtils.copyFileToDirectory(
+						getSoundFontFilePath(), tempPath);
+			}
+			
 			// Copy the timidity.cfg of the system to the temporal path.
 			realSamplesConfigFilePath = 
-				FileUtils.copyFileToDirectory(DEF_CONFIG_FILE_PATH, TEMP_PATH);
+				FileUtils.copyFileToDirectory(DEF_CONFIG_FILE_PATH, tempPath);
 			if (realSamplesConfigFilePath != null) {
 				// Modify the timidity.cfg to use the SoundFont file.
 				setSoundFontSource(realSamplesConfigFilePath,
 						soundFontFilePath);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			realSamplesConfigFilePath = null;
 			System.err.println(
 					"Error while getting the real samples configuration file path." +
@@ -158,7 +169,7 @@ public class MidiServerUnix extends MidiServer {
 		Set<PreciseTuning> preciseTunings = configuration.getPreciseTunings();
 		
 		frequencyTablePath = MidiUtils.generateFrequencyTable(tone, octave,
-				frequency, usePureIntonation, preciseTunings, TEMP_PATH);
+				frequency, usePureIntonation, preciseTunings, tempPath);
 		
 		return frequencyTablePath;
 	}

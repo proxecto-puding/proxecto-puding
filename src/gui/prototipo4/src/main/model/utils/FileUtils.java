@@ -2,6 +2,8 @@ package main.model.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,6 +39,39 @@ public class FileUtils {
 		}
 		
 		return destFilePath;
+	}
+	
+	/**
+	 * Copy a URL content to a file.
+	 * @param srcUrl Source URL.
+	 * @param destFile Destination file.
+	 * @throws IOException If a problem comes up when copying.
+	 * @throws MalformedURLException If the URL is malformed.
+	 */
+	public static void copyUrlToFile(String srcUrl, String destFile)
+			throws IOException, MalformedURLException {
+		
+		URL source = null;
+		try {
+			source = new URL(srcUrl);
+		} catch (MalformedURLException e) {
+			System.err.println("Error while copying URL '" + srcUrl +
+					"' to file '" + destFile + "'." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		
+		File destination = new File(destFile);
+		try {
+			org.apache.commons.io.FileUtils.copyURLToFile(source, destination);
+		} catch (IOException e) {
+			System.err.println("Error while copying URL '" + srcUrl +
+					"' to file '" + destFile + "'." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
 	/**

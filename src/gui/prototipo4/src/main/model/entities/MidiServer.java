@@ -1,10 +1,16 @@
 package main.model.entities;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public abstract class MidiServer {
 	
+	protected static final String SOUNDFONT_URL = "https://goo.gl/uNtY5u";
+	private static final String SOUNDFONT_FILE_PATH = "sounds/FluidR3_GM.sf2";
+	private static final String SOUNDFONT_FILE_NAME = "FluidR3_GM.sf2";
 	protected static String path;
+	protected static String tempPath;
 	
 	static {
 		setMidiServer();
@@ -33,8 +39,65 @@ public abstract class MidiServer {
 		}
 	}
 	
-	public String getPath() {
-		return path;
+	public String getSoundFontUrl() {
+		return SOUNDFONT_URL;
+	}
+	
+	public String getSoundFontFilePath() {
+		return SOUNDFONT_FILE_PATH;
+	}
+	
+	public String getSoundFontFileName() {
+		return SOUNDFONT_FILE_NAME;
+	}
+	
+	/**
+	 * Check if the SoundFont file is placed into the temporal directory.
+	 * @return The path where the SoundFont file is placed in. Null otherwise.
+	 */
+	public String isSoundFontFilePlaced() {
+		
+		String soundFontFilePath = null;
+		boolean isPlaced = false;
+		
+		File tempDirectory = new File(tempPath);
+		
+		try {
+			soundFontFilePath = tempDirectory.getCanonicalPath();
+			if (!soundFontFilePath.endsWith(File.separator)) {
+				soundFontFilePath += File.separator;
+			}
+			soundFontFilePath += SOUNDFONT_FILE_NAME;
+			File destFile = new File(soundFontFilePath);
+			
+			isPlaced = destFile.exists();
+		} catch (IOException e) {
+			isPlaced = false;
+			System.err.println(
+					"Error while checking the SoundFont file is placed." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		if (!isPlaced) {
+			soundFontFilePath = null;
+		}
+		
+		return soundFontFilePath;
+	}
+	
+	/**
+	 * Check if the SoundFont file is downloaded.
+	 * @return A boolean indicating if the file is downloaded.
+	 */
+	public boolean isSoundFontFileDownloaded() {
+		
+		boolean isDownloaded = false;
+		
+		File file = new File(SOUNDFONT_FILE_PATH);
+		isDownloaded = file.exists();
+		
+		return isDownloaded;
 	}
 	
 	/**

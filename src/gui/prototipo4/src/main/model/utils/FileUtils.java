@@ -42,7 +42,7 @@ public class FileUtils {
 	}
 	
 	/**
-	 * Copy a URL content to a file.
+	 * Copy an URL content to a file.
 	 * @param srcUrl Source URL.
 	 * @param destFile Destination file.
 	 * @throws IOException If a problem comes up when copying.
@@ -81,6 +81,7 @@ public class FileUtils {
 	 * @throws IOException If a problem comes up when reading.
 	 */
 	public static List<String> readLines(File file) throws IOException {
+		
 		return org.apache.commons.io.FileUtils.readLines(file, "UTF-8");
 	}
 	
@@ -93,6 +94,7 @@ public class FileUtils {
 	 */
 	public static void writeLines(File file, Collection<?> lines,
 			boolean append) throws IOException {
+		
 		org.apache.commons.io.FileUtils.writeLines(file, lines, append);
 	}
 

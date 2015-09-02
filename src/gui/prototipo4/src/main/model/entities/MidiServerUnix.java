@@ -34,25 +34,27 @@ public class MidiServerUnix extends MidiServer {
 		// Executable.
 		command.add(path);
 		
-		// Real samples.
-		if (configuration.useRealSamples()) {
-			configFilePath = getRealSamplesConfigFilePath();
-			if (configFilePath != null) {
-				command.add(REAL_SAMPLES + configFilePath);
+		if (configuration != null) {
+			// Real samples.
+			if (configuration.useRealSamples()) {
+				configFilePath = getRealSamplesConfigFilePath();
+				if (configFilePath != null) {
+					command.add(REAL_SAMPLES + configFilePath);
+				}
 			}
-		}
-		
-		// Tuning mode, tuning frequency and precise tunings.
-		tablePath = getFrequencyTablePath(configuration);
-		if (tablePath != null) {
-			command.add(FREQ_TABLE + tablePath);
-		}
-		
-		// Continuous vibrato.
-		if (configuration.useContinuousVibrato()) {
-			// This option is only for hardware not supporting manual vibrato.
-			command.add(VIBRATO);
-			command.add(CHORUS);
+			
+			// Tuning mode, tuning frequency and precise tunings.
+			tablePath = getFrequencyTablePath(configuration);
+			if (tablePath != null) {
+				command.add(FREQ_TABLE + tablePath);
+			}
+			
+			// Continuous vibrato.
+			if (configuration.useContinuousVibrato()) {
+				// Only for hardware not supporting manual vibrato.
+				command.add(VIBRATO);
+				command.add(CHORUS);
+			}
 		}
 		
 		return command;
@@ -69,24 +71,19 @@ public class MidiServerUnix extends MidiServer {
 		
 		try {
 			// Download the SoundFont file.
-			// TODO Download it if needed when starting the app.
 			if (!isSoundFontFileDownloaded()) {
-				FileUtils.copyUrlToFile(
-						getSoundFontUrl(), getSoundFontFilePath());
+				downloadSoundFontFile();
 			}
 			
 			// Copy the SoundFont file to the temporal path.
-			// TODO Copy it if needed when starting the app.
-			String soundFontFilePath = isSoundFontFilePlaced();
-			if (soundFontFilePath == null) {
-				// TODO Test this line carefully. SF2 file could not be found this way.
-				FileUtils.copyFileToDirectory(
-						getSoundFontFilePath(), tempPath);
+			String soundFontFilePath = null;
+			if (!isSoundFontFileCopied()) {
+				soundFontFilePath = copySoundFontFile();
 			}
 			
 			// Copy the timidity.cfg of the system to the temporal path.
-			realSamplesConfigFilePath = 
-				FileUtils.copyFileToDirectory(DEF_CONFIG_FILE_PATH, tempPath);
+			realSamplesConfigFilePath = copyDefaultConfigFile();
+				
 			if (realSamplesConfigFilePath != null) {
 				// Modify the timidity.cfg to use the SoundFont file.
 				setSoundFontSource(realSamplesConfigFilePath,
@@ -104,6 +101,29 @@ public class MidiServerUnix extends MidiServer {
 	}
 	
 	/**
+	 * Copy the timidity.cfg of the system to the temporal path.
+	 * @return The path to the timidity.cfg copy.
+	 * @throws IOException If a problem comes up when copying the file.
+	 */
+	private String copyDefaultConfigFile() throws IOException {
+		
+		String tempConfigFilePath = null;
+		
+		try {
+			tempConfigFilePath = FileUtils.copyFileToDirectory(
+					DEF_CONFIG_FILE_PATH, tempPath);
+		} catch (IOException e) {
+			tempConfigFilePath = null;
+			System.err.println("Error while copying the default config file to the temporal directory." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return tempConfigFilePath;
+	}
+	
+	/**
 	 * Configure the MIDI server configuration file to use the provided
 	 * SoundFont source file.
 	 * @param configFilePath Path to the MIDI server configuration file.
@@ -117,8 +137,39 @@ public class MidiServerUnix extends MidiServer {
 		
 		boolean  isSet = false;
 		
-		File configFile = new File(configFilePath);
 		try {
+			// Disable other sound sources.
+			disableOtherSoundFontSources(configFilePath);
+			
+			// Enable custom SoundFont source.
+			enableCustomSoundFontSource(configFilePath, soundFontFilePath);
+			
+			isSet = true;
+			
+		} catch (IOException e) {
+			isSet = false;
+			System.err.println(
+					"Error while setting the SoundFont source." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return isSet;
+	}
+	
+	/**
+	 * Disable other SoundFont sources present in the MIDI server configuration
+	 * file.
+	 * @param configFilePath Path to the MIDI server configuration file.
+	 * @throws IOException If a problem comes up while managing the
+	 * configuration file.
+	 */
+	private void disableOtherSoundFontSources(String configFilePath)
+			throws IOException {
+		
+		try {
+			File configFile = new File(configFilePath);
 			List<String> lines = FileUtils.readLines(configFile);
 			
 			// Disable other sound sources.
@@ -128,27 +179,50 @@ public class MidiServerUnix extends MidiServer {
 				}
 			}
 			
+			FileUtils.writeLines(configFile, lines, false);
+			
+		} catch (IOException e) {
+			System.err.println(
+					"Error while disabling other SoundFont sources." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}	
+	}
+	
+	/**
+	 * Enable a custom SoundFont source in the MIDI server configuration file.
+	 * @param configFilePath Path to the MIDI server configuration file.
+	 * @param soundFontFilePath Path to the SoundFont source file.
+	 * @throws IOException If a problem comes up while managing the
+	 * configuration file.
+	 */
+	private void enableCustomSoundFontSource(String configFilePath,
+			String soundFontFilePath) throws IOException {
+		
+		try {
+			File configFile = new File(configFilePath);
+			List<String> lines = FileUtils.readLines(configFile);
+			
 			// Enable custom SoundFont source.
 			String soundFontDirectory =
 					soundFontFilePath.substring(0,
-							soundFontFilePath.lastIndexOf("/")+1);
+							soundFontFilePath.lastIndexOf(File.separator)+1);
 			String soundFontFile = soundFontFilePath.substring(
-					soundFontFilePath.lastIndexOf("/"));
+					soundFontFilePath.lastIndexOf(File.separator));
 			lines.add("dir " + soundFontDirectory);
 			lines.add("soundfont " + soundFontFile);
 			
 			FileUtils.writeLines(configFile, lines, false);
 			
-			isSet = true;
 		} catch (IOException e) {
 			System.err.println(
-					"Error while setting the SoundFont source." +
+					"Error while enabling a custom SoundFont source." +
 					" Message: " + e.getMessage());
 			e.printStackTrace();
 			throw e;
 		}
-		
-		return isSet;
+
 	}
 	
 	/**

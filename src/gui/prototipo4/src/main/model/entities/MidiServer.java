@@ -1,19 +1,18 @@
 package main.model.entities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import main.model.utils.SoundFontManager;
+
 public abstract class MidiServer {
 	
-	protected static final String SOUNDFONT_URL = "https://goo.gl/uNtY5u";
-	private static final String SOUNDFONT_FILE_PATH = "sounds/FluidR3_GM.sf2";
-	private static final String SOUNDFONT_FILE_NAME = "FluidR3_GM.sf2";
 	protected static String path;
 	protected static String tempPath;
 	
 	static {
 		setMidiServer();
+		checkSoundFontFile();
 	};
 	
 	private static MidiServer server;
@@ -39,65 +38,67 @@ public abstract class MidiServer {
 		}
 	}
 	
-	public String getSoundFontUrl() {
-		return SOUNDFONT_URL;
-	}
-	
-	public String getSoundFontFilePath() {
-		return SOUNDFONT_FILE_PATH;
-	}
-	
-	public String getSoundFontFileName() {
-		return SOUNDFONT_FILE_NAME;
-	}
-	
 	/**
-	 * Check if the SoundFont file is placed into the temporal directory.
-	 * @return The path where the SoundFont file is placed in. Null otherwise.
+	 * Check if the SoundFont file is ready to use.
 	 */
-	public String isSoundFontFilePlaced() {
-		
-		String soundFontFilePath = null;
-		boolean isPlaced = false;
-		
-		File tempDirectory = new File(tempPath);
-		
+	private static void checkSoundFontFile() {
 		try {
-			soundFontFilePath = tempDirectory.getCanonicalPath();
-			if (!soundFontFilePath.endsWith(File.separator)) {
-				soundFontFilePath += File.separator;
+			if (!isSoundFontFileDownloaded()) {
+				downloadSoundFontFile();
+			} else if (!isSoundFontFileCopied()) {
+				copySoundFontFile();
 			}
-			soundFontFilePath += SOUNDFONT_FILE_NAME;
-			File destFile = new File(soundFontFilePath);
-			
-			isPlaced = destFile.exists();
 		} catch (IOException e) {
-			isPlaced = false;
 			System.err.println(
-					"Error while checking the SoundFont file is placed." +
+					"Error while checking if the SoundFont file is ready to use." +
 					" Message: " + e.getMessage());
 			e.printStackTrace();
 		}
-		
-		if (!isPlaced) {
-			soundFontFilePath = null;
-		}
-		
-		return soundFontFilePath;
 	}
 	
 	/**
 	 * Check if the SoundFont file is downloaded.
 	 * @return A boolean indicating if the file is downloaded.
+	 * @throws IOException If the SoundFont file is still being downloaded.
 	 */
-	public boolean isSoundFontFileDownloaded() {
+	public static boolean isSoundFontFileDownloaded() throws IOException {
 		
-		boolean isDownloaded = false;
+		return SoundFontManager.isSoundFontFileDownloaded();
+	}
+	
+	/**
+	 * Download the SoundFont file to use from the Internet.
+	 */
+	public static void downloadSoundFontFile() {
 		
-		File file = new File(SOUNDFONT_FILE_PATH);
-		isDownloaded = file.exists();
+		SoundFontManager.downloadSoundFontFile();
+	}
+	
+	/**
+	 * Check if the SoundFont file is placed into the temporal directory.
+	 * @return A boolean indicating if the SoundFont is placed into the
+	 * destination directory.
+	 */
+	public static boolean isSoundFontFileCopied() {
 		
-		return isDownloaded;
+		return SoundFontManager.isSoundFontFileCopied(tempPath);
+	}
+	
+	/**
+	 * Copy the SoundFont file into the temporal directory.
+	 * @return The path where the SoundFont file is placed in. Null otherwise.
+	 * @throws IOException If a problem comes up when copying the file.
+	 */
+	public static String copySoundFontFile() throws IOException {
+		
+		try {
+			return SoundFontManager.copySoundFontFile(tempPath);
+		} catch (IOException e) {
+			System.err.println("Error while copying the SoundFont file to the temporal directory." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
 	/**

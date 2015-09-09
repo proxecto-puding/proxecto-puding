@@ -10,9 +10,6 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -30,7 +27,14 @@ public class Main extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 2067752108552203318L;
+	
+	private static final MenuBarView menuBarView;
+	
 	private JPanel contentPane;
+	
+	static {
+		menuBarView = new MenuBarView();
+	};
 
 	/**
 	 * Launch the application.
@@ -62,36 +66,9 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
 		
-		JMenuBar menuBar = new JMenuBar();
+		JMenuBar menuBar = menuBarView.getMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
-		mnFile.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/application.png")));
-		menuBar.add(mnFile);
-		
-		JMenuItem mntmExit = new JMenuItem("Exit");
-		mntmExit.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/door_out.png")));
-		mnFile.add(mntmExit);
-		
-		JMenu mnHelp = new JMenu("Help");
-		mnHelp.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/help.png")));
-		menuBar.add(mnHelp);
-		
-		JMenuItem mntmUserManual = new JMenuItem("User manual");
-		mntmUserManual.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/book_open.png")));
-		mnHelp.add(mntmUserManual);
-		
-		JMenuItem mntmConfAppApi = new JMenuItem("Conf App API");
-		mntmConfAppApi.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/page_white_cup.png")));
-		mnHelp.add(mntmConfAppApi);
-		
-		JMenuItem mntmBagpipeApi = new JMenuItem("Bagpipe API");
-		mntmBagpipeApi.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/page_white_cplusplus.png")));
-		mnHelp.add(mntmBagpipeApi);
-		
-		JMenuItem mntmAbout = new JMenuItem("About");
-		mntmAbout.setIcon(new ImageIcon(Main.class.getResource("/main/resources/icons/information.png")));
-		mnHelp.add(mntmAbout);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

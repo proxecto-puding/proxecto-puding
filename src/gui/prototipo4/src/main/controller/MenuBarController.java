@@ -1,42 +1,78 @@
 package main.controller;
 
-import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import main.model.services.BrowserService;
+import main.model.services.impl.BrowserServiceImpl;
 
 public class MenuBarController {
 	
-	public JMenuItem getExitMenuItem() {
+	private BrowserService browserService = new BrowserServiceImpl();
+	
+	public ActionListener getActionListenerForExitMenuItem() {
 		
-		return new JMenuItem() {
-			// TODO Add behavior.
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				System.exit(0);
+			}
 		};
+		
+		return actionListener;
 	}
 	
-	public JMenuItem getUserManualMenuItem() {
+	public ActionListener getActionListenerForUserManualMenuItem() {
 		
-		return new JMenuItem() {
-			// TODO Add behavior.
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				browserService.openUserManualUrl();
+			}
 		};
+		
+		return actionListener;
 	}
 	
-	public JMenuItem getConfAppApiMenuItem() {
+	public ActionListener getActionListenerForConfAppApiMenuItem() {
 		
-		return new JMenuItem() {
-			// TODO Add behavior.
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				browserService.openConfAppApiUrl();
+			}
 		};
+		
+		return actionListener;
 	}
 	
-	public JMenuItem getBagpipeApiMenuItem() {
+	public ActionListener getActionListenerForBagpipeApiMenuItem() {
 		
-		return new JMenuItem() {
-			// TODO Add behavior.
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				browserService.openBagpipeApiUrl();
+			}
 		};
+		
+		return actionListener;
 	}
 	
-	public JMenuItem getAboutMenuItem() {
+	public ActionListener getActionListenerForAboutMenuItem() {
 		
-		return new JMenuItem() {
-			// TODO Add behavior.
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				browserService.openAboutUrl();
+			}
 		};
+		
+		return actionListener;
 	}
 	
 }

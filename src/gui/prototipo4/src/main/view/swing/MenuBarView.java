@@ -9,6 +9,21 @@ import main.controller.MenuBarController;
 
 public class MenuBarView {
 	
+	private static final String FILE_MENU_ICON_PATH = 
+			"/main/resources/icons/application.png";
+	private static final String EXIT_MENU_ITEM_ICON_PATH =
+			"/main/resources/icons/door_out.png";
+	private static final String HELP_MENU_ICON_PATH =
+			"/main/resources/icons/help.png";
+	private static final String USER_MANUAL_MENU_ITEM_ICON_PATH =
+			"/main/resources/icons/book_open.png";
+	private static final String CONF_APP_API_MENU_ITEM_ICON_PATH =
+			"/main/resources/icons/page_white_cup.png";
+	private static final String BAGPIPE_API_MENU_ITEM_ICON_PATH =
+			"/main/resources/icons/page_white_cplusplus.png";
+	private static final String ABOUT_MENU_ITEM_ICON_PATH =
+			"/main/resources/icons/information.png";
+	
 	private static final MenuBarController menuBarController;
 	
 	static {
@@ -33,7 +48,8 @@ public class MenuBarView {
 		
 		mnFile.setText("File");
 		mnFile.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/application.png")));
+				getResource(FILE_MENU_ICON_PATH)));
+		
 		JMenuItem mntmExit = getExitMenuItem();
 		mnFile.add(mntmExit);
 		
@@ -42,11 +58,14 @@ public class MenuBarView {
 	
 	private JMenuItem getExitMenuItem() {
 		
-		JMenuItem mntmExit = menuBarController.getExitMenuItem();
+		JMenuItem mntmExit = new JMenuItem();
+		
+		mntmExit.addActionListener(
+				menuBarController.getActionListenerForExitMenuItem());
 		
 		mntmExit.setText("Exit");
 		mntmExit.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/door_out.png")));
+				getResource(EXIT_MENU_ITEM_ICON_PATH)));
 		
 		return mntmExit;
 	}
@@ -57,7 +76,8 @@ public class MenuBarView {
 				
 		mnHelp.setText("Help");
 		mnHelp.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/help.png")));
+				getResource(HELP_MENU_ICON_PATH)));
+		
 		JMenuItem mntmUserManual = getUserManualMenuItem();
 		mnHelp.add(mntmUserManual);
 		JMenuItem mntmConfAppApi = getConfAppApiMenuItem();
@@ -72,44 +92,56 @@ public class MenuBarView {
 	
 	private JMenuItem getUserManualMenuItem() {
 		
-		JMenuItem mntmUserManual = menuBarController.getUserManualMenuItem();
+		JMenuItem mntmUserManual = new JMenuItem(); 
+				
+		mntmUserManual.addActionListener(
+				menuBarController.getActionListenerForUserManualMenuItem());
 		
 		mntmUserManual.setText("User manual");
 		mntmUserManual.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/book_open.png")));
+				getResource(USER_MANUAL_MENU_ITEM_ICON_PATH)));
 		
 		return mntmUserManual;
 	}
 	
 	private JMenuItem getConfAppApiMenuItem() {
 		
-		JMenuItem mntmConfAppApi = menuBarController.getConfAppApiMenuItem();
+		JMenuItem mntmConfAppApi = new JMenuItem();
+		
+		mntmConfAppApi.addActionListener(
+				menuBarController.getActionListenerForConfAppApiMenuItem());
 		
 		mntmConfAppApi.setText("Conf App API");
 		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/page_white_cup.png")));
+				getResource(CONF_APP_API_MENU_ITEM_ICON_PATH)));
 		
 		return mntmConfAppApi;
 	}
 	
 	private JMenuItem getBagpipeApiMenuItem() {
 		
-		JMenuItem mntmBagpipeApi = menuBarController.getBagpipeApiMenuItem();
+		JMenuItem mntmBagpipeApi = new JMenuItem();
+		
+		mntmBagpipeApi.addActionListener(
+				menuBarController.getActionListenerForBagpipeApiMenuItem());
 		
 		mntmBagpipeApi.setText("Bagpipe API");
 		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/page_white_cplusplus.png")));
+				getResource(BAGPIPE_API_MENU_ITEM_ICON_PATH)));
 		
 		return mntmBagpipeApi;
 	}
 	
 	private JMenuItem getAboutMenuItem() {
 		
-		JMenuItem mntmAbout = menuBarController.getAboutMenuItem();
+		JMenuItem mntmAbout = new JMenuItem();
+		
+		mntmAbout.addActionListener(
+				menuBarController.getActionListenerForAboutMenuItem());
 		
 		mntmAbout.setText("About");
 		mntmAbout.setIcon(new ImageIcon(this.getClass().
-				getResource("/main/resources/icons/information.png")));
+				getResource(ABOUT_MENU_ITEM_ICON_PATH)));
 		
 		return mntmAbout;
 	}

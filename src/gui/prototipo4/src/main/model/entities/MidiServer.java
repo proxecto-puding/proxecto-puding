@@ -3,6 +3,7 @@ package main.model.entities;
 import java.io.IOException;
 import java.util.List;
 
+import main.model.utils.OperativeSystemManager;
 import main.model.utils.SoundFontManager;
 
 public abstract class MidiServer {
@@ -29,11 +30,11 @@ public abstract class MidiServer {
 	 * Setup the MIDI server depending on the OS.
 	 */
 	private static void setMidiServer() {
-		if (OperativeSystem.isWindows()) {
+		if (OperativeSystemManager.isWindows()) {
 			server = new MidiServerWindows();
-		} else if (OperativeSystem.isMacOs()) {
+		} else if (OperativeSystemManager.isMacOs()) {
 			server = new MidiServerMacOs();
-		} else if (OperativeSystem.isUnix()) {
+		} else if (OperativeSystemManager.isUnix()) {
 			server = new MidiServerUnix();
 		}
 	}

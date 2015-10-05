@@ -1,5 +1,6 @@
 package main.model.utils;
 
+import java.util.List;
 import java.util.Properties;
 
 public class ConfigurationManager {
@@ -27,6 +28,12 @@ public class ConfigurationManager {
 	
 	public static String getUserManualUrl() {
 		return properties.getProperty("userManualUrl");
+	}
+	
+	public static List<String> getSupportedLanguages() {
+		
+		String propertyValue = properties.getProperty("supportedLanguages");
+		return PropertiesManager.getPropertyValues(propertyValue);
 	}
 	
 }

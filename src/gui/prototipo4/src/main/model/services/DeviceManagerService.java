@@ -1,5 +1,6 @@
 package main.model.services;
 
+import java.util.List;
 import java.util.Set;
 
 import main.model.entities.BagpipeConfiguration;
@@ -12,6 +13,11 @@ public interface DeviceManagerService {
 	 * @return A set containing all the devices found.
 	 */
 	Set<BagpipeDevice> findBagpipeDevices();
+	/**
+	 * Get the ids of all the registered bagpipe devices.
+	 * @return A list of bagpipe device ids.
+	 */
+	List<String> getBagpipeDeviceIds();
 	/**
 	 * Get a device configuration given a device id and type.
 	 * @param productId Device id.

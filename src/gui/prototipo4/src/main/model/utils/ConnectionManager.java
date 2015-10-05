@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.Enumeration;
 
-import main.model.entities.OperativeSystem;
 import main.model.services.MidiService;
 import main.model.services.impl.MidiServiceImpl;
 
@@ -235,11 +234,11 @@ public class ConnectionManager implements SerialPortEventListener {
 	 * Set the serial port name depending on the OS.
 	 */
 	private static void setPortName() {
-		if (OperativeSystem.isWindows()) {
+		if (OperativeSystemManager.isWindows()) {
 			PORT_NAME = PORT_NAME_WINDOWS;
-		} else if (OperativeSystem.isMacOs()) {
+		} else if (OperativeSystemManager.isMacOs()) {
 			PORT_NAME = PORT_NAME_MACOS;
-		} else if (OperativeSystem.isUnix()) {
+		} else if (OperativeSystemManager.isUnix()) {
 			PORT_NAME = PORT_NAME_UNIX;
 		}
 	}

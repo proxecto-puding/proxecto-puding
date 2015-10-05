@@ -1,5 +1,7 @@
 package main.model.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -54,6 +56,19 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		return DeviceManager.getDevices();
+	}
+	
+	@Override
+	public List<String> getBagpipeDeviceIds() {
+		
+		List<String> ids = new ArrayList<String>();
+		
+		Set<BagpipeDevice> devices = DeviceManager.getDevices();
+		for (BagpipeDevice device : devices) {
+			ids.add(device.getProductId());
+		}
+		
+		return ids;
 	}
 
 	@Override

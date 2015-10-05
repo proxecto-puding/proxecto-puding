@@ -2,6 +2,9 @@ package main.model.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class PropertiesManager {
@@ -25,4 +28,15 @@ public class PropertiesManager {
 		return properties;
 	}
 	
+	public static List<String> getPropertyValues(String propertyValue) {
+		
+		List<String> propertyValues = new ArrayList<String>();
+		
+		if (propertyValue != null) {
+			String[] values = propertyValue.split("\\s*,\\s*");
+			propertyValues.addAll(Arrays.asList(values));
+		}
+		
+		return propertyValues; 
+	}
 }

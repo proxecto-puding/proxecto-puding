@@ -32,11 +32,13 @@ public class Main extends JFrame {
 			"/main/resources/images/proxecto-puding-logo.png";
 	
 	private static final MenuBarView menuBarView;
+	private static final StartConfigurationView startConfigurationView;
 	
 	private JPanel contentPane;
 	
 	static {
 		menuBarView = new MenuBarView();
+		startConfigurationView = new StartConfigurationView();
 	};
 
 	/**
@@ -70,9 +72,11 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
 		
+		// Menu bar.
 		JMenuBar menuBar = menuBarView.getMenuBar();
 		setJMenuBar(menuBar);
 		
+		// Button bar.
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -117,52 +121,11 @@ public class Main extends JFrame {
 					.addContainerGap())
 		);
 		
-		JPanel panelStart = new JPanel();
+		// Start panel.
+		JPanel panelStart = startConfigurationView.getStartPanel();
 		tabbedPane.addTab("Inicio", null, panelStart, null);
 		
-		JLabel lblChanterSelection = new JLabel("Seleccione o punteiro a configurar:");
-		
-		JComboBox comboBoxChanterSelection = new JComboBox();
-		
-		JLabel lblReadingTone = new JLabel("Seleccione o tipo de lectura a empregar:");
-		
-		JComboBox comboBoxReadingTone = new JComboBox();
-		GroupLayout gl_panelStart = new GroupLayout(panelStart);
-		gl_panelStart.setHorizontalGroup(
-			gl_panelStart.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelStart.createSequentialGroup()
-					.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelStart.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelStart.createSequentialGroup()
-									.addGap(12)
-									.addComponent(comboBoxChanterSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblChanterSelection)))
-						.addGroup(gl_panelStart.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelStart.createSequentialGroup()
-									.addGap(12)
-									.addComponent(comboBoxReadingTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblReadingTone))))
-					.addContainerGap(291, Short.MAX_VALUE))
-		);
-		gl_panelStart.setVerticalGroup(
-			gl_panelStart.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelStart.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblChanterSelection)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxChanterSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblReadingTone)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxReadingTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(428, Short.MAX_VALUE))
-		);
-		panelStart.setLayout(gl_panelStart);
-		
+		// Selection panel.
 		JPanel panelSelect = new JPanel();
 		tabbedPane.addTab("Selección", null, panelSelect, null);
 		
@@ -337,6 +300,7 @@ public class Main extends JFrame {
 		);
 		panelSelect.setLayout(gl_panelSelect);
 		
+		// Tuning panel.
 		JPanel panelTuning = new JPanel();
 		tabbedPane.addTab("Afinación", null, panelTuning, null);
 		
@@ -429,6 +393,7 @@ public class Main extends JFrame {
 		);
 		panelTuning.setLayout(gl_panelTuning);
 		
+		// Sensitivity panel.
 		JPanel panelSensit = new JPanel();
 		tabbedPane.addTab("Sensibilidade", null, panelSensit, null);
 		
@@ -456,6 +421,7 @@ public class Main extends JFrame {
 		);
 		panelSensit.setLayout(gl_panelSensit);
 		
+		// Fingerings panel.
 		JPanel panelFinger = new JPanel();
 		tabbedPane.addTab("Dixitacións", null, panelFinger, null);
 		

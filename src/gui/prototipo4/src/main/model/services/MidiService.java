@@ -10,9 +10,10 @@ public interface MidiService {
 	 * @param restart Indicate if it should be restarted.
 	 * @return The process within the MIDI service is running.
 	 */
-	Process start(MidiServerConfiguration configuration, boolean restart);
+	public Process start(MidiServerConfiguration configuration, boolean restart);
+	
 	/**
 	 * Stop the MIDI service.
 	 */
-	void stop();
+	public void stop();
 }

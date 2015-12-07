@@ -35,7 +35,7 @@ public class DeviceManager {
 	 * @param productId The device id to search for.
 	 * @return A registered device if found. Null otherwise.
 	 */
-	public static BagpipeDevice findDeviceById(String productId) {
+	public static BagpipeDevice findDevice(String productId) {
 		
 		BagpipeDevice device = null;
 		
@@ -86,22 +86,54 @@ public class DeviceManager {
 	}
 	
 	/**
+	 * Find all the device configurations given a device id.
+	 * @param productId Device id.
+	 * @return The requested configurations.
+	 */
+	public static Set<BagpipeConfiguration> findConfigurations(
+			String productId) {
+		
+		Set<BagpipeConfiguration> configurations = null;
+		
+		BagpipeDevice device = findDevice(productId);
+		if (device != null) {
+			configurations = device.getConfigurations();
+		}
+		
+		return configurations;
+	}
+	
+	/**
 	 * Find a device configuration by id and type.
 	 * @param productId Device id.
 	 * @param type Device type.
 	 * @return The requested configuration if found. Null otherwise.
 	 */
-	public static BagpipeConfiguration findConfigurationByIdAndType(
+	public static BagpipeConfiguration findConfiguration(
 			String productId, String type) {
 		
 		BagpipeConfiguration configuration = null;
 		
-		BagpipeDevice device = findDeviceById(productId);
+		BagpipeDevice device = findDevice(productId);
 		if (device != null) {
 			configuration = device.findConfigurationByType(type);
 		}
 		
 		return configuration;
+	}
+	
+	/**
+	 * Add a configuration to a registered device.
+	 * @param productId Device id.
+	 * @param configuration Configuration to add.
+	 */
+	public static void addConfiguration(String productId,
+			BagpipeConfiguration configuration) {
+		
+		BagpipeDevice device = findDevice(productId);
+		if (device != null) {
+			device.addConfiguration(configuration);
+		}
 	}
 
 }

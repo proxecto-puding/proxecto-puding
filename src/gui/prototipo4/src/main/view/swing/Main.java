@@ -28,6 +28,7 @@ public class Main extends JFrame {
 	 */
 	private static final long serialVersionUID = 2067752108552203318L;
 	
+	private static final String TITLE = "Proxecto Puding";
 	private static final String ICON_IMAGE_ICON_PATH =
 			"/main/resources/images/proxecto-puding-logo.png";
 	
@@ -66,9 +67,10 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Main.class.getResource(ICON_IMAGE_ICON_PATH)));
-		setTitle("Proxecto Puding");
+		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
 		

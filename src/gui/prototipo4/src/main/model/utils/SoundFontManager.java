@@ -20,14 +20,17 @@ public class SoundFontManager {
 		
 		boolean isDownloaded = false;
 		
-		// Avoid using real samples when the SoundFont file is unavailable.
-		if (fileDownload.isDownloading()) {
-			throw new IOException("The SoundFont file is still being downloaded.");
-		}
+		if (fileDownload != null) {
 		
-		if (fileDownload.isDownloaded()) {
-			File file = new File(SOUNDFONT_FILE_PATH);
-			isDownloaded = file.exists();
+			// Avoid using real samples when the SoundFont file is unavailable.
+			if (fileDownload.isDownloading()) {
+				throw new IOException("The SoundFont file is still being downloaded.");
+			}
+			
+			if (fileDownload.isDownloaded()) {
+				File file = new File(SOUNDFONT_FILE_PATH);
+				isDownloaded = file.exists();
+			}
 		}
 		
 		return isDownloaded;

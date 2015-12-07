@@ -24,11 +24,7 @@ public class MenuBarView {
 	private static final String ABOUT_MENU_ITEM_ICON_PATH =
 			"/main/resources/icons/information.png";
 	
-	private static final MenuBarController menuBarController;
-	
-	static {
-		menuBarController = new MenuBarController();
-	};
+	private MenuBarController menuBarController = new MenuBarController();
 	
 	public JMenuBar getMenuBar() {
 		
@@ -46,8 +42,7 @@ public class MenuBarView {
 		
 		JMenu mnFile = new JMenu();
 		
-		// TODO Manage translations.
-		mnFile.setText("File");
+		mnFile.setText(menuBarController.getTranslationForFileMenu());
 		mnFile.setIcon(new ImageIcon(this.getClass().
 				getResource(FILE_MENU_ICON_PATH)));
 		
@@ -64,8 +59,7 @@ public class MenuBarView {
 		mntmExit.addActionListener(
 				menuBarController.getActionListenerForExitMenuItem());
 		
-		// TODO Manage translations.
-		mntmExit.setText("Exit");
+		mntmExit.setText(menuBarController.getTranslationForExitMenuItem());
 		mntmExit.setIcon(new ImageIcon(this.getClass().
 				getResource(EXIT_MENU_ITEM_ICON_PATH)));
 		
@@ -76,8 +70,7 @@ public class MenuBarView {
 		
 		JMenu mnHelp = new JMenu();
 		
-		// TODO Manage translations.
-		mnHelp.setText("Help");
+		mnHelp.setText(menuBarController.getTranslationForHelpMenu());
 		mnHelp.setIcon(new ImageIcon(this.getClass().
 				getResource(HELP_MENU_ICON_PATH)));
 		
@@ -100,8 +93,7 @@ public class MenuBarView {
 		mntmUserManual.addActionListener(
 				menuBarController.getActionListenerForUserManualMenuItem());
 		
-		// TODO Manage translations.
-		mntmUserManual.setText("User manual");
+		mntmUserManual.setText(menuBarController.getTranslationForUserManualMenuItem());
 		mntmUserManual.setIcon(new ImageIcon(this.getClass().
 				getResource(USER_MANUAL_MENU_ITEM_ICON_PATH)));
 		
@@ -115,8 +107,7 @@ public class MenuBarView {
 		mntmConfAppApi.addActionListener(
 				menuBarController.getActionListenerForConfAppApiMenuItem());
 		
-		// TODO Manage translations.
-		mntmConfAppApi.setText("Conf App API");
+		mntmConfAppApi.setText(menuBarController.getTranslationForConfAppApiMenuItem());
 		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().
 				getResource(CONF_APP_API_MENU_ITEM_ICON_PATH)));
 		
@@ -130,7 +121,7 @@ public class MenuBarView {
 		mntmBagpipeApi.addActionListener(
 				menuBarController.getActionListenerForBagpipeApiMenuItem());
 		
-		mntmBagpipeApi.setText("Bagpipe API");
+		mntmBagpipeApi.setText(menuBarController.getTranslationForBagpipeApiMenuItem());
 		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().
 				getResource(BAGPIPE_API_MENU_ITEM_ICON_PATH)));
 		
@@ -144,8 +135,7 @@ public class MenuBarView {
 		mntmAbout.addActionListener(
 				menuBarController.getActionListenerForAboutMenuItem());
 		
-		// TODO Manage translations.
-		mntmAbout.setText("About");
+		mntmAbout.setText(menuBarController.getTranslationForAboutMenuItem());
 		mntmAbout.setIcon(new ImageIcon(this.getClass().
 				getResource(ABOUT_MENU_ITEM_ICON_PATH)));
 		

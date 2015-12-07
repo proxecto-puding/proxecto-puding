@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import main.model.entities.BagpipeConfiguration;
+import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.BagpipeDevice;
 import main.model.services.DeviceManagerService;
 import main.model.utils.ConnectionManager;
@@ -35,11 +36,18 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		String json = connection.readData();
 		int attempts = 0;
+		BagpipeDevice device = null;
 		while (json != null && !json.isEmpty() && attempts < MAX_ATTEMPTS) {
 			try {
-				BagpipeDevice device = gson.fromJson(json, BagpipeDevice.class);
-				DeviceManager.addDevice(device);
-				sendAck(device);
+				device = gson.fromJson(json, BagpipeDevice.class);
+				if (device != null) {
+					DeviceManager.addDevice(device);
+					sendAck(device);
+				} else {
+					System.err.println(
+							"Error while adding a new device to the list of known devices." +
+							" Message: " + json);
+				}
 			} catch (Exception e) {
 				System.err.println(
 						"Error while adding a new device to the list of known devices." +
@@ -70,6 +78,18 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		return ids;
 	}
+	
+	@Override
+	public Set<BagpipeConfiguration> getBagpipeConfigurations(
+			String productId) {
+		
+		BagpipeConfigurationType[] types = BagpipeConfigurationType.values();
+		for (BagpipeConfigurationType type : types) {
+			getBagpipeConfiguration(productId, type.toString());
+		}
+		
+		return DeviceManager.findConfigurations(productId);
+	}
 
 	@Override
 	public BagpipeConfiguration getBagpipeConfiguration(
@@ -87,7 +107,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		BagpipeConfiguration configuration = null;
 		
-		BagpipeDevice device = DeviceManager.findDeviceById(productId);
+		BagpipeDevice device = DeviceManager.findDevice(productId);
 		if (device == null) {
 			System.err.println("Error while getting the configuration for:" +
 					" ProductId: " + productId +
@@ -108,21 +128,25 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				connection.delay(MAX_READING_DELAY);
 				response = connection.readData();
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
-				if (productId.equalsIgnoreCase(configuration.getProductId()) &&
+				if (configuration != null &&
+						productId.equalsIgnoreCase(configuration.getProductId()) &&
 						type.equalsIgnoreCase(configuration.getType())) {
 					sendAck(device);
+					DeviceManager.addConfiguration(productId, configuration);
 				} else {
 					// Wrong configuration supplied.
 					response = null;
+					configuration = null;
 				}
 			} catch (Exception e) {
 				// Wrong configuration supplied.
-				response = null;
+				response = null;				
 				System.err.println("Error while getting the configuration for:" +
 						" ProductId: " + productId +
-						" Type: " + configuration.getType() +
+						" Type: " + configuration == null ? "unknow" : configuration.getType() +
 						" Message: " + e.getMessage());
 				e.printStackTrace();
+				configuration = null;
 			}
 		}
 		
@@ -140,9 +164,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public BagpipeConfiguration findBagpipeConfigurationByIdAndType(
+	public BagpipeConfiguration findBagpipeConfiguration(
 			String productId, String type) {
-		return DeviceManager.findConfigurationByIdAndType(productId, type);
+		
+		return DeviceManager.findConfiguration(productId, type);
 	}
 	
 	/**

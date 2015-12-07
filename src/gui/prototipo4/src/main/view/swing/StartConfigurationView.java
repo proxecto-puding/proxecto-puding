@@ -13,11 +13,8 @@ import main.controller.StartConfigurationController;
 
 public class StartConfigurationView {
 
-	private static final StartConfigurationController startConfigurationController;
-	
-	static {
-		startConfigurationController = new StartConfigurationController();
-	};
+	private StartConfigurationController startConfigurationController =
+			new StartConfigurationController();
 	
 	public JPanel getStartPanel() {
 		
@@ -47,8 +44,8 @@ public class StartConfigurationView {
 		
 		JLabel lblChanterSelection = new JLabel();
 		
-		// TODO Manage translations.
-		lblChanterSelection.setText("Seleccione o punteiro a configurar:");
+		lblChanterSelection.setText(startConfigurationController.
+				getTranslationForChanterSelectionLabel());
 		
 		return lblChanterSelection;
 	}
@@ -72,8 +69,8 @@ public class StartConfigurationView {
 		
 		JLabel lblReadingTone = new JLabel();
 		
-		// TODO Manage translations.
-		lblReadingTone.setText("Seleccione o tipo de lectura a empregar:");
+		lblReadingTone.setText(startConfigurationController.
+				getTranslationForReadingToneLabel());
 		
 		return lblReadingTone;
 	}

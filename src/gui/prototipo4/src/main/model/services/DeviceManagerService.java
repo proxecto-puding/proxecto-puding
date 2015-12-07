@@ -21,38 +21,39 @@ public interface DeviceManagerService {
 	public List<String> getBagpipeDeviceIds();
 	
 	/**
-	 * Get all the device configurations given device id.
+	 * Find all the device configurations given device id.
 	 * @param productId Device id.
 	 * @return The requested configurations.
 	 */
-	public Set<BagpipeConfiguration> getBagpipeConfigurations(String productId);
+	public Set<BagpipeConfiguration> findBagpipeConfigurations(String productId);
 	
 	/**
-	 * Get a device configuration given a device id and type.
+	 * Find a device configuration given a device id and type.
 	 * @param productId Device id.
 	 * @param type Device type.
 	 * @return A device configuration if found. Null otherwise.
 	 */
-	public BagpipeConfiguration getBagpipeConfiguration(String productId, String type);
+	public BagpipeConfiguration findBagpipeConfiguration(String productId, String type);
 	
 	/**
-	 * Get a device configuration given a preinitialized one. 
+	 * Find a device configuration given a preinitialized one. 
 	 * @param configuration Device configuration containing at least id and type.
 	 * @return A device configuration if found. Null otherwise.
 	 */
-	public BagpipeConfiguration getBagpipeConfiguration(BagpipeConfiguration configuration);
+	public BagpipeConfiguration findBagpipeConfiguration(BagpipeConfiguration configuration);
 	
 	/**
 	 * Set the configuration for a given device.
-	 * @param configuration Device configuration containing at least id and type. 
+	 * @param configuration Device configuration containing at least id and type.
+	 * @throws IllegalArgumentException If the provided configuration is null.
 	 */
-	public void setBagpipeConfiguration(BagpipeConfiguration configuration);
+	public void setBagpipeConfiguration(BagpipeConfiguration configuration) throws IllegalArgumentException;
 	
 	/**
-	 * Find a device configuration by id and type.
+	 * Get a device configuration by id and type.
 	 * @param productId Device id.
 	 * @param type Device type.
 	 * @return The requested configuration if found. Null otherwise.
 	 */
-	public BagpipeConfiguration findBagpipeConfiguration(String productId, String type);
+	public BagpipeConfiguration getBagpipeConfiguration(String productId, String type);
 }

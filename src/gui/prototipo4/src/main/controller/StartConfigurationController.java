@@ -55,7 +55,7 @@ public class StartConfigurationController {
 						(JComboBox<String>) event.getSource();
 				String productId = 
 						(String) comboBoxChanterSelection.getSelectedItem();
-				deviceManagerService.getBagpipeConfigurations(productId);
+				deviceManagerService.findBagpipeConfigurations(productId);
 				notificationService.sendNotification(comboBoxChanterSelection,
 						Notification.CHANTER_SELECTED, productId);
 			}

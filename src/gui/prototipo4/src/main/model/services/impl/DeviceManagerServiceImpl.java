@@ -80,34 +80,34 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public Set<BagpipeConfiguration> getBagpipeConfigurations(
+	public Set<BagpipeConfiguration> findBagpipeConfigurations(
 			String productId) {
 		
 		BagpipeConfigurationType[] types = BagpipeConfigurationType.values();
 		for (BagpipeConfigurationType type : types) {
-			getBagpipeConfiguration(productId, type.toString());
+			findBagpipeConfiguration(productId, type.toString());
 		}
 		
-		return DeviceManager.findConfigurations(productId);
+		return DeviceManager.getConfigurations(productId);
 	}
 
 	@Override
-	public BagpipeConfiguration getBagpipeConfiguration(
+	public BagpipeConfiguration findBagpipeConfiguration(
 			BagpipeConfiguration configuration) {
 		
 		String productId = configuration.getProductId();
 		String type = configuration.getType();
 		
-		return getBagpipeConfiguration(productId, type);
+		return findBagpipeConfiguration(productId, type);
 	}
 	
 	@Override
-	public BagpipeConfiguration getBagpipeConfiguration(
+	public BagpipeConfiguration findBagpipeConfiguration(
 			String productId, String type) {
 		
 		BagpipeConfiguration configuration = null;
 		
-		BagpipeDevice device = DeviceManager.findDevice(productId);
+		BagpipeDevice device = DeviceManager.getDevice(productId);
 		if (device == null) {
 			System.err.println("Error while getting the configuration for:" +
 					" ProductId: " + productId +
@@ -154,20 +154,32 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 
 	@Override
-	public void setBagpipeConfiguration(BagpipeConfiguration configuration) {
-		try {
-			String json = gson.toJson(configuration);
-			connection.writeData(json);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void setBagpipeConfiguration(BagpipeConfiguration configuration)
+			throws IllegalArgumentException {
+		
+		if (configuration != null) {
+			String productId = configuration.getProductId();
+			try {
+				String json = gson.toJson(configuration);
+				connection.writeData(json);
+				DeviceManager.addConfiguration(productId, configuration);
+			} catch (Exception e) {
+				System.err.println("Error while setting the configuration for: " +
+						" ProductId: " + productId +
+						" Type: " + configuration.getType() +
+						" Message: " + e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			throw new IllegalArgumentException("Bagpipe configuration cannot be null");
 		}
 	}
 	
 	@Override
-	public BagpipeConfiguration findBagpipeConfiguration(
+	public BagpipeConfiguration getBagpipeConfiguration(
 			String productId, String type) {
 		
-		return DeviceManager.findConfiguration(productId, type);
+		return DeviceManager.getConfiguration(productId, type);
 	}
 	
 	/**
@@ -175,11 +187,18 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	 * @param device Target device.
 	 */
 	private void sendAck(BagpipeDevice device) {
-		try {
-			String json = gson.toJson(device);
-			connection.writeData(json);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (device != null) {
+			try {
+				String json = gson.toJson(device);
+				connection.writeData(json);
+			} catch (Exception e) {
+				System.err.println("Error while sending ACK for: " +
+						" ProductId: " + device.getProductId() +
+						" Message: " + e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			throw new IllegalArgumentException("Bagpipe device cannot be null");
 		}
 	}
 

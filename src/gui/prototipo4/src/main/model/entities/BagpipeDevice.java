@@ -28,7 +28,7 @@ public class BagpipeDevice implements Comparable<BagpipeDevice> {
 		this.configurations = configurations;
 	}
 	
-	public BagpipeConfiguration findConfigurationByType(String type) {
+	public BagpipeConfiguration getConfigurationByType(String type) {
 		
 		BagpipeConfiguration configuration = null;
 		

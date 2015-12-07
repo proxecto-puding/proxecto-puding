@@ -31,11 +31,11 @@ public class DeviceManager {
 	}
 	
 	/**
-	 * Find a registered device by id.
+	 * Get a registered device by id.
 	 * @param productId The device id to search for.
 	 * @return A registered device if found. Null otherwise.
 	 */
-	public static BagpipeDevice findDevice(String productId) {
+	public static BagpipeDevice getDevice(String productId) {
 		
 		BagpipeDevice device = null;
 		
@@ -86,16 +86,16 @@ public class DeviceManager {
 	}
 	
 	/**
-	 * Find all the device configurations given a device id.
+	 * Get all the device configurations given a device id.
 	 * @param productId Device id.
 	 * @return The requested configurations.
 	 */
-	public static Set<BagpipeConfiguration> findConfigurations(
+	public static Set<BagpipeConfiguration> getConfigurations(
 			String productId) {
 		
 		Set<BagpipeConfiguration> configurations = null;
 		
-		BagpipeDevice device = findDevice(productId);
+		BagpipeDevice device = getDevice(productId);
 		if (device != null) {
 			configurations = device.getConfigurations();
 		}
@@ -104,19 +104,19 @@ public class DeviceManager {
 	}
 	
 	/**
-	 * Find a device configuration by id and type.
+	 * Get a device configuration by id and type.
 	 * @param productId Device id.
 	 * @param type Device type.
 	 * @return The requested configuration if found. Null otherwise.
 	 */
-	public static BagpipeConfiguration findConfiguration(
+	public static BagpipeConfiguration getConfiguration(
 			String productId, String type) {
 		
 		BagpipeConfiguration configuration = null;
 		
-		BagpipeDevice device = findDevice(productId);
+		BagpipeDevice device = getDevice(productId);
 		if (device != null) {
-			configuration = device.findConfigurationByType(type);
+			configuration = device.getConfigurationByType(type);
 		}
 		
 		return configuration;
@@ -130,7 +130,7 @@ public class DeviceManager {
 	public static void addConfiguration(String productId,
 			BagpipeConfiguration configuration) {
 		
-		BagpipeDevice device = findDevice(productId);
+		BagpipeDevice device = getDevice(productId);
 		if (device != null) {
 			device.addConfiguration(configuration);
 		}

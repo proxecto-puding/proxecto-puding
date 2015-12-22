@@ -9,6 +9,7 @@ import main.model.entities.BagpipeDevice;
 public class DeviceManager {
 	
 	private static Set<BagpipeDevice> devices;
+	private static BagpipeDevice selectedDevice;
 	
 	static {
 		devices = new TreeSet<BagpipeDevice>();
@@ -83,6 +84,22 @@ public class DeviceManager {
 	 */
 	public static void removeDevice(BagpipeDevice device) {
 		devices.remove(device);
+	}
+	
+	/**
+	 * Get the current device in use.
+	 * @return A device.
+	 */
+	public static BagpipeDevice getSelectedDevice() {
+		return selectedDevice;
+	}
+	
+	/**
+	 * Set the current device in use.
+	 * @param productId Device id.
+	 */
+	public static void setSelectedDevice(String productId) {
+		selectedDevice = getDevice(productId);
 	}
 	
 	/**

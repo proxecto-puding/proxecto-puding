@@ -21,6 +21,17 @@ public interface DeviceManagerService {
 	public List<String> getBagpipeDeviceIds();
 	
 	/**
+	 * Get the current bagpipe device in use.
+	 * @return A bagpipe device.
+	 */
+	public BagpipeDevice getSelectedBagpipeDevice();
+	
+	/**
+	 * Set the current bagpipe device in use.
+	 */
+	public void setSelectedBagpipeDevice(String productId);
+	
+	/**
 	 * Find all the device configurations given device id.
 	 * @param productId Device id.
 	 * @return The requested configurations.
@@ -56,4 +67,19 @@ public interface DeviceManagerService {
 	 * @return The requested configuration if found. Null otherwise.
 	 */
 	public BagpipeConfiguration getBagpipeConfiguration(String productId, String type);
+
+	/**
+	 * Get the bag pressure limit for a given device.
+	 * @param productId Device id.
+	 * @return A bag pressure limit.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public int getBagPressure(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the bag pressure limit for a given device.
+	 * @param productId Device id.
+	 * @param bagPressure Bag pressure limit.
+	 */
+	public void setBagPressure(String productId, int bagPressure);
 }

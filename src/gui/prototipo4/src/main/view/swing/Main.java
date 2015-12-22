@@ -34,12 +34,14 @@ public class Main extends JFrame {
 	
 	private static final MenuBarView menuBarView;
 	private static final StartConfigurationView startConfigurationView;
+	private static final SensitivityConfigurationView sensitivityConfigurationView;
 	
-	private JPanel contentPane;
+	private JPanel contentPanel;
 	
 	static {
 		menuBarView = new MenuBarView();
 		startConfigurationView = new StartConfigurationView();
+		sensitivityConfigurationView = new SensitivityConfigurationView();
 	};
 
 	/**
@@ -79,9 +81,9 @@ public class Main extends JFrame {
 		setJMenuBar(menuBar);
 		
 		// Button bar.
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
@@ -92,7 +94,7 @@ public class Main extends JFrame {
 		JButton btnDefault = new JButton("Por defecto");
 		
 		JSeparator separator = new JSeparator();
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -396,32 +398,8 @@ public class Main extends JFrame {
 		panelTuning.setLayout(gl_panelTuning);
 		
 		// Sensitivity panel.
-		JPanel panelSensit = new JPanel();
+		JPanel panelSensit = sensitivityConfigurationView.getSensitivityPanel();
 		tabbedPane.addTab("Sensibilidade", null, panelSensit, null);
-		
-		JLabel lblBagPressure = new JLabel("Presión do fol");
-		
-		JSlider sliderBagPressure = new JSlider();
-		GroupLayout gl_panelSensit = new GroupLayout(panelSensit);
-		gl_panelSensit.setHorizontalGroup(
-			gl_panelSensit.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSensit.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelSensit.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblBagPressure)
-						.addComponent(sliderBagPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(385, Short.MAX_VALUE))
-		);
-		gl_panelSensit.setVerticalGroup(
-			gl_panelSensit.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSensit.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblBagPressure)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sliderBagPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(499, Short.MAX_VALUE))
-		);
-		panelSensit.setLayout(gl_panelSensit);
 		
 		// Fingerings panel.
 		JPanel panelFinger = new JPanel();
@@ -577,6 +555,6 @@ public class Main extends JFrame {
 					.addContainerGap(168, Short.MAX_VALUE))
 		);
 		panelFinger.setLayout(gl_panelFinger);
-		contentPane.setLayout(gl_contentPane);
+		contentPanel.setLayout(gl_contentPane);
 	}
 }

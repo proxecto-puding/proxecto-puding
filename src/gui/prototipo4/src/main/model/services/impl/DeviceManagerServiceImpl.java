@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import main.model.entities.BagpipeConfiguration;
 import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.BagpipeDevice;
+import main.model.entities.SensitivityConfiguration;
 import main.model.services.DeviceManagerService;
 import main.model.utils.ConnectionManager;
 import main.model.utils.DeviceManager;
@@ -42,7 +43,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				device = gson.fromJson(json, BagpipeDevice.class);
 				if (device != null) {
 					DeviceManager.addDevice(device);
-					sendAck(device);
+					sendAck(device.getProductId());
 				} else {
 					System.err.println(
 							"Error while adding a new device to the list of known devices." +
@@ -77,6 +78,16 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		return ids;
+	}
+	
+	@Override
+	public BagpipeDevice getSelectedBagpipeDevice() {
+		return DeviceManager.getSelectedDevice();
+	}
+	
+	@Override
+	public void setSelectedBagpipeDevice(String productId) {
+		DeviceManager.setSelectedDevice(productId);
 	}
 	
 	@Override
@@ -131,7 +142,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
 						type.equalsIgnoreCase(configuration.getType())) {
-					sendAck(device);
+					sendAck(device.getProductId());
 					DeviceManager.addConfiguration(productId, configuration);
 				} else {
 					// Wrong configuration supplied.
@@ -182,23 +193,75 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		return DeviceManager.getConfiguration(productId, type);
 	}
 	
+	@Override
+	public int getBagPressure(String productId)
+			throws IllegalArgumentException {
+		
+		int bagPressure = -1;
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SENSIT.toString());
+				SensitivityConfiguration sensitivityConfiguration =
+						(SensitivityConfiguration) configuration.getData();
+				bagPressure = sensitivityConfiguration.getBagPressure();
+			} else {
+				System.err.println("Error while getting the bag pressure for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return bagPressure;
+	}
+	
+	@Override
+	public void setBagPressure(String productId, int bagPressure) {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SENSIT.toString());
+				SensitivityConfiguration sensitivityConfiguration =
+						(SensitivityConfiguration) configuration.getData();
+				sensitivityConfiguration.setBagPressure(bagPressure);
+			} else {
+				System.err.println("Error while getting the bag pressure for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+	}
+	
 	/**
 	 * Send an ACK message to the target device.
 	 * @param device Target device.
 	 */
-	private void sendAck(BagpipeDevice device) {
-		if (device != null) {
+	private void sendAck(String productId) {
+		if (productId != null) {
 			try {
+				BagpipeDevice device = new BagpipeDevice();
+				device.setProductId(productId);
 				String json = gson.toJson(device);
 				connection.writeData(json);
 			} catch (Exception e) {
 				System.err.println("Error while sending ACK for: " +
-						" ProductId: " + device.getProductId() +
+						" ProductId: " + productId +
 						" Message: " + e.getMessage());
 				e.printStackTrace();
 			}
 		} else {
-			throw new IllegalArgumentException("Bagpipe device cannot be null");
+			throw new IllegalArgumentException("ProductId cannot be null");
 		}
 	}
 

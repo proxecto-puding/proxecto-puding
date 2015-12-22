@@ -1,5 +1,7 @@
 package main.view.swing;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -44,8 +46,9 @@ public class StartConfigurationView {
 		
 		JLabel lblChanterSelection = new JLabel();
 		
-		lblChanterSelection.setText(startConfigurationController.
-				getTranslationForChanterSelectionLabel());
+		String text = startConfigurationController.
+				getTranslationForChanterSelectionLabel();
+		lblChanterSelection.setText(text);
 		
 		return lblChanterSelection;
 	}
@@ -58,9 +61,9 @@ public class StartConfigurationView {
 		ComboBoxModel<String> chanterSelectionModel =
 				new DefaultComboBoxModel<String>(chanters);
 		comboBoxChanterSelection.setModel(chanterSelectionModel);
-		comboBoxChanterSelection.addActionListener(
-				startConfigurationController.
-				getActionListenerForChanterSelectionComboBox());
+		ActionListener actionListener = startConfigurationController.
+				getActionListenerForChanterSelectionComboBox();
+		comboBoxChanterSelection.addActionListener(actionListener);
 		
 		return comboBoxChanterSelection;
 	}
@@ -69,8 +72,9 @@ public class StartConfigurationView {
 		
 		JLabel lblReadingTone = new JLabel();
 		
-		lblReadingTone.setText(startConfigurationController.
-				getTranslationForReadingToneLabel());
+		String text = startConfigurationController.
+				getTranslationForReadingToneLabel();
+		lblReadingTone.setText(text);
 		
 		return lblReadingTone;
 	}
@@ -83,9 +87,10 @@ public class StartConfigurationView {
 		ComboBoxModel<String> readingToneModel =
 				new DefaultComboBoxModel<String>(readingTones);
 		comboBoxReadingTone.setModel(readingToneModel);
-		comboBoxReadingTone.addActionListener(
+		ActionListener actionListener = 
 				startConfigurationController.
-				getActionListenerForReadingToneComboBox());
+				getActionListenerForReadingToneComboBox();
+		comboBoxReadingTone.addActionListener(actionListener);
 					
 		return comboBoxReadingTone;
 	}
@@ -97,6 +102,7 @@ public class StartConfigurationView {
 			JComboBox<String> comboBoxReadingTone) {
 		
 		GroupLayout gl_panelStart = new GroupLayout(panelStart);
+		
 		gl_panelStart.setHorizontalGroup(
 			gl_panelStart.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelStart.createSequentialGroup()

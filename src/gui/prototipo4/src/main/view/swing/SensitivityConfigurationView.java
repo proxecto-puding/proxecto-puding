@@ -1,6 +1,8 @@
 package main.view.swing;
 
 import java.beans.PropertyChangeListener;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -54,6 +56,11 @@ public class SensitivityConfigurationView {
 		
 		sliderBagPressure.setMinimum(MIN_BAG_PRESSURE);
 		sliderBagPressure.setMaximum(MAX_BAG_PRESSURE);
+		Dictionary<Integer,JLabel> labels = new Hashtable<Integer,JLabel>();
+		labels.put(1, new JLabel("1"));
+		labels.put(100, new JLabel("100"));
+		sliderBagPressure.setLabelTable(labels);
+		sliderBagPressure.setPaintLabels(true);
 		int bagPressure = sensitivityConfigurationController.getBagPressure();
 		sliderBagPressure.setValue(bagPressure);
 		ChangeListener changeListener = sensitivityConfigurationController.

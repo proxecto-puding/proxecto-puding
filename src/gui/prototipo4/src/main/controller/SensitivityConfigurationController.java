@@ -2,11 +2,14 @@ package main.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Dictionary;
 
+import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import main.model.entities.BagpipeDevice;
 import main.model.services.DeviceManagerService;
 import main.model.services.I18nService;
 import main.model.services.NotificationService;
@@ -23,14 +26,24 @@ public class SensitivityConfigurationController {
 	private NotificationService notificationService =
 			new NotificationServiceImpl();
 	
+	private int oldBagPressure = -1;
+	
 	public String getTranslationForBagPressureLabel() {
 		return i18nService.getTranslation("sensitivityConfiguration.bagPressure.label");
 	}
 	
 	public int getBagPressure() {
-		String productId = deviceManagerService.
-				getSelectedBagpipeDevice().getProductId();
-		return deviceManagerService.getBagPressure(productId);
+		
+		int bagPressure = -1;
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			bagPressure = deviceManagerService.getBagPressure(productId);
+		}
+		
+		return bagPressure;
 	}
 	
 	public ChangeListener getChangeListenerForBagPressureSlider() {
@@ -40,11 +53,33 @@ public class SensitivityConfigurationController {
 			public void stateChanged(ChangeEvent event) {
 				
 				JSlider sliderBagPressure = (JSlider) event.getSource();
+				int bagPressure = sliderBagPressure.getValue();
+				
+				// Update the slider cursor label.
+				@SuppressWarnings("unchecked")
+				Dictionary<Integer,JLabel> labels =
+						(Dictionary<Integer,JLabel>)
+								sliderBagPressure.getLabelTable();
+				if (oldBagPressure != -1 &&
+						oldBagPressure != sliderBagPressure.getMinimum() &&
+						oldBagPressure != sliderBagPressure.getMaximum()) {
+					
+					labels.remove(oldBagPressure);
+				}
+				labels.put(bagPressure, new JLabel(Integer.toString(bagPressure)));
+				sliderBagPressure.setLabelTable(labels);
+				oldBagPressure = bagPressure;
+
+				// Set the new device bag pressure.
 				if (!sliderBagPressure.getValueIsAdjusting()) {
-					String productId = deviceManagerService.
-							getSelectedBagpipeDevice().getProductId();
-					int bagPressure = sliderBagPressure.getValue();
-					deviceManagerService.setBagPressure(productId, bagPressure);
+
+					BagpipeDevice selectedDevice = 
+							deviceManagerService.getSelectedBagpipeDevice();
+					if (selectedDevice != null) {
+						String productId = selectedDevice.getProductId();
+						deviceManagerService.
+								setBagPressure(productId, bagPressure);
+					}
 				}
 			}
 		};

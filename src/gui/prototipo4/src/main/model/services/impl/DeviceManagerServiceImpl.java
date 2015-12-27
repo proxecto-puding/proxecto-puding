@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import main.model.entities.BagpipeConfiguration;
 import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.BagpipeDevice;
+import main.model.entities.SelectionConfiguration;
 import main.model.entities.SensitivityConfiguration;
 import main.model.services.DeviceManagerService;
 import main.model.utils.ConnectionManager;
@@ -194,6 +195,55 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
+	public int getVolume(String productId) throws IllegalArgumentException {
+		
+		int volume = -1;
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				volume = selectionConfiguration.getVolume();
+			} else {
+				System.err.println("Error while getting the volume for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return volume;
+	}
+	
+	@Override
+	public void setVolume(String productId, int volume)
+			throws IllegalArgumentException {
+	
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				selectionConfiguration.setVolume(volume);
+			} else {
+				System.err.println("Error while setting the volume for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
 	public int getBagPressure(String productId)
 			throws IllegalArgumentException {
 		
@@ -221,7 +271,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public void setBagPressure(String productId, int bagPressure) {
+	public void setBagPressure(String productId, int bagPressure)
+			throws IllegalArgumentException {
 		
 		if (productId != null) {
 			BagpipeDevice device = DeviceManager.getDevice(productId);
@@ -233,21 +284,20 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SensitivityConfiguration) configuration.getData();
 				sensitivityConfiguration.setBagPressure(bagPressure);
 			} else {
-				System.err.println("Error while getting the bag pressure for:" +
+				System.err.println("Error while setting the bag pressure for:" +
 						" ProductId: " + productId +
 						" Message: Device not found.");
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
-		
 	}
 	
 	/**
 	 * Send an ACK message to the target device.
 	 * @param device Target device.
 	 */
-	private void sendAck(String productId) {
+	private void sendAck(String productId) throws IllegalArgumentException {
 		if (productId != null) {
 			try {
 				BagpipeDevice device = new BagpipeDevice();

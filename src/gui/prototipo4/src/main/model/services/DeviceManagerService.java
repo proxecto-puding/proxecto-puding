@@ -67,6 +67,22 @@ public interface DeviceManagerService {
 	 * @return The requested configuration if found. Null otherwise.
 	 */
 	public BagpipeConfiguration getBagpipeConfiguration(String productId, String type);
+	
+	/**
+	 * Get the volume for a given device.
+	 * @param productId Device id.
+	 * @return A volume value.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public int getVolume(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the volume for a given device.
+	 * @param productId Device Id.
+	 * @param volume Volume.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public void setVolume(String productId, int volume) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.
@@ -80,6 +96,7 @@ public interface DeviceManagerService {
 	 * Set the bag pressure limit for a given device.
 	 * @param productId Device id.
 	 * @param bagPressure Bag pressure limit.
+	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
-	public void setBagPressure(String productId, int bagPressure);
+	public void setBagPressure(String productId, int bagPressure) throws IllegalArgumentException;
 }

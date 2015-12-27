@@ -57,8 +57,8 @@ public class SensitivityConfigurationView {
 		sliderBagPressure.setMinimum(MIN_BAG_PRESSURE);
 		sliderBagPressure.setMaximum(MAX_BAG_PRESSURE);
 		Dictionary<Integer,JLabel> labels = new Hashtable<Integer,JLabel>();
-		labels.put(1, new JLabel("1"));
-		labels.put(100, new JLabel("100"));
+		labels.put(MIN_BAG_PRESSURE, new JLabel(Integer.toString(MIN_BAG_PRESSURE)));
+		labels.put(MAX_BAG_PRESSURE, new JLabel(Integer.toString(MAX_BAG_PRESSURE)));
 		sliderBagPressure.setLabelTable(labels);
 		sliderBagPressure.setPaintLabels(true);
 		int bagPressure = sensitivityConfigurationController.getBagPressure();

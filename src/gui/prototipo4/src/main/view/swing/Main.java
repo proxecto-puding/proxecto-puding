@@ -17,7 +17,6 @@ import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
-import javax.swing.JSlider;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 
@@ -34,6 +33,7 @@ public class Main extends JFrame {
 	
 	private static final MenuBarView menuBarView;
 	private static final StartConfigurationView startConfigurationView;
+	private static final SelectionConfigurationView selectionConfigurationView;
 	private static final SensitivityConfigurationView sensitivityConfigurationView;
 	
 	private JPanel contentPanel;
@@ -41,6 +41,7 @@ public class Main extends JFrame {
 	static {
 		menuBarView = new MenuBarView();
 		startConfigurationView = new StartConfigurationView();
+		selectionConfigurationView = new SelectionConfigurationView();
 		sensitivityConfigurationView = new SensitivityConfigurationView();
 	};
 
@@ -130,179 +131,8 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Inicio", null, panelStart, null);
 		
 		// Selection panel.
-		JPanel panelSelect = new JPanel();
+		JPanel panelSelect = selectionConfigurationView.getSelectionPanel();
 		tabbedPane.addTab("Selección", null, panelSelect, null);
-		
-		JLabel lblVolume = new JLabel("Volume");
-		
-		JSlider sliderVolume = new JSlider();
-		
-		JSeparator separator_1 = new JSeparator();
-		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblTuningTone = new JLabel("Tonalidade");
-		
-		JComboBox comboBoxTuningTone = new JComboBox();
-		
-		JLabel lblTuningOctave = new JLabel("Oitava");
-		
-		JComboBox comboBoxTuningOctave = new JComboBox();
-		
-		JLabel lblSamples = new JLabel("Mostras");
-		
-		JComboBox comboBoxSamples = new JComboBox();
-		
-		JSeparator separator_3 = new JSeparator();
-		
-		JSeparator separator_4 = new JSeparator();
-		
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblFingeringTypes = new JLabel("Dixitación");
-		
-		JCheckBox chckbxAberto = new JCheckBox("Aberto");
-		
-		JCheckBox chckbxPechado = new JCheckBox("Pechado");
-		
-		JCheckBox chckbxCustom = new JCheckBox("Personalizada");
-		
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblComplements = new JLabel("Complementos");
-		
-		JCheckBox chckbxBag = new JCheckBox("Fol");
-		
-		JLabel lblDrones = new JLabel("Bordóns");
-		
-		JCheckBox chckbxBassDrone = new JCheckBox("Ronco");
-		
-		JCheckBox chckbxTenorDrone = new JCheckBox("Ronqueta");
-		
-		JCheckBox chckbxHighDrone = new JCheckBox("Chillón");
-		
-		JSeparator separator_7 = new JSeparator();
-		separator_7.setOrientation(SwingConstants.VERTICAL);
-		GroupLayout gl_panelSelect = new GroupLayout(panelSelect);
-		gl_panelSelect.setHorizontalGroup(
-			gl_panelSelect.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSelect.createSequentialGroup()
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addGap(65)
-							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(sliderVolume, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblVolume))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-						.addComponent(separator_7, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addGap(115)
-							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-								.addComponent(separator_3, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(lblTuningTone)
-						.addComponent(comboBoxTuningTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTuningOctave)
-						.addComponent(comboBoxTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSamples)
-						.addComponent(comboBoxSamples, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator_5, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblFingeringTypes)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addGap(12)
-							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(chckbxPechado)
-								.addComponent(chckbxAberto)
-								.addComponent(chckbxCustom))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblComplements)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addGap(12)
-							.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDrones)
-								.addComponent(chckbxBag)
-								.addGroup(gl_panelSelect.createSequentialGroup()
-									.addGap(12)
-									.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-										.addComponent(chckbxTenorDrone)
-										.addComponent(chckbxBassDrone)
-										.addComponent(chckbxHighDrone))))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_panelSelect.setVerticalGroup(
-			gl_panelSelect.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSelect.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelSelect.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblComplements)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxBag)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblDrones)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxBassDrone)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxTenorDrone)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxHighDrone))
-						.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblFingeringTypes)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAberto)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxPechado)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxCustom))
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblTuningTone)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxTuningTone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblTuningOctave)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblSamples)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSamples, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addComponent(lblVolume)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(sliderVolume, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(48)
-							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelSelect.createSequentialGroup()
-							.addGroup(gl_panelSelect.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(separator_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(separator_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 368, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, gl_panelSelect.createSequentialGroup()
-									.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(separator_7, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
-							.addGap(148)
-							.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panelSelect.setLayout(gl_panelSelect);
 		
 		// Tuning panel.
 		JPanel panelTuning = new JPanel();

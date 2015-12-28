@@ -83,6 +83,20 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setVolume(String productId, int volume) throws IllegalArgumentException;
+	
+	/**
+	 * Get the tuning tone for a given device.
+	 * @param productId Device id.
+	 * @return A tuning tone.
+	 */
+	public int getTuningTone(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the tuning tone for a given device.
+	 * @param productId Device id.
+	 * @param tuningTone Tuning tone.
+	 */
+	public void setTuningTone(String productId, int tuningTone) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.

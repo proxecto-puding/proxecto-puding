@@ -1,11 +1,14 @@
 package main.view.swing;
 
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,7 +39,7 @@ public class SelectionConfigurationView {
 		
 		JLabel lblTuningTone = getTuningToneLabel();
 		
-		JComboBox comboBoxTuningTone = getTuningToneComboBox();
+		JComboBox<String> comboBoxTuningTone = getTuningToneComboBox();
 		
 		JLabel lblTuningOctave = getTuningOctaveLabel();
 		
@@ -89,15 +92,15 @@ public class SelectionConfigurationView {
 		return panelSelect;
 	}
 	
-	private JLabel getTuningToneLabel() {
+	private JLabel getVolumeLabel() {
 		
-		JLabel lblTuningTone = new JLabel();
+		JLabel lblVolume = new JLabel();
 		
 		String text = selectionConfigurationController.
-				getTranslationForTuningToneLabel();
-		lblTuningTone.setText(text);
+				getTranslationForVolumeLabel();
+		lblVolume.setText(text);
 		
-		return lblTuningTone;
+		return lblVolume;
 	}
 	
 	private JSlider getVolumeSlider() {
@@ -126,22 +129,31 @@ public class SelectionConfigurationView {
 		return sliderVolume;
 	}
 	
-	private JLabel getVolumeLabel() {
+	private JLabel getTuningToneLabel() {
 		
-		JLabel lblVolume = new JLabel();
+		JLabel lblTuningTone = new JLabel();
 		
 		String text = selectionConfigurationController.
-				getTranslationForVolumeLabel();
-		lblVolume.setText(text);
+				getTranslationForTuningToneLabel();
+		lblTuningTone.setText(text);
 		
-		return lblVolume;
+		return lblTuningTone;
 	}
 	
-	private JComboBox getTuningToneComboBox() {
+	private JComboBox<String> getTuningToneComboBox() {
 		
-		JComboBox comboBoxTuningTone = new JComboBox();
+		JComboBox<String> comboBoxTuningTone = new JComboBox<String>();
 		
-		// TODO Implement.
+		String[] tuningTones =
+				selectionConfigurationController.getTuningTones();
+		ComboBoxModel<String> tuningToneModel =
+				new DefaultComboBoxModel<String>(tuningTones);
+		comboBoxTuningTone.setModel(tuningToneModel);
+		String tuningTone = selectionConfigurationController.getTuningTone();
+		comboBoxTuningTone.setSelectedItem(tuningTone);
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForTuningToneComboBox();
+		comboBoxTuningTone.addActionListener(actionListener);
 		
 		return comboBoxTuningTone;
 	}

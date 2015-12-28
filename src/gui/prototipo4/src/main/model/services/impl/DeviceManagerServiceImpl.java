@@ -12,6 +12,7 @@ import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.BagpipeDevice;
 import main.model.entities.SelectionConfiguration;
 import main.model.entities.SensitivityConfiguration;
+import main.model.entities.TuningConfiguration;
 import main.model.services.DeviceManagerService;
 import main.model.utils.ConnectionManager;
 import main.model.utils.DeviceManager;
@@ -235,6 +236,56 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				selectionConfiguration.setVolume(volume);
 			} else {
 				System.err.println("Error while setting the volume for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
+	public int getTuningTone(String productId)
+			throws IllegalArgumentException {
+		
+		int tuningTone = -1;
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.TUNING.toString());
+				TuningConfiguration tuningConfiguration =
+						(TuningConfiguration) configuration.getData();
+				tuningTone = tuningConfiguration.getTone();
+			} else {
+				System.err.println("Error while getting the tuning tone for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return tuningTone;
+	}
+	
+	@Override
+	public void setTuningTone(String productId, int tuningTone)
+			throws IllegalArgumentException {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.TUNING.toString());
+				TuningConfiguration tuningConfiguration =
+						(TuningConfiguration) configuration.getData();
+				tuningConfiguration.setTone(tuningTone);
+			} else {
+				System.err.println("Error while setting the tuning tone for:" +
 						" ProductId: " + productId +
 						" Message: Device not found.");
 			}

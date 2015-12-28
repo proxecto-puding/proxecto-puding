@@ -1,18 +1,24 @@
 package main.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Dictionary;
+import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import main.model.entities.BagpipeDevice;
+import main.model.services.ConfigurationApplicationService;
 import main.model.services.DeviceManagerService;
 import main.model.services.I18nService;
 import main.model.services.NotificationService;
+import main.model.services.impl.ConfigurationApplicationServiceImpl;
 import main.model.services.impl.DeviceManagerServiceImpl;
 import main.model.services.impl.I18nServiceImpl;
 import main.model.services.impl.NotificationServiceImpl;
@@ -23,6 +29,8 @@ public class SelectionConfigurationController {
 	private I18nService i18nService = new I18nServiceImpl();
 	private DeviceManagerService deviceManagerService =
 			new DeviceManagerServiceImpl();
+	private ConfigurationApplicationService confAppService =
+			new ConfigurationApplicationServiceImpl();
 	private NotificationService notificationService =
 			new NotificationServiceImpl();
 	
@@ -113,6 +121,60 @@ public class SelectionConfigurationController {
 	
 	public String getTranslationForTuningToneLabel() {
 		return i18nService.getTranslation("selectionConfiguration.tuningTone.label");
+	}
+	
+	public String[] getTuningTones() {
+		
+		String[] tuningTones = {};
+		
+		List<String> list = confAppService.getTuningTones();
+		tuningTones = list.toArray(new String[list.size()]);
+		
+		return tuningTones;
+	}
+	
+	public String getTuningTone() {
+		
+		String tuningTone = null;
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			int tone = deviceManagerService.getTuningTone(productId);
+			tuningTone = confAppService.getTuningTone(tone);
+		}
+		
+		if (tuningTone == null) {
+			tuningTone = confAppService.getDefaultTuningTone();
+		}
+		
+		return tuningTone;
+	}
+	
+	public ActionListener getActionListenerForTuningToneComboBox() {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				@SuppressWarnings("unchecked")
+				JComboBox<String> comboBoxTuningTone =
+						(JComboBox<String>) event.getSource();
+				String tuningTone = 
+						(String) comboBoxTuningTone.getSelectedItem();
+				
+				BagpipeDevice selectedDevice = 
+						deviceManagerService.getSelectedBagpipeDevice();
+				if (selectedDevice != null) {
+					String productId = selectedDevice.getProductId();
+					int tone = confAppService.getTuningTone(tuningTone);
+					deviceManagerService.setTuningTone(productId, tone);
+				}
+			}
+		};
+		
+		return actionListener;
 	}
 	
 	public String getTranslationForTuningOctaveLabel() {

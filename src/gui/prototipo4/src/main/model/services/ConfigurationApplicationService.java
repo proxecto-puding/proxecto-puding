@@ -5,8 +5,38 @@ import java.util.List;
 public interface ConfigurationApplicationService {
 	
 	/**
-	 * Get the available reading tones.
-	 * @return The available reading tones.
+	 * Get the list of tuning tones.
+	 * @return A list of tuning tones.
+	 */
+	public List<String> getTuningTones();
+	
+	/**
+	 * Get a string representation of a given tuning tone.
+	 * @param tuningTone A tuning tone as integer between [0, 11].
+	 * @return A tuning tone as string.
+	 * @throws IllegalArgumentException If the given tuning tone is not in the
+	 * expected range.
+	 */
+	public String getTuningTone(int tuningTone) throws IllegalArgumentException;
+		
+	/**
+	 * Get an integer representation of a given tuning tone.
+	 * @param tuningTone A tuning tone as string.
+	 * @return A tuning tone as integer.
+	 * @throws IllegalArgumentException If the given tuning tone does not
+	 * correspond to any mapped string representation. 
+	 */
+	public int getTuningTone(String tuningTone) throws IllegalArgumentException;
+	
+	/**
+	 * Get the default tuning tone.
+	 * @return
+	 */
+	public String getDefaultTuningTone();
+	
+	/**
+	 * Get the list of reading tones.
+	 * @return A list of reading tones.
 	 */
 	public List<String> getReadingTones();
 	
@@ -18,7 +48,7 @@ public interface ConfigurationApplicationService {
 	
 	/**
 	 * Set the current reading tone.
-	 * @param readingTone The current reading tone.
+	 * @param readingTone A reading tone.
 	 */
 	public void setReadingTone(String readingTone);
 

@@ -88,6 +88,7 @@ public interface DeviceManagerService {
 	 * Get the tuning tone for a given device.
 	 * @param productId Device id.
 	 * @return A tuning tone.
+	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public int getTuningTone(String productId) throws IllegalArgumentException;
 	
@@ -95,8 +96,26 @@ public interface DeviceManagerService {
 	 * Set the tuning tone for a given device.
 	 * @param productId Device id.
 	 * @param tuningTone Tuning tone.
+	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setTuningTone(String productId, int tuningTone) throws IllegalArgumentException;
+	
+	/**
+	 * Get the tuning octave for a given device.
+	 * @param productId Device id.
+	 * @return A tuning octave.
+	 * @throws IllegalArgumentException If the provided device id is null or
+	 * the device is not found.
+	 */
+	public int getTuningOctave(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the tuning octave for a given device.
+	 * @param productId Device id.
+	 * @param tuningOctave Tuning octave.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public void setTuningOctave(String productId, int tuningOctave) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.
@@ -113,4 +132,5 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setBagPressure(String productId, int bagPressure) throws IllegalArgumentException;
+	
 }

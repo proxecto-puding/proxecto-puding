@@ -181,6 +181,62 @@ public class SelectionConfigurationController {
 		return i18nService.getTranslation("selectionConfiguration.tuningOctave.label");
 	}
 	
+	public Integer[] getTuningOctaves() {
+		
+		Integer[] tuningOctaves = {};
+		
+		List<Integer> list = confAppService.getTuningOctaves();
+		tuningOctaves = list.toArray(new Integer[list.size()]);
+		
+		return tuningOctaves;
+	}
+	
+	public int getTuningOctave() {
+	
+		int tuningOctave = Integer.MIN_VALUE;
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			try {
+				tuningOctave = deviceManagerService.getTuningOctave(productId);
+			} catch(IllegalArgumentException e) {
+				// Skip.
+			}
+		}
+		
+		if (tuningOctave == Integer.MIN_VALUE) {
+			tuningOctave = confAppService.getDefaultTuningOctave();
+		}
+		
+		return tuningOctave;
+	}
+	
+	public ActionListener getActionListenerForTuningOctaveComboBox() {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				@SuppressWarnings("unchecked")
+				JComboBox<Integer> comboBoxTuningOctave =
+						(JComboBox<Integer>) event.getSource();
+				Integer tuningOctave = 
+						(Integer) comboBoxTuningOctave.getSelectedItem();
+				
+				BagpipeDevice selectedDevice = 
+						deviceManagerService.getSelectedBagpipeDevice();
+				if (selectedDevice != null) {
+					String productId = selectedDevice.getProductId();
+					deviceManagerService.setTuningOctave(productId, tuningOctave);
+				}
+			}
+		};
+		
+		return actionListener;
+	}
+	
 	public String getTranslationForSamplesLabel() {
 		return i18nService.getTranslation("selectionConfiguration.samples.label");
 	}

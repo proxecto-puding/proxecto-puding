@@ -295,6 +295,57 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
+	public int getTuningOctave(String productId)
+			throws IllegalArgumentException {
+		
+		int tuningOctave = -1;
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.TUNING.toString());
+				TuningConfiguration tuningConfiguration =
+						(TuningConfiguration) configuration.getData();
+				tuningOctave = tuningConfiguration.getOctave();
+			} else {
+				System.err.println("Error while getting the tuning octave for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+				throw new IllegalArgumentException("Device not found");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return tuningOctave;
+	}
+	
+	@Override
+	public void setTuningOctave(String productId, int tuningOctave)
+			throws IllegalArgumentException {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.TUNING.toString());
+				TuningConfiguration tuningConfiguration =
+						(TuningConfiguration) configuration.getData();
+				tuningConfiguration.setOctave(tuningOctave);
+			} else {
+				System.err.println("Error while setting the tuning octave for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
 	public int getBagPressure(String productId)
 			throws IllegalArgumentException {
 		

@@ -43,7 +43,7 @@ public class SelectionConfigurationView {
 		
 		JLabel lblTuningOctave = getTuningOctaveLabel();
 		
-		JComboBox comboBoxTuningOctave = getTuningOctaveComboBox();
+		JComboBox<Integer> comboBoxTuningOctave = getTuningOctaveComboBox();
 		
 		JLabel lblSamples = getSamplesLabel();
 		
@@ -169,11 +169,20 @@ public class SelectionConfigurationView {
 		return lblTuningOctave;
 	}
 	
-	private JComboBox getTuningOctaveComboBox() {
+	private JComboBox<Integer> getTuningOctaveComboBox() {
 		
-		JComboBox comboBoxTuningOctave = new JComboBox();
+		JComboBox<Integer> comboBoxTuningOctave = new JComboBox<Integer>();
 		
-		// TODO Implement.
+		Integer[] tuningOctaves =
+				selectionConfigurationController.getTuningOctaves();
+		ComboBoxModel<Integer> tuningOctaveModel =
+				new DefaultComboBoxModel<Integer>(tuningOctaves);
+		comboBoxTuningOctave.setModel(tuningOctaveModel);
+		int tuningOctave = selectionConfigurationController.getTuningOctave();
+		comboBoxTuningOctave.setSelectedItem(tuningOctave);
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForTuningOctaveComboBox();
+		comboBoxTuningOctave.addActionListener(actionListener);
 		
 		return comboBoxTuningOctave;
 	}

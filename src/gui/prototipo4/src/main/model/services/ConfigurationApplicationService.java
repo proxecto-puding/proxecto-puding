@@ -5,6 +5,24 @@ import java.util.List;
 public interface ConfigurationApplicationService {
 	
 	/**
+	 * Get the list of reading tones.
+	 * @return A list of reading tones.
+	 */
+	public List<String> getReadingTones();
+	
+	/**
+	 * Get the current reading tone.
+	 * @return The current reading tone.
+	 */
+	public String getReadingTone();
+	
+	/**
+	 * Set the current reading tone.
+	 * @param readingTone A reading tone.
+	 */
+	public void setReadingTone(String readingTone);
+	
+	/**
 	 * Get the list of tuning tones.
 	 * @return A list of tuning tones.
 	 */
@@ -30,26 +48,20 @@ public interface ConfigurationApplicationService {
 	
 	/**
 	 * Get the default tuning tone.
-	 * @return
+	 * @return A tuning tone.
 	 */
 	public String getDefaultTuningTone();
 	
 	/**
-	 * Get the list of reading tones.
-	 * @return A list of reading tones.
+	 * Get the list of tuning octaves.
+	 * @return A list of tuning octaves.
 	 */
-	public List<String> getReadingTones();
+	public List<Integer> getTuningOctaves();
 	
 	/**
-	 * Get the current reading tone.
-	 * @return The current reading tone.
+	 * Get the default tuning octave.
+	 * @return A tuning octave.
 	 */
-	public String getReadingTone();
-	
-	/**
-	 * Set the current reading tone.
-	 * @param readingTone A reading tone.
-	 */
-	public void setReadingTone(String readingTone);
+	public int getDefaultTuningOctave();
 
 }

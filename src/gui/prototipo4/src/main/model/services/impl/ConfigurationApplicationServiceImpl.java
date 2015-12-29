@@ -1,6 +1,7 @@
 package main.model.services.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,16 @@ import main.model.utils.I18nManager;
 
 public class ConfigurationApplicationServiceImpl
 		implements ConfigurationApplicationService {
+	
+	private static final String[] readingToneIds =
+		{"C", "D"};
+	private static final int[] readingToneValues =
+		{0, 2};
+	private static final String[] readingToneTranslationIds =
+		{"readingTones.C", "readingTones.D"};
+	private static ReadingTone DEFAULT_READING_TONE;
+	private static ReadingTone readingTone;
+	
 	private static final String[] tuningToneIds =
 		{"C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"};
 	private static final int[] tuningToneValues =
@@ -25,22 +36,38 @@ public class ConfigurationApplicationServiceImpl
 		"tuningTones.B"};
 	private static TuningTone DEFAULT_TUNING_TONE;
 	
-	private static final String[] readingToneIds =
-		{"C", "D"};
-	private static final int[] readingToneValues =
-		{0, 2};
-	private static final String[] readingToneTranslationIds =
-		{"readingTones.C", "readingTones.D"};
-	private static ReadingTone DEFAULT_READING_TONE;
-	private static ReadingTone readingTone;
+	private static Integer[] tuningOctaves =
+		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	private static int DEFAULT_TUNING_OCTAVE = 4;
 	
-	private static Map<String, TuningTone> tuningTones;
 	private static Map<String, ReadingTone> readingTones;
+	private static Map<String, TuningTone> tuningTones;
 	
 	static {
-		setTuningTones();
 		setReadingTones();
+		setTuningTones();
 	};
+	
+	@Override
+	public List<String> getReadingTones() {
+		
+		return new ArrayList<String>(readingTones.keySet());
+	}
+	
+	@Override
+	public String getReadingTone() {
+		
+		return readingTone.getTranslationText();
+	}
+
+	@Override
+	public void setReadingTone(String readingTone) {
+		
+		ReadingTone newReadingTone = readingTones.get(readingTone); 
+		if (newReadingTone != null) {
+			ConfigurationApplicationServiceImpl.readingTone = newReadingTone;
+		}
+	}
 	
 	@Override
 	public List<String> getTuningTones() {
@@ -99,24 +126,13 @@ public class ConfigurationApplicationServiceImpl
 	}
 	
 	@Override
-	public List<String> getReadingTones() {
-		
-		return new ArrayList<String>(readingTones.keySet());
+	public List<Integer> getTuningOctaves() {
+		return new ArrayList<Integer>(Arrays.asList(tuningOctaves));
 	}
 	
 	@Override
-	public String getReadingTone() {
-		
-		return readingTone.getTranslationText();
-	}
-
-	@Override
-	public void setReadingTone(String readingTone) {
-		
-		ReadingTone newReadingTone = readingTones.get(readingTone); 
-		if (newReadingTone != null) {
-			ConfigurationApplicationServiceImpl.readingTone = newReadingTone;
-		}
+	public int getDefaultTuningOctave() {
+		return DEFAULT_TUNING_OCTAVE;
 	}
 	
 	private static void setTuningTones() {

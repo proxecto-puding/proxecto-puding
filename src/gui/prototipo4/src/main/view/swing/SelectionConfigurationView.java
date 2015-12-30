@@ -153,6 +153,12 @@ public class SelectionConfigurationView extends View {
 		ActionListener actionListener = selectionConfigurationController.
 				getActionListenerForTuningToneComboBox();
 		comboBoxTuningTone.addActionListener(actionListener);
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+						getPropertyChangeListenerForTuningToneComboBox(
+								comboBoxTuningTone);
+		comboBoxTuningTone.addPropertyChangeListener(propertyChangeListener);
 		
 		return comboBoxTuningTone;
 	}
@@ -182,6 +188,12 @@ public class SelectionConfigurationView extends View {
 		ActionListener actionListener = selectionConfigurationController.
 				getActionListenerForTuningOctaveComboBox();
 		comboBoxTuningOctave.addActionListener(actionListener);
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+						getPropertyChangeListenerForTuningOctaveComboBox(
+								comboBoxTuningOctave);
+		comboBoxTuningOctave.addPropertyChangeListener(propertyChangeListener);
 		
 		return comboBoxTuningOctave;
 	}
@@ -342,11 +354,11 @@ public class SelectionConfigurationView extends View {
 	private GroupLayout getGroupLayout(JPanel panelSelect,
 			JLabel lblVolume, JSlider sliderVolume,
 			JLabel lblTuningTone,
-			JComboBox comboBoxTuningTone,
+			JComboBox<String> comboBoxTuningTone,
 			JLabel lblTuningOctave,
-			JComboBox comboBoxTuningOctave,
+			JComboBox<Integer> comboBoxTuningOctave,
 			JLabel lblSamples,
-			JComboBox comboBoxSamples,
+			JComboBox<String> comboBoxSamples,
 			JLabel lblFingeringTypes,
 			JCheckBox chckbxAberto,
 			JCheckBox chckbxPechado,

@@ -100,7 +100,8 @@ public class SensitivityConfigurationController {
 				String propertyName = event.getPropertyName();
 				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
 					String productId = (String) event.getNewValue();
-					int bagPressure = deviceManagerService.getBagPressure(productId);
+					int bagPressure =
+							deviceManagerService.getBagPressure(productId);
 					sliderBagPressure.setValue(bagPressure);
 				}
 			}

@@ -177,6 +177,34 @@ public class SelectionConfigurationController {
 		return actionListener;
 	}
 	
+	// TODO Test this because of the final modifier.
+	public PropertyChangeListener 
+			getPropertyChangeListenerForTuningToneComboBox(
+					final JComboBox<String> comboBoxTuningTone) {
+		
+		PropertyChangeListener propertyChangeListener = 
+				new PropertyChangeListener() {
+				
+			public void propertyChange(PropertyChangeEvent event) {
+				
+				String propertyName = event.getPropertyName();
+				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
+					String productId = (String) event.getNewValue();
+					int tuningTone =
+							deviceManagerService.getTuningTone(productId);
+					String tone = confAppService.getTuningTone(tuningTone);
+					comboBoxTuningTone.setSelectedItem(tone);
+				}
+			}
+			
+		};
+		
+		notificationService.addNotificationListener(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		
+		return propertyChangeListener;
+	}
+	
 	public String getTranslationForTuningOctaveLabel() {
 		return i18nService.getTranslation("selectionConfiguration.tuningOctave.label");
 	}
@@ -235,6 +263,33 @@ public class SelectionConfigurationController {
 		};
 		
 		return actionListener;
+	}
+	
+	// TODO Test this because of the final modifier.
+	public PropertyChangeListener 
+			getPropertyChangeListenerForTuningOctaveComboBox(
+					final JComboBox<Integer> comboBoxTuningOctave) {
+		
+		PropertyChangeListener propertyChangeListener = 
+				new PropertyChangeListener() {
+				
+			public void propertyChange(PropertyChangeEvent event) {
+				
+				String propertyName = event.getPropertyName();
+				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
+					String productId = (String) event.getNewValue();
+					int tuningOctave =
+							deviceManagerService.getTuningOctave(productId);
+					comboBoxTuningOctave.setSelectedItem(tuningOctave);
+				}
+			}
+			
+		};
+		
+		notificationService.addNotificationListener(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		
+		return propertyChangeListener;
 	}
 	
 	public String getTranslationForSamplesLabel() {

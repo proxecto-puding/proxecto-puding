@@ -2,7 +2,9 @@ package main.model.entities;
 
 public class TuningConfiguration extends ConfigurationData {
 	
+	// From 0 to 11.
 	private int tone;
+	// From -1 to 9.
 	private int octave;
 	
 	public int getTone() {

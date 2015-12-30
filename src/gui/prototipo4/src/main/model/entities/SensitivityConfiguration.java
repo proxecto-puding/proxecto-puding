@@ -2,6 +2,7 @@ package main.model.entities;
 
 public class SensitivityConfiguration extends ConfigurationData {
 	
+	// From 1 to 100.
 	private int bagPressure;
 
 	public int getBagPressure() {
@@ -10,7 +11,6 @@ public class SensitivityConfiguration extends ConfigurationData {
 
 	public void setBagPressure(int bagPressure) {
 		
-		// Bag pressure should be between 1 and 100.
 		bagPressure = (bagPressure % 100) + 1;
 		if (bagPressure <= 0) {
 			bagPressure += 100;

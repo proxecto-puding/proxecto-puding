@@ -47,7 +47,7 @@ public class SelectionConfigurationView {
 		
 		JLabel lblSamples = getSamplesLabel();
 		
-		JComboBox comboBoxSamples = getSamplesComboBox();
+		JComboBox<String> comboBoxSamples = getSamplesComboBox();
 		
 		JLabel lblFingeringTypes = getFingeringTypesLabel();
 		
@@ -198,11 +198,20 @@ public class SelectionConfigurationView {
 		return lblSamples;
 	}
 	
-	private JComboBox getSamplesComboBox() {
+	private JComboBox<String> getSamplesComboBox() {
 		
-		JComboBox comboBoxSamples = new JComboBox();
+		JComboBox<String> comboBoxSamples = new JComboBox<String>();
 		
-		// TODO Implement.
+		String[] samples =
+				selectionConfigurationController.getSamples();
+		ComboBoxModel<String> samplesModel =
+				new DefaultComboBoxModel<String>(samples);
+		comboBoxSamples.setModel(samplesModel);
+		String sample = selectionConfigurationController.getSample();
+		comboBoxSamples.setSelectedItem(sample);
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForSamplesComboBox();
+		comboBoxSamples.addActionListener(actionListener);
 		
 		return comboBoxSamples;
 	}

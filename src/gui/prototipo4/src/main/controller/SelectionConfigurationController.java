@@ -241,6 +241,38 @@ public class SelectionConfigurationController {
 		return i18nService.getTranslation("selectionConfiguration.samples.label");
 	}
 	
+	public String[] getSamples() {
+		
+		String[] samples = {};
+		
+		List<String> list = confAppService.getSamples();
+		samples = list.toArray(new String[list.size()]);
+		
+		return samples;
+	}
+	
+	public String getSample() {
+		return confAppService.getSample();
+	}
+	
+	public ActionListener getActionListenerForSamplesComboBox() {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				@SuppressWarnings("unchecked")
+				JComboBox<String> comboBoxSamples =
+						(JComboBox<String>) event.getSource();
+				String sample = 
+						(String) comboBoxSamples.getSelectedItem();
+				confAppService.setSample(sample);
+			}
+		};
+		
+		return actionListener;
+	}
+	
 	public String getTranslationForFingeringTypesLabel() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.label");
 	}

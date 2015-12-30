@@ -63,5 +63,23 @@ public interface ConfigurationApplicationService {
 	 * @return A tuning octave.
 	 */
 	public int getDefaultTuningOctave();
+	
+	/**
+	 * Get the list of samples.
+	 * @return A list of samples.
+	 */
+	public List<String> getSamples();
+
+	/**
+	 * Get the current sample.
+	 * @return A sample.
+	 */
+	public String getSample();
+	
+	/**
+	 * Set the current sample.
+	 * @param sample A sample.
+	 */
+	public void setSample(String sample);
 
 }

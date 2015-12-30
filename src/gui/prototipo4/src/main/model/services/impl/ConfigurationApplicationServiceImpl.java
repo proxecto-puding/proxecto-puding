@@ -38,14 +38,21 @@ public class ConfigurationApplicationServiceImpl
 	
 	private static Integer[] tuningOctaves =
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-	private static int DEFAULT_TUNING_OCTAVE = 4;
+	private static final int DEFAULT_TUNING_OCTAVE = 4;
+	
+	private static final String[] sampleTranslationIds =
+		{"samples.MIDI", "samples.galician"};
+	private static String DEFAULT_SAMPLE;
 	
 	private static Map<String, ReadingTone> readingTones;
 	private static Map<String, TuningTone> tuningTones;
+	private static List<String> samples;
+	private static String sample;
 	
 	static {
 		setReadingTones();
 		setTuningTones();
+		setSamples();
 	};
 	
 	@Override
@@ -135,16 +142,26 @@ public class ConfigurationApplicationServiceImpl
 		return DEFAULT_TUNING_OCTAVE;
 	}
 	
-	private static void setTuningTones() {
+	@Override
+	public List<String> getSamples() {
+		return samples;
+	}
+	
+	@Override
+	public String getSample() {
+		return sample;
 		
-		List<String> translations =
-				I18nManager.getTranslations(tuningToneTranslationIds);
+		// TODO Implement.
+		// Attach it to the MIDI server.
+	}
+	
+	@Override
+	public void setSample(String sample) {
 		
-		tuningTones = TuningTone.getTones(tuningToneIds, tuningToneValues,
-				tuningToneTranslationIds, translations);
+		ConfigurationApplicationServiceImpl.sample = sample;
 		
-		// Default tuning tone: C
-		DEFAULT_TUNING_TONE = tuningTones.get(translations.get(0));
+		// TODO Implement.
+		// Attach it to the MIDI server.
 	}
 	
 	private static void setReadingTones() {
@@ -158,6 +175,30 @@ public class ConfigurationApplicationServiceImpl
 		// Default reading tone: C
 		DEFAULT_READING_TONE = readingTones.get(translations.get(0));
 		readingTone = DEFAULT_READING_TONE;
+	}
+	
+	private static void setTuningTones() {
+		
+		List<String> translations =
+				I18nManager.getTranslations(tuningToneTranslationIds);
+		
+		tuningTones = TuningTone.getTones(tuningToneIds, tuningToneValues,
+				tuningToneTranslationIds, translations);
+		
+		// Default tuning tone: C
+		DEFAULT_TUNING_TONE = tuningTones.get(translations.get(0));
+	}
+	
+	private static void setSamples() {
+		
+		List<String> translations =
+				I18nManager.getTranslations(sampleTranslationIds);
+		
+		samples = new ArrayList<String>(translations);
+		
+		// Default sample: MIDI
+		DEFAULT_SAMPLE = samples.get(0);
+		sample = DEFAULT_SAMPLE;
 	}
 		
 }

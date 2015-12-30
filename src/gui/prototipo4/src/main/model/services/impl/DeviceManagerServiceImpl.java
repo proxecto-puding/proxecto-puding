@@ -346,6 +346,57 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
+	public List<Boolean> getFingeringTypes(String productId)
+			throws IllegalArgumentException {
+		
+		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				fingeringTypes = selectionConfiguration.getFingeringTypes();
+			} else {
+				System.err.println("Error while getting the fingering types for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return fingeringTypes;
+		
+	}
+	
+	@Override
+	public void setFingeringTypes(String productId,
+			List<Boolean> fingeringTypes) throws IllegalArgumentException {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				selectionConfiguration.setFingeringTypes(fingeringTypes);
+			} else {
+				System.err.println("Error while setting the fingering types for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
 	public int getBagPressure(String productId)
 			throws IllegalArgumentException {
 		

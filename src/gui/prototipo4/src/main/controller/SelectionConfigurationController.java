@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -332,10 +334,87 @@ public class SelectionConfigurationController {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.label");
 	}
 	
+	public List<Boolean> getFingeringTypes() {
+		
+		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			fingeringTypes = deviceManagerService.getFingeringTypes(productId);
+		}
+		
+		if (fingeringTypes.isEmpty()) {
+			fingeringTypes = confAppService.getDefaultFingeringTypes();
+		}
+		
+		return fingeringTypes;
+	}
+	
+	// fingeringType:
+	// 0 - Aberto
+	// 1 - Pechado
+	// 2 - Custom
+	public ActionListener getActionListenerForFingeringTypesCheckBox(
+			final int fingeringType) {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				JCheckBox chckbxFingeringType =
+						(JCheckBox) event.getSource();
+				boolean isSelected = chckbxFingeringType.isSelected();
+				
+				BagpipeDevice selectedDevice = 
+						deviceManagerService.getSelectedBagpipeDevice();
+				if (selectedDevice != null) {
+					String productId = selectedDevice.getProductId();
+					List<Boolean> fingeringTypes =
+							deviceManagerService.getFingeringTypes(productId);
+					fingeringTypes.set(fingeringType, isSelected);
+					deviceManagerService.setFingeringTypes(productId, fingeringTypes);
+				}
+			}
+		};
+		
+		return actionListener;
+	}
+	
+	// TODO Test this because of the final modifier.
+	public PropertyChangeListener 
+			getPropertyChangeListenerForFingeringTypesCheckBox(
+					final int fingeringType,
+					final JCheckBox chckbxFingeringType) {
+		
+		PropertyChangeListener propertyChangeListener = 
+				new PropertyChangeListener() {
+				
+			public void propertyChange(PropertyChangeEvent event) {
+				
+				String propertyName = event.getPropertyName();
+				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
+					String productId = (String) event.getNewValue();
+					List<Boolean> fingeringTypes =
+							deviceManagerService.getFingeringTypes(productId);
+					boolean isSelected = fingeringTypes.get(fingeringType);
+					chckbxFingeringType.setSelected(isSelected);
+				}
+			}
+			
+		};
+		
+		notificationService.addNotificationListener(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		
+		return propertyChangeListener;
+	}
+	
 	public String getTranslationForFingeringTypesAbertoCheckBox() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
 	}
-	
+		
 	public String getTranslationForFingeringTypesPechadoCheckBox() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
 	}

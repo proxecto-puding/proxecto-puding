@@ -31,29 +31,22 @@ public class SelectionConfigurationView extends View {
 	public JPanel getSelectionPanel() {
 		
 		JPanel panelSelect = new JPanel();
-		
 		JLabel lblVolume = getVolumeLabel();
 		
 		JSlider sliderVolume = getVolumeSlider();
 		
 		JLabel lblTuningTone = getTuningToneLabel();
-		
 		JComboBox<String> comboBoxTuningTone = getTuningToneComboBox();
 		
 		JLabel lblTuningOctave = getTuningOctaveLabel();
-		
 		JComboBox<Integer> comboBoxTuningOctave = getTuningOctaveComboBox();
 		
 		JLabel lblSamples = getSamplesLabel();
-		
 		JComboBox<String> comboBoxSamples = getSamplesComboBox();
 		
 		JLabel lblFingeringTypes = getFingeringTypesLabel();
-		
 		JCheckBox chckbxAberto = getFingeringTypesAbertoCheckBox();
-		
 		JCheckBox chckbxPechado = getFingeringTypesPechadoCheckBox();
-		
 		JCheckBox chckbxCustom = getFingeringTypesCustomCheckBox();
 		
 		JLabel lblComplements = getComplementsLabel();
@@ -61,11 +54,8 @@ public class SelectionConfigurationView extends View {
 		JCheckBox chckbxBag = getComplementsBagCheckBox();
 		
 		JLabel lblDrones = getComplementsDronesLabel();
-		
 		JCheckBox chckbxBassDrone = getComplementsDronesBassDroneCheckBox();
-		
 		JCheckBox chckbxTenorDrone = getComplementsDronesTenorDroneCheckBox();
-		
 		JCheckBox chckbxHighDrone = getComplementsDronesHighDroneCheckBox();
 		
 		JSeparator separator1 = getVerticalSeparator();
@@ -115,9 +105,11 @@ public class SelectionConfigurationView extends View {
 		sliderVolume.setPaintLabels(true);
 		int volume = selectionConfigurationController.getVolume();
 		sliderVolume.setValue(volume);
+		
 		ChangeListener changeListener = selectionConfigurationController.
 				getChangeListenerForVolumeSlider();
 		sliderVolume.addChangeListener(changeListener);
+		
 		// TODO Test this because of the final modifier.
 		PropertyChangeListener propertyChangeListener = 
 				selectionConfigurationController.
@@ -150,9 +142,11 @@ public class SelectionConfigurationView extends View {
 		comboBoxTuningTone.setModel(tuningToneModel);
 		String tuningTone = selectionConfigurationController.getTuningTone();
 		comboBoxTuningTone.setSelectedItem(tuningTone);
+		
 		ActionListener actionListener = selectionConfigurationController.
 				getActionListenerForTuningToneComboBox();
 		comboBoxTuningTone.addActionListener(actionListener);
+		
 		// TODO Test this because of the final modifier.
 		PropertyChangeListener propertyChangeListener = 
 				selectionConfigurationController.
@@ -185,9 +179,11 @@ public class SelectionConfigurationView extends View {
 		comboBoxTuningOctave.setModel(tuningOctaveModel);
 		int tuningOctave = selectionConfigurationController.getTuningOctave();
 		comboBoxTuningOctave.setSelectedItem(tuningOctave);
+		
 		ActionListener actionListener = selectionConfigurationController.
 				getActionListenerForTuningOctaveComboBox();
 		comboBoxTuningOctave.addActionListener(actionListener);
+		
 		// TODO Test this because of the final modifier.
 		PropertyChangeListener propertyChangeListener = 
 				selectionConfigurationController.
@@ -220,6 +216,7 @@ public class SelectionConfigurationView extends View {
 		comboBoxSamples.setModel(samplesModel);
 		String sample = selectionConfigurationController.getSample();
 		comboBoxSamples.setSelectedItem(sample);
+		
 		ActionListener actionListener = selectionConfigurationController.
 				getActionListenerForSamplesComboBox();
 		comboBoxSamples.addActionListener(actionListener);
@@ -246,7 +243,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForFingeringTypesAbertoCheckBox();
 		chckbxAberto.setText(text);
 		
-		// TODO Implement.
+		boolean aberto =
+				selectionConfigurationController.getFingeringTypes().get(0);
+		chckbxAberto.setSelected(aberto);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForFingeringTypesCheckBox(0);
+		chckbxAberto.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForFingeringTypesCheckBox(0,
+							chckbxAberto);
+		chckbxAberto.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxAberto;
 	}
@@ -259,7 +269,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForFingeringTypesPechadoCheckBox();
 		chckbxPechado.setText(text);
 		
-		// TODO Implement.
+		boolean pechado =
+				selectionConfigurationController.getFingeringTypes().get(1);
+		chckbxPechado.setSelected(pechado);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForFingeringTypesCheckBox(1);
+		chckbxPechado.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForFingeringTypesCheckBox(1,
+							chckbxPechado);
+		chckbxPechado.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxPechado;
 	}
@@ -272,7 +295,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForFingeringTypesCustomCheckBox();
 		chckbxCustom.setText(text);
 		
-		// TODO Implement.
+		boolean custom =
+				selectionConfigurationController.getFingeringTypes().get(2);
+		chckbxCustom.setSelected(custom);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForFingeringTypesCheckBox(2);
+		chckbxCustom.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForFingeringTypesCheckBox(2,
+							chckbxCustom);
+		chckbxCustom.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxCustom;
 	}

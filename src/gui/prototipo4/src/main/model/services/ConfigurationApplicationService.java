@@ -69,6 +69,12 @@ public interface ConfigurationApplicationService {
 	 * @return A list of samples.
 	 */
 	public List<String> getSamples();
+	
+	/**
+	 * Get the default fingering types.
+	 * @return A list of fingering types.
+	 */
+	public List<Boolean> getDefaultFingeringTypes();
 
 	/**
 	 * Get the current sample.

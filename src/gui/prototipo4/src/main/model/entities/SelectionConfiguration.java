@@ -1,13 +1,13 @@
 package main.model.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SelectionConfiguration extends ConfigurationData {
 	
 	private int volume;
-	private ArrayList<Boolean> fingeringTypes;
+	private List<Boolean> fingeringTypes;
 	private boolean bagEnabled;
-	private ArrayList<Boolean> dronesEnabled;
+	private List<Boolean> dronesEnabled;
 	
 	public int getVolume() {
 		return volume;
@@ -17,11 +17,11 @@ public class SelectionConfiguration extends ConfigurationData {
 		this.volume = volume;
 	}
 	
-	public ArrayList<Boolean> getFingeringTypes() {
+	public List<Boolean> getFingeringTypes() {
 		return fingeringTypes;
 	}
 	
-	public void setFingeringTypes(ArrayList<Boolean> fingeringTypes) {
+	public void setFingeringTypes(List<Boolean> fingeringTypes) {
 		this.fingeringTypes = fingeringTypes;
 	}
 	
@@ -33,11 +33,11 @@ public class SelectionConfiguration extends ConfigurationData {
 		this.bagEnabled = bagEnabled;
 	}
 	
-	public ArrayList<Boolean> getDronesEnabled() {
+	public List<Boolean> getDronesEnabled() {
 		return dronesEnabled;
 	}
 	
-	public void setDronesEnabled(ArrayList<Boolean> dronesEnabled) {
+	public void setDronesEnabled(List<Boolean> dronesEnabled) {
 		this.dronesEnabled = dronesEnabled;
 	}
 

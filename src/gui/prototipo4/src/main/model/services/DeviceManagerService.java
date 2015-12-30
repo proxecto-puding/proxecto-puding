@@ -116,6 +116,22 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setTuningOctave(String productId, int tuningOctave) throws IllegalArgumentException;
+	
+	/**
+	 * Get the fingering types for a given device.
+	 * @param productId Device id.
+	 * @return Device fingering types.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public List<Boolean> getFingeringTypes(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the fingering types for a given device.
+	 * @param productId Device id.
+	 * @param fingeringTypes Device fingering types.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public void setFingeringTypes(String productId, List<Boolean> fingeringTypes) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.

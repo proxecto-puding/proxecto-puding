@@ -44,6 +44,9 @@ public class ConfigurationApplicationServiceImpl
 		{"samples.MIDI", "samples.galician"};
 	private static String DEFAULT_SAMPLE;
 	
+	private static final Boolean[] DEFAULT_FINGERING_TYPES =
+		{true, false, false};
+	
 	private static Map<String, ReadingTone> readingTones;
 	private static Map<String, TuningTone> tuningTones;
 	private static List<String> samples;
@@ -155,6 +158,11 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setSample(String sample) {
 		ConfigurationApplicationServiceImpl.sample = sample;
+	}
+	
+	@Override
+	public List<Boolean> getDefaultFingeringTypes() {
+		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_FINGERING_TYPES));
 	}
 	
 	private static void setReadingTones() {

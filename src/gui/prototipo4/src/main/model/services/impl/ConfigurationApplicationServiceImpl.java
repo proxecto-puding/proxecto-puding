@@ -150,18 +150,11 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public String getSample() {
 		return sample;
-		
-		// TODO Implement.
-		// Attach it to the MIDI server.
 	}
 	
 	@Override
 	public void setSample(String sample) {
-		
 		ConfigurationApplicationServiceImpl.sample = sample;
-		
-		// TODO Implement.
-		// Attach it to the MIDI server.
 	}
 	
 	private static void setReadingTones() {

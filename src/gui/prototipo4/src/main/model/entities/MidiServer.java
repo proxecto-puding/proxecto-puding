@@ -17,6 +17,7 @@ public abstract class MidiServer {
 	};
 	
 	private static MidiServer server;
+	protected MidiServerConfiguration configuration;
 	
 	protected MidiServer() {
 		// Singleton.
@@ -24,37 +25,6 @@ public abstract class MidiServer {
 	
 	public static MidiServer getInstance() {
 		return server;
-	}
-	
-	/**
-	 * Setup the MIDI server depending on the OS.
-	 */
-	private static void setMidiServer() {
-		if (OperativeSystemManager.isWindows()) {
-			server = new MidiServerWindows();
-		} else if (OperativeSystemManager.isMacOs()) {
-			server = new MidiServerMacOs();
-		} else if (OperativeSystemManager.isUnix()) {
-			server = new MidiServerUnix();
-		}
-	}
-	
-	/**
-	 * Check if the SoundFont file is ready to use.
-	 */
-	private static void checkSoundFontFile() {
-		try {
-			if (!isSoundFontFileDownloaded()) {
-				downloadSoundFontFile();
-			} else if (!isSoundFontFileCopied()) {
-				copySoundFontFile();
-			}
-		} catch (IOException e) {
-			System.err.println(
-					"Error while checking if the SoundFont file is ready to use." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -103,11 +73,62 @@ public abstract class MidiServer {
 	}
 	
 	/**
+	 * Get the MIDI server configuration.
+	 * @return A MIDI server configuration.
+	 */
+	public MidiServerConfiguration getConfiguration() {
+		return configuration;
+	}
+	
+	/**
+	 * Set the MIDI server configuration.
+	 * @param configuration A MIDI server configuration.
+	 */
+	public void setConfiguration(MidiServerConfiguration configuration) {
+		
+		server.configuration = configuration;
+	}
+	
+	/**
 	 * Generate a list of strings containing the command and the parameters
-	 * needed to execute the MIDI server with the provided configuration.
-	 * @param configuration Configuration to apply to the MIDI server.
+	 * needed to execute the MIDI server with the current configuration.
 	 * @return A command list.
 	 */
-	public abstract List<String> getCommand(MidiServerConfiguration configuration);
+	public abstract List<String> getCommand();
+	
+	/**
+	 * Setup the MIDI server depending on the OS.
+	 */
+	private static void setMidiServer() {
+		
+		if (OperativeSystemManager.isWindows()) {
+			server = new MidiServerWindows();
+		} else if (OperativeSystemManager.isMacOs()) {
+			server = new MidiServerMacOs();
+		} else if (OperativeSystemManager.isUnix()) {
+			server = new MidiServerUnix();
+		}
+		
+		server.configuration = new MidiServerConfiguration();
+	}
+	
+	/**
+	 * Check if the SoundFont file is ready to use.
+	 */
+	private static void checkSoundFontFile() {
+		
+		try {
+			if (!isSoundFontFileDownloaded()) {
+				downloadSoundFontFile();
+			} else if (!isSoundFontFileCopied()) {
+				copySoundFontFile();
+			}
+		} catch (IOException e) {
+			System.err.println(
+					"Error while checking if the SoundFont file is ready to use." +
+					" Message: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 	
 }

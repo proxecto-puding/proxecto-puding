@@ -10,7 +10,7 @@ public class MidiServerMacOs extends MidiServer {
 	};
 
 	@Override
-	public List<String> getCommand(MidiServerConfiguration configuration) {
+	public List<String> getCommand() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}

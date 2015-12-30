@@ -14,6 +14,13 @@ public class MidiServerConfiguration {
 	private Set<PreciseTuning> preciseTunings;
 	
 	public MidiServerConfiguration() {
+		
+		useRealSamples = false;
+		tuningTone = 0;
+		tuningOctave = 4;
+		tuningFrequency = 440;
+		usePureIntonationMode = false;
+		useContinuousVibrato = false;
 		preciseTunings = new TreeSet<PreciseTuning>();
 	}
 	

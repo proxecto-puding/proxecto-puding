@@ -27,7 +27,7 @@ public class MidiServerUnix extends MidiServer {
 	};
 
 	@Override
-	public List<String> getCommand(MidiServerConfiguration configuration) {
+	public List<String> getCommand() {
 		
 		List<String> command = new ArrayList<String>();
 		

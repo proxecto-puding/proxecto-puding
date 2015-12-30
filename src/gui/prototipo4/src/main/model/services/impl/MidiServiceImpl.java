@@ -15,18 +15,17 @@ public class MidiServiceImpl implements MidiService {
 	
 	static {
 		server = MidiServer.getInstance();
+		builder = new ProcessBuilder();
 	};
 
 	@Override
-	public Process start(MidiServerConfiguration configuration, boolean restart) {
+	public Process start() {
 		
 		Process process = null;
 		
 		try {
-			if(builder == null || !restart) {
-				List<String> command = server.getCommand(configuration);
-				builder = new ProcessBuilder().command(command);
-			}
+			List<String> command = server.getCommand();
+			builder = builder.command(command);
 			process = builder.start();
 		} catch (IOException e) {
 			process = null;
@@ -37,12 +36,28 @@ public class MidiServiceImpl implements MidiService {
 		
 		return process;
 	}
+	
+	@Override
+	public Process restart() {
+		stop();
+		return start();
+	}
 
 	@Override
 	public void stop() {
 		if (process != null) {
 			process.destroy();
 		}
+	}
+	
+	@Override
+	public MidiServerConfiguration getConfiguration() {
+		return server.getConfiguration();
+	}
+	
+	@Override
+	public void setConfiguration(MidiServerConfiguration configuration) {
+		server.setConfiguration(configuration);
 	}
 
 }

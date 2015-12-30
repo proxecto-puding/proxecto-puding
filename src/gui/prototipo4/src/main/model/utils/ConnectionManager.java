@@ -188,7 +188,7 @@ public class ConnectionManager implements SerialPortEventListener {
 			close();
 			// Once we finish reading the data coming from the serial port, we
 			// restart the MIDI service with the same configuration.
-			midiService.start(null, true);
+			midiService.restart();
 		}
 		
 		return data;

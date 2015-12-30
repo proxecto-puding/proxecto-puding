@@ -14,7 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import main.controller.SensitivityConfigurationController;
 
-public class SensitivityConfigurationView {
+public class SensitivityConfigurationView extends View {
 	
 	private final int MIN_BAG_PRESSURE = 1;
 	private final int MAX_BAG_PRESSURE = 100;

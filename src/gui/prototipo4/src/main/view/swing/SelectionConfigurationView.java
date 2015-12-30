@@ -17,11 +17,10 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeListener;
-import javax.swing.SwingConstants;
 
 import main.controller.SelectionConfigurationController;
 
-public class SelectionConfigurationView {
+public class SelectionConfigurationView extends View {
 
 	private final int MIN_VOLUME = 1;
 	private final int MAX_VOLUME = 100;
@@ -338,22 +337,6 @@ public class SelectionConfigurationView {
 		// TODO Implement.
 		
 		return chckbxHighDrone;
-	}
-	
-	// TODO Move the separator methods to a common view parent class.
-	
-	private JSeparator getVerticalSeparator() {
-		return getSeparator(true);
-	}
-	
-	private JSeparator getSeparator(boolean verticalOrientation) {
-		
-		JSeparator separator = new JSeparator();
-		if (verticalOrientation) {
-			separator.setOrientation(SwingConstants.VERTICAL);
-		}
-				
-		return separator;
 	}
 	
 	private GroupLayout getGroupLayout(JPanel panelSelect,

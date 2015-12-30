@@ -1,6 +1,6 @@
 package main.view.swing;
 
-public class FingeringConfigurationView {
+public class FingeringConfigurationView extends View {
 
 	// TODO Implement.
 	

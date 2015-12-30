@@ -7,7 +7,7 @@ import javax.swing.JMenuItem;
 
 import main.controller.MenuBarController;
 
-public class MenuBarView {
+public class MenuBarView extends View {
 	
 	private static final String FILE_MENU_ICON_PATH = 
 			"/main/resources/icons/application.png";

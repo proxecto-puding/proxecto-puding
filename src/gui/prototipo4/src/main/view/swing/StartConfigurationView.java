@@ -13,7 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import main.controller.StartConfigurationController;
 
-public class StartConfigurationView {
+public class StartConfigurationView extends View {
 
 	private StartConfigurationController startConfigurationController =
 			new StartConfigurationController();

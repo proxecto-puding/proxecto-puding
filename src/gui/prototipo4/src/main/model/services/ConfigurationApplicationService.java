@@ -74,7 +74,7 @@ public interface ConfigurationApplicationService {
 	 * Get the default fingering types.
 	 * @return A list of fingering types.
 	 */
-	public List<Boolean> getDefaultFingeringTypes();
+	public List<Boolean> getDefaultFingeringTypesEnabled();
 
 	/**
 	 * Get the current sample.
@@ -94,4 +94,10 @@ public interface ConfigurationApplicationService {
 	 */
 	public Boolean isDefaultBagEnabled();
 
+	/**
+	 * Get the default drones status.
+	 * @return A list of drones.
+	 */
+	public List<Boolean> getDefaultDronesEnabled();
+	
 }

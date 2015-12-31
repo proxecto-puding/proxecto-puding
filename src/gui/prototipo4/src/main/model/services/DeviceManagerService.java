@@ -123,7 +123,7 @@ public interface DeviceManagerService {
 	 * @return Device fingering types.
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
-	public List<Boolean> getFingeringTypes(String productId) throws IllegalArgumentException;
+	public List<Boolean> getFingeringTypesEnabled(String productId) throws IllegalArgumentException;
 	
 	/**
 	 * Set the fingering types for a given device.
@@ -131,7 +131,7 @@ public interface DeviceManagerService {
 	 * @param fingeringTypes Device fingering types.
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
-	public void setFingeringTypes(String productId, List<Boolean> fingeringTypes) throws IllegalArgumentException;
+	public void setFingeringTypesEnabled(String productId, List<Boolean> fingeringTypes) throws IllegalArgumentException;
 	
 	/**
 	 * Check if the bag is enabled for a given device.
@@ -148,6 +148,22 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setBagEnabled(String productId, boolean bagEnabled) throws IllegalArgumentException;
+	
+	/**
+	 * Get the drones status for a given device.
+	 * @param productId Device id.
+	 * @return Device drones status.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public List<Boolean> getDronesEnabled(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the drones status for a given device.
+	 * @param productId
+	 * @param drones
+	 * @throws IllegalArgumentException
+	 */
+	public void setDronesEnabled(String productId, List<Boolean> drones) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.

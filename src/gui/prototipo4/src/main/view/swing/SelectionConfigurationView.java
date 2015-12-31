@@ -244,7 +244,7 @@ public class SelectionConfigurationView extends View {
 		chckbxAberto.setText(text);
 		
 		boolean aberto =
-				selectionConfigurationController.getFingeringTypes().get(0);
+				selectionConfigurationController.getFingeringTypesEnabled().get(0);
 		chckbxAberto.setSelected(aberto);
 		
 		ActionListener actionListener = selectionConfigurationController.
@@ -270,7 +270,7 @@ public class SelectionConfigurationView extends View {
 		chckbxPechado.setText(text);
 		
 		boolean pechado =
-				selectionConfigurationController.getFingeringTypes().get(1);
+				selectionConfigurationController.getFingeringTypesEnabled().get(1);
 		chckbxPechado.setSelected(pechado);
 		
 		ActionListener actionListener = selectionConfigurationController.
@@ -296,7 +296,7 @@ public class SelectionConfigurationView extends View {
 		chckbxCustom.setText(text);
 		
 		boolean custom =
-				selectionConfigurationController.getFingeringTypes().get(2);
+				selectionConfigurationController.getFingeringTypesEnabled().get(2);
 		chckbxCustom.setSelected(custom);
 		
 		ActionListener actionListener = selectionConfigurationController.
@@ -369,7 +369,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForComplementsDronesBassDroneCheckBox();
 		chckbxBassDrone.setText(text);
 		
-		// TODO Implement.
+		boolean bass =
+				selectionConfigurationController.getDronesEnabled().get(0);
+		chckbxBassDrone.setSelected(bass);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForComplementsDronesCheckBox(0);
+		chckbxBassDrone.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForComplementsDronesCheckBox(0,
+							chckbxBassDrone);
+		chckbxBassDrone.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxBassDrone;
 	}
@@ -382,7 +395,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForComplementsDronesTenorDroneCheckBox();
 		chckbxTenorDrone.setText(text);
 		
-		// TODO Implement.
+		boolean tenor =
+				selectionConfigurationController.getDronesEnabled().get(1);
+		chckbxTenorDrone.setSelected(tenor);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForComplementsDronesCheckBox(1);
+		chckbxTenorDrone.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForComplementsDronesCheckBox(1,
+							chckbxTenorDrone);
+		chckbxTenorDrone.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxTenorDrone;
 	}
@@ -395,7 +421,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForComplementsDronesHighDroneCheckBox();
 		chckbxHighDrone.setText(text);
 		
-		// TODO Implement.
+		boolean high =
+				selectionConfigurationController.getDronesEnabled().get(2);
+		chckbxHighDrone.setSelected(high);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForComplementsDronesCheckBox(2);
+		chckbxHighDrone.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForComplementsDronesCheckBox(2,
+							chckbxHighDrone);
+		chckbxHighDrone.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxHighDrone;
 	}

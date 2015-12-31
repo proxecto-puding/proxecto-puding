@@ -346,7 +346,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public List<Boolean> getFingeringTypes(String productId)
+	public List<Boolean> getFingeringTypesEnabled(String productId)
 			throws IllegalArgumentException {
 		
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
@@ -373,7 +373,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public void setFingeringTypes(String productId,
+	public void setFingeringTypesEnabled(String productId,
 			List<Boolean> fingeringTypes) throws IllegalArgumentException {
 		
 		if (productId != null) {
@@ -396,7 +396,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 	
 	@Override
-	public Boolean isBagEnabled(String productId) throws IllegalArgumentException {
+	public Boolean isBagEnabled(String productId)
+			throws IllegalArgumentException {
 		
 		Boolean isBagEnabled = null;
 		
@@ -436,6 +437,56 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				selectionConfiguration.setBagEnabled(bagEnabled);
 			} else {
 				System.err.println("Error while setting the bag for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
+	public List<Boolean> getDronesEnabled(String productId)
+			throws IllegalArgumentException {
+		
+		List<Boolean> drones = new ArrayList<Boolean>();
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				drones = selectionConfiguration.getDronesEnabled();
+			} else {
+				System.err.println("Error while getting the drones for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return drones;
+	}
+	
+	@Override
+	public void setDronesEnabled(String productId, List<Boolean> drones)
+			throws IllegalArgumentException {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				selectionConfiguration.setDronesEnabled(drones);
+			} else {
+				System.err.println("Error while setting the drones for:" +
 						" ProductId: " + productId +
 						" Message: Device not found.");
 			}

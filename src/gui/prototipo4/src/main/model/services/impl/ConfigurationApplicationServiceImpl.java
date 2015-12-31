@@ -49,6 +49,9 @@ public class ConfigurationApplicationServiceImpl
 	
 	private static final Boolean DEFAULT_BAG_ENABLED = true;
 	
+	private static final Boolean[] DEFAULT_DRONES_ENABLED =
+		{true, false, false};
+	
 	private static Map<String, ReadingTone> readingTones;
 	private static Map<String, TuningTone> tuningTones;
 	private static List<String> samples;
@@ -163,13 +166,18 @@ public class ConfigurationApplicationServiceImpl
 	}
 	
 	@Override
-	public List<Boolean> getDefaultFingeringTypes() {
+	public List<Boolean> getDefaultFingeringTypesEnabled() {
 		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_FINGERING_TYPES));
 	}
 	
 	@Override
 	public Boolean isDefaultBagEnabled() {
 		return DEFAULT_BAG_ENABLED;
+	}
+	
+	@Override
+	public List<Boolean> getDefaultDronesEnabled() {
+		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_DRONES_ENABLED));
 	}
 	
 	private static void setReadingTones() {

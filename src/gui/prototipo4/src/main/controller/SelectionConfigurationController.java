@@ -346,7 +346,7 @@ public class SelectionConfigurationController {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
 	}
 	
-	public List<Boolean> getFingeringTypes() {
+	public List<Boolean> getFingeringTypesEnabled() {
 		
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
 		
@@ -354,11 +354,12 @@ public class SelectionConfigurationController {
 				deviceManagerService.getSelectedBagpipeDevice();
 		if (selectedDevice != null) {
 			String productId = selectedDevice.getProductId();
-			fingeringTypes = deviceManagerService.getFingeringTypes(productId);
+			fingeringTypes = deviceManagerService.
+					getFingeringTypesEnabled(productId);
 		}
 		
 		if (fingeringTypes.isEmpty()) {
-			fingeringTypes = confAppService.getDefaultFingeringTypes();
+			fingeringTypes = confAppService.getDefaultFingeringTypesEnabled();
 		}
 		
 		return fingeringTypes;
@@ -383,10 +384,11 @@ public class SelectionConfigurationController {
 						deviceManagerService.getSelectedBagpipeDevice();
 				if (selectedDevice != null) {
 					String productId = selectedDevice.getProductId();
-					List<Boolean> fingeringTypes =
-							deviceManagerService.getFingeringTypes(productId);
+					List<Boolean> fingeringTypes = deviceManagerService.
+							getFingeringTypesEnabled(productId);
 					fingeringTypes.set(fingeringType, isSelected);
-					deviceManagerService.setFingeringTypes(productId, fingeringTypes);
+					deviceManagerService.setFingeringTypesEnabled(
+							productId, fingeringTypes);
 				}
 			}
 		};
@@ -409,12 +411,11 @@ public class SelectionConfigurationController {
 				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
 					String productId = (String) event.getNewValue();
 					List<Boolean> fingeringTypes =
-							deviceManagerService.getFingeringTypes(productId);
+							deviceManagerService.getFingeringTypesEnabled(productId);
 					boolean isSelected = fingeringTypes.get(fingeringType);
 					chckbxFingeringType.setSelected(isSelected);
 				}
 			}
-			
 		};
 		
 		notificationService.addNotificationListener(
@@ -511,6 +512,83 @@ public class SelectionConfigurationController {
 	
 	public String getTranslationForComplementsDronesHighDroneCheckBox() {
 		return i18nService.getTranslation("selectionConfiguration.complements.drones.highDrone.checkbox");
+	}
+	
+	public List<Boolean> getDronesEnabled() {
+		
+		List<Boolean> drones = new ArrayList<Boolean>();
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			drones = deviceManagerService.getDronesEnabled(productId);
+		}
+		
+		if (drones.isEmpty()) {
+			drones = confAppService.getDefaultDronesEnabled();
+		}
+		
+		return drones;
+	}
+	
+	// Drones:
+	// 0 - Bass
+	// 1 - Tenor
+	// 2 - High
+	public ActionListener getActionListenerForComplementsDronesCheckBox(
+			final int drone) {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				JCheckBox chckbxBassType =
+						(JCheckBox) event.getSource();
+				boolean isSelected = chckbxBassType.isSelected();
+				
+				BagpipeDevice selectedDevice = 
+						deviceManagerService.getSelectedBagpipeDevice();
+				if (selectedDevice != null) {
+					String productId = selectedDevice.getProductId();
+					List<Boolean> drones =
+							deviceManagerService.getDronesEnabled(productId);
+					drones.set(drone, isSelected);
+					deviceManagerService.setDronesEnabled(productId, drones);
+				}
+			}
+		};
+		
+		return actionListener;
+	}
+	
+	// TODO Test this because of the final modifier.
+	public PropertyChangeListener 
+			getPropertyChangeListenerForComplementsDronesCheckBox(
+					final int drone,
+					final JCheckBox chckbxBassType) {
+		
+		PropertyChangeListener propertyChangeListener = 
+				new PropertyChangeListener() {
+				
+			public void propertyChange(PropertyChangeEvent event) {
+				
+				String propertyName = event.getPropertyName();
+				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
+					String productId = (String) event.getNewValue();
+					List<Boolean> fingeringTypes =
+							deviceManagerService.getDronesEnabled(productId);
+					boolean isSelected = fingeringTypes.get(drone);
+					chckbxBassType.setSelected(isSelected);
+				}
+			}
+			
+		};
+		
+		notificationService.addNotificationListener(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		
+		return propertyChangeListener;
 	}
 	
 }

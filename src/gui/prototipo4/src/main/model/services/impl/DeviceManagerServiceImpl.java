@@ -370,7 +370,6 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		return fingeringTypes;
-		
 	}
 	
 	@Override
@@ -388,6 +387,55 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				selectionConfiguration.setFingeringTypes(fingeringTypes);
 			} else {
 				System.err.println("Error while setting the fingering types for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
+	public Boolean isBagEnabled(String productId) throws IllegalArgumentException {
+		
+		Boolean isBagEnabled = null;
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				isBagEnabled = selectionConfiguration.isBagEnabled();
+			} else {
+				System.err.println("Error while getting the bag for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return isBagEnabled;
+	}
+	
+	@Override
+	public void setBagEnabled(String productId, boolean bagEnabled)
+			throws IllegalArgumentException {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.SELECT.toString());
+				SelectionConfiguration selectionConfiguration =
+						(SelectionConfiguration) configuration.getData();
+				selectionConfiguration.setBagEnabled(bagEnabled);
+			} else {
+				System.err.println("Error while setting the bag for:" +
 						" ProductId: " + productId +
 						" Message: Device not found.");
 			}

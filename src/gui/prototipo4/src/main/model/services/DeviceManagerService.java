@@ -132,6 +132,22 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setFingeringTypes(String productId, List<Boolean> fingeringTypes) throws IllegalArgumentException;
+	
+	/**
+	 * Check if the bag is enabled for a given device.
+	 * @param productId Device id.
+	 * @return A boolean indicating if the bag is enabled.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public Boolean isBagEnabled(String productId) throws IllegalArgumentException;
+	
+	/**
+	 * Set the bag enabled/disabled for a given device.
+	 * @param productId Device id.
+	 * @param bagEnabled A boolean indicating if the bag is enabled/disabled.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public void setBagEnabled(String productId, boolean bagEnabled) throws IllegalArgumentException;
 
 	/**
 	 * Get the bag pressure limit for a given device.

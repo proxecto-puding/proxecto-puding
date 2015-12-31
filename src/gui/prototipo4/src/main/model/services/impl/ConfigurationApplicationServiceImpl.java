@@ -47,6 +47,8 @@ public class ConfigurationApplicationServiceImpl
 	private static final Boolean[] DEFAULT_FINGERING_TYPES =
 		{true, false, false};
 	
+	private static final Boolean DEFAULT_BAG_ENABLED = true;
+	
 	private static Map<String, ReadingTone> readingTones;
 	private static Map<String, TuningTone> tuningTones;
 	private static List<String> samples;
@@ -163,6 +165,11 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public List<Boolean> getDefaultFingeringTypes() {
 		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_FINGERING_TYPES));
+	}
+	
+	@Override
+	public Boolean isDefaultBagEnabled() {
+		return DEFAULT_BAG_ENABLED;
 	}
 	
 	private static void setReadingTones() {

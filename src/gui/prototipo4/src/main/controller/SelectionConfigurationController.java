@@ -334,6 +334,18 @@ public class SelectionConfigurationController {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.label");
 	}
 	
+	public String getTranslationForFingeringTypesAbertoCheckBox() {
+		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
+	}
+		
+	public String getTranslationForFingeringTypesPechadoCheckBox() {
+		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
+	}
+	
+	public String getTranslationForFingeringTypesCustomCheckBox() {
+		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
+	}
+	
 	public List<Boolean> getFingeringTypes() {
 		
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
@@ -411,24 +423,78 @@ public class SelectionConfigurationController {
 		return propertyChangeListener;
 	}
 	
-	public String getTranslationForFingeringTypesAbertoCheckBox() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
-	}
-		
-	public String getTranslationForFingeringTypesPechadoCheckBox() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
-	}
-	
-	public String getTranslationForFingeringTypesCustomCheckBox() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
-	}
-	
 	public String getTranslationForComplementsLabel() {
 		return i18nService.getTranslation("selectionConfiguration.complements.label");
 	}
 	
 	public String getTranslationForComplementsBagCheckBox() {
 		return i18nService.getTranslation("selectionConfiguration.complements.bag.checkbox");
+	}
+		
+	public Boolean getComplementsBagCheckBox() {
+		
+		Boolean bag = null;
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			bag = deviceManagerService.isBagEnabled(productId);
+		}
+		
+		if (bag == null) {
+			bag = confAppService.isDefaultBagEnabled();
+		}
+		
+		return bag;
+	}
+	
+	public ActionListener getActionListenerForComplementsBagCheckBox() {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				JCheckBox chckbxBag = (JCheckBox) event.getSource();
+				boolean isSelected = chckbxBag.isSelected();
+				
+				BagpipeDevice selectedDevice = 
+						deviceManagerService.getSelectedBagpipeDevice();
+				if (selectedDevice != null) {
+					String productId = selectedDevice.getProductId();
+					deviceManagerService.setBagEnabled(productId, isSelected);
+				}
+			}
+		};
+		
+		return actionListener;
+	}
+	
+	// TODO Test this because of the final modifier.
+	public PropertyChangeListener
+			getPropertyChangeListenerForComplementsBagCheckBox(
+					final JCheckBox chckbxBag) {
+		
+		PropertyChangeListener propertyChangeListener = 
+				new PropertyChangeListener() {
+				
+			public void propertyChange(PropertyChangeEvent event) {
+				
+				String propertyName = event.getPropertyName();
+				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
+					String productId = (String) event.getNewValue();
+					boolean isBagEnabled =
+							deviceManagerService.isBagEnabled(productId);
+					chckbxBag.setSelected(isBagEnabled);
+				}
+			}
+			
+		};
+		
+		notificationService.addNotificationListener(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		
+		return propertyChangeListener;
 	}
 	
 	public String getTranslationForComplementsDronesLabel() {

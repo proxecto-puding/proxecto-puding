@@ -332,7 +332,20 @@ public class SelectionConfigurationView extends View {
 				getTranslationForComplementsBagCheckBox();
 		chckbxBag.setText(text);
 		
-		// TODO Implement.
+		boolean bag =
+				selectionConfigurationController.getComplementsBagCheckBox();
+		chckbxBag.setSelected(bag);
+		
+		ActionListener actionListener = selectionConfigurationController.
+				getActionListenerForComplementsBagCheckBox();
+		chckbxBag.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				selectionConfigurationController.
+					getPropertyChangeListenerForComplementsBagCheckBox(
+						chckbxBag);
+		chckbxBag.addPropertyChangeListener(propertyChangeListener);
 		
 		return chckbxBag;
 	}

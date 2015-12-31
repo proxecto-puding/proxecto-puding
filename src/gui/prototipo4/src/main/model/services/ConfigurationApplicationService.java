@@ -87,5 +87,11 @@ public interface ConfigurationApplicationService {
 	 * @param sample A sample.
 	 */
 	public void setSample(String sample);
+	
+	/**
+	 * Check the default value for the bag.
+	 * @return A boolean indicating if the default bag is enabled.
+	 */
+	public Boolean isDefaultBagEnabled();
 
 }

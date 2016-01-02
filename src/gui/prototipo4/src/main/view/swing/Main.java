@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import javax.swing.JSpinner;
 
 public class Main extends JFrame {
 
@@ -34,6 +33,7 @@ public class Main extends JFrame {
 	private static final MenuBarView menuBarView;
 	private static final StartConfigurationView startConfigurationView;
 	private static final SelectionConfigurationView selectionConfigurationView;
+	private static final TuningConfigurationView tuningConfigurationView;
 	private static final SensitivityConfigurationView sensitivityConfigurationView;
 	
 	private JPanel contentPanel;
@@ -42,6 +42,7 @@ public class Main extends JFrame {
 		menuBarView = new MenuBarView();
 		startConfigurationView = new StartConfigurationView();
 		selectionConfigurationView = new SelectionConfigurationView();
+		tuningConfigurationView = new TuningConfigurationView();
 		sensitivityConfigurationView = new SensitivityConfigurationView();
 	};
 
@@ -135,97 +136,8 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Selección", null, panelSelect, null);
 		
 		// Tuning panel.
-		JPanel panelTuning = new JPanel();
+		JPanel panelTuning = tuningConfigurationView.getTuningPanel();
 		tabbedPane.addTab("Afinación", null, panelTuning, null);
-		
-		JLabel lblTuningFrequency = new JLabel("Frecuencia");
-		
-		JSpinner spinnerTuningFrequency = new JSpinner();
-		
-		JLabel lblTuningHz = new JLabel("Hz");
-		
-		JLabel lblTuningMode = new JLabel("Modo");
-		
-		JComboBox comboBoxTuningMode = new JComboBox();
-		
-		JSeparator separator_8 = new JSeparator();
-		separator_8.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblPreciseTuningSettings = new JLabel("Axuste fino");
-		
-		JLabel lblPreciseTuningNote = new JLabel("Nota");
-		
-		JComboBox comboBoxPreciseTuningNote = new JComboBox();
-		
-		JLabel lblPreciseTuningOctave = new JLabel("Oitava");
-		
-		JComboBox comboBoxPreciseTuningOctave = new JComboBox();
-		
-		JLabel lblPreciseTuningCents = new JLabel("Cents");
-		
-		JSpinner spinnerPreciseTuningCents = new JSpinner();
-		GroupLayout gl_panelTuning = new GroupLayout(panelTuning);
-		gl_panelTuning.setHorizontalGroup(
-			gl_panelTuning.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelTuning.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTuningFrequency)
-						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(spinnerTuningFrequency, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblTuningHz))
-						.addComponent(lblTuningMode)
-						.addComponent(comboBoxTuningMode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator_8, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPreciseTuningSettings)
-						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addGap(12)
-							.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxPreciseTuningNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPreciseTuningNote)
-								.addComponent(lblPreciseTuningOctave)
-								.addComponent(comboBoxPreciseTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPreciseTuningCents)
-								.addComponent(spinnerPreciseTuningCents, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(391, Short.MAX_VALUE))
-		);
-		gl_panelTuning.setVerticalGroup(
-			gl_panelTuning.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelTuning.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelTuning.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(lblPreciseTuningSettings)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblPreciseTuningNote)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxPreciseTuningNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblPreciseTuningOctave)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxPreciseTuningOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblPreciseTuningCents)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinnerPreciseTuningCents, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(separator_8, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panelTuning.createSequentialGroup()
-							.addComponent(lblTuningFrequency)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panelTuning.createParallelGroup(Alignment.BASELINE)
-								.addComponent(spinnerTuningFrequency, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTuningHz))
-							.addGap(18)
-							.addComponent(lblTuningMode)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxTuningMode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(168, Short.MAX_VALUE))
-		);
-		panelTuning.setLayout(gl_panelTuning);
 		
 		// Sensitivity panel.
 		JPanel panelSensit = sensitivityConfigurationView.getSensitivityPanel();

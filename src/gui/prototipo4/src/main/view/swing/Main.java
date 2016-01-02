@@ -14,10 +14,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 
 public class Main extends JFrame {
 
@@ -35,6 +31,7 @@ public class Main extends JFrame {
 	private static final SelectionConfigurationView selectionConfigurationView;
 	private static final TuningConfigurationView tuningConfigurationView;
 	private static final SensitivityConfigurationView sensitivityConfigurationView;
+	private static final FingeringConfigurationView fingeringConfigurationView;
 	
 	private JPanel contentPanel;
 	
@@ -44,6 +41,7 @@ public class Main extends JFrame {
 		selectionConfigurationView = new SelectionConfigurationView();
 		tuningConfigurationView = new TuningConfigurationView();
 		sensitivityConfigurationView = new SensitivityConfigurationView();
+		fingeringConfigurationView = new FingeringConfigurationView();
 	};
 
 	/**
@@ -144,159 +142,11 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Sensibilidade", null, panelSensit, null);
 		
 		// Fingerings panel.
-		JPanel panelFinger = new JPanel();
+		JPanel panelFinger = fingeringConfigurationView.getFingeringPanel();
 		tabbedPane.addTab("Dixitacións", null, panelFinger, null);
 		
-		JLabel lblCustomFingeringNote = new JLabel("Nota");
 		
-		JComboBox comboBoxCustomFingeringNote = new JComboBox();
 		
-		JLabel lblCustomFingeringOctave = new JLabel("Oitava");
-		
-		JComboBox comboBoxCustomFingeringOctave = new JComboBox();
-		
-		JLabel lblCustomFingeringNumber = new JLabel("Dixitación");
-		
-		JComboBox comboBoxCustomFingeringNumber = new JComboBox();
-		
-		JButton btnCustomFingeringNew = new JButton("Nova");
-		
-		JButton btnCustomFingeringRemove = new JButton("Eliminar");
-		
-		JSeparator separator_9 = new JSeparator();
-		separator_9.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblChanterImage = new JLabel("Situación dos sensores");
-		
-		JSeparator separator_10 = new JSeparator();
-		separator_10.setOrientation(SwingConstants.VERTICAL);
-		
-		JLabel lblSensors = new JLabel("Sensores");
-		
-		JCheckBox checkBoxSensor1 = new JCheckBox("1");
-		
-		JCheckBox checkBoxSensor2 = new JCheckBox("2");
-		
-		JCheckBox checkBoxSensor3 = new JCheckBox("3");
-		
-		JCheckBox checkBoxSensor4 = new JCheckBox("4");
-		
-		JCheckBox checkBoxSensor5 = new JCheckBox("5");
-		
-		JCheckBox checkBoxSensor6 = new JCheckBox("6");
-		
-		JLabel lblLeftHandSensors = new JLabel("Man esquerda");
-		
-		JLabel lblRightHandSensors = new JLabel("Man dereita");
-		
-		JCheckBox checkBoxSensor7 = new JCheckBox("7");
-		
-		JCheckBox checkBoxSensor8 = new JCheckBox("8");
-		
-		JCheckBox checkBoxSensor9 = new JCheckBox("9");
-		GroupLayout gl_panelFinger = new GroupLayout(panelFinger);
-		gl_panelFinger.setHorizontalGroup(
-			gl_panelFinger.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelFinger.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblCustomFingeringNote)
-						.addComponent(comboBoxCustomFingeringNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCustomFingeringOctave)
-						.addComponent(comboBoxCustomFingeringOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCustomFingeringNumber)
-						.addComponent(comboBoxCustomFingeringNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCustomFingeringNew)
-						.addComponent(btnCustomFingeringRemove))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator_9, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-					.addGap(76)
-					.addComponent(lblChanterImage)
-					.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-					.addComponent(separator_10, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-					.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelFinger.createSequentialGroup()
-							.addGap(33)
-							.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-								.addComponent(checkBoxSensor1)
-								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addGap(21)
-									.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-										.addComponent(checkBoxSensor3)
-										.addComponent(checkBoxSensor2)
-										.addComponent(checkBoxSensor4)))
-								.addComponent(lblLeftHandSensors)
-								.addComponent(lblRightHandSensors)
-								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addGap(21)
-									.addComponent(checkBoxSensor5))
-								.addComponent(checkBoxSensor6)
-								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addGap(21)
-									.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-										.addComponent(checkBoxSensor8)
-										.addComponent(checkBoxSensor7)
-										.addComponent(checkBoxSensor9)))))
-						.addGroup(gl_panelFinger.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSensors)))
-					.addContainerGap())
-		);
-		gl_panelFinger.setVerticalGroup(
-			gl_panelFinger.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelFinger.createSequentialGroup()
-					.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelFinger.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelFinger.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addComponent(lblSensors)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblLeftHandSensors)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor1)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor2)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor3)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor4)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblRightHandSensors)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor5)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor6)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor7)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor8)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(checkBoxSensor9))
-								.addComponent(separator_9, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_panelFinger.createSequentialGroup()
-									.addComponent(lblCustomFingeringNote)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBoxCustomFingeringNote, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(lblCustomFingeringOctave)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBoxCustomFingeringOctave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(lblCustomFingeringNumber)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBoxCustomFingeringNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(btnCustomFingeringNew)
-									.addGap(18)
-									.addComponent(btnCustomFingeringRemove))
-								.addComponent(separator_10, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panelFinger.createSequentialGroup()
-							.addGap(172)
-							.addComponent(lblChanterImage)))
-					.addContainerGap(168, Short.MAX_VALUE))
-		);
-		panelFinger.setLayout(gl_panelFinger);
 		contentPanel.setLayout(gl_contentPane);
 	}
 }

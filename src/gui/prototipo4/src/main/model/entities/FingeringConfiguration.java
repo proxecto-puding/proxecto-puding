@@ -1,16 +1,16 @@
 package main.model.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class FingeringConfiguration extends ConfigurationData {
 	
-	private ArrayList<FingeringOffset> fingerings;
+	private List<FingeringOffset> fingerings;
 
-	public ArrayList<FingeringOffset> getFingerings() {
+	public List<FingeringOffset> getFingerings() {
 		return fingerings;
 	}
 
-	public void setFingerings(ArrayList<FingeringOffset> fingerings) {
+	public void setFingerings(List<FingeringOffset> fingerings) {
 		this.fingerings = fingerings;
 	}
 	

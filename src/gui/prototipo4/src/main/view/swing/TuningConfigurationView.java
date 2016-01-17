@@ -1,17 +1,32 @@
 package main.view.swing;
 
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
 
 import main.controller.TuningConfigurationController;
 
 public class TuningConfigurationView extends View {
+	
+	private final int MIN_TUNING_FREQ = 1;
+	private final int MAX_TUNING_FREQ = 1000;
+	private final int STEP_TUNING_FREQ = 1;
+	private final int MIN_PRECISE_TUNING_CENTS = -99;
+	private final int MAX_PRECISE_TUNING_CENTS = 99;
+	private final int STEP_PRECISE_TUNING_CENTS = 1;
 	
 	private TuningConfigurationController tuningConfigurationController =
 			new TuningConfigurationController();
@@ -70,7 +85,16 @@ public class TuningConfigurationView extends View {
 		
 		JSpinner spinnerTuningFrequency = new JSpinner();
 		
-		// TODO Implement.
+		int tuningFrequency =
+				tuningConfigurationController.getTuningFrequency();
+		SpinnerModel tuningFrequencyModel =
+				new SpinnerNumberModel(tuningFrequency, MIN_TUNING_FREQ,
+						MAX_TUNING_FREQ, STEP_TUNING_FREQ);
+		spinnerTuningFrequency.setModel(tuningFrequencyModel);
+		
+		ChangeListener changeListener = tuningConfigurationController.
+				getChangeListenerForTuningFrequencySpinner();
+		spinnerTuningFrequency.addChangeListener(changeListener);
 		
 		return spinnerTuningFrequency;
 	}
@@ -101,7 +125,17 @@ public class TuningConfigurationView extends View {
 		
 		JComboBox<String> comboBoxTuningMode = new JComboBox<String>();
 		
-		// TODO Implement.
+		String[] tuningModes =
+				tuningConfigurationController.getTuningModes();
+		ComboBoxModel<String> tuningModeModel =
+				new DefaultComboBoxModel<String>(tuningModes);
+		comboBoxTuningMode.setModel(tuningModeModel);
+		String tuningMode = tuningConfigurationController.getTuningMode();
+		comboBoxTuningMode.setSelectedItem(tuningMode);
+		
+		ActionListener actionListener = tuningConfigurationController.
+				getActionListenerForTuningModeComboBox();
+		comboBoxTuningMode.addActionListener(actionListener);
 		
 		return comboBoxTuningMode;
 	}
@@ -132,7 +166,26 @@ public class TuningConfigurationView extends View {
 		
 		JComboBox<String> comboBoxPreciseTuningNote = new JComboBox<String>();
 		
-		// TODO Implement.
+		String[] preciseTuningNotes =
+				tuningConfigurationController.getPreciseTuningNotes();
+		ComboBoxModel<String> preciseTuningNoteModel =
+				new DefaultComboBoxModel<String>(preciseTuningNotes);
+		comboBoxPreciseTuningNote.setModel(preciseTuningNoteModel);
+		String preciseTuningNote =
+				tuningConfigurationController.getPreciseTuningNote();
+		comboBoxPreciseTuningNote.setSelectedItem(preciseTuningNote);
+		
+		ActionListener actionListener = tuningConfigurationController.
+				getActionListenerForPreciseTuningNoteComboBox();
+		comboBoxPreciseTuningNote.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				tuningConfigurationController.
+						getPropertyChangeListenerForPreciseTuningNoteComboBox(
+								comboBoxPreciseTuningNote);
+		comboBoxPreciseTuningNote.addPropertyChangeListener(
+				propertyChangeListener);
 		
 		return comboBoxPreciseTuningNote;
 	}
@@ -153,7 +206,18 @@ public class TuningConfigurationView extends View {
 		JComboBox<Integer> comboBoxPreciseTuningOctave =
 				new JComboBox<Integer>();
 		
-		// TODO Implement.
+		Integer[] preciseTuningOctaves =
+				tuningConfigurationController.getPreciseTuningOctaves();
+		ComboBoxModel<Integer> preciseTuningOctaveModel =
+				new DefaultComboBoxModel<Integer>(preciseTuningOctaves);
+		comboBoxPreciseTuningOctave.setModel(preciseTuningOctaveModel);
+		int preciseTuningOctave =
+				tuningConfigurationController.getPreciseTuningOctave();
+		comboBoxPreciseTuningOctave.setSelectedItem(preciseTuningOctave);
+		
+		ActionListener actionListener = tuningConfigurationController.
+				getActionListenerForPreciseTuningOctaveComboBox();
+		comboBoxPreciseTuningOctave.addActionListener(actionListener);
 		
 		return comboBoxPreciseTuningOctave;
 	}
@@ -173,7 +237,26 @@ public class TuningConfigurationView extends View {
 		
 		JSpinner spinnerPreciseTuningCents = new JSpinner();
 		
-		// TODO Implement.
+		int preciseTuningCents =
+				tuningConfigurationController.getPreciseTuningCents();
+		SpinnerModel preciseTuningCentsModel =
+				new SpinnerNumberModel(preciseTuningCents,
+						MIN_PRECISE_TUNING_CENTS,
+						MAX_PRECISE_TUNING_CENTS,
+						STEP_PRECISE_TUNING_CENTS);
+		spinnerPreciseTuningCents.setModel(preciseTuningCentsModel);
+		
+		ChangeListener changeListener = tuningConfigurationController.
+				getChangeListenerForPreciseTuningCentsSpinner();
+		spinnerPreciseTuningCents.addChangeListener(changeListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				tuningConfigurationController.
+						getPropertyChangeListenerForPreciseTuningCentsSpinner(
+								spinnerPreciseTuningCents);
+		spinnerPreciseTuningCents.addPropertyChangeListener(
+				propertyChangeListener);
 		
 		return spinnerPreciseTuningCents;
 	}

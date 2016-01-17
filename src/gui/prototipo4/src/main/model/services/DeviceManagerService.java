@@ -159,9 +159,9 @@ public interface DeviceManagerService {
 	
 	/**
 	 * Set the drones status for a given device.
-	 * @param productId
-	 * @param drones
-	 * @throws IllegalArgumentException
+	 * @param productId Device id.
+	 * @param drones Drones statuses.
+	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setDronesEnabled(String productId, List<Boolean> drones) throws IllegalArgumentException;
 

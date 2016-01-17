@@ -9,6 +9,13 @@ public class PreciseTuning implements Comparable<PreciseTuning> {
 	// From -1200 to 1200.
 	private int cents;
 	
+	public PreciseTuning(int note, int octave, int cents) {
+		
+		this.note = note;
+		this.octave = octave;
+		this.cents = cents;
+	}
+	
 	public int getNote() {
 		return note;
 	}

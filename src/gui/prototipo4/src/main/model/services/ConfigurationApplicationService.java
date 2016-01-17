@@ -99,5 +99,101 @@ public interface ConfigurationApplicationService {
 	 * @return A list of drones.
 	 */
 	public List<Boolean> getDefaultDronesEnabled();
+
+	/**
+	 * Get the current tuning frequency.
+	 * @return A tuning frequency.
+	 */
+	public int getTuningFrequency();
+	
+	/**
+	 * Set the current tuning frequency.
+	 * @param tuningFrequency A tuning frequency.
+	 */
+	public void setTuningFrequency(int tuningFrequency);
+
+	/**
+	 * Get the list of tuning modes.
+	 * @return A list of tuning modes.
+	 */
+	public List<String> getTuningModes();
+	
+	/**
+	 * Get the current tuning mode.
+	 * @return A tuning mode.
+	 */
+	public String getTuningMode();
+	
+	/**
+	 * Set the current tuning mode.
+	 * @param tuningMode A tuning mode.
+	 */
+	public void setTuningMode(String tuningMode);
+
+	/**
+	 * Get the default tuning mode.
+	 * @return A tuning mode.
+	 */
+	public String getDefaultTuningMode();
+
+	/**
+	 * Get the list of precise tuning notes.
+	 * @return A list of precise tuning notes.
+	 */
+	public List<String> getPreciseTuningNotes();
+
+	/**
+	 * Get the current precise tuning note.
+	 * @return A precise tuning note.
+	 */
+	public String getPreciseTuningNote();
+
+	/**
+	 * Set the current precise tuning note.
+	 * @param preciseTuningTone A precise tuning note name.
+	 */
+	public void setPreciseTuningNote(String preciseTuningNote);
+	
+	/**
+	 * Set the current precise tuning note.
+	 * @param preciseTuningNote A precise tuning note value.
+	 */
+	public void setPreciseTuningNote(int preciseTuningNote);
+
+	/**
+	 * Reset the list of precise tuning notes.
+	 * @return A list of precise tuning notes.
+	 */
+	public List<String> resetPreciseTuningNotes();
+
+	/**
+	 * Get the list of precise tuning octaves.
+	 * @return A list of precise tuning octaves.
+	 */
+	public List<Integer> getPreciseTuningOctaves();
+
+	/**
+	 * Get the current precise tuning octave.
+	 * @return A precise tuning octave.
+	 */
+	public int getPreciseTuningOctave();
+
+	/**
+	 * Set the current precise tuning octave.
+	 * @param preciseTuningOctave A precise tuning octave.
+	 */
+	public void setPreciseTuningOctave(int preciseTuningOctave);
+
+	/**
+	 * Get the current precise tuning cents.
+	 * @return Precise tuning cents.
+	 */
+	public int getPreciseTuningCents();
+
+	/**
+	 * Set the current precise tuning cents.
+	 * @param preciseTuningCents Precise tuning cents.
+	 */
+	public void setPreciseTuningCents(int preciseTuningCents);
 	
 }

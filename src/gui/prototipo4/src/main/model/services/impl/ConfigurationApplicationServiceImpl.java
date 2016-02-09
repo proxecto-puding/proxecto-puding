@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import main.model.entities.FingeringNote;
+import main.model.entities.FingeringOffset;
 import main.model.entities.PreciseTuning;
 import main.model.entities.PreciseTuningNote;
 import main.model.entities.ReadingTone;
@@ -80,7 +82,25 @@ public class ConfigurationApplicationServiceImpl
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_PRECISE_TUNING_OCTAVE = 4;
 	
-	private static final int DEFAULT_PRECISE_TUNING_CENTS = 0;
+	private static final int DEFAULT_PRECISE_TUNING_CENTS = 0; 
+	
+	private static final String[] customFingeringNoteIds =
+		{"C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"};
+	private static final int[] customFingeringNoteValues =
+		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+	private static final String[] customFingeringNoteTranslationIds =
+		{"customFingeringNotes.C", "customFingeringNotes.Cs",
+		"customFingeringNotes.D", "customFingeringNotes.Ds",
+		"customFingeringNotes.E",
+		"customFingeringNotes.F", "customFingeringNotes.Fs",
+		"customFingeringNotes.G", "customFingeringNotes.Gs",
+		"customFingeringNotes.A", "customFingeringNotes.As",
+		"customFingeringNotes.B"};
+	private static FingeringNote DEFAULT_CUSTOM_FINGERING_NOTE;
+	
+	private static Integer[] customFingeringOctaves =
+		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	private static final int DEFAULT_CUSTOM_FINGERING_OCTAVE = 4;
 	
 	private static Map<String, ReadingTone> readingTones;
 	private static ReadingTone readingTone;
@@ -94,6 +114,11 @@ public class ConfigurationApplicationServiceImpl
 	private static PreciseTuningNote preciseTuningNote;
 	private static int preciseTuningOctave;
 	private static Map<Integer, PreciseTuning> preciseTunings;
+	private static Map<String, FingeringNote> customFingeringNotes;
+	private static FingeringNote customFingeringNote;
+	private static int customFingeringOctave;
+	private static Map<Integer, FingeringOffset> customFingeringNumbers;
+	private static int customFingeringNumber;
 	
 	static {
 		setReadingTones();
@@ -104,6 +129,9 @@ public class ConfigurationApplicationServiceImpl
 		setPreciseTuningNotes();
 		setPreciseTuningOctave();
 		setPreciseTuningTunings();
+		setCustomFingeringNotes();
+		setCustomFingeringOctave();
+		setCustomFingeringNumbers();
 	};
 	
 	@Override
@@ -333,6 +361,177 @@ public class ConfigurationApplicationServiceImpl
 				preciseTuningCents);
 	}
 	
+	@Override
+	public List<String> getCustomFingeringNotes() {
+		return new ArrayList<String>(customFingeringNotes.keySet());
+	}
+
+	@Override
+	public String getCustomFingeringNote() {
+		return customFingeringNote.getTranslationText();
+	}
+
+	@Override
+	public void setCustomFingeringNote(String customFingeringNote) {
+		
+		FingeringNote newCustomFingeringNote =
+				customFingeringNotes.get(customFingeringNote); 
+		if (newCustomFingeringNote != null) {
+			ConfigurationApplicationServiceImpl.customFingeringNote =
+					newCustomFingeringNote;
+		}
+	}
+	
+	@Override
+	public void setCustomFingeringNote(int customFingeringNote) {
+		
+		String note = null;
+		
+		for (FingeringNote n : customFingeringNotes.values()) {
+			if (n.getValue() == customFingeringNote) {
+				note = n.getTranslationText();
+				break;
+			}
+		}
+		
+		if (note != null) {
+			setCustomFingeringNote(note);
+		}
+	}
+
+	@Override
+	public List<String> resetCustomFingeringNotes() {
+		
+		int current = customFingeringNote.getValue();
+		setCustomFingeringNotes();
+		setCustomFingeringNote(current);
+		return getCustomFingeringNotes();
+	}
+	
+	@Override
+	public List<Integer> getCustomFingeringOctaves() {
+		return new ArrayList<Integer>(Arrays.asList(customFingeringOctaves));
+	}
+
+	@Override
+	public int getCustomFingeringOctave() {
+		return customFingeringOctave;
+	}
+
+	@Override
+	public void setCustomFingeringOctave(Integer customFingeringOctave) {
+		
+		ConfigurationApplicationServiceImpl.customFingeringOctave =
+				customFingeringOctave;
+	}
+	
+	@Override
+	public List<Integer> getCustomFingeringNumbers(
+			List<FingeringOffset> fingerings) {
+		
+		customFingeringNumbers = new LinkedHashMap<Integer, FingeringOffset>();
+		
+		if (customFingeringNote != null) {
+			
+			int note = customFingeringNote.getValue();
+			int octave = customFingeringOctave;
+			int offset = (12 * octave) + note;
+			int key = 0;
+			for (FingeringOffset fingering : fingerings) {
+				
+				if (offset == fingering.getOffset()) {
+					key++;
+					customFingeringNumbers.put(key, fingering);
+				}
+			}
+			
+			if (!customFingeringNumbers.isEmpty()) {
+				customFingeringNumber = 1;
+			} 
+		}
+		
+		return new ArrayList<Integer>(customFingeringNumbers.keySet());
+	}
+
+	@Override
+	public int getCustomFingeringNumber() {
+		return customFingeringNumber;
+	}
+
+	@Override
+	public void setCustomFingeringNumber(int customFingeringNumber) {
+		
+		ConfigurationApplicationServiceImpl.customFingeringNumber =
+				customFingeringNumber;
+	}
+	
+	@Override
+	public int addCustomFingeringNumber() {
+		
+		int key = customFingeringNumbers.size() + 1;
+		FingeringOffset customFingering = new FingeringOffset();
+		// 0 - All the holes open.
+		int fingering = 0;
+		customFingering.setFingering(fingering);
+		int note = customFingeringNote.getValue();
+		int octave = customFingeringOctave;
+		int offset = (12 * octave) + note;
+		customFingering.setOffset(offset);
+		customFingeringNumbers.put(key, customFingering);
+		
+		return key;
+	}
+
+	@Override
+	public FingeringOffset getCustomFingering(int customFingeringNumber) {
+		return customFingeringNumbers.get(customFingeringNumber);
+	}
+
+	@Override
+	public void removeCustomFingeringNumber(int customFingeringNumber) {
+		customFingeringNumbers.remove(customFingeringNumber);		
+	}
+	
+	@Override
+	public boolean isCustomFingeringSensorSelected(int sensor) {
+
+		boolean isSelected = false;
+		
+		if (customFingeringNumbers.size() > 0) {
+			
+			FingeringOffset customFingering =
+					customFingeringNumbers.get(customFingeringNumber);
+			int fingering = customFingering.getFingering();
+			// Bitwise and.
+			isSelected = ((fingering & sensor) == 1);
+		}
+		
+		return isSelected;
+	}
+
+	@Override
+	public FingeringOffset setCustomFingeringSensor(int sensor,
+			boolean isSelected) {
+		
+		FingeringOffset customFingering = null;
+		
+		if (customFingeringNumbers.size() > 0) {
+			
+			customFingering =
+					customFingeringNumbers.get(customFingeringNumber);
+			int fingering = customFingering.getFingering();
+			// See: http://stackoverflow.com/questions/4844342/change-bits-value-in-byte
+			if (isSelected) {
+				fingering = (fingering | (1 << sensor));
+			} else {
+				fingering = (fingering & ~(1 << sensor));
+			}
+			customFingering.setFingering(fingering);
+		}
+		
+		return customFingering;
+	}
+	
 	private void setPreciseTuning(PreciseTuningNote note, int octave,
 			int cents) {
 		
@@ -445,6 +644,31 @@ public class ConfigurationApplicationServiceImpl
 	
 	private static void setPreciseTuningTunings() {
 		preciseTunings = new LinkedHashMap<Integer, PreciseTuning>();
+	}
+	
+	private static void setCustomFingeringNotes() {
+		
+		List<String> translations =
+				I18nManager.getTranslations(customFingeringNoteTranslationIds);
+		
+		customFingeringNotes = FingeringNote.getNotes(customFingeringNoteIds,
+				customFingeringNoteValues, customFingeringNoteTranslationIds,
+				translations, readingTone);
+		
+		// Default custom fingering note: C, but consequent with the reading tone.
+		int i = readingTone.getValue(); 
+		DEFAULT_CUSTOM_FINGERING_NOTE =
+				customFingeringNotes.get(translations.get(i));
+		customFingeringNote = DEFAULT_CUSTOM_FINGERING_NOTE;
+	}
+	
+	private static void setCustomFingeringOctave() {
+		customFingeringOctave = DEFAULT_CUSTOM_FINGERING_OCTAVE;
+	}
+	
+	private static void setCustomFingeringNumbers() {
+		customFingeringNumbers = new LinkedHashMap<Integer, FingeringOffset>();
+		customFingeringNumber = -1;
 	}
 		
 }

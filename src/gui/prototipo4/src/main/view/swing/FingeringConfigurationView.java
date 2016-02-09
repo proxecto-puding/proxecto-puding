@@ -1,7 +1,12 @@
 package main.view.swing;
 
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -94,7 +99,26 @@ public class FingeringConfigurationView extends View {
 		JComboBox<String> comboBoxCustomFingeringNote =
 				new JComboBox<String>();
 		
-		// TODO Implement.
+		String[] customFingeringNotes =
+				fingeringConfigurationController.getCustomFingeringNotes();
+		ComboBoxModel<String> customFingeringNoteModel =
+				new DefaultComboBoxModel<String>(customFingeringNotes);
+		comboBoxCustomFingeringNote.setModel(customFingeringNoteModel);
+		String customFingeringNote =
+				fingeringConfigurationController.getCustomFingeringNote();
+		comboBoxCustomFingeringNote.setSelectedItem(customFingeringNote);
+		
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringNoteComboBox();
+		comboBoxCustomFingeringNote.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				fingeringConfigurationController.
+					getPropertyChangeListenerForCustomFingeringNoteComboBox(
+							comboBoxCustomFingeringNote);
+		comboBoxCustomFingeringNote.addPropertyChangeListener(
+				propertyChangeListener);
 		
 		return comboBoxCustomFingeringNote;
 	}
@@ -115,7 +139,18 @@ public class FingeringConfigurationView extends View {
 		JComboBox<Integer> comboBoxCustomFingeringOctave =
 				new JComboBox<Integer>();
 		
-		// TODO Implement.
+		Integer[] customFingeringOctaves =
+				fingeringConfigurationController.getCustomFingeringOctaves();
+		ComboBoxModel<Integer> customFingeringOctaveModel =
+				new DefaultComboBoxModel<Integer>(customFingeringOctaves);
+		comboBoxCustomFingeringOctave.setModel(customFingeringOctaveModel);
+		int customFingeringOctave =
+				fingeringConfigurationController.getCustomFingeringOctave();
+		comboBoxCustomFingeringOctave.setSelectedItem(customFingeringOctave);
+		
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringOctaveComboBox();
+		comboBoxCustomFingeringOctave.addActionListener(actionListener);
 		
 		return comboBoxCustomFingeringOctave;
 	}
@@ -136,7 +171,26 @@ public class FingeringConfigurationView extends View {
 		JComboBox<Integer> comboBoxCustomFingeringNumber =
 				new JComboBox<Integer>();
 		
-		// TODO Implement.
+		Integer[] customFingeringNumbers =
+				fingeringConfigurationController.getCustomFingeringNumbers();
+		ComboBoxModel<Integer> customFingeringNumberModel =
+				new DefaultComboBoxModel<Integer>(customFingeringNumbers);
+		comboBoxCustomFingeringNumber.setModel(customFingeringNumberModel);
+		int customFingeringNumber =
+				fingeringConfigurationController.getCustomFingeringNumber();
+		comboBoxCustomFingeringNumber.setSelectedItem(customFingeringNumber);
+		
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringNumberComboBox();
+		comboBoxCustomFingeringNumber.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				fingeringConfigurationController.
+					getPropertyChangeListenerForCustomFingeringNumberComboBox(
+							comboBoxCustomFingeringNumber);
+		comboBoxCustomFingeringNumber.addPropertyChangeListener(
+				propertyChangeListener);
 		
 		return comboBoxCustomFingeringNumber;
 	}
@@ -149,7 +203,9 @@ public class FingeringConfigurationView extends View {
 				getTranslationForCustomFingeringNewButton();
 		btnCustomFingeringNew.setText(text);
 		
-		// TODO Implement.
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringNewButton();
+		btnCustomFingeringNew.addActionListener(actionListener);
 		
 		return btnCustomFingeringNew;
 	}
@@ -162,7 +218,9 @@ public class FingeringConfigurationView extends View {
 				getTranslationForCustomFingeringRemoveButton();
 		btnCustomFingeringRemove.setText(text);
 		
-		// TODO Implement.
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringRemoveButton();
+		btnCustomFingeringRemove.addActionListener(actionListener);
 		
 		return btnCustomFingeringRemove;
 	}
@@ -217,7 +275,16 @@ public class FingeringConfigurationView extends View {
 		
 		checkBoxSensor.setText(String.valueOf(sensor+1));
 		
-		// TODO Implement.
+		ActionListener actionListener = fingeringConfigurationController.
+				getActionListenerForCustomFingeringSensorCheckBox(sensor);
+		checkBoxSensor.addActionListener(actionListener);
+		
+		// TODO Test this because of the final modifier.
+		PropertyChangeListener propertyChangeListener = 
+				fingeringConfigurationController.
+					getPropertyChangeListenerForCustomFingeringSensorCheckBox(
+							sensor, checkBoxSensor);
+		checkBoxSensor.addPropertyChangeListener(propertyChangeListener);
 		
 		return checkBoxSensor;
 	}

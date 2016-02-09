@@ -10,6 +10,8 @@ import com.google.gson.GsonBuilder;
 import main.model.entities.BagpipeConfiguration;
 import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.BagpipeDevice;
+import main.model.entities.FingeringConfiguration;
+import main.model.entities.FingeringOffset;
 import main.model.entities.SelectionConfiguration;
 import main.model.entities.SensitivityConfiguration;
 import main.model.entities.TuningConfiguration;
@@ -537,6 +539,55 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				sensitivityConfiguration.setBagPressure(bagPressure);
 			} else {
 				System.err.println("Error while setting the bag pressure for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+	}
+	
+	@Override
+	public List<FingeringOffset> getFingerings(String productId)
+			throws IllegalArgumentException {
+		
+		List<FingeringOffset> fingerings = new ArrayList<FingeringOffset>();
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.FINGER.toString());
+				FingeringConfiguration fingeringConfiguration =
+						(FingeringConfiguration) configuration.getData();
+				fingerings = fingeringConfiguration.getFingerings();
+			} else {
+				System.err.println("Error while getting the fingerings for:" +
+						" ProductId: " + productId +
+						" Message: Device not found.");
+			}
+		} else {
+			throw new IllegalArgumentException("ProductId cannot be null");
+		}
+		
+		return fingerings;
+	}
+	
+	@Override
+	public void setFingerings(String productId, List<FingeringOffset> fingerings) {
+		
+		if (productId != null) {
+			BagpipeDevice device = DeviceManager.getDevice(productId);
+			if (device != null) {
+				BagpipeConfiguration configuration = 
+						device.getConfigurationByType(
+								BagpipeConfigurationType.FINGER.toString());
+				FingeringConfiguration fingeringConfiguration =
+						(FingeringConfiguration) configuration.getData();
+				fingeringConfiguration.setFingerings(fingerings);
+			} else {
+				System.err.println("Error while setting the fingerings for:" +
 						" ProductId: " + productId +
 						" Message: Device not found.");
 			}

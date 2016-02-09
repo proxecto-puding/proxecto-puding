@@ -5,6 +5,7 @@ import java.util.Set;
 
 import main.model.entities.BagpipeConfiguration;
 import main.model.entities.BagpipeDevice;
+import main.model.entities.FingeringOffset;
 
 public interface DeviceManagerService {
 	
@@ -180,5 +181,20 @@ public interface DeviceManagerService {
 	 * @throws IllegalArgumentException If the provided device id is null.
 	 */
 	public void setBagPressure(String productId, int bagPressure) throws IllegalArgumentException;
+	
+	/**
+	 * Get the list of available custom fingerings.
+	 * @param productId Device id.
+	 * @return A list of custom fingerings.
+	 * @throws IllegalArgumentException If the provided device id is null.
+	 */
+	public List<FingeringOffset> getFingerings(String productId) throws IllegalArgumentException;
+
+	/**
+	 * Set the list of custom fingerings.
+	 * @param productId Device id.
+	 * @param fingerings A list of fingerings.
+	 */
+	public void setFingerings(String productId, List<FingeringOffset> fingerings);
 	
 }

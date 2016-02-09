@@ -2,6 +2,8 @@ package main.model.services;
 
 import java.util.List;
 
+import main.model.entities.FingeringOffset;
+
 public interface ConfigurationApplicationService {
 	
 	/**
@@ -195,5 +197,106 @@ public interface ConfigurationApplicationService {
 	 * @param preciseTuningCents Precise tuning cents.
 	 */
 	public void setPreciseTuningCents(int preciseTuningCents);
+	
+	/**
+	 * Get the list of custom fingering notes.
+	 * @return A list of custom fingering notes.
+	 */
+	public List<String> getCustomFingeringNotes();
+	
+	/**
+	 * Get the current custom fingering note.
+	 * @return A custom fingering note.
+	 */
+	public String getCustomFingeringNote();
+	
+	/**
+	 * Set the current custom fingering note.
+	 * @param customFingeringNote A custom fingering note name.
+	 */
+	public void setCustomFingeringNote(String customFingeringNote);
+	
+	/**
+	 * Set the current custom fingering note.
+	 * @param customFingeringNote A custom fingering note value.
+	 */
+	public void setCustomFingeringNote(int customFingeringNote);
+	
+	/**
+	 * Reset the list of custom fingering notes.
+	 * @return A list of custom fingering notes.
+	 */
+	public List<String> resetCustomFingeringNotes();
+
+	/**
+	 * Get the list of custom fingering octaves.
+	 * @return A list of custom fingering octaves.
+	 */
+	public List<Integer> getCustomFingeringOctaves();
+
+	/**
+	 * Get the current custom fingering octave.
+	 * @return A custom fingering octave.
+	 */
+	public int getCustomFingeringOctave();
+
+	/**
+	 * Set the current custom fingering octave.
+	 * @param customFingeringOctave A custom fingering octave.
+	 */
+	public void setCustomFingeringOctave(Integer customFingeringOctave);
+
+	/**
+	 * Get a list of custom fingering numbers.
+	 * @param fingerings A list of custom fingerings.
+	 * @return A list of custom fingering numbers.
+	 */
+	public List<Integer> getCustomFingeringNumbers(List<FingeringOffset> fingerings);
+
+	/**
+	 * Get the current custom fingering number.
+	 * @return A custom fingering number.
+	 */
+	public int getCustomFingeringNumber();
+
+	/**
+	 * Set the current custom fingering number.
+	 * @param customFingeringNumber A custom fingering number.
+	 */
+	public void setCustomFingeringNumber(int customFingeringNumber);
+
+	/**
+	 * Add a new custom fingering number to the list.
+	 * @return The new custom fingering number.
+	 */
+	public int addCustomFingeringNumber();
+
+	/**
+	 * Get a custom fingering by number.
+	 * @param customFingeringNumber A custom fingering number.
+	 * @return A custom fingering.
+	 */
+	public FingeringOffset getCustomFingering(int customFingeringNumber);
+
+	/**
+	 * Remove a custom fingering from the list.
+	 * @param customFingeringNumber A custom fingering number.
+	 */
+	public void removeCustomFingeringNumber(int customFingeringNumber);
+
+	/**
+	 * Check if the given sensor is selected.
+	 * @param sensor Sensor number.
+	 * @return A boolean indicating if the sensor is selected.
+	 */
+	public boolean isCustomFingeringSensorSelected(int sensor);
+	
+	/**
+	 * Select or not the provided sensor. 
+	 * @param sensor Sensor number.
+	 * @param isSelected Boolean indicating if the sensor is selected.
+	 * @return The associated fingering.
+	 */
+	public FingeringOffset setCustomFingeringSensor(int sensor, boolean isSelected);
 	
 }

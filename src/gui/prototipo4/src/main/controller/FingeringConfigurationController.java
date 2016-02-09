@@ -243,11 +243,11 @@ public class FingeringConfigurationController {
 		return propertyChangeListener;
 	}
 	
-	public String getTranslationForCustomFingeringNewButton() {
+	public String getTranslationForCustomFingeringNewButtonText() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNew.button");
 	}
 	
-	public ActionListener getActionListenerForCustomFingeringNewButton() {
+	public ActionListener getActionListenerForCustomFingeringNewButtonText() {
 		
 		ActionListener actionListener = new ActionListener() {
 			

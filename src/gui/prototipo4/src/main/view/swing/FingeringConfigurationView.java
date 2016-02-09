@@ -200,11 +200,11 @@ public class FingeringConfigurationView extends View {
 		JButton btnCustomFingeringNew = new JButton();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringNewButton();
+				getTranslationForCustomFingeringNewButtonText();
 		btnCustomFingeringNew.setText(text);
 		
 		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringNewButton();
+				getActionListenerForCustomFingeringNewButtonText();
 		btnCustomFingeringNew.addActionListener(actionListener);
 		
 		return btnCustomFingeringNew;

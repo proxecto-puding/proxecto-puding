@@ -5,7 +5,7 @@ import javax.swing.JTabbedPane;
 
 import main.controller.TabbedPaneController;
 
-public class TabbedPaneView {
+public class TabbedPaneView extends View {
 	
 	private StartConfigurationView startConfigurationView = 
 			new StartConfigurationView();

@@ -27,21 +27,13 @@ public class Main extends JFrame {
 			"/main/resources/images/proxecto-puding-logo.png";
 	
 	private static final MenuBarView menuBarView;
-	private static final StartConfigurationView startConfigurationView;
-	private static final SelectionConfigurationView selectionConfigurationView;
-	private static final TuningConfigurationView tuningConfigurationView;
-	private static final SensitivityConfigurationView sensitivityConfigurationView;
-	private static final FingeringConfigurationView fingeringConfigurationView;
+	private static final TabbedPaneView tabbedPaneView;
 	
 	private JPanel contentPanel;
 	
 	static {
 		menuBarView = new MenuBarView();
-		startConfigurationView = new StartConfigurationView();
-		selectionConfigurationView = new SelectionConfigurationView();
-		tuningConfigurationView = new TuningConfigurationView();
-		sensitivityConfigurationView = new SensitivityConfigurationView();
-		fingeringConfigurationView = new FingeringConfigurationView();
+		tabbedPaneView = new TabbedPaneView();
 	};
 
 	/**
@@ -85,7 +77,7 @@ public class Main extends JFrame {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = tabbedPaneView.getTabbedPane();
 		
 		JButton btnApply = new JButton("Aplicar");
 		
@@ -124,28 +116,6 @@ public class Main extends JFrame {
 						.addComponent(btnApply))
 					.addContainerGap())
 		);
-		
-		// Start panel.
-		JPanel panelStart = startConfigurationView.getStartPanel();
-		tabbedPane.addTab("Inicio", null, panelStart, null);
-		
-		// Selection panel.
-		JPanel panelSelect = selectionConfigurationView.getSelectionPanel();
-		tabbedPane.addTab("Selección", null, panelSelect, null);
-		
-		// Tuning panel.
-		JPanel panelTuning = tuningConfigurationView.getTuningPanel();
-		tabbedPane.addTab("Afinación", null, panelTuning, null);
-		
-		// Sensitivity panel.
-		JPanel panelSensit = sensitivityConfigurationView.getSensitivityPanel();
-		tabbedPane.addTab("Sensibilidade", null, panelSensit, null);
-		
-		// Fingerings panel.
-		JPanel panelFinger = fingeringConfigurationView.getFingeringPanel();
-		tabbedPane.addTab("Dixitacións", null, panelFinger, null);
-		
-		
 		
 		contentPanel.setLayout(gl_contentPane);
 	}

@@ -59,7 +59,7 @@ public interface DeviceManagerService {
 	 * @param configuration Device configuration containing at least id and type.
 	 * @throws IllegalArgumentException If the provided configuration is null.
 	 */
-	public void setBagpipeConfiguration(BagpipeConfiguration configuration) throws IllegalArgumentException;
+	public void sendBagpipeConfiguration(BagpipeConfiguration configuration) throws IllegalArgumentException;
 	
 	/**
 	 * Get a device configuration by id and type.

@@ -204,7 +204,7 @@ public class FingeringConfigurationView extends View {
 		btnCustomFingeringNew.setText(text);
 		
 		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringNewButtonText();
+				getActionListenerForCustomFingeringNewButton();
 		btnCustomFingeringNew.addActionListener(actionListener);
 		
 		return btnCustomFingeringNew;

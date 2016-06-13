@@ -2,6 +2,7 @@ package main.view.swing;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeListener;
 
 import main.controller.TabbedPaneController;
 
@@ -49,6 +50,11 @@ public class TabbedPaneView extends View {
 		String panelFingerTitle = getFingeringPanelTitle();
 		JPanel panelFinger = getFingeringPanel();
 		tabbedPane.addTab(panelFingerTitle, null, panelFinger, null);
+		
+		// Tab selection.
+		ChangeListener changeListener = tabbedPaneController.
+				getChangeListenerForTabedPane();
+		tabbedPane.addChangeListener(changeListener);
 		
 		return tabbedPane;
 	}

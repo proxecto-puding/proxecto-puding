@@ -2,9 +2,23 @@ package main.model.services;
 
 import java.util.List;
 
+import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.FingeringOffset;
+import main.model.entities.MidiServerConfiguration;
 
 public interface ConfigurationApplicationService {
+	
+	/**
+	 * Get the current device configuration type.
+	 * @return A bagpipe configuration type.
+	 */
+	public BagpipeConfigurationType getSelectedBagpipeConfigurationType();
+	
+	/**
+	 * Set the current device configuration type.
+	 * @param bagpipeConfigurationType A bagpipe configuration type.
+	 */
+	public void setSelectedBagpipeConfigurationType(BagpipeConfigurationType bagpipeConfigurationType);
 	
 	/**
 	 * Get the list of reading tones.
@@ -298,5 +312,11 @@ public interface ConfigurationApplicationService {
 	 * @return The associated fingering.
 	 */
 	public FingeringOffset setCustomFingeringSensor(int sensor, boolean isSelected);
+
+	/**
+	 * Get a MIDI server configuration.
+	 * @return A MIDI server configuration.
+	 */
+	public MidiServerConfiguration getMidiServerConfiguration();
 	
 }

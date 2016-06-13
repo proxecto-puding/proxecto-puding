@@ -1,5 +1,7 @@
 package main.view.swing;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -52,7 +54,9 @@ public class ContentPanelView extends View {
 				getTranslationForApplyButtonText();
 		btnApply.setText(text);
 		
-		// TODO Implement.
+		ActionListener actionListener = contentPanelController.
+				getActionListenerForApplyButton();
+		btnApply.addActionListener(actionListener);
 		
 		return btnApply;
 	}
@@ -65,7 +69,9 @@ public class ContentPanelView extends View {
 				getTranslationForUndoButtonText();
 		btnUndo.setText(text);
 		
-		// TODO Implement.
+		ActionListener actionListener = contentPanelController.
+				getActionListenerForUndoButton();
+		btnUndo.addActionListener(actionListener);
 		
 		return btnUndo;
 	}
@@ -78,7 +84,9 @@ public class ContentPanelView extends View {
 				getTranslationForDefaultButtonText();
 		btnDefault.setText(text);
 		
-		// TODO Implement.
+		ActionListener actionListener = contentPanelController.
+				getActionListenerForDefaultButton();
+		btnDefault.addActionListener(actionListener);
 		
 		return btnDefault;
 	}

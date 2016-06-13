@@ -124,7 +124,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		BagpipeDevice device = DeviceManager.getDevice(productId);
 		if (device == null) {
-			System.err.println("Error while getting the configuration for:" +
+			System.err.println("Error while finding the configuration for:" +
 					" ProductId: " + productId +
 					" Message: Device not found.");
 			return configuration;
@@ -156,7 +156,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			} catch (Exception e) {
 				// Wrong configuration supplied.
 				response = null;				
-				System.err.println("Error while getting the configuration for:" +
+				System.err.println("Error while finding the configuration for:" +
 						" ProductId: " + productId +
 						" Type: " + configuration == null ? "unknow" : configuration.getType() +
 						" Message: " + e.getMessage());
@@ -169,7 +169,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	}
 
 	@Override
-	public void setBagpipeConfiguration(BagpipeConfiguration configuration)
+	public void sendBagpipeConfiguration(BagpipeConfiguration configuration)
 			throws IllegalArgumentException {
 		
 		if (configuration != null) {
@@ -179,7 +179,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				connection.writeData(json);
 				DeviceManager.addConfiguration(productId, configuration);
 			} catch (Exception e) {
-				System.err.println("Error while setting the configuration for: " +
+				System.err.println("Error while sending the configuration for: " +
 						" ProductId: " + productId +
 						" Type: " + configuration.getType() +
 						" Message: " + e.getMessage());

@@ -247,7 +247,7 @@ public class FingeringConfigurationController {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNew.button");
 	}
 	
-	public ActionListener getActionListenerForCustomFingeringNewButtonText() {
+	public ActionListener getActionListenerForCustomFingeringNewButton() {
 		
 		ActionListener actionListener = new ActionListener() {
 			

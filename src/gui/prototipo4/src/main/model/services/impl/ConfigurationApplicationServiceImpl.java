@@ -3,11 +3,14 @@ package main.model.services.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import main.model.entities.BagpipeConfigurationType;
 import main.model.entities.FingeringNote;
 import main.model.entities.FingeringOffset;
+import main.model.entities.MidiServerConfiguration;
 import main.model.entities.PreciseTuning;
 import main.model.entities.PreciseTuningNote;
 import main.model.entities.ReadingTone;
@@ -102,6 +105,7 @@ public class ConfigurationApplicationServiceImpl
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_CUSTOM_FINGERING_OCTAVE = 4;
 	
+	private static BagpipeConfigurationType bagpipeConfigurationType;
 	private static Map<String, ReadingTone> readingTones;
 	private static ReadingTone readingTone;
 	private static Map<String, TuningTone> tuningTones;
@@ -133,6 +137,19 @@ public class ConfigurationApplicationServiceImpl
 		setCustomFingeringOctave();
 		setCustomFingeringNumbers();
 	};
+	
+	@Override
+	public BagpipeConfigurationType getSelectedBagpipeConfigurationType() {
+		return bagpipeConfigurationType;
+	}
+
+	@Override
+	public void setSelectedBagpipeConfigurationType(
+			BagpipeConfigurationType bagpipeConfigurationType) {
+		
+		ConfigurationApplicationServiceImpl.bagpipeConfigurationType =
+				bagpipeConfigurationType;
+	}
 	
 	@Override
 	public List<String> getReadingTones() {
@@ -530,6 +547,30 @@ public class ConfigurationApplicationServiceImpl
 		}
 		
 		return customFingering;
+	}
+	
+	@Override
+	public MidiServerConfiguration getMidiServerConfiguration() {
+		
+		MidiServerConfiguration configuration = new MidiServerConfiguration();
+		
+		// TODO Implement.
+		/*
+		boolean userPureIntonationMode = ;
+		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
+		boolean useContinuousVibrato = false;
+				
+		configuration.setTuningTone(tuningTone);
+		configuration.setTuningOctave(tuningOctave);
+		configuration.setTuningFrequency(tuningFrequency);
+		configuration.setUsePureIntonationMode(usePureIntonationMode);
+		configuration.setUseRealSamples(useRealSamples);
+		configuration.setUseContinuousVibrato(useContinuousVibrato);
+		configuration.setPreciseTunings(
+				new LinkedHashSet<PreciseTuning>(preciseTunings.values()));
+		*/
+		
+		return configuration;
 	}
 	
 	private void setPreciseTuning(PreciseTuningNote note, int octave,

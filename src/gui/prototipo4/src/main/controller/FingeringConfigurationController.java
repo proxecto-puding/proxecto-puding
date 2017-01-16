@@ -39,13 +39,8 @@ public class FingeringConfigurationController {
 	}
 	
 	public String[] getCustomFingeringNotes() {
-		
-		String[] fingeringNotes = {};
-		
 		List<String> list = confAppService.getCustomFingeringNotes();
-		fingeringNotes = list.toArray(new String[list.size()]);
-		
-		return fingeringNotes;
+		return list.toArray(new String[list.size()]);
 	}
 	
 	public String getCustomFingeringNote() {

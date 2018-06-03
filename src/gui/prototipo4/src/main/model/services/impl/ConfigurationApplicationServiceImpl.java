@@ -554,19 +554,20 @@ public class ConfigurationApplicationServiceImpl
 		
 		MidiServerConfiguration configuration = new MidiServerConfiguration();
 		
-		boolean usePureIntonationMode = tuningModes.get(tuningMode).equals(TuningMode.PURE);
-		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
-		boolean useContinuousVibrato = false;
-		
 		// TODO Implement.
-		//configuration.setTuningTone(tuningTone);
-		//configuration.setTuningOctave(tuningOctave);
-		configuration.setTuningFrequency(tuningFrequency);
-		configuration.setUsePureIntonationMode(usePureIntonationMode);
-		configuration.setUseRealSamples(useRealSamples);
-		configuration.setUseContinuousVibrato(useContinuousVibrato);
-		configuration.setPreciseTunings(
-				new LinkedHashSet<PreciseTuning>(preciseTunings.values()));
+//		int tuningTone = tuningTones.get(IMPLEMENTtuningTone).getValue();
+//		boolean usePureIntonationMode = tuningModes.get(tuningMode).equals(TuningMode.PURE);
+//		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
+//		boolean useContinuousVibrato = false;
+//		
+//		configuration.setTuningTone(tuningTone);
+//		configuration.setTuningOctave(tuningOctave);
+//		configuration.setTuningFrequency(tuningFrequency);
+//		configuration.setUsePureIntonationMode(usePureIntonationMode);
+//		configuration.setUseRealSamples(useRealSamples);
+//		configuration.setUseContinuousVibrato(useContinuousVibrato);
+//		configuration.setPreciseTunings(
+//				new LinkedHashSet<PreciseTuning>(preciseTunings.values()));
 		
 		return configuration;
 	}

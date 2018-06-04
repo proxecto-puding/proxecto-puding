@@ -1,9 +1,12 @@
 package org.proxectopuding.gui.model.utils;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileDownload implements Runnable {
+	
+	private static final Logger LOGGER = Logger.getLogger(FileDownload.class.getName());
 	
 	private String srcUrl;
 	private String destFile;
@@ -25,10 +28,8 @@ public class FileDownload implements Runnable {
 			isDownloaded = true;
 		} catch (Exception e) {
 			isDownloaded = false;
-			System.err.println("Error while downloading URL '" + srcUrl +
-					"' to file '" + destFile + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to download URL: {0} to file: {1}", new String[]{srcUrl, destFile});
+			LOGGER.log(Level.SEVERE, "Unable to download", e);
 		} finally {
 			isDownloading = false;
 		}
@@ -38,25 +39,17 @@ public class FileDownload implements Runnable {
 	 * Download an URL content to a file.
 	 * @param srcUrl Source URL.
 	 * @param destFile Destination file.
-	 * @throws IOException If a problem comes up when copying.
-	 * @throws MalformedURLException If the URL is malformed.
+	 * @throws IOException If a problem comes up when copying or the URL is
+	 * malformed.
 	 */
 	private void download(String srcUrl, String destFile)
-			throws IOException, MalformedURLException {
+			throws IOException {
 		
 		try {
 			FileUtils.copyUrlToFile(srcUrl, destFile);
-		} catch (MalformedURLException e) {
-			System.err.println("Error while downloading URL '" + srcUrl +
-					"' to file '" + destFile + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
-			throw e;
 		} catch (IOException e) {
-			System.err.println("Error while downloading URL '" + srcUrl +
-					"' to file '" + destFile + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to download URL: {0} to file: {1}", new String[]{srcUrl, destFile});
+			LOGGER.log(Level.SEVERE, "Unable to download", e);
 			throw e;
 		}
 	}

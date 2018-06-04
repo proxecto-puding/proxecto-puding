@@ -2,8 +2,12 @@ package org.proxectopuding.gui.model.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SoundFontManager {
+	
+	private static final Logger LOGGER = Logger.getLogger(SoundFontManager.class.getName());
 	
 	private static final String SOUNDFONT_URL = "https://goo.gl/uNtY5u";
 	private static final String SOUNDFONT_FILE_PATH = "sounds/FluidR3_GM.sf2";
@@ -83,10 +87,8 @@ public class SoundFontManager {
 				FileUtils.copyFileToDirectory(SOUNDFONT_FILE_PATH, destDir);
 			} catch (IOException e) {
 				soundFontFilePath = null;
-				System.err.println("Error while copying the SoundFont file to directory '" +
-						destDir + "'." +
-						" Message: " + e.getMessage());
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to copy tthe SoundFont file to directory: {0}", destDir);
+				LOGGER.log(Level.SEVERE, "Unable to copy tthe SoundFont file to directory", e);
 				throw e;
 			}
 		}
@@ -114,10 +116,7 @@ public class SoundFontManager {
 			soundFontFilePath += SOUNDFONT_FILE_NAME;
 		} catch (IOException e) {
 			soundFontFilePath = null;
-			System.err.println(
-					"Error while getting the SoundFont file destination path." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to get the SoundFont file destination path", e);
 		}
 		
 		return soundFontFilePath;

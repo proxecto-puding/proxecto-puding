@@ -2,11 +2,15 @@ package org.proxectopuding.gui.model.entities;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.utils.OperativeSystemManager;
 import org.proxectopuding.gui.model.utils.SoundFontManager;
 
 public abstract class MidiServer {
+	
+	private static final Logger LOGGER = Logger.getLogger(MidiServer.class.getName());
 	
 	protected static String path;
 	protected static String tempPath;
@@ -65,9 +69,7 @@ public abstract class MidiServer {
 		try {
 			return SoundFontManager.copySoundFontFile(tempPath);
 		} catch (IOException e) {
-			System.err.println("Error while copying the SoundFont file to the temporal directory." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to copy the SoundFont file to the temporal directory", e);
 			throw e;
 		}
 	}
@@ -124,10 +126,7 @@ public abstract class MidiServer {
 				copySoundFontFile();
 			}
 		} catch (IOException e) {
-			System.err.println(
-					"Error while checking if the SoundFont file is ready to use." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to check if the SoundFont file is ready to use", e);
 		}
 	}
 	

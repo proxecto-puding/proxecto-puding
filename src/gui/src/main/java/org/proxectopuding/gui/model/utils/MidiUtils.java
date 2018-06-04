@@ -3,11 +3,15 @@ package org.proxectopuding.gui.model.utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.proxectopuding.gui.model.entities.PreciseTuning;
 
 public class MidiUtils {
+	
+	private static final Logger LOGGER = Logger.getLogger(MidiUtils.class.getName());
 	
 	private static final String FREQ_TABLE = "freqtable.tbl";
 	private static double[] pureIntonationRatios = 
@@ -77,9 +81,7 @@ public class MidiUtils {
 		try {
 			FileUtils.writeStringToFile(new File(path), table, "UTF-8", append);
 		} catch (IOException e) {
-			System.err.println("Error while writing the frequency table to a file." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to write the frequency table to a file", e);
 		}
 	}
 		

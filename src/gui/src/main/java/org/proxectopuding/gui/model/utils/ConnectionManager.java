@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.proxectopuding.gui.model.services.MidiService;
@@ -17,6 +19,8 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class ConnectionManager implements SerialPortEventListener {
+	
+	private static final Logger LOGGER = Logger.getLogger(ConnectionManager.class.getName());
 
 	private static final String PORT_NAME_WINDOWS = "COM3";
 	private static final String PORT_NAME_MACOS = "/dev/tty.usbserial-A9007UX1";
@@ -86,8 +90,7 @@ public class ConnectionManager implements SerialPortEventListener {
 		}
 		
 		if (portId == null) {
-			System.err.println("Error while initializing the serial connection." +
-					" Message: Could not find COM port.");
+			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection. Could not find COM port");
 			return;
 		}
 		
@@ -110,9 +113,8 @@ public class ConnectionManager implements SerialPortEventListener {
 			serialPort.notifyOnDataAvailable(true);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection", e);
 		}
-		
 	}
 		
 	/**
@@ -125,7 +127,6 @@ public class ConnectionManager implements SerialPortEventListener {
 			serialPort.removeEventListener();
 			serialPort.close();
 		}
-		
 	}
 	
 	/**
@@ -136,15 +137,15 @@ public class ConnectionManager implements SerialPortEventListener {
 		
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-				// String inputLine = input.readLine();
-				// System.out.println(inputLine);
+				String inputLine = input.readLine();
+				// TODO Implement.
+				LOGGER.log(Level.INFO, inputLine);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to read data from the serial connection", e);
 			}
 		} else {
 			// Ignore all the other eventTypes, but you should consider the other ones.
 		}
-		
 	}
 	
 	/**
@@ -180,9 +181,7 @@ public class ConnectionManager implements SerialPortEventListener {
 			IOUtils.copy(serialPort.getInputStream(), writer, "UTF-8");
 			data = writer.toString();
 		} catch (IOException e) {
-			System.err.println("Error while reading data from the serial port." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to read data from the serial port", e);
 		} finally {
 			close();
 			// Once we finish reading the data coming from the serial port, we
@@ -202,9 +201,7 @@ public class ConnectionManager implements SerialPortEventListener {
 			initialize();
 			IOUtils.write(data, serialPort.getOutputStream());
 		} catch (IOException e) {
-			System.err.println("Error while writing data to the serial port." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to write data to the serial port", e);
 		} finally {
 			close();
 		}

@@ -6,8 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileUtils {
+	
+	private static final Logger LOGGER = Logger.getLogger(FileUtils.class.getName());
 	
 	/**
 	 * Copy a file to a directory.
@@ -31,10 +35,8 @@ public class FileUtils {
 			}
 			destFilePath += src.getName();
 		} catch (IOException e) {
-			System.err.println("Error while copying file '" + srcFile +
-					"' to directory '" + destDir + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to copy file: {0} to directory: {1}", new String[]{srcFile, destDir});
+			LOGGER.log(Level.SEVERE, "Unable to copy file to directory", e);
 			throw e;
 		}
 		
@@ -49,27 +51,15 @@ public class FileUtils {
 	 * @throws MalformedURLException If the URL is malformed.
 	 */
 	public static void copyUrlToFile(String srcUrl, String destFile)
-			throws IOException, MalformedURLException {
+			throws IOException {
 		
-		URL source = null;
 		try {
-			source = new URL(srcUrl);
-		} catch (MalformedURLException e) {
-			System.err.println("Error while copying URL '" + srcUrl +
-					"' to file '" + destFile + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		}
-		
-		File destination = new File(destFile);
-		try {
+			URL source = new URL(srcUrl);
+			File destination = new File(destFile);
 			org.apache.commons.io.FileUtils.copyURLToFile(source, destination);
 		} catch (IOException e) {
-			System.err.println("Error while copying URL '" + srcUrl +
-					"' to file '" + destFile + "'." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to copy URL: {0} to file: {1}", new String[]{srcUrl, destFile});
+			LOGGER.log(Level.SEVERE, "Unable to copy URL to file", e);
 			throw e;
 		}
 	}

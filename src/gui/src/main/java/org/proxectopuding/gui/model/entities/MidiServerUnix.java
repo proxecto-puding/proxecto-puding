@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.utils.FileUtils;
 import org.proxectopuding.gui.model.utils.MidiUtils;
 
 public class MidiServerUnix extends MidiServer {
+	
+	private static final Logger LOGGER = Logger.getLogger(MidiServerUnix.class.getName());
 	
 	private static final String REAL_SAMPLES = "--config-file=";
 	private static final String FREQ_TABLE = "--freq-table=";
@@ -91,10 +95,7 @@ public class MidiServerUnix extends MidiServer {
 			}
 		} catch (Exception e) {
 			realSamplesConfigFilePath = null;
-			System.err.println(
-					"Error while getting the real samples configuration file path." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to get the real samples configuration file path", e);
 		}
 		
 		return realSamplesConfigFilePath;
@@ -114,9 +115,7 @@ public class MidiServerUnix extends MidiServer {
 					DEF_CONFIG_FILE_PATH, tempPath);
 		} catch (IOException e) {
 			tempConfigFilePath = null;
-			System.err.println("Error while copying the default config file to the temporal directory." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to copy the default config file to the temporal directory", e);
 			throw e;
 		}
 		
@@ -148,10 +147,7 @@ public class MidiServerUnix extends MidiServer {
 			
 		} catch (IOException e) {
 			isSet = false;
-			System.err.println(
-					"Error while setting the SoundFont source." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to set the SoundFont source", e);
 			throw e;
 		}
 		
@@ -182,10 +178,7 @@ public class MidiServerUnix extends MidiServer {
 			FileUtils.writeLines(configFile, lines, false);
 			
 		} catch (IOException e) {
-			System.err.println(
-					"Error while disabling other SoundFont sources." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to disable other SoundFont sources", e);
 			throw e;
 		}	
 	}
@@ -216,13 +209,9 @@ public class MidiServerUnix extends MidiServer {
 			FileUtils.writeLines(configFile, lines, false);
 			
 		} catch (IOException e) {
-			System.err.println(
-					"Error while enabling a custom SoundFont source." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to enable a custom SoundFont source", e);
 			throw e;
 		}
-
 	}
 	
 	/**

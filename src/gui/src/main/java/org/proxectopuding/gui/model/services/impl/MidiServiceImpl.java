@@ -2,12 +2,16 @@ package org.proxectopuding.gui.model.services.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.entities.MidiServer;
 import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.MidiService;
 
 public class MidiServiceImpl implements MidiService {
+	
+	private static final Logger LOGGER = Logger.getLogger(MidiServiceImpl.class.getName());
 	
 	private static MidiServer server;
 	private static ProcessBuilder builder;
@@ -29,9 +33,7 @@ public class MidiServiceImpl implements MidiService {
 			process = builder.start();
 		} catch (IOException e) {
 			process = null;
-			System.err.println("Error while starting the MIDI server." +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to start the MIDI server", e);
 		}
 		
 		return process;

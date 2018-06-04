@@ -5,14 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JMenuBar;
 
 public class Main extends JFrame {
 
-	/**
-	 * 
-	 */
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+	
 	private static final long serialVersionUID = 2067752108552203318L;
 	
 	private static final String TITLE = "Proxecto Puding";
@@ -27,10 +30,11 @@ public class Main extends JFrame {
 	 */
 	public static void main(String[] args) {
 		
+		LOGGER.log(Level.INFO, "Application started");
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Throwable e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to set application look and feel", e);
 		}
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -41,7 +45,7 @@ public class Main extends JFrame {
 					Main frame = new Main();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.log(Level.SEVERE, "Unable to show the main view", e);
 				}
 			}
 		});

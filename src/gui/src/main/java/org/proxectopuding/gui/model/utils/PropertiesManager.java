@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PropertiesManager {
+	
+	private static final Logger LOGGER = Logger.getLogger(PropertiesManager.class.getName());
 
 	public static Properties getProperties(String file) {
 		
@@ -19,10 +23,8 @@ public class PropertiesManager {
 		try {
 			properties.load(inputStream);
 		} catch (IOException e) {
-			System.err.println("Error while loading properties from file '" +
-					file + "'" +
-					" Message: " + e.getMessage());
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to load properties from file: {0}", file);
+			LOGGER.log(Level.SEVERE, "Unable to load properties from file", e);
 		}
 		
 		return properties;

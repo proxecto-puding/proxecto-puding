@@ -3,6 +3,8 @@ package org.proxectopuding.gui.model.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
@@ -20,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class DeviceManagerServiceImpl implements DeviceManagerService {
+	
+	private static final Logger LOGGER = Logger.getLogger(DeviceManagerServiceImpl.class.getName());
 	
 	private static final int MAX_ATTEMPTS = 30;
 	private static final long MAX_DISCOVERING_DELAY = 10000; // 10 sec.
@@ -49,15 +53,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 					DeviceManager.addDevice(device);
 					sendAck(device.getProductId());
 				} else {
-					System.err.println(
-							"Error while adding a new device to the list of known devices." +
-							" Message: " + json);
+					LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices. Json: {0}", json);
 				}
 			} catch (Exception e) {
-				System.err.println(
-						"Error while adding a new device to the list of known devices." +
-						" Message: " + e.getMessage());
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices", e);
 			}
 			connection.delay(MAX_READING_DELAY);
 			json = connection.readData();
@@ -65,7 +64,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		if (DeviceManager.getDevices().size() == 0) {
-			System.err.println("Error: No devices found!");
+			LOGGER.log(Level.SEVERE, "No devices found");
 		}
 		
 		return DeviceManager.getDevices();
@@ -124,9 +123,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		BagpipeDevice device = DeviceManager.getDevice(productId);
 		if (device == null) {
-			System.err.println("Error while finding the configuration for:" +
-					" ProductId: " + productId +
-					" Message: Device not found.");
+			LOGGER.log(Level.SEVERE, "Unable to find the configuration for productId: {0}. Device not found", productId);
 			return configuration;
 		}
 		
@@ -155,12 +152,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				}
 			} catch (Exception e) {
 				// Wrong configuration supplied.
-				response = null;				
-				System.err.println("Error while finding the configuration for:" +
-						" ProductId: " + productId +
-						" Type: " + configuration == null ? "unknow" : configuration.getType() +
-						" Message: " + e.getMessage());
-				e.printStackTrace();
+				response = null;
+				String configurationType = configuration == null ? "unknown" : configuration.getType(); 
+				LOGGER.log(Level.SEVERE, "Unable to find the configuration for productId: {0}, type: {1}", new String[]{productId, configurationType});
+				LOGGER.log(Level.SEVERE, "Unable to find the configuration", e);
 				configuration = null;
 			}
 		}
@@ -179,11 +174,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				connection.writeData(json);
 				DeviceManager.addConfiguration(productId, configuration);
 			} catch (Exception e) {
-				System.err.println("Error while sending the configuration for: " +
-						" ProductId: " + productId +
-						" Type: " + configuration.getType() +
-						" Message: " + e.getMessage());
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to send the configuration for productId: {0}, type: {1}", new String[]{productId, configuration.getType()});
+				LOGGER.log(Level.SEVERE, "Unable to send the configuration", e);
 			}
 		} else {
 			throw new IllegalArgumentException("Bagpipe configuration cannot be null");
@@ -212,9 +204,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				volume = selectionConfiguration.getVolume();
 			} else {
-				System.err.println("Error while getting the volume for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the volume for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -237,9 +227,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				selectionConfiguration.setVolume(volume);
 			} else {
-				System.err.println("Error while setting the volume for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the volume for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -262,9 +250,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(TuningConfiguration) configuration.getData();
 				tuningTone = tuningConfiguration.getTone();
 			} else {
-				System.err.println("Error while getting the tuning tone for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the tuning tone for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -287,9 +273,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(TuningConfiguration) configuration.getData();
 				tuningConfiguration.setTone(tuningTone);
 			} else {
-				System.err.println("Error while setting the tuning tone for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the tuning tone for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -312,10 +296,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(TuningConfiguration) configuration.getData();
 				tuningOctave = tuningConfiguration.getOctave();
 			} else {
-				System.err.println("Error while getting the tuning octave for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
-				throw new IllegalArgumentException("Device not found");
+				LOGGER.log(Level.SEVERE, "Unable to get the tuning octave for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -338,9 +319,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(TuningConfiguration) configuration.getData();
 				tuningConfiguration.setOctave(tuningOctave);
 			} else {
-				System.err.println("Error while setting the tuning octave for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the tuning octave for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -363,9 +342,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				fingeringTypes = selectionConfiguration.getFingeringTypes();
 			} else {
-				System.err.println("Error while getting the fingering types for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the fingering types for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -388,9 +365,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				selectionConfiguration.setFingeringTypes(fingeringTypes);
 			} else {
-				System.err.println("Error while setting the fingering types for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the fingering types for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -413,9 +388,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				isBagEnabled = selectionConfiguration.isBagEnabled();
 			} else {
-				System.err.println("Error while getting the bag for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the bag for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -438,9 +411,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				selectionConfiguration.setBagEnabled(bagEnabled);
 			} else {
-				System.err.println("Error while setting the bag for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the bag for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -463,9 +434,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				drones = selectionConfiguration.getDronesEnabled();
 			} else {
-				System.err.println("Error while getting the drones for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the drones for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -488,9 +457,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SelectionConfiguration) configuration.getData();
 				selectionConfiguration.setDronesEnabled(drones);
 			} else {
-				System.err.println("Error while setting the drones for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the drones for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -513,9 +480,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SensitivityConfiguration) configuration.getData();
 				bagPressure = sensitivityConfiguration.getBagPressure();
 			} else {
-				System.err.println("Error while getting the bag pressure for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the bag pressure for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -538,9 +503,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(SensitivityConfiguration) configuration.getData();
 				sensitivityConfiguration.setBagPressure(bagPressure);
 			} else {
-				System.err.println("Error while setting the bag pressure for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the bag pressure for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -563,9 +526,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(FingeringConfiguration) configuration.getData();
 				fingerings = fingeringConfiguration.getFingerings();
 			} else {
-				System.err.println("Error while getting the fingerings for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to get the fingerings for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -587,9 +548,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						(FingeringConfiguration) configuration.getData();
 				fingeringConfiguration.setFingerings(fingerings);
 			} else {
-				System.err.println("Error while setting the fingerings for:" +
-						" ProductId: " + productId +
-						" Message: Device not found.");
+				LOGGER.log(Level.SEVERE, "Unable to set the fingerings for productId: {0}. Device not found", productId);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
@@ -608,10 +567,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				String json = gson.toJson(device);
 				connection.writeData(json);
 			} catch (Exception e) {
-				System.err.println("Error while sending ACK for: " +
-						" ProductId: " + productId +
-						" Message: " + e.getMessage());
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to send the ACK for productId: {0}", productId);
+				LOGGER.log(Level.SEVERE, "Unable to send the ACK", e);
 			}
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");

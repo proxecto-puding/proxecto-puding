@@ -98,6 +98,7 @@ public class ContentPanelView extends View {
 		// TODO Fix buttons vertical alignment.
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
+		
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -133,9 +134,9 @@ public class ContentPanelView extends View {
 							GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnDefault)
+						.addComponent(btnApply)
 						.addComponent(btnUndo)
-						.addComponent(btnApply))
+						.addComponent(btnDefault))
 					.addContainerGap())
 		);
 		

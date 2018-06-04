@@ -22,6 +22,11 @@ public class Main extends JFrame {
 	private static final String ICON_IMAGE_ICON_PATH =
 			"images/proxecto-puding-logo.png";
 	
+	private static final int X = 100;
+	private static final int Y = 100;
+	private static final int WIDTH = 640;
+	private static final int HEIGHT = 480;
+	
 	private MenuBarView menuBarView = new MenuBarView();
 	private ContentPanelView contentPanelView = new ContentPanelView();
 
@@ -60,7 +65,7 @@ public class Main extends JFrame {
 				Main.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
 		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(X, Y, WIDTH, HEIGHT);
 		
 		// Menu bar.
 		JMenuBar menuBar = menuBarView.getMenuBar();

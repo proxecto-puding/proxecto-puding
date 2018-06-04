@@ -24,8 +24,8 @@ public class Main extends JFrame {
 	
 	private static final int X = 100;
 	private static final int Y = 100;
-	private static final int WIDTH = 640;
-	private static final int HEIGHT = 480;
+	private static final int WIDTH = 600;
+	private static final int HEIGHT = 800;
 	
 	private MenuBarView menuBarView = new MenuBarView();
 	private ContentPanelView contentPanelView = new ContentPanelView();

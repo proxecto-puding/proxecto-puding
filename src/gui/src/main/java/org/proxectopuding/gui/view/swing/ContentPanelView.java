@@ -95,8 +95,6 @@ public class ContentPanelView extends View {
 			JTabbedPane tabbedPane, JButton btnApply, JButton btnUndo,
 			JButton btnDefault, JSeparator separator) {
 		
-		// TODO Fix buttons vertical alignment.
-		
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		
 		gl_contentPane.setHorizontalGroup(

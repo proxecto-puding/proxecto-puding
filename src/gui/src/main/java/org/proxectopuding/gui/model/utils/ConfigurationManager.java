@@ -6,7 +6,7 @@ import java.util.Properties;
 public class ConfigurationManager {
 
 	private static final String CONFIG_FILE_PATH =
-			"/configuration.properties";
+			"configuration.properties";
 	
 	private static Properties properties;
 	

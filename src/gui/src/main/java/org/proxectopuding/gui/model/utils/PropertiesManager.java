@@ -14,7 +14,7 @@ public class PropertiesManager {
 		Properties properties = new Properties();
 		
 		InputStream inputStream = PropertiesManager
-				.class.getResourceAsStream(file);
+				.class.getClassLoader().getResourceAsStream(file);
 		
 		try {
 			properties.load(inputStream);

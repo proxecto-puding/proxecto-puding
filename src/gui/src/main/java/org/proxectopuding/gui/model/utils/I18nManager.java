@@ -7,7 +7,7 @@ import java.util.Properties;
 public class I18nManager {
 	
 	private static final String TRANLATIONS_FILE_PATH =
-			"/main/resources/i18n/translations-";
+			"i18n/translations-";
 	private static final String TRANSLATIONS_FILE_FORMAT = ".properties";
 	private static final String DEFAULT_LANGUAGE = "gl";
 	private static List<String> supportedLanguages;

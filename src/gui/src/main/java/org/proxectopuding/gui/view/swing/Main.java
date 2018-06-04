@@ -17,7 +17,7 @@ public class Main extends JFrame {
 	
 	private static final String TITLE = "Proxecto Puding";
 	private static final String ICON_IMAGE_ICON_PATH =
-			"/main/resources/images/proxecto-puding-logo.png";
+			"images/proxecto-puding-logo.png";
 	
 	private MenuBarView menuBarView = new MenuBarView();
 	private ContentPanelView contentPanelView = new ContentPanelView();
@@ -53,7 +53,7 @@ public class Main extends JFrame {
 	public Main() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				Main.class.getResource(ICON_IMAGE_ICON_PATH)));
+				Main.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
 		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);

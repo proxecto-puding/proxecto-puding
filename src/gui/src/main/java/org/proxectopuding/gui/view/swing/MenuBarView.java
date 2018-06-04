@@ -10,19 +10,19 @@ import org.proxectopuding.gui.controller.MenuBarController;
 public class MenuBarView extends View {
 	
 	private static final String FILE_MENU_ICON_PATH = 
-			"/main/resources/icons/application.png";
+			"icons/application.png";
 	private static final String EXIT_MENU_ITEM_ICON_PATH =
-			"/main/resources/icons/door_out.png";
+			"icons/door_out.png";
 	private static final String HELP_MENU_ICON_PATH =
-			"/main/resources/icons/help.png";
+			"icons/help.png";
 	private static final String USER_MANUAL_MENU_ITEM_ICON_PATH =
-			"/main/resources/icons/book_open.png";
+			"icons/book_open.png";
 	private static final String CONF_APP_API_MENU_ITEM_ICON_PATH =
-			"/main/resources/icons/page_white_cup.png";
+			"icons/page_white_cup.png";
 	private static final String BAGPIPE_API_MENU_ITEM_ICON_PATH =
-			"/main/resources/icons/page_white_cplusplus.png";
+			"icons/page_white_cplusplus.png";
 	private static final String ABOUT_MENU_ITEM_ICON_PATH =
-			"/main/resources/icons/information.png";
+			"icons/information.png";
 	
 	private MenuBarController menuBarController = new MenuBarController();
 	
@@ -43,7 +43,7 @@ public class MenuBarView extends View {
 		JMenu mnFile = new JMenu();
 		
 		mnFile.setText(menuBarController.getTranslationForFileMenu());
-		mnFile.setIcon(new ImageIcon(this.getClass().
+		mnFile.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(FILE_MENU_ICON_PATH)));
 		
 		JMenuItem mntmExit = getExitMenuItem();
@@ -60,7 +60,7 @@ public class MenuBarView extends View {
 				menuBarController.getActionListenerForExitMenuItem());
 		
 		mntmExit.setText(menuBarController.getTranslationForExitMenuItem());
-		mntmExit.setIcon(new ImageIcon(this.getClass().
+		mntmExit.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(EXIT_MENU_ITEM_ICON_PATH)));
 		
 		return mntmExit;
@@ -71,7 +71,7 @@ public class MenuBarView extends View {
 		JMenu mnHelp = new JMenu();
 		
 		mnHelp.setText(menuBarController.getTranslationForHelpMenu());
-		mnHelp.setIcon(new ImageIcon(this.getClass().
+		mnHelp.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(HELP_MENU_ICON_PATH)));
 		
 		JMenuItem mntmUserManual = getUserManualMenuItem();
@@ -94,7 +94,7 @@ public class MenuBarView extends View {
 				menuBarController.getActionListenerForUserManualMenuItem());
 		
 		mntmUserManual.setText(menuBarController.getTranslationForUserManualMenuItem());
-		mntmUserManual.setIcon(new ImageIcon(this.getClass().
+		mntmUserManual.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(USER_MANUAL_MENU_ITEM_ICON_PATH)));
 		
 		return mntmUserManual;
@@ -108,7 +108,7 @@ public class MenuBarView extends View {
 				menuBarController.getActionListenerForConfAppApiMenuItem());
 		
 		mntmConfAppApi.setText(menuBarController.getTranslationForConfAppApiMenuItem());
-		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().
+		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(CONF_APP_API_MENU_ITEM_ICON_PATH)));
 		
 		return mntmConfAppApi;
@@ -122,7 +122,7 @@ public class MenuBarView extends View {
 				menuBarController.getActionListenerForBagpipeApiMenuItem());
 		
 		mntmBagpipeApi.setText(menuBarController.getTranslationForBagpipeApiMenuItem());
-		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().
+		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(BAGPIPE_API_MENU_ITEM_ICON_PATH)));
 		
 		return mntmBagpipeApi;
@@ -136,7 +136,7 @@ public class MenuBarView extends View {
 				menuBarController.getActionListenerForAboutMenuItem());
 		
 		mntmAbout.setText(menuBarController.getTranslationForAboutMenuItem());
-		mntmAbout.setIcon(new ImageIcon(this.getClass().
+		mntmAbout.setIcon(new ImageIcon(this.getClass().getClassLoader().
 				getResource(ABOUT_MENU_ITEM_ICON_PATH)));
 		
 		return mntmAbout;

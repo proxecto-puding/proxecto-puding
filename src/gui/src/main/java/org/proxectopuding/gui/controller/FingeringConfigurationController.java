@@ -319,10 +319,6 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	public String getTranslationForChanterImageLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.chanterImage.label");
-	}
-	
 	public String getTranslationForSensorsLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.sensors.label");
 	}

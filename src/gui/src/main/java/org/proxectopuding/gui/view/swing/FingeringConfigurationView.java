@@ -1,12 +1,18 @@
 package org.proxectopuding.gui.view.swing;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -18,6 +24,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.proxectopuding.gui.controller.FingeringConfigurationController;
 
 public class FingeringConfigurationView extends View {
+	
+	private static final Logger LOGGER = Logger.getLogger(FingeringConfigurationView.class.getName());
+	
+	private static final String SENSORS_IMAGE_ICON_PATH = "images/sensors.png";
 
 	private FingeringConfigurationController fingeringConfigurationController =
 			new FingeringConfigurationController();
@@ -43,7 +53,7 @@ public class FingeringConfigurationView extends View {
 		
 		JSeparator separator1 = getVerticalSeparator();
 		
-		JLabel lblChanterImage = getChangerImageLabel();
+		JLabel lblChanterImage = getChanterImageLabel();
 		
 		JSeparator separator2 = getVerticalSeparator();
 		
@@ -225,13 +235,19 @@ public class FingeringConfigurationView extends View {
 		return btnCustomFingeringRemove;
 	}
 	
-	private JLabel getChangerImageLabel() {
+	private JLabel getChanterImageLabel() {
 		
 		JLabel lblChanterImage = new JLabel();
 		
-		String text = fingeringConfigurationController.
-				getTranslationForChanterImageLabel();
-		lblChanterImage.setText(text);
+		try {
+	         BufferedImage image = ImageIO.read(
+	        		 FingeringConfigurationView.class.getClassLoader().
+	        		 		getResource(SENSORS_IMAGE_ICON_PATH));
+	         ImageIcon icon = new ImageIcon(image);
+	         lblChanterImage.setIcon(icon);
+	      } catch (IOException e) {
+	         LOGGER.log(Level.SEVERE, "Sensors image not found", e);
+	      }
 		
 		return lblChanterImage;
 	}
@@ -342,9 +358,9 @@ public class FingeringConfigurationView extends View {
 					.addComponent(separator1,
 							GroupLayout.PREFERRED_SIZE, 11,
 							GroupLayout.PREFERRED_SIZE)
-					.addGap(76)
+					.addGap(10)
 					.addComponent(lblChanterImage)
-					.addPreferredGap(ComponentPlacement.RELATED, 78,
+					.addPreferredGap(ComponentPlacement.RELATED, 10,
 							Short.MAX_VALUE)
 					.addComponent(separator2,
 							GroupLayout.PREFERRED_SIZE, 11,
@@ -441,7 +457,7 @@ public class FingeringConfigurationView extends View {
 										GroupLayout.PREFERRED_SIZE, 368,
 										GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panelFinger.createSequentialGroup()
-							.addGap(172)
+							.addGap(20)
 							.addComponent(lblChanterImage)))
 					.addContainerGap(168, Short.MAX_VALUE))
 		);

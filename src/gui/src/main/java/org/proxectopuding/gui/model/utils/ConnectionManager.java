@@ -77,10 +77,26 @@ public class ConnectionManager implements SerialPortEventListener {
 		// http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
         // System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
 
-		Enumeration<?> portEnum = CommPortIdentifier.getPortIdentifiers();
-		CommPortIdentifier portId = null;
-		
+		Enumeration<?> portEnum = null;
+		try {
+			// FIXME Exception in parallel thread. Uncatchable. 
+			/*
+			 * java.lang.UnsatisfiedLinkError: no rxtxSerial in java.library.path thrown while loading gnu.io.RXTXCommDriver
+				Exception in thread "AWT-EventQueue-0" java.lang.UnsatisfiedLinkError: no rxtxSerial in java.library.path
+					at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1867)
+					at java.lang.Runtime.loadLibrary0(Runtime.java:870)
+					at java.lang.System.loadLibrary(System.java:1122)
+					at gnu.io.CommPortIdentifier.<clinit>(CommPortIdentifier.java:83)
+					at org.proxectopuding.gui.model.utils.ConnectionManager.initialize(ConnectionManager.java:82)
+			 */
+			portEnum = CommPortIdentifier.getPortIdentifiers();
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection. Could not find any system port");
+			return;
+		}
+
 		// First, find the instance of the serial port set in PORT_NAME.
+		CommPortIdentifier portId = null;
 		while (portEnum.hasMoreElements()) {
 			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 			if (currPortId.getName().equals(PORT_NAME)) {
@@ -211,6 +227,8 @@ public class ConnectionManager implements SerialPortEventListener {
 	 * Send a discovery beacon for finding serial devices.
 	 */
 	public void sendDiscoveryBeacon() {
+		
+		LOGGER.log(Level.INFO, "Sending discovery beacon");
 		writeData(DISCOVERY_BEACON);
 	}
 	

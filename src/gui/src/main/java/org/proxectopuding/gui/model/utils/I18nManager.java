@@ -21,7 +21,8 @@ public class I18nManager {
 	
 	public static String getTranslation(String translationId) {
 		
-		return properties.getProperty(translationId);
+		String translation = properties.getProperty(translationId);
+		return translation != null ? translation : translationId;
 	}
 	
 	public static List<String> getTranslations(String[] translationIds) {

@@ -33,12 +33,19 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	private static Gson gson;
 	
 	static {
-		connection = ConnectionManager.getInstance();
-		gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			LOGGER.log(Level.INFO, "Loading connection manager");
+			connection = ConnectionManager.getInstance();
+			gson = new GsonBuilder().setPrettyPrinting().create();			
+		} catch(Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
 	};
 	
 	@Override
 	public Set<BagpipeDevice> findBagpipeDevices() {
+		
+		LOGGER.log(Level.INFO, "Looking for connected devices");
 		
 		connection.sendDiscoveryBeacon();
 		connection.delay(MAX_DISCOVERING_DELAY);
@@ -47,6 +54,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		int attempts = 0;
 		BagpipeDevice device = null;
 		while (json != null && !json.isEmpty() && attempts < MAX_ATTEMPTS) {
+			LOGGER.log(Level.INFO, "Attempts: {0}", attempts + 1);
 			try {
 				device = gson.fromJson(json, BagpipeDevice.class);
 				if (device != null) {
@@ -68,6 +76,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		return DeviceManager.getDevices();
+		
 	}
 	
 	@Override

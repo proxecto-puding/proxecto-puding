@@ -12,9 +12,11 @@ import java.util.logging.Logger;
 
 import javax.swing.JMenuBar;
 
-public class Main extends JFrame {
+import org.proxectopuding.gui.controller.MainController;
 
-	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+public class MainView extends JFrame {
+
+	private static final Logger LOGGER = Logger.getLogger(MainView.class.getName());
 	
 	private static final long serialVersionUID = 2067752108552203318L;
 	
@@ -29,40 +31,15 @@ public class Main extends JFrame {
 	
 	private MenuBarView menuBarView = new MenuBarView();
 	private ContentPanelView contentPanelView = new ContentPanelView();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		LOGGER.log(Level.INFO, "Application started");
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Throwable e) {
-			LOGGER.log(Level.SEVERE, "Unable to set application look and feel", e);
-		}
-		
-		EventQueue.invokeLater(new Runnable() {
-			
-			public void run() {
-				
-				try {
-					Main frame = new Main();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					LOGGER.log(Level.SEVERE, "Unable to show the main view", e);
-				}
-			}
-		});
-	}
-
+	private MainController mainController = new MainController();
+	
 	/**
 	 * Create the frame.
 	 */
-	public Main() {
+	public MainView() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				Main.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
+				MainView.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
 		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
@@ -74,5 +51,34 @@ public class Main extends JFrame {
 		// Content panel.
 		JPanel contentPanel = contentPanelView.getContentPanel();
 		setContentPane(contentPanel);
+		
+		mainController.findChanters();
+	}
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		
+		LOGGER.log(Level.INFO, "Application started");
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			LOGGER.log(Level.SEVERE, "Unable to set application look and feel", e);
+		}
+		
+		EventQueue.invokeLater(new Runnable() {
+			
+			public void run() {
+				
+				try {
+					MainView frame = new MainView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					LOGGER.log(Level.SEVERE, "Unable to show the main view", e);
+				}
+			}
+		});
 	}
 }

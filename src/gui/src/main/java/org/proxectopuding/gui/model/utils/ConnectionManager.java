@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,7 @@ public class ConnectionManager implements SerialPortEventListener {
 	/**
 	 * Initialize the connection manager.
 	 */
-	public void initialize() {
+	public void initialize() throws IOException {
 		
 		// The next line is for Raspberry Pi and 
         // gets us into the while loop and was suggested here:
@@ -79,20 +80,11 @@ public class ConnectionManager implements SerialPortEventListener {
 
 		Enumeration<?> portEnum = null;
 		try {
-			// FIXME Exception in parallel thread. Uncatchable. 
-			/*
-			 * java.lang.UnsatisfiedLinkError: no rxtxSerial in java.library.path thrown while loading gnu.io.RXTXCommDriver
-				Exception in thread "AWT-EventQueue-0" java.lang.UnsatisfiedLinkError: no rxtxSerial in java.library.path
-					at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1867)
-					at java.lang.Runtime.loadLibrary0(Runtime.java:870)
-					at java.lang.System.loadLibrary(System.java:1122)
-					at gnu.io.CommPortIdentifier.<clinit>(CommPortIdentifier.java:83)
-					at org.proxectopuding.gui.model.utils.ConnectionManager.initialize(ConnectionManager.java:82)
-			 */
 			portEnum = CommPortIdentifier.getPortIdentifiers();
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection. Could not find any system port");
-			return;
+			String msg = "Unable to initialize the serial connection. Could not find any system port";
+			LOGGER.log(Level.SEVERE, msg, e);
+			throw new IOException(msg);
 		}
 
 		// First, find the instance of the serial port set in PORT_NAME.
@@ -106,8 +98,9 @@ public class ConnectionManager implements SerialPortEventListener {
 		}
 		
 		if (portId == null) {
-			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection. Could not find COM port");
-			return;
+			String msg = "Unable to initialize the serial connection. Could not find COM port";
+			LOGGER.log(Level.SEVERE, msg);
+			throw new IOException(msg);
 		}
 		
 		try {
@@ -129,7 +122,9 @@ public class ConnectionManager implements SerialPortEventListener {
 			serialPort.notifyOnDataAvailable(true);
 			
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "Unable to initialize the serial connection", e);
+			String msg = "Unable to initialize the serial connection";
+			LOGGER.log(Level.SEVERE, msg, e);
+			throw new IOException(msg);
 		}
 	}
 		
@@ -215,7 +210,7 @@ public class ConnectionManager implements SerialPortEventListener {
 	public void writeData(String data) {
 		try {
 			initialize();
-			IOUtils.write(data, serialPort.getOutputStream());
+			IOUtils.write(data.getBytes(StandardCharsets.UTF_8), output);
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to write data to the serial port", e);
 		} finally {

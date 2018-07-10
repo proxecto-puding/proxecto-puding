@@ -22,10 +22,11 @@ import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.proxectopuding.gui.controller.FingeringConfigurationController;
+import org.proxectopuding.gui.view.FingeringConfigurationView;
 
-public class FingeringConfigurationView extends View {
+public class FingeringConfigurationViewImpl extends ViewImpl implements FingeringConfigurationView {
 	
-	private static final Logger LOGGER = Logger.getLogger(FingeringConfigurationView.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(FingeringConfigurationViewImpl.class.getName());
 	
 	private static final String SENSORS_IMAGE_ICON_PATH = "images/sensors.png";
 
@@ -241,7 +242,7 @@ public class FingeringConfigurationView extends View {
 		
 		try {
 	         BufferedImage image = ImageIO.read(
-	        		 FingeringConfigurationView.class.getClassLoader().
+	        		 FingeringConfigurationViewImpl.class.getClassLoader().
 	        		 		getResource(SENSORS_IMAGE_ICON_PATH));
 	         ImageIcon icon = new ImageIcon(image);
 	         lblChanterImage.setIcon(icon);

@@ -18,8 +18,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.TuningConfigurationController;
+import org.proxectopuding.gui.view.TuningConfigurationView;
 
-public class TuningConfigurationView extends View {
+public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfigurationView {
 	
 	private final int MIN_TUNING_FREQ = 1;
 	private final int MAX_TUNING_FREQ = 1000;

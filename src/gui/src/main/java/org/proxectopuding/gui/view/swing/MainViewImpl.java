@@ -14,9 +14,9 @@ import javax.swing.JMenuBar;
 
 import org.proxectopuding.gui.controller.MainController;
 
-public class MainView extends JFrame {
+public class MainViewImpl extends JFrame {
 
-	private static final Logger LOGGER = Logger.getLogger(MainView.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(MainViewImpl.class.getName());
 	
 	private static final long serialVersionUID = 2067752108552203318L;
 	
@@ -29,17 +29,17 @@ public class MainView extends JFrame {
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 800;
 	
-	private MenuBarView menuBarView = new MenuBarView();
-	private ContentPanelView contentPanelView = new ContentPanelView();
+	private MenuBarViewImpl menuBarView = new MenuBarViewImpl();
+	private ContentPanelViewImpl contentPanelView = new ContentPanelViewImpl();
 	private MainController mainController = new MainController();
 	
 	/**
 	 * Create the frame.
 	 */
-	public MainView() {
+	public MainViewImpl() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				MainView.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
+				MainViewImpl.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
 		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(X, Y, WIDTH, HEIGHT);
@@ -73,7 +73,7 @@ public class MainView extends JFrame {
 			public void run() {
 				
 				try {
-					MainView frame = new MainView();
+					MainViewImpl frame = new MainViewImpl();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					LOGGER.log(Level.SEVERE, "Unable to show the main view", e);

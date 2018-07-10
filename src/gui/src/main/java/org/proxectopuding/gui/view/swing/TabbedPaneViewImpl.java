@@ -5,19 +5,20 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.TabbedPaneController;
+import org.proxectopuding.gui.view.TabbedPaneView;
 
-public class TabbedPaneView extends View {
+public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	
-	private StartConfigurationView startConfigurationView = 
-			new StartConfigurationView();
-	private SelectionConfigurationView selectionConfigurationView =
-			new SelectionConfigurationView();
-	private TuningConfigurationView tuningConfigurationView =
-			new TuningConfigurationView();
-	private SensitivityConfigurationView sensitivityConfigurationView =
-			new SensitivityConfigurationView();
-	private FingeringConfigurationView fingeringConfigurationView =
-			new FingeringConfigurationView();
+	private StartConfigurationViewImpl startConfigurationView = 
+			new StartConfigurationViewImpl();
+	private SelectionConfigurationViewImpl selectionConfigurationView =
+			new SelectionConfigurationViewImpl();
+	private TuningConfigurationViewImpl tuningConfigurationView =
+			new TuningConfigurationViewImpl();
+	private SensitivityConfigurationViewImpl sensitivityConfigurationView =
+			new SensitivityConfigurationViewImpl();
+	private FingeringConfigurationViewImpl fingeringConfigurationView =
+			new FingeringConfigurationViewImpl();
 	
 	private TabbedPaneController tabbedPaneController =
 			new TabbedPaneController();

@@ -12,11 +12,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.proxectopuding.gui.controller.ContentPanelController;
+import org.proxectopuding.gui.view.ContentPanelView;
 
-public class ContentPanelView extends View {
+public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 	
-	private TabbedPaneView tabbedPaneView =
-			new TabbedPaneView();
+	private TabbedPaneViewImpl tabbedPaneView =
+			new TabbedPaneViewImpl();
 	
 	private ContentPanelController contentPanelController =
 			new ContentPanelController();

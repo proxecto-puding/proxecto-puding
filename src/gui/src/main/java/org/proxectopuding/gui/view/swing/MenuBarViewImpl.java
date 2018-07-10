@@ -6,8 +6,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import org.proxectopuding.gui.controller.MenuBarController;
+import org.proxectopuding.gui.view.MenuBarView;
 
-public class MenuBarView extends View {
+public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 	
 	private static final String FILE_MENU_ICON_PATH = 
 			"icons/application.png";

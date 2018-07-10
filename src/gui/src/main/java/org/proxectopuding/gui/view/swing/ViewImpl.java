@@ -3,7 +3,9 @@ package org.proxectopuding.gui.view.swing;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-public class View {
+import org.proxectopuding.gui.view.View;
+
+public class ViewImpl implements View {
 	
 	protected JSeparator getHorizontalSeparator() {
 		return getSeparator(false);

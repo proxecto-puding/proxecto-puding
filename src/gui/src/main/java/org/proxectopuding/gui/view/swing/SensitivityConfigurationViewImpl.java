@@ -13,8 +13,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.SensitivityConfigurationController;
+import org.proxectopuding.gui.view.SensitivityConfigurationView;
 
-public class SensitivityConfigurationView extends View {
+public class SensitivityConfigurationViewImpl extends ViewImpl implements SensitivityConfigurationView {
 	
 	private final int MIN_BAG_PRESSURE = 1;
 	private final int MAX_BAG_PRESSURE = 100;

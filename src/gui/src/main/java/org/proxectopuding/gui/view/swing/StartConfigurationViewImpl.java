@@ -12,8 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.proxectopuding.gui.controller.StartConfigurationController;
+import org.proxectopuding.gui.view.StartConfigurationView;
 
-public class StartConfigurationView extends View {
+public class StartConfigurationViewImpl extends ViewImpl implements StartConfigurationView {
 
 	private StartConfigurationController startConfigurationController =
 			new StartConfigurationController();

@@ -19,8 +19,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.SelectionConfigurationController;
+import org.proxectopuding.gui.view.SelectionConfigurationView;
 
-public class SelectionConfigurationView extends View {
+public class SelectionConfigurationViewImpl extends ViewImpl implements SelectionConfigurationView {
 
 	private final int MIN_VOLUME = 1;
 	private final int MAX_VOLUME = 100;

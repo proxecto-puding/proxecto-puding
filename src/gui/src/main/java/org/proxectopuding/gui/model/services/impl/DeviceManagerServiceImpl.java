@@ -15,8 +15,8 @@ import org.proxectopuding.gui.model.entities.SelectionConfiguration;
 import org.proxectopuding.gui.model.entities.SensitivityConfiguration;
 import org.proxectopuding.gui.model.entities.TuningConfiguration;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
-import org.proxectopuding.gui.model.utils.ConnectionManager;
 import org.proxectopuding.gui.model.utils.DeviceManager;
+import org.proxectopuding.gui.model.utils.connection.ConnectionManagerJsscImpl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,34 +25,33 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	
 	private static final Logger LOGGER = Logger.getLogger(DeviceManagerServiceImpl.class.getName());
 	
-	private static final int MAX_ATTEMPTS = 30;
-	private static final long MAX_DISCOVERING_DELAY = 10000; // 10 sec.
-	private static final long MAX_READING_DELAY = 1000; // 1 sec.
+	private static final int MAX_ATTEMPTS = 10;
 	
-	private static ConnectionManager connection;
+	private static ConnectionManagerJsscImpl connection;
 	private static Gson gson;
 	
 	static {
 		try {
 			LOGGER.log(Level.INFO, "Loading connection manager");
-			connection = ConnectionManager.getInstance();
+			connection = ConnectionManagerJsscImpl.getInstance();
 			gson = new GsonBuilder().setPrettyPrinting().create();			
 		} catch(Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 		}
 	};
 	
+	// TODO First, search only for device ids. Then, for each one, as for the configuration.
 	@Override
 	public Set<BagpipeDevice> findBagpipeDevices() {
 		
 		LOGGER.log(Level.INFO, "Looking for connected devices");
 		
 		connection.sendDiscoveryBeacon();
-		connection.delay(MAX_DISCOVERING_DELAY);
 		
 		String json = connection.readData();
 		int attempts = 0;
 		BagpipeDevice device = null;
+		
 		while (json != null && !json.isEmpty() && attempts < MAX_ATTEMPTS) {
 			LOGGER.log(Level.INFO, "Attempts: {0}", attempts + 1);
 			try {
@@ -66,7 +65,6 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices", e);
 			}
-			connection.delay(MAX_READING_DELAY);
 			json = connection.readData();
 			attempts++;
 		}
@@ -76,7 +74,6 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 		
 		return DeviceManager.getDevices();
-		
 	}
 	
 	@Override
@@ -146,7 +143,6 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			try {
 				attempts++;
 				connection.writeData(request);
-				connection.delay(MAX_READING_DELAY);
 				response = connection.readData();
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
 				if (configuration != null &&

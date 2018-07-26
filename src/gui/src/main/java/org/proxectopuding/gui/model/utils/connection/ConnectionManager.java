@@ -28,10 +28,4 @@ public interface ConnectionManager {
 	 * @param data Data to send.
 	 */
 	void writeData(String data);
-	
-	// TODO Evaluate if moving this one to an upper level.
-	/**
-	 * Send a discovery beacon for finding serial devices.
-	 */
-	void sendDiscoveryBeacon();
 }

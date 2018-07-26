@@ -17,6 +17,7 @@ public class BrowserManager {
 			desktop = Desktop.getDesktop();
 		} else {
 			desktop = null;
+			LOGGER.log(Level.SEVERE, "Desktop not supported");
 		}
 	}
 	
@@ -30,7 +31,7 @@ public class BrowserManager {
 				LOGGER.log(Level.SEVERE, "Unable to open the URL", e);
 			}
 		} else {
-			// TODO Search for a proper alternative.
+			LOGGER.log(Level.SEVERE, "Desktop not supported");
 		}
 	}
 

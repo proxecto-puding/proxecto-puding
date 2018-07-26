@@ -143,12 +143,6 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 		}
 	}
 	
-	public void sendDiscoveryBeacon() {
-		
-		LOGGER.log(Level.INFO, "Sending discovery beacon");
-		writeData(DISCOVERY_BEACON);
-	}
-	
 	/**
 	 * Get an input buffered reader.
 	 * @return A buffered reader.

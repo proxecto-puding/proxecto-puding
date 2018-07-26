@@ -26,6 +26,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	
 	private static final Logger LOGGER = Logger.getLogger(DeviceManagerServiceImpl.class.getName());
 	
+	private static final String DISCOVERY_BEACON = "DBEACON";
 	private static final int MAX_ATTEMPTS = 10;
 	
 	private ConnectionManager connectionManager;
@@ -51,7 +52,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		LOGGER.log(Level.INFO, "Looking for connected devices");
 		
-		connectionManager.sendDiscoveryBeacon();
+		sendDiscoveryBeacon();
 		
 		String json = connectionManager.readData();
 		int attempts = 0;
@@ -563,6 +564,15 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
+	}
+	
+	/**
+	 * Send a discovery beacon for finding serial devices.
+	 */
+	public void sendDiscoveryBeacon() {
+		
+		LOGGER.log(Level.INFO, "Sending discovery beacon");
+		connectionManager.writeData(DISCOVERY_BEACON);
 	}
 	
 	/**

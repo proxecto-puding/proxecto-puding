@@ -115,10 +115,4 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 			disconnect();
 		}
 	}
-	
-	public void sendDiscoveryBeacon() {
-		
-		LOGGER.log(Level.INFO, "Sending discovery beacon");
-		writeData(DISCOVERY_BEACON);
-	}
 }

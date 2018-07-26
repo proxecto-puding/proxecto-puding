@@ -94,7 +94,6 @@ public class SoundFontManager {
 		
 		if (soundFontFilePath != null) {
 			try {
-				// TODO Test this line carefully. SF2 file could not be found this way.
 				fileUtils.copyFileToDirectory(SOUNDFONT_FILE_PATH, destDir);
 			} catch (IOException e) {
 				soundFontFilePath = null;

@@ -46,7 +46,6 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 	}
 	
-	// TODO First, search only for device ids. Then, for each one, as for the configuration.
 	@Override
 	public Set<BagpipeDevice> findBagpipeDevices() {
 		

@@ -8,18 +8,19 @@ import org.proxectopuding.gui.model.entities.BagpipeDevice;
 
 public class DeviceManager {
 	
-	private static Set<BagpipeDevice> devices;
-	private static BagpipeDevice selectedDevice;
+	private Set<BagpipeDevice> devices;
+	private BagpipeDevice selectedDevice;
 	
-	static {
+	public DeviceManager() {
+		
 		devices = new TreeSet<BagpipeDevice>();
-	};
+	}
 
 	/**
 	 * Get the list of registered devices.
 	 * @return The list of registered devices.
 	 */
-	public static Set<BagpipeDevice> getDevices() {
+	public Set<BagpipeDevice> getDevices() {
 		return devices;
 	}
 
@@ -27,8 +28,8 @@ public class DeviceManager {
 	 * Set the list of registered devices.
 	 * @param devices The list of devices to register.
 	 */
-	public static void setDevices(Set<BagpipeDevice> devices) {
-		DeviceManager.devices = devices;
+	public void setDevices(Set<BagpipeDevice> devices) {
+		this.devices = devices;
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class DeviceManager {
 	 * @param productId The device id to search for.
 	 * @return A registered device if found. Null otherwise.
 	 */
-	public static BagpipeDevice getDevice(String productId) {
+	public BagpipeDevice getDevice(String productId) {
 		
 		BagpipeDevice device = null;
 		
@@ -54,7 +55,7 @@ public class DeviceManager {
 	 * Add a default configured device to the list of registered devices.
 	 * @param productId The device id to register.
 	 */
-	public static void addDevice (String productId) {
+	public void addDevice (String productId) {
 		BagpipeDevice device = new BagpipeDevice();
 		device.setProductId(productId);
 		addDevice(device);
@@ -64,7 +65,7 @@ public class DeviceManager {
 	 * Add a provided device to the list of registered devices.
 	 * @param device Device to register.
 	 */
-	public static void addDevice(BagpipeDevice device) {
+	public void addDevice(BagpipeDevice device) {
 		devices.add(device);
 	}
 	
@@ -72,7 +73,7 @@ public class DeviceManager {
 	 * Remove a device from the list of registered devices.
 	 * @param productId Id of the device to remove from the list.
 	 */
-	public static void removeDevice(String productId) {
+	public void removeDevice(String productId) {
 		BagpipeDevice device = new BagpipeDevice();
 		device.setProductId(productId);
 		removeDevice(device);
@@ -82,7 +83,7 @@ public class DeviceManager {
 	 * Remove a device from the list of registered devices.
 	 * @param device Device to remove from the list.
 	 */
-	public static void removeDevice(BagpipeDevice device) {
+	public void removeDevice(BagpipeDevice device) {
 		devices.remove(device);
 	}
 	
@@ -90,7 +91,7 @@ public class DeviceManager {
 	 * Get the current device in use.
 	 * @return A device.
 	 */
-	public static BagpipeDevice getSelectedDevice() {
+	public BagpipeDevice getSelectedDevice() {
 		return selectedDevice;
 	}
 	
@@ -98,7 +99,7 @@ public class DeviceManager {
 	 * Set the current device in use.
 	 * @param productId Device id.
 	 */
-	public static void setSelectedDevice(String productId) {
+	public void setSelectedDevice(String productId) {
 		selectedDevice = getDevice(productId);
 	}
 	
@@ -107,7 +108,7 @@ public class DeviceManager {
 	 * @param productId Device id.
 	 * @return The requested configurations.
 	 */
-	public static Set<BagpipeConfiguration> getConfigurations(
+	public Set<BagpipeConfiguration> getConfigurations(
 			String productId) {
 		
 		Set<BagpipeConfiguration> configurations = null;
@@ -126,7 +127,7 @@ public class DeviceManager {
 	 * @param type Device type.
 	 * @return The requested configuration if found. Null otherwise.
 	 */
-	public static BagpipeConfiguration getConfiguration(
+	public BagpipeConfiguration getConfiguration(
 			String productId, String type) {
 		
 		BagpipeConfiguration configuration = null;
@@ -144,7 +145,7 @@ public class DeviceManager {
 	 * @param productId Device id.
 	 * @param configuration Configuration to add.
 	 */
-	public static void addConfiguration(String productId,
+	public void addConfiguration(String productId,
 			BagpipeConfiguration configuration) {
 		
 		BagpipeDevice device = getDevice(productId);

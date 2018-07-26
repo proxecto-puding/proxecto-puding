@@ -1,6 +1,6 @@
 package org.proxectopuding.gui.model.services;
 
-import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 
 public interface MidiService {
 	

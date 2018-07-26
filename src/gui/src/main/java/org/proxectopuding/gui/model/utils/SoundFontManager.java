@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 public class SoundFontManager {
 	
 	private static final Logger LOGGER = Logger.getLogger(SoundFontManager.class.getName());
@@ -13,14 +15,24 @@ public class SoundFontManager {
 	private static final String SOUNDFONT_FILE_PATH = "sounds/FluidR3_GM.sf2";
 	private static final String SOUNDFONT_FILE_NAME = "FluidR3_GM.sf2";
 	
-	private static FileDownload fileDownload;
+	private final FileDownloader fileDownloader;
+	private final FileUtils fileUtils;
+	private FileDownload fileDownload;
+	
+	@Inject
+	public SoundFontManager(FileDownloader fileDownloader,
+			FileUtils fileUtils) {
+		
+		this.fileDownloader = fileDownloader;
+		this.fileUtils = fileUtils;
+	}
 	
 	/**
 	 * Check if the SoundFont file is downloaded.
 	 * @return A boolean indicating if the file is downloaded.
 	 * @throws IOException If the SoundFont file is still being downloaded.
 	 */
-	public static boolean isSoundFontFileDownloaded() throws IOException {
+	public boolean isSoundFontFileDownloaded() throws IOException {
 		
 		boolean isDownloaded = false;
 		
@@ -43,11 +55,10 @@ public class SoundFontManager {
 	/**
 	 * Download the SoundFont file to use from the Internet.
 	 */
-	public static void downloadSoundFontFile() {
+	public void downloadSoundFontFile() {
 		
-		fileDownload = FileDownloader.downloadFile(
+		fileDownload = fileDownloader.downloadFile(
 				SOUNDFONT_URL, SOUNDFONT_FILE_PATH);
-		
 	}
 	
 	/**
@@ -57,7 +68,7 @@ public class SoundFontManager {
 	 * @return A boolean indicating if the SoundFont is placed into the
 	 * destination directory. 
 	 */
-	public static boolean isSoundFontFileCopied(String destDir) {
+	public boolean isSoundFontFileCopied(String destDir) {
 		
 		boolean isPlaced = false;
 		
@@ -77,14 +88,14 @@ public class SoundFontManager {
 	 * @return The path where the SoundFont file is placed in. Null otherwise.
 	 * @throws IOException If a problem comes up when copying the file.
 	 */
-	public static String copySoundFontFile(String destDir) throws IOException {
+	public String copySoundFontFile(String destDir) throws IOException {
 		
 		String soundFontFilePath = getSoundFontFileDestinationPath(destDir); 
 		
 		if (soundFontFilePath != null) {
 			try {
 				// TODO Test this line carefully. SF2 file could not be found this way.
-				FileUtils.copyFileToDirectory(SOUNDFONT_FILE_PATH, destDir);
+				fileUtils.copyFileToDirectory(SOUNDFONT_FILE_PATH, destDir);
 			} catch (IOException e) {
 				soundFontFilePath = null;
 				LOGGER.log(Level.SEVERE, "Unable to copy tthe SoundFont file to directory: {0}", destDir);
@@ -103,7 +114,7 @@ public class SoundFontManager {
 	 * @return The path to the copy of the SoundFont file placed into the
 	 * destination directory. Null otherwise.
 	 */
-	private static String getSoundFontFileDestinationPath(String destDir) {
+	private String getSoundFontFileDestinationPath(String destDir) {
 		
 		String soundFontFilePath = null;
 		

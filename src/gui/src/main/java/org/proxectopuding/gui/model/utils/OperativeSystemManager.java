@@ -4,34 +4,35 @@ import java.util.Locale;
 
 public class OperativeSystemManager {
 	
-	private static String OS_NAME;
-	private static boolean isWindows;
-	private static boolean isMacOs;
-	private static boolean isUnix;
-	private static String language;
+	private String OS_NAME;
+	private boolean isWindows;
+	private boolean isMacOs;
+	private boolean isUnix;
+	private String language;
 	
-	static {
+	public OperativeSystemManager() {
+		
 		setOperativeSystem();
 		setLanguage();
-	};
+	}
 	
-	public static boolean isWindows() {
+	public boolean isWindows() {
 		return isWindows;
 	}
 	
-	public static boolean isMacOs() {
+	public boolean isMacOs() {
 		return isMacOs;
 	}
 	
-	public static boolean isUnix() {
+	public boolean isUnix() {
 		return isUnix;
 	}
 	
-	public static String getLanguage() {
+	public String getLanguage() {
 		return language;
 	}
 	
-	private static void setOperativeSystem() {
+	private void setOperativeSystem() {
 		
 		OS_NAME = System.getProperty("os.name");
 		
@@ -44,7 +45,7 @@ public class OperativeSystemManager {
 		}
 	}
 	
-	private static void setLanguage() {
+	private void setLanguage() {
 		language = Locale.getDefault().getLanguage();
 	}
 

@@ -4,53 +4,57 @@ import org.proxectopuding.gui.model.services.BrowserService;
 import org.proxectopuding.gui.model.utils.BrowserManager;
 import org.proxectopuding.gui.model.utils.ConfigurationManager;
 
+import com.google.inject.Inject;
+
 public class BrowserServiceImpl implements BrowserService {
 
-	private static final String aboutUrl;
-	private static final String bagpipeApiUrl;
-	private static final String confAppApiUrl;
-	private static final String userManualUrl;
+	private final BrowserManager browserManager;
 	
-	static {
-		aboutUrl = ConfigurationManager.getAboutUrl();
-		bagpipeApiUrl = ConfigurationManager.getBagpipeApiUrl();
-		confAppApiUrl = ConfigurationManager.getConfAppApiUrl();
-		userManualUrl = ConfigurationManager.getUserManualUrl();
-	};
+	private final String aboutUrl;
+	private final String bagpipeApiUrl;
+	private final String confAppApiUrl;
+	private final String userManualUrl;
+	
+	@Inject
+	public BrowserServiceImpl(BrowserManager browserManager,
+			ConfigurationManager configurationManager) {
+
+		this.browserManager = browserManager;
+		
+		aboutUrl = configurationManager.getAboutUrl();
+		bagpipeApiUrl = configurationManager.getBagpipeApiUrl();
+		confAppApiUrl = configurationManager.getConfAppApiUrl();
+		userManualUrl = configurationManager.getUserManualUrl();
+	}
 	
 	@Override
 	public void openUri(String uri) {
 		
-		BrowserManager.openUri(uri);
-		
+		browserManager.openUri(uri);
 	}
 
 	@Override
 	public void openAboutUrl() {
 		
-		BrowserManager.openUri(aboutUrl);
-		
+		browserManager.openUri(aboutUrl);
 	}
 
 	@Override
 	public void openBagpipeApiUrl() {
 		
-		BrowserManager.openUri(bagpipeApiUrl);
-		
+		browserManager.openUri(bagpipeApiUrl);
 	}
 
 	@Override
 	public void openConfAppApiUrl() {
 		
-		BrowserManager.openUri(confAppApiUrl);
-		
+		browserManager.openUri(confAppApiUrl);
 	}
 
 	@Override
 	public void openUserManualUrl() {
 		
-		BrowserManager.openUri(userManualUrl);
-		
+		browserManager.openUri(userManualUrl);
 	}
 
 }

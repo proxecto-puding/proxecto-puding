@@ -4,20 +4,42 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 public class FileDownload implements Runnable {
 	
 	private static final Logger LOGGER = Logger.getLogger(FileDownload.class.getName());
 	
+	private final FileUtils fileUtils;
 	private String srcUrl;
 	private String destFile;
 	private boolean isDownloading;
 	private boolean isDownloaded;
 	
-	public FileDownload(String srcUrl, String destFile) {
-		this.srcUrl = srcUrl;
-		this.destFile = destFile;
+	@Inject
+	public FileDownload(FileUtils fileUtils) {
+		
+		this.fileUtils = fileUtils;
 		this.isDownloading = false;
 		this.isDownloaded = false;
+	}
+	
+	/**
+	 * Set the source URL.
+	 * @param srcUrl Source URL.
+	 */
+	public void setSource(String srcUrl) {
+		
+		this.srcUrl = srcUrl;
+	}
+	
+	/**
+	 * Set the destination file.
+	 * @param destFile Destination file.
+	 */
+	public void setDestination(String destFile) {
+		
+		this.destFile = destFile;
 	}
 
 	@Override
@@ -46,7 +68,7 @@ public class FileDownload implements Runnable {
 			throws IOException {
 		
 		try {
-			FileUtils.copyUrlToFile(srcUrl, destFile);
+			fileUtils.copyUrlToFile(srcUrl, destFile);
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to download URL: {0} to file: {1}", new String[]{srcUrl, destFile});
 			LOGGER.log(Level.SEVERE, "Unable to download", e);

@@ -6,24 +6,32 @@ import java.awt.event.ActionListener;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
-import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.MidiService;
-import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
-import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
-import org.proxectopuding.gui.model.services.impl.MidiServiceImpl;
+
+import com.google.inject.Inject;
 
 public class ContentPanelController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private DeviceManagerService deviceManagerService =
-			new DeviceManagerServiceImpl();
-	private ConfigurationApplicationService confAppService =
-			new ConfigurationApplicationServiceImpl();
-	private MidiService midiService = new MidiServiceImpl();
+	private final I18nService i18nService;
+	private final DeviceManagerService deviceManagerService;
+	private final ConfigurationApplicationService confAppService;
+	private final MidiService midiService;
+	
+	@Inject
+	public ContentPanelController(I18nService i18nService,
+			DeviceManagerService deviceManagerService,
+			ConfigurationApplicationService confAppService,
+			MidiService midiService) {
+		
+		this.i18nService = i18nService;
+		this.deviceManagerService = deviceManagerService;
+		this.confAppService = confAppService;
+		this.midiService = midiService;
+	}
 	
 	public String getTranslationForApplyButtonText() {
 		return i18nService.getTranslation("contentPanel.apply.button");

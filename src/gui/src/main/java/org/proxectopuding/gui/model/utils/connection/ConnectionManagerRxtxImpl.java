@@ -11,6 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
+import org.proxectopuding.gui.model.services.MidiService;
+import org.proxectopuding.gui.model.utils.OperativeSystemManager;
+
+import com.google.inject.Inject;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
@@ -32,22 +36,12 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 	// The output stream to the port
 	private OutputStream output;
 	
-	private static ConnectionManagerRxtxImpl connection;
-	
-	private ConnectionManagerRxtxImpl() {
-		// Singleton.
-	}
-	
-	/**
-	 * Get the connection manager singleton instance.
-	 * @return The connection manager instance.
-	 */
-	public static ConnectionManagerRxtxImpl getInstance() {
-		if (connection == null) {
-			connection = new ConnectionManagerRxtxImpl();
-		}
+	@Inject
+	public ConnectionManagerRxtxImpl(
+			OperativeSystemManager operativeSystemManager,
+			MidiService midiService) {
 		
-		return connection;
+		super(operativeSystemManager, midiService);
 	}
 	
 	public void connect() throws IOException {

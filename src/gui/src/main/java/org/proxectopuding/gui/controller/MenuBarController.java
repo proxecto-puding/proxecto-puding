@@ -5,13 +5,21 @@ import java.awt.event.ActionListener;
 
 import org.proxectopuding.gui.model.services.BrowserService;
 import org.proxectopuding.gui.model.services.I18nService;
-import org.proxectopuding.gui.model.services.impl.BrowserServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
+
+import com.google.inject.Inject;
 
 public class MenuBarController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private BrowserService browserService = new BrowserServiceImpl();
+	private final I18nService i18nService;
+	private final BrowserService browserService;
+	
+	@Inject
+	public MenuBarController(I18nService i18nService,
+			BrowserService browserService) {
+		
+		this.i18nService = i18nService;
+		this.browserService = browserService;
+	}
 	
 	public String getTranslationForFileMenu() {
 		return i18nService.getTranslation("menuBar.file");

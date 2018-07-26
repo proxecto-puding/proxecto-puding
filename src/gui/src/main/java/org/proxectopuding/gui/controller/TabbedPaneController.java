@@ -7,14 +7,21 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.I18nService;
-import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
+
+import com.google.inject.Inject;
 
 public class TabbedPaneController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private ConfigurationApplicationService confAppService =
-			new ConfigurationApplicationServiceImpl();
+	private final I18nService i18nService;
+	private final ConfigurationApplicationService confAppService;
+	
+	@Inject
+	public TabbedPaneController(I18nService i18nService,
+			ConfigurationApplicationService confAppService) {
+		
+		this.i18nService = i18nService;
+		this.confAppService = confAppService;
+	}
 	
 	public String getTranslationForStartPanelTitle() {
 		return i18nService.getTranslation("tabbedPane.startPanel.title");

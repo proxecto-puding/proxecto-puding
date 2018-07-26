@@ -9,26 +9,29 @@ public class BrowserManager {
 	
 	private static final Logger LOGGER = Logger.getLogger(BrowserManager.class.getName());
 	
-	public static void openUri(String uri) {
+	private final Desktop desktop;
+	
+	public BrowserManager() {
 		
 		if (Desktop.isDesktopSupported()) {
-			
-			Desktop desktop = Desktop.getDesktop();
-			if (desktop != null) {
-				try {
-					desktop.browse(new URI(uri));
-				} catch (Exception e) {
-					LOGGER.log(Level.SEVERE, "Unable to open the URL: {0}", uri);
-					LOGGER.log(Level.SEVERE, "Unable to open the URL", e);
-				}
-			} else {
-				// TODO Search for a proper alternative.
+			desktop = Desktop.getDesktop();
+		} else {
+			desktop = null;
+		}
+	}
+	
+	public void openUri(String uri) {
+		
+		if (desktop != null) {
+			try {
+				desktop.browse(new URI(uri));
+			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Unable to open the URL: {0}", uri);
+				LOGGER.log(Level.SEVERE, "Unable to open the URL", e);
 			}
-			
 		} else {
 			// TODO Search for a proper alternative.
 		}
-		
 	}
 
 }

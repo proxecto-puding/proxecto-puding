@@ -20,7 +20,7 @@ public class FileUtils {
 	 * @return The path to the copied file in the new destination.
 	 * @throws IOException If a problem comes up when copying the file.
 	 */
-	public static String copyFileToDirectory(String srcFile, String destDir)
+	public String copyFileToDirectory(String srcFile, String destDir)
 			throws IOException {
 		
 		String destFilePath = null;
@@ -50,7 +50,7 @@ public class FileUtils {
 	 * @throws IOException If a problem comes up when copying.
 	 * @throws MalformedURLException If the URL is malformed.
 	 */
-	public static void copyUrlToFile(String srcUrl, String destFile)
+	public void copyUrlToFile(String srcUrl, String destFile)
 			throws IOException {
 		
 		try {
@@ -70,7 +70,7 @@ public class FileUtils {
 	 * @return All the lines content in the file.
 	 * @throws IOException If a problem comes up when reading.
 	 */
-	public static List<String> readLines(File file) throws IOException {
+	public List<String> readLines(File file) throws IOException {
 		
 		return org.apache.commons.io.FileUtils.readLines(file, "UTF-8");
 	}
@@ -82,7 +82,7 @@ public class FileUtils {
 	 * @param append Indicate if the file is going to be overwritten or not.
 	 * @throws IOException If a problem comes up when writing.
 	 */
-	public static void writeLines(File file, Collection<?> lines,
+	public void writeLines(File file, Collection<?> lines,
 			boolean append) throws IOException {
 		
 		org.apache.commons.io.FileUtils.writeLines(file, lines, append);

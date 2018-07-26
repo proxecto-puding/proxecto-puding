@@ -5,22 +5,19 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 
 public class NotificationManager {
 	
-	private static HashMap<String, List<PropertyChangeListener>>
-			propertyChangeListeners;
+	private Map<String, List<PropertyChangeListener>> propertyChangeListeners;
 	
-	static {
+	public NotificationManager() {
+
 		propertyChangeListeners = 
 				new HashMap<String, List<PropertyChangeListener>>();
 	};
 	
-	private NotificationManager() {
-		
-	};
-	
-	public static void sendNotification(Object source, String propertyName,
+	public void sendNotification(Object source, String propertyName,
 			Object newValue) {
 				
 		if (propertyChangeListeners.containsKey(propertyName)) {
@@ -34,7 +31,7 @@ public class NotificationManager {
 		}
 	}
 	
-	public static void addNotificationListener(String propertyName,
+	public void addNotificationListener(String propertyName,
 			PropertyChangeListener listener) {
 		
 		if (propertyChangeListeners.containsKey(propertyName)) {
@@ -51,7 +48,7 @@ public class NotificationManager {
 		}
 	}
 	
-	public static void removeNotificationListener(String propertyName,
+	public void removeNotificationListener(String propertyName,
 			PropertyChangeListener listener) {
 		
 		if (propertyChangeListeners.containsKey(propertyName)) {

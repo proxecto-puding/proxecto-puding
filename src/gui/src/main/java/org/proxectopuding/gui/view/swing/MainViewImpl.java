@@ -1,18 +1,16 @@
 package org.proxectopuding.gui.view.swing;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JMenuBar;
 
 import org.proxectopuding.gui.controller.MainController;
+
+import com.google.inject.Inject;
 
 public class MainViewImpl extends JFrame {
 
@@ -29,14 +27,13 @@ public class MainViewImpl extends JFrame {
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 800;
 	
-	private MenuBarViewImpl menuBarView = new MenuBarViewImpl();
-	private ContentPanelViewImpl contentPanelView = new ContentPanelViewImpl();
-	private MainController mainController = new MainController();
-	
 	/**
 	 * Create the frame.
 	 */
-	public MainViewImpl() {
+	@Inject
+	public MainViewImpl(MenuBarViewImpl menuBarView,
+			ContentPanelViewImpl contentPanelView,
+			MainController mainController) {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				MainViewImpl.class.getClassLoader().getResource(ICON_IMAGE_ICON_PATH)));
@@ -53,32 +50,5 @@ public class MainViewImpl extends JFrame {
 		setContentPane(contentPanel);
 		
 		mainController.findChanters();
-	}
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		LOGGER.log(Level.INFO, "Application started");
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Throwable e) {
-			LOGGER.log(Level.SEVERE, "Unable to set application look and feel", e);
-		}
-		
-		EventQueue.invokeLater(new Runnable() {
-			
-			public void run() {
-				
-				try {
-					MainViewImpl frame = new MainViewImpl();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					LOGGER.log(Level.SEVERE, "Unable to show the main view", e);
-				}
-			}
-		});
 	}
 }

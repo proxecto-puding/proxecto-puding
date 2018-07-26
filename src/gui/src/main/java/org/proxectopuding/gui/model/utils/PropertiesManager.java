@@ -13,7 +13,7 @@ public class PropertiesManager {
 	
 	private static final Logger LOGGER = Logger.getLogger(PropertiesManager.class.getName());
 
-	public static Properties getProperties(String file) {
+	public Properties getProperties(String file) {
 		
 		Properties properties = new Properties();
 		
@@ -30,7 +30,7 @@ public class PropertiesManager {
 		return properties;
 	}
 	
-	public static List<String> getPropertyValues(String propertyValue) {
+	public List<String> getPropertyValues(String propertyValue) {
 		
 		List<String> propertyValues = new ArrayList<String>();
 		

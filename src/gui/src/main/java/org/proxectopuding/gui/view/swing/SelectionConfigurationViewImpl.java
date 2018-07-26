@@ -21,13 +21,21 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.controller.SelectionConfigurationController;
 import org.proxectopuding.gui.view.SelectionConfigurationView;
 
+import com.google.inject.Inject;
+
 public class SelectionConfigurationViewImpl extends ViewImpl implements SelectionConfigurationView {
 
 	private final int MIN_VOLUME = 1;
 	private final int MAX_VOLUME = 100;
 	
-	private SelectionConfigurationController selectionConfigurationController =
-			new SelectionConfigurationController();
+	private final SelectionConfigurationController selectionConfigurationController;
+	
+	@Inject
+	public SelectionConfigurationViewImpl(
+			SelectionConfigurationController selectionConfigurationController) {
+		
+		this.selectionConfigurationController = selectionConfigurationController;
+	}
 	
 	public JPanel getSelectionPanel() {
 		

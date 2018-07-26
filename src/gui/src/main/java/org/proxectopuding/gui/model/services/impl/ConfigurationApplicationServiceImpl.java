@@ -10,15 +10,17 @@ import java.util.Map;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.FingeringNote;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
-import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
 import org.proxectopuding.gui.model.entities.PreciseTuning;
 import org.proxectopuding.gui.model.entities.PreciseTuningNote;
 import org.proxectopuding.gui.model.entities.ReadingTone;
 import org.proxectopuding.gui.model.entities.Sample;
 import org.proxectopuding.gui.model.entities.TuningMode;
 import org.proxectopuding.gui.model.entities.TuningTone;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.utils.I18nManager;
+
+import com.google.inject.Inject;
 
 public class ConfigurationApplicationServiceImpl
 		implements ConfigurationApplicationService {
@@ -105,6 +107,7 @@ public class ConfigurationApplicationServiceImpl
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_CUSTOM_FINGERING_OCTAVE = 4;
 	
+	// TODO Review all this static variables.
 	private static BagpipeConfigurationType bagpipeConfigurationType;
 	private static Map<String, ReadingTone> readingTones;
 	private static ReadingTone readingTone;
@@ -124,7 +127,13 @@ public class ConfigurationApplicationServiceImpl
 	private static Map<Integer, FingeringOffset> customFingeringNumbers;
 	private static int customFingeringNumber;
 	
-	static {
+	private final I18nManager i18nManager;
+	
+	@Inject
+	public ConfigurationApplicationServiceImpl(I18nManager i18nManager) {
+		
+		this.i18nManager = i18nManager;
+		
 		setReadingTones();
 		setTuningTones();
 		setSamples();
@@ -136,7 +145,7 @@ public class ConfigurationApplicationServiceImpl
 		setCustomFingeringNotes();
 		setCustomFingeringOctave();
 		setCustomFingeringNumbers();
-	};
+	}
 	
 	@Override
 	public BagpipeConfigurationType getSelectedBagpipeConfigurationType() {
@@ -585,10 +594,10 @@ public class ConfigurationApplicationServiceImpl
 		}
 	}
 	
-	private static void setReadingTones() {
+	private void setReadingTones() {
 		
 		List<String> translations =
-				I18nManager.getTranslations(readingToneTranslationIds);
+				i18nManager.getTranslations(readingToneTranslationIds);
 		
 		readingTones = ReadingTone.getTones(readingToneIds, readingToneValues,
 				readingToneTranslationIds, translations);
@@ -598,10 +607,10 @@ public class ConfigurationApplicationServiceImpl
 		readingTone = DEFAULT_READING_TONE;
 	}
 	
-	private static void setTuningTones() {
+	private void setTuningTones() {
 		
 		List<String> translations =
-				I18nManager.getTranslations(tuningToneTranslationIds);
+				i18nManager.getTranslations(tuningToneTranslationIds);
 		
 		tuningTones = TuningTone.getTones(tuningToneIds, tuningToneValues,
 				tuningToneTranslationIds, translations);
@@ -610,10 +619,10 @@ public class ConfigurationApplicationServiceImpl
 		DEFAULT_TUNING_TONE = tuningTones.get(translations.get(0));
 	}
 	
-	private static void setSamples() {
+	private void setSamples() {
 		
 		List<String> translations =
-				I18nManager.getTranslations(sampleTranslationIds);
+				i18nManager.getTranslations(sampleTranslationIds);
 		List<Sample> samplesList = Arrays.asList(Sample.values());
 		
 		if (translations.size() != samplesList.size()) {
@@ -638,10 +647,10 @@ public class ConfigurationApplicationServiceImpl
 		tuningFrequency = DEFAULT_TUNING_FREQUENCY;
 	}
 	
-	private static void setTuningModes() {
+	private void setTuningModes() {
 	
 		List<String> translations =
-				I18nManager.getTranslations(tuningModeTranslationIds);
+				i18nManager.getTranslations(tuningModeTranslationIds);
 		List<TuningMode> modes = Arrays.asList(TuningMode.values());
 		
 		if (translations.size() != modes.size()) {
@@ -662,10 +671,10 @@ public class ConfigurationApplicationServiceImpl
 		tuningMode = DEFAULT_TUNING_MODE;
 	}
 	
-	private static void setPreciseTuningNotes() {
+	private void setPreciseTuningNotes() {
 		
 		List<String> translations =
-				I18nManager.getTranslations(preciseTuningNoteTranslationIds);
+				i18nManager.getTranslations(preciseTuningNoteTranslationIds);
 		
 		preciseTuningNotes = PreciseTuningNote.getNotes(preciseTuningNoteIds,
 				preciseTuningNoteValues, preciseTuningNoteTranslationIds,
@@ -678,18 +687,18 @@ public class ConfigurationApplicationServiceImpl
 		preciseTuningNote = DEFAULT_PRECISE_TUNING_NOTE;
 	}
 	
-	private static void setPreciseTuningOctave() {
+	private void setPreciseTuningOctave() {
 		preciseTuningOctave = DEFAULT_PRECISE_TUNING_OCTAVE;
 	}
 	
-	private static void setPreciseTuningTunings() {
+	private void setPreciseTuningTunings() {
 		preciseTunings = new LinkedHashMap<Integer, PreciseTuning>();
 	}
 	
-	private static void setCustomFingeringNotes() {
+	private void setCustomFingeringNotes() {
 		
 		List<String> translations =
-				I18nManager.getTranslations(customFingeringNoteTranslationIds);
+				i18nManager.getTranslations(customFingeringNoteTranslationIds);
 		
 		customFingeringNotes = FingeringNote.getNotes(customFingeringNoteIds,
 				customFingeringNoteValues, customFingeringNoteTranslationIds,
@@ -702,11 +711,11 @@ public class ConfigurationApplicationServiceImpl
 		customFingeringNote = DEFAULT_CUSTOM_FINGERING_NOTE;
 	}
 	
-	private static void setCustomFingeringOctave() {
+	private void setCustomFingeringOctave() {
 		customFingeringOctave = DEFAULT_CUSTOM_FINGERING_OCTAVE;
 	}
 	
-	private static void setCustomFingeringNumbers() {
+	private void setCustomFingeringNumbers() {
 		customFingeringNumbers = new LinkedHashMap<Integer, FingeringOffset>();
 		customFingeringNumber = -1;
 	}

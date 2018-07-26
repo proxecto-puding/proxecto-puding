@@ -14,13 +14,21 @@ import javax.swing.border.EmptyBorder;
 import org.proxectopuding.gui.controller.ContentPanelController;
 import org.proxectopuding.gui.view.ContentPanelView;
 
+import com.google.inject.Inject;
+
 public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 	
-	private TabbedPaneViewImpl tabbedPaneView =
-			new TabbedPaneViewImpl();
+	private final TabbedPaneViewImpl tabbedPaneView;
 	
-	private ContentPanelController contentPanelController =
-			new ContentPanelController();
+	private final ContentPanelController contentPanelController;
+	
+	@Inject
+	public ContentPanelViewImpl(TabbedPaneViewImpl tabbedPaneView,
+			ContentPanelController contentPanelController) {
+		
+		this.tabbedPaneView = tabbedPaneView;
+		this.contentPanelController = contentPanelController;
+	}
 	
 	public JPanel getContentPanel() {
 		

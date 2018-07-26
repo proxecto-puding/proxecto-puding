@@ -16,10 +16,11 @@ import org.proxectopuding.gui.model.entities.SensitivityConfiguration;
 import org.proxectopuding.gui.model.entities.TuningConfiguration;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.utils.DeviceManager;
-import org.proxectopuding.gui.model.utils.connection.ConnectionManagerJsscImpl;
+import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
 
 public class DeviceManagerServiceImpl implements DeviceManagerService {
 	
@@ -27,18 +28,22 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	
 	private static final int MAX_ATTEMPTS = 10;
 	
-	private static ConnectionManagerJsscImpl connection;
-	private static Gson gson;
+	private ConnectionManager connectionManager;
+	private DeviceManager deviceManager;
+	private Gson gson;
 	
-	static {
+	@Inject
+	public DeviceManagerServiceImpl(ConnectionManager connectionManager,
+			DeviceManager deviceManager) {
 		try {
 			LOGGER.log(Level.INFO, "Loading connection manager");
-			connection = ConnectionManagerJsscImpl.getInstance();
-			gson = new GsonBuilder().setPrettyPrinting().create();			
+			this.connectionManager = connectionManager;
+			this.deviceManager = deviceManager;
+			this.gson = new GsonBuilder().setPrettyPrinting().create();			
 		} catch(Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 		}
-	};
+	}
 	
 	// TODO First, search only for device ids. Then, for each one, as for the configuration.
 	@Override
@@ -46,9 +51,9 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		LOGGER.log(Level.INFO, "Looking for connected devices");
 		
-		connection.sendDiscoveryBeacon();
+		connectionManager.sendDiscoveryBeacon();
 		
-		String json = connection.readData();
+		String json = connectionManager.readData();
 		int attempts = 0;
 		BagpipeDevice device = null;
 		
@@ -57,7 +62,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			try {
 				device = gson.fromJson(json, BagpipeDevice.class);
 				if (device != null) {
-					DeviceManager.addDevice(device);
+					deviceManager.addDevice(device);
 					sendAck(device.getProductId());
 				} else {
 					LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices. Json: {0}", json);
@@ -65,15 +70,15 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices", e);
 			}
-			json = connection.readData();
+			json = connectionManager.readData();
 			attempts++;
 		}
 		
-		if (DeviceManager.getDevices().size() == 0) {
+		if (deviceManager.getDevices().size() == 0) {
 			LOGGER.log(Level.SEVERE, "No devices found");
 		}
 		
-		return DeviceManager.getDevices();
+		return deviceManager.getDevices();
 	}
 	
 	@Override
@@ -81,7 +86,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		List<String> ids = new ArrayList<String>();
 		
-		Set<BagpipeDevice> devices = DeviceManager.getDevices();
+		Set<BagpipeDevice> devices = deviceManager.getDevices();
 		for (BagpipeDevice device : devices) {
 			ids.add(device.getProductId());
 		}
@@ -91,12 +96,12 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	
 	@Override
 	public BagpipeDevice getSelectedBagpipeDevice() {
-		return DeviceManager.getSelectedDevice();
+		return deviceManager.getSelectedDevice();
 	}
 	
 	@Override
 	public void setSelectedBagpipeDevice(String productId) {
-		DeviceManager.setSelectedDevice(productId);
+		deviceManager.setSelectedDevice(productId);
 	}
 	
 	@Override
@@ -108,7 +113,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			findBagpipeConfiguration(productId, type.toString());
 		}
 		
-		return DeviceManager.getConfigurations(productId);
+		return deviceManager.getConfigurations(productId);
 	}
 
 	@Override
@@ -127,7 +132,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		BagpipeConfiguration configuration = null;
 		
-		BagpipeDevice device = DeviceManager.getDevice(productId);
+		BagpipeDevice device = deviceManager.getDevice(productId);
 		if (device == null) {
 			LOGGER.log(Level.SEVERE, "Unable to find the configuration for productId: {0}. Device not found", productId);
 			return configuration;
@@ -142,14 +147,14 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		while (response != null && !response.isEmpty() && attempts < MAX_ATTEMPTS) {
 			try {
 				attempts++;
-				connection.writeData(request);
-				response = connection.readData();
+				connectionManager.writeData(request);
+				response = connectionManager.readData();
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
 						type.equalsIgnoreCase(configuration.getType())) {
 					sendAck(device.getProductId());
-					DeviceManager.addConfiguration(productId, configuration);
+					deviceManager.addConfiguration(productId, configuration);
 				} else {
 					// Wrong configuration supplied.
 					response = null;
@@ -176,8 +181,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			String productId = configuration.getProductId();
 			try {
 				String json = gson.toJson(configuration);
-				connection.writeData(json);
-				DeviceManager.addConfiguration(productId, configuration);
+				connectionManager.writeData(json);
+				deviceManager.addConfiguration(productId, configuration);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to send the configuration for productId: {0}, type: {1}", new String[]{productId, configuration.getType()});
 				LOGGER.log(Level.SEVERE, "Unable to send the configuration", e);
@@ -191,7 +196,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	public BagpipeConfiguration getBagpipeConfiguration(
 			String productId, String type) {
 		
-		return DeviceManager.getConfiguration(productId, type);
+		return deviceManager.getConfiguration(productId, type);
 	}
 	
 	@Override
@@ -200,7 +205,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		int volume = -1;
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -223,7 +228,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 	
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -246,7 +251,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		int tuningTone = -1;
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -269,7 +274,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -292,7 +297,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		int tuningOctave = -1;
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -315,7 +320,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -338,7 +343,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -361,7 +366,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			List<Boolean> fingeringTypes) throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -384,7 +389,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		Boolean isBagEnabled = null;
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -407,7 +412,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -430,7 +435,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		List<Boolean> drones = new ArrayList<Boolean>();
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -453,7 +458,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -476,7 +481,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		int bagPressure = -1;
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -499,7 +504,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throws IllegalArgumentException {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -522,7 +527,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		List<FingeringOffset> fingerings = new ArrayList<FingeringOffset>();
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -544,7 +549,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	public void setFingerings(String productId, List<FingeringOffset> fingerings) {
 		
 		if (productId != null) {
-			BagpipeDevice device = DeviceManager.getDevice(productId);
+			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
 				BagpipeConfiguration configuration = 
 						device.getConfigurationByType(
@@ -570,7 +575,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				BagpipeDevice device = new BagpipeDevice();
 				device.setProductId(productId);
 				String json = gson.toJson(device);
-				connection.writeData(json);
+				connectionManager.writeData(json);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK for productId: {0}", productId);
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK", e);

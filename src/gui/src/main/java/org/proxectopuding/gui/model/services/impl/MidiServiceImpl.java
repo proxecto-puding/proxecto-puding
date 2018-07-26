@@ -5,22 +5,26 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.proxectopuding.gui.model.entities.MidiServer;
-import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.MidiService;
+
+import com.google.inject.Inject;
 
 public class MidiServiceImpl implements MidiService {
 	
 	private static final Logger LOGGER = Logger.getLogger(MidiServiceImpl.class.getName());
 	
-	private static MidiServer server;
-	private static ProcessBuilder builder;
-	private static Process process;
+	private final MidiServer midiServer;
+	private ProcessBuilder processBuilder;
+	private Process process;
 	
-	static {
-		server = MidiServer.getInstance();
-		builder = new ProcessBuilder();
-	};
+	@Inject
+	public MidiServiceImpl(MidiServer midiServer) {
+		
+		this.midiServer = midiServer;
+		this.processBuilder = new ProcessBuilder();
+	}
 
 	@Override
 	public Process start() {
@@ -28,9 +32,9 @@ public class MidiServiceImpl implements MidiService {
 		Process process = null;
 		
 		try {
-			List<String> command = server.getCommand();
-			builder = builder.command(command);
-			process = builder.start();
+			List<String> command = midiServer.getCommand();
+			processBuilder = processBuilder.command(command);
+			process = processBuilder.start();
 		} catch (IOException e) {
 			process = null;
 			LOGGER.log(Level.SEVERE, "Unable to start the MIDI server", e);
@@ -54,12 +58,12 @@ public class MidiServiceImpl implements MidiService {
 	
 	@Override
 	public MidiServerConfiguration getConfiguration() {
-		return server.getConfiguration();
+		return midiServer.getConfiguration();
 	}
 	
 	@Override
 	public void setConfiguration(MidiServerConfiguration configuration) {
-		server.setConfiguration(configuration);
+		midiServer.setConfiguration(configuration);
 	}
 
 }

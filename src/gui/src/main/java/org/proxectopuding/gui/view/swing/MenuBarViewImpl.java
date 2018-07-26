@@ -8,6 +8,8 @@ import javax.swing.JMenuItem;
 import org.proxectopuding.gui.controller.MenuBarController;
 import org.proxectopuding.gui.view.MenuBarView;
 
+import com.google.inject.Inject;
+
 public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 	
 	private static final String FILE_MENU_ICON_PATH = 
@@ -25,7 +27,13 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 	private static final String ABOUT_MENU_ITEM_ICON_PATH =
 			"icons/information.png";
 	
-	private MenuBarController menuBarController = new MenuBarController();
+	private final MenuBarController menuBarController;
+	
+	@Inject
+	public MenuBarViewImpl(MenuBarController menuBarController) {
+		
+		this.menuBarController = menuBarController;
+	}
 	
 	public JMenuBar getMenuBar() {
 		

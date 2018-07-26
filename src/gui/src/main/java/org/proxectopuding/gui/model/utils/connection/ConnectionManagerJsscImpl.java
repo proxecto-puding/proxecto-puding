@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.proxectopuding.gui.model.services.MidiService;
+import org.proxectopuding.gui.model.utils.OperativeSystemManager;
+
 import jssc.SerialPort;
 import jssc.SerialPortList;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 
 public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 	
@@ -15,22 +19,12 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 
 	private SerialPort serialPort;
 	
-	private static ConnectionManagerJsscImpl connection;
-	
-	private ConnectionManagerJsscImpl() {
-		// Singleton.
-	}
-	
-	/**
-	 * Get the connection manager singleton instance.
-	 * @return The connection manager instance.
-	 */
-	public static ConnectionManagerJsscImpl getInstance() {
-		if (connection == null) {
-			connection = new ConnectionManagerJsscImpl();
-		}
+	@Inject
+	public ConnectionManagerJsscImpl(
+			OperativeSystemManager operativeSystemManager,
+			MidiService midiService) {
 		
-		return connection;
+		super(operativeSystemManager, midiService);
 	}
 	
 	public void connect() throws IOException {

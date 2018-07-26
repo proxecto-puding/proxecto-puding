@@ -15,13 +15,21 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.controller.SensitivityConfigurationController;
 import org.proxectopuding.gui.view.SensitivityConfigurationView;
 
+import com.google.inject.Inject;
+
 public class SensitivityConfigurationViewImpl extends ViewImpl implements SensitivityConfigurationView {
 	
 	private final int MIN_BAG_PRESSURE = 1;
 	private final int MAX_BAG_PRESSURE = 100;
 
-	private SensitivityConfigurationController sensitivityConfigurationController =
-			new SensitivityConfigurationController();
+	private final SensitivityConfigurationController sensitivityConfigurationController;
+	
+	@Inject
+	public SensitivityConfigurationViewImpl(
+			SensitivityConfigurationController sensitivityConfigurationController) {
+		
+		this.sensitivityConfigurationController = sensitivityConfigurationController;
+	}
 	
 	public JPanel getSensitivityPanel() {
 		

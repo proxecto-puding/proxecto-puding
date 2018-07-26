@@ -1,6 +1,16 @@
 package org.proxectopuding.gui.model.utils;
 
+import com.google.inject.Inject;
+
 public class FileDownloader {
+	
+	private FileDownload fileDownload;
+	
+	@Inject
+	public FileDownloader(FileDownload fileDownload) {
+		
+		this.fileDownload = fileDownload;
+	}
 	
 	/**
 	 * Download an URL content to a file into a separated thread.
@@ -8,9 +18,10 @@ public class FileDownloader {
 	 * @param destFile Destination file.
 	 * @return The file download so its status can be checked at any time.
 	 */
-	public static FileDownload downloadFile(String srcUrl, String destFile) {
+	public FileDownload downloadFile(String srcUrl, String destFile) {
 		
-		FileDownload fileDownload = new FileDownload(srcUrl, destFile);
+		fileDownload.setSource(srcUrl);
+		fileDownload.setDestination(destFile);
 		
 		Thread t = new Thread(fileDownload);
 		t.start();

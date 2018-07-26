@@ -20,6 +20,8 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.controller.TuningConfigurationController;
 import org.proxectopuding.gui.view.TuningConfigurationView;
 
+import com.google.inject.Inject;
+
 public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfigurationView {
 	
 	private final int MIN_TUNING_FREQ = 1;
@@ -29,8 +31,14 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 	private final int MAX_PRECISE_TUNING_CENTS = 99;
 	private final int STEP_PRECISE_TUNING_CENTS = 1;
 	
-	private TuningConfigurationController tuningConfigurationController =
-			new TuningConfigurationController();
+	private final TuningConfigurationController tuningConfigurationController;
+	
+	@Inject
+	public TuningConfigurationViewImpl(
+			TuningConfigurationController tuningConfigurationController) {
+		
+		this.tuningConfigurationController = tuningConfigurationController;
+	}
 	
 	public JPanel getTuningPanel() {
 		

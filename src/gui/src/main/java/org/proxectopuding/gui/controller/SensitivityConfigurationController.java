@@ -13,20 +13,27 @@ import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.NotificationService;
-import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
-import org.proxectopuding.gui.model.services.impl.NotificationServiceImpl;
 import org.proxectopuding.gui.model.utils.Notification;
+
+import com.google.inject.Inject;
 
 public class SensitivityConfigurationController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private DeviceManagerService deviceManagerService =
-			new DeviceManagerServiceImpl();
-	private NotificationService notificationService =
-			new NotificationServiceImpl();
+	private final I18nService i18nService;
+	private final DeviceManagerService deviceManagerService;
+	private final NotificationService notificationService;
 	
 	private int oldBagPressure = -1;
+	
+	@Inject
+	public SensitivityConfigurationController(I18nService i18nService,
+			DeviceManagerService deviceManagerService,
+			NotificationService notificationService) {
+		
+		this.i18nService = i18nService;
+		this.deviceManagerService = deviceManagerService;
+		this.notificationService = notificationService;
+	}
 	
 	public String getTranslationForBagPressureLabel() {
 		return i18nService.getTranslation("sensitivityConfiguration.bagPressure.label");

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
-import org.proxectopuding.gui.model.entities.MidiServerConfiguration;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 
 public interface ConfigurationApplicationService {
 	

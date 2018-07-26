@@ -3,8 +3,9 @@ package org.proxectopuding.gui.model.utils.connection;
 import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.services.MidiService;
-import org.proxectopuding.gui.model.services.impl.MidiServiceImpl;
 import org.proxectopuding.gui.model.utils.OperativeSystemManager;
+
+import com.google.inject.Inject;
 
 public abstract class ConnectionManagerAbstractImpl implements ConnectionManager {
 	
@@ -18,13 +19,17 @@ public abstract class ConnectionManagerAbstractImpl implements ConnectionManager
 	// Milliseconds to block while waiting for port open
 	protected static final int CONNECTION_TIME_OUT = 2000;
 
-	protected static String PORT_NAME;
-	private static MidiService midiService;
+	protected String PORT_NAME;
+	private final MidiService midiService;
 	
-	static {
-		setPortName();
-		midiService = new MidiServiceImpl();
-	};
+	@Inject
+	public ConnectionManagerAbstractImpl(
+			OperativeSystemManager operativeSystemManager,
+			MidiService midiService) {
+		
+		setPortName(operativeSystemManager);
+		this.midiService = midiService;
+	}
 	
 	/**
 	 * Get a MIDI service.
@@ -49,12 +54,12 @@ public abstract class ConnectionManagerAbstractImpl implements ConnectionManager
 	/**
 	 * Set the serial port name depending on the OS.
 	 */
-	private static void setPortName() {
-		if (OperativeSystemManager.isWindows()) {
+	private void setPortName(OperativeSystemManager operativeSystemManager) {
+		if (operativeSystemManager.isWindows()) {
 			PORT_NAME = PORT_NAME_WINDOWS;
-		} else if (OperativeSystemManager.isMacOs()) {
+		} else if (operativeSystemManager.isMacOs()) {
 			PORT_NAME = PORT_NAME_MACOS;
-		} else if (OperativeSystemManager.isUnix()) {
+		} else if (operativeSystemManager.isUnix()) {
 			PORT_NAME = PORT_NAME_UNIX;
 		}
 	}

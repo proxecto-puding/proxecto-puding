@@ -18,21 +18,28 @@ import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.NotificationService;
-import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
-import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
-import org.proxectopuding.gui.model.services.impl.NotificationServiceImpl;
 import org.proxectopuding.gui.model.utils.Notification;
+
+import com.google.inject.Inject;
 
 public class FingeringConfigurationController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private DeviceManagerService deviceManagerService =
-			new DeviceManagerServiceImpl();
-	private ConfigurationApplicationService confAppService =
-			new ConfigurationApplicationServiceImpl();
-	private NotificationService notificationService =
-			new NotificationServiceImpl();
+	private final I18nService i18nService;
+	private final DeviceManagerService deviceManagerService;
+	private final ConfigurationApplicationService confAppService;
+	private final NotificationService notificationService;
+	
+	@Inject
+	public FingeringConfigurationController(I18nService i18nService,
+			DeviceManagerService deviceManagerService,
+			ConfigurationApplicationService confAppService,
+			NotificationService notificationService) {
+		
+		this.i18nService = i18nService;
+		this.deviceManagerService = deviceManagerService;
+		this.confAppService = confAppService;
+		this.notificationService = notificationService;
+	}
 
 	public String getTranslationForCustomFingeringNoteLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNote.label");

@@ -24,14 +24,22 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.proxectopuding.gui.controller.FingeringConfigurationController;
 import org.proxectopuding.gui.view.FingeringConfigurationView;
 
+import com.google.inject.Inject;
+
 public class FingeringConfigurationViewImpl extends ViewImpl implements FingeringConfigurationView {
 	
 	private static final Logger LOGGER = Logger.getLogger(FingeringConfigurationViewImpl.class.getName());
 	
 	private static final String SENSORS_IMAGE_ICON_PATH = "images/sensors.png";
 
-	private FingeringConfigurationController fingeringConfigurationController =
-			new FingeringConfigurationController();
+	private final FingeringConfigurationController fingeringConfigurationController;
+	
+	@Inject
+	public FingeringConfigurationViewImpl(
+			FingeringConfigurationController fingeringConfigurationController) {
+		
+		this.fingeringConfigurationController = fingeringConfigurationController;
+	}
 	
 	public JPanel getFingeringPanel() {
 		

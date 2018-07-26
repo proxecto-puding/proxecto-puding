@@ -14,10 +14,18 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.proxectopuding.gui.controller.StartConfigurationController;
 import org.proxectopuding.gui.view.StartConfigurationView;
 
+import com.google.inject.Inject;
+
 public class StartConfigurationViewImpl extends ViewImpl implements StartConfigurationView {
 
-	private StartConfigurationController startConfigurationController =
-			new StartConfigurationController();
+	private final StartConfigurationController startConfigurationController;
+	
+	@Inject
+	public StartConfigurationViewImpl(
+			StartConfigurationController startConfigurationController) {
+	
+		this.startConfigurationController = startConfigurationController;
+	}
 	
 	public JPanel getStartPanel() {
 		

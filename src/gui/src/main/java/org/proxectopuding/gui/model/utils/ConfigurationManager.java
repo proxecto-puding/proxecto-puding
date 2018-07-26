@@ -3,37 +3,43 @@ package org.proxectopuding.gui.model.utils;
 import java.util.List;
 import java.util.Properties;
 
+import com.google.inject.Inject;
+
 public class ConfigurationManager {
 
 	private static final String CONFIG_FILE_PATH =
 			"configuration.properties";
 	
-	private static Properties properties;
+	private final PropertiesManager propertiesManager;
+	private final Properties properties;
 	
-	static {
-		properties = PropertiesManager.getProperties(CONFIG_FILE_PATH);
-	};
+	@Inject
+	public ConfigurationManager(PropertiesManager propertiesManager) {
+		
+		this.propertiesManager = propertiesManager;
+		this.properties = propertiesManager.getProperties(CONFIG_FILE_PATH);
+	}
 	
-	public static String getAboutUrl() {
+	public String getAboutUrl() {
 		return properties.getProperty("aboutUrl");
 	}
 	
-	public static String getBagpipeApiUrl() {
+	public String getBagpipeApiUrl() {
 		return properties.getProperty("bagpipeApiUrl");
 	}
 	
-	public static String getConfAppApiUrl() {
+	public String getConfAppApiUrl() {
 		return properties.getProperty("confAppApiUrl");
 	}
 	
-	public static String getUserManualUrl() {
+	public String getUserManualUrl() {
 		return properties.getProperty("userManualUrl");
 	}
 	
-	public static List<String> getSupportedLanguages() {
+	public List<String> getSupportedLanguages() {
 		
 		String propertyValue = properties.getProperty("supportedLanguages");
-		return PropertiesManager.getPropertyValues(propertyValue);
+		return propertiesManager.getPropertyValues(propertyValue);
 	}
 	
 }

@@ -1,7 +1,9 @@
-package org.proxectopuding.gui.model.entities;
+package org.proxectopuding.gui.model.entities.midiServer;
 
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.proxectopuding.gui.model.entities.PreciseTuning;
 
 public class MidiServerConfiguration {
 	

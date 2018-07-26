@@ -16,18 +16,25 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.NotificationService;
-import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
-import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
-import org.proxectopuding.gui.model.services.impl.NotificationServiceImpl;
 import org.proxectopuding.gui.model.utils.Notification;
+
+import com.google.inject.Inject;
 
 public class TuningConfigurationController {
 	
-	private I18nService i18nService = new I18nServiceImpl();
-	private ConfigurationApplicationService confAppService =
-			new ConfigurationApplicationServiceImpl();
-	private NotificationService notificationService =
-			new NotificationServiceImpl();
+	private final I18nService i18nService;
+	private final ConfigurationApplicationService confAppService;
+	private final NotificationService notificationService;
+	
+	@Inject
+	public TuningConfigurationController(I18nService i18nService,
+			ConfigurationApplicationService confAppService,
+			NotificationService notificationService) {
+		
+		this.i18nService = i18nService;
+		this.confAppService = confAppService;
+		this.notificationService = notificationService;
+	}
 
 	public String getTranslationForTuningFrequencyLabel() {
 		return i18nService.getTranslation("tuningConfiguration.tuningFrequency.label");

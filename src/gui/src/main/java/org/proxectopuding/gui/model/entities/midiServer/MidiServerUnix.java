@@ -1,4 +1,4 @@
-package org.proxectopuding.gui.model.entities;
+package org.proxectopuding.gui.model.entities.midiServer;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,10 +8,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.proxectopuding.gui.model.utils.FileUtils;
-import org.proxectopuding.gui.model.utils.MidiUtils;
+import org.proxectopuding.gui.model.entities.PreciseTuning;
 
-public class MidiServerUnix extends MidiServer {
+public class MidiServerUnix implements MidiServer {
 	
 	private static final Logger LOGGER = Logger.getLogger(MidiServerUnix.class.getName());
 	
@@ -21,26 +20,30 @@ public class MidiServerUnix extends MidiServer {
 	private static final String CHORUS = "--chorus=n";
 	private static final String DEF_CONFIG_FILE_PATH =
 			"/etc/timidity/timidity.cfg";
+	private static final String EXECUTABLE_PATH = "/usr/bin/timidity";
+	private static final String TEMP_CONFIG_FILE_PATH = "/tmp";
 	
-	private static String configFilePath;
-	private static String tablePath;
+	private final MidiServerGeneral midiServer;
+	private String configFilePath;
+	private String tablePath;
 	
-	static {
-		path = "/usr/bin/timidity";
-		tempPath = "/tmp";
-	};
-
+	public MidiServerUnix(MidiServerGeneral midiServer) {
+		
+		this.midiServer = midiServer;
+		this.midiServer.setTempConfigFilePath(TEMP_CONFIG_FILE_PATH);
+	}
+	
 	@Override
 	public List<String> getCommand() {
 		
 		List<String> command = new ArrayList<String>();
 		
 		// Executable.
-		command.add(path);
+		command.add(EXECUTABLE_PATH);
 		
-		if (configuration != null) {
+		if (getConfiguration() != null) {
 			// Real samples.
-			if (configuration.useRealSamples()) {
+			if (getConfiguration().useRealSamples()) {
 				configFilePath = getRealSamplesConfigFilePath();
 				if (configFilePath != null) {
 					command.add(REAL_SAMPLES + configFilePath);
@@ -48,13 +51,13 @@ public class MidiServerUnix extends MidiServer {
 			}
 			
 			// Tuning mode, tuning frequency and precise tunings.
-			tablePath = getFrequencyTablePath(configuration);
+			tablePath = getFrequencyTablePath(getConfiguration());
 			if (tablePath != null) {
 				command.add(FREQ_TABLE + tablePath);
 			}
 			
 			// Continuous vibrato.
-			if (configuration.useContinuousVibrato()) {
+			if (getConfiguration().useContinuousVibrato()) {
 				// Only for hardware not supporting manual vibrato.
 				command.add(VIBRATO);
 				command.add(CHORUS);
@@ -111,8 +114,8 @@ public class MidiServerUnix extends MidiServer {
 		String tempConfigFilePath = null;
 		
 		try {
-			tempConfigFilePath = FileUtils.copyFileToDirectory(
-					DEF_CONFIG_FILE_PATH, tempPath);
+			tempConfigFilePath = midiServer.getFileUtils().copyFileToDirectory(
+					DEF_CONFIG_FILE_PATH, TEMP_CONFIG_FILE_PATH);
 		} catch (IOException e) {
 			tempConfigFilePath = null;
 			LOGGER.log(Level.SEVERE, "Unable to copy the default config file to the temporal directory", e);
@@ -166,7 +169,7 @@ public class MidiServerUnix extends MidiServer {
 		
 		try {
 			File configFile = new File(configFilePath);
-			List<String> lines = FileUtils.readLines(configFile);
+			List<String> lines = midiServer.getFileUtils().readLines(configFile);
 			
 			// Disable other sound sources.
 			for (String line : lines) {
@@ -175,7 +178,7 @@ public class MidiServerUnix extends MidiServer {
 				}
 			}
 			
-			FileUtils.writeLines(configFile, lines, false);
+			midiServer.getFileUtils().writeLines(configFile, lines, false);
 			
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to disable other SoundFont sources", e);
@@ -195,7 +198,7 @@ public class MidiServerUnix extends MidiServer {
 		
 		try {
 			File configFile = new File(configFilePath);
-			List<String> lines = FileUtils.readLines(configFile);
+			List<String> lines = midiServer.getFileUtils().readLines(configFile);
 			
 			// Enable custom SoundFont source.
 			String soundFontDirectory =
@@ -206,7 +209,7 @@ public class MidiServerUnix extends MidiServer {
 			lines.add("dir " + soundFontDirectory);
 			lines.add("soundfont " + soundFontFile);
 			
-			FileUtils.writeLines(configFile, lines, false);
+			midiServer.getFileUtils().writeLines(configFile, lines, false);
 			
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to enable a custom SoundFont source", e);
@@ -231,10 +234,10 @@ public class MidiServerUnix extends MidiServer {
 		boolean usePureIntonation = configuration.usePureIntonationMode();
 		Set<PreciseTuning> preciseTunings = configuration.getPreciseTunings();
 		
-		frequencyTablePath = MidiUtils.generateFrequencyTable(tone, octave,
-				frequency, usePureIntonation, preciseTunings, tempPath);
+		frequencyTablePath = midiServer.getMidiUtils().generateFrequencyTable(
+				tone, octave, frequency, usePureIntonation, preciseTunings,
+				TEMP_CONFIG_FILE_PATH);
 		
 		return frequencyTablePath;
 	}
-
 }

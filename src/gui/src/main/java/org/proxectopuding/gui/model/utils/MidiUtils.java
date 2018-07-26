@@ -30,7 +30,7 @@ public class MidiUtils {
 	 * @param path Directory path where the table is going to be stored.
 	 * @return The path to the generated table file.
 	 */
-	public static String generateFrequencyTable(int tone, int octave,
+	public String generateFrequencyTable(int tone, int octave,
 			int frequency, boolean usePureIntonation,
 			Set<PreciseTuning> preciseTunings, String path) {
 		
@@ -49,7 +49,7 @@ public class MidiUtils {
 	 * @param path Directory path where the table is going to be stored.
 	 * @return The full path to the frequency table file.
 	 */
-	private static String getTablePath(String path) {
+	private String getTablePath(String path) {
 		
 		String tablePath = path;
 		
@@ -66,7 +66,7 @@ public class MidiUtils {
 	 * @param path Directory path where the table is going to be stored.
 	 * @param table Table content conformed by a list of frequencies.
 	 */
-	private static void writeFrequencyTabletoFile(String path, String table) {
+	private void writeFrequencyTabletoFile(String path, String table) {
 		writeFrequencyTabletoFile(path, table, false);
 	}
 	
@@ -76,7 +76,7 @@ public class MidiUtils {
 	 * @param table Table content conformed by a list of frequencies.
 	 * @param append Indicate if it should append the content to the file.
 	 */
-	private static void writeFrequencyTabletoFile(String path, String table,
+	private void writeFrequencyTabletoFile(String path, String table,
 			boolean append) {
 		try {
 			FileUtils.writeStringToFile(new File(path), table, "UTF-8", append);
@@ -96,7 +96,7 @@ public class MidiUtils {
 	 * notes.
 	 * @return The path to the generated table file.
 	 */
-	private static String generateFrequencyTable(int tone, int octave,
+	private String generateFrequencyTable(int tone, int octave,
 			int frequency, boolean usePureIntonation,
 			Set<PreciseTuning> preciseTunings) {
 		
@@ -131,7 +131,7 @@ public class MidiUtils {
 	 * @param frequency A4 frequency (by default, 440Hz).
 	 * @return A 128 array containing all the calculated frequencies in Hz.
 	 */
-	private static double[] generatePureIntonationFrequencies(int tone,
+	private double[] generatePureIntonationFrequencies(int tone,
 			int octave, int frequency) {
 		
 		double[] frequencies = generateTemperedScaleFrequencies(frequency);
@@ -157,7 +157,7 @@ public class MidiUtils {
 	 * @param toneMidiNumber First degree of the main octave.
 	 * @return An octave ratio.
 	 */
-	private static double getOctaveRatio(int midiNoteNumber,
+	private double getOctaveRatio(int midiNoteNumber,
 			int midiToneNumber) {
 		
 		double octaveRatio;
@@ -184,7 +184,7 @@ public class MidiUtils {
 	 * @param midiToneNumber First degree of the main octave.
 	 * @return A note ratio.
 	 */
-	private static double getPureIntonationNoteRatio(int midiNoteNumber,
+	private double getPureIntonationNoteRatio(int midiNoteNumber,
 			int midiToneNumber) {
 		
 		double noteRatio;
@@ -203,7 +203,7 @@ public class MidiUtils {
 	 * @param frequency A4 frequency (by default, 440Hz).
 	 * @return A 128 array containing all the calculated frequencies in Hz.
 	 */
-	private static double[] generateTemperedScaleFrequencies(int frequency) {
+	private double[] generateTemperedScaleFrequencies(int frequency) {
 		
 		double[] table = new double[128];
 		
@@ -221,7 +221,7 @@ public class MidiUtils {
 	 * @param frequency A4 frequency (by default, 440Hz).
 	 * @return The calculated frequency in Hz.
 	 */
-	private static double getNoteFrequencyFromA4Frequency(int note, int frequency) {
+	private double getNoteFrequencyFromA4Frequency(int note, int frequency) {
 		
 		int a4 = 69;
 		double n = (note - a4); // Distance to A4.
@@ -239,7 +239,7 @@ public class MidiUtils {
 	 * @param preciseTunings User custom tunings.
 	 * @return Custom frequencies.
 	 */
-	private static double[] generateCustomFrequencies(int tone, int octave,
+	private double[] generateCustomFrequencies(int tone, int octave,
 			double[] frequencies, Set<PreciseTuning> preciseTunings) {
 		
 		double[] customFrequencies = frequencies;
@@ -271,7 +271,7 @@ public class MidiUtils {
 	 * @param frequencies A list of frequencies.
 	 * @return A boolean indicating if the frequency is legit.
 	 */
-	private static boolean isLegitFrequency(int midiNoteNumber,
+	private boolean isLegitFrequency(int midiNoteNumber,
 			double frequency, double[] frequencies) {
 		
 		boolean isLegitFrequency = true;
@@ -297,7 +297,7 @@ public class MidiUtils {
 	 * the cents.
 	 * @return Cents.
 	 */
-	private static double getCents(double f1, double f2) {
+	private double getCents(double f1, double f2) {
 		
 		return getCents(f2/f1);
 	}
@@ -307,7 +307,7 @@ public class MidiUtils {
 	 * @param ratio Ratio between frequencies (f2/f1).
 	 * @return Cents.
 	 */
-	private static double getCents(double ratio) {
+	private double getCents(double ratio) {
 		
 		double cents = 1200 * (Math.log(ratio) / Math.log(2));
 		
@@ -320,7 +320,7 @@ public class MidiUtils {
 	 * @param cents Cents corresponding to the ratio (f2/f1).
 	 * @return A relative frequency (f2).
 	 */
-	private static double getRelativeFrequency(double f1, double cents) {
+	private double getRelativeFrequency(double f1, double cents) {
 		
 		double f2 = f1 * Math.pow(2, cents/1200);
 				
@@ -333,7 +333,7 @@ public class MidiUtils {
 	 * @param octave Base/tuning octave (-1 to 9).
 	 * @return A MIDI note number (0 to 127).
 	 */
-	private static int getMidiNoteNumber(int tone, int octave) {
+	private int getMidiNoteNumber(int tone, int octave) {
 		
 		int noteNumber = ((octave + 1) * 12) + tone; 
 		

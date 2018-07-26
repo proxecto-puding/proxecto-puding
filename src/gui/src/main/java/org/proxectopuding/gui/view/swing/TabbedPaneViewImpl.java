@@ -7,21 +7,33 @@ import javax.swing.event.ChangeListener;
 import org.proxectopuding.gui.controller.TabbedPaneController;
 import org.proxectopuding.gui.view.TabbedPaneView;
 
+import com.google.inject.Inject;
+
 public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	
-	private StartConfigurationViewImpl startConfigurationView = 
-			new StartConfigurationViewImpl();
-	private SelectionConfigurationViewImpl selectionConfigurationView =
-			new SelectionConfigurationViewImpl();
-	private TuningConfigurationViewImpl tuningConfigurationView =
-			new TuningConfigurationViewImpl();
-	private SensitivityConfigurationViewImpl sensitivityConfigurationView =
-			new SensitivityConfigurationViewImpl();
-	private FingeringConfigurationViewImpl fingeringConfigurationView =
-			new FingeringConfigurationViewImpl();
+	private final StartConfigurationViewImpl startConfigurationView;
+	private final SelectionConfigurationViewImpl selectionConfigurationView;
+	private final TuningConfigurationViewImpl tuningConfigurationView;
+	private final SensitivityConfigurationViewImpl sensitivityConfigurationView;
+	private final FingeringConfigurationViewImpl fingeringConfigurationView;
 	
-	private TabbedPaneController tabbedPaneController =
-			new TabbedPaneController();
+	private final TabbedPaneController tabbedPaneController;
+	
+	@Inject
+	public TabbedPaneViewImpl(StartConfigurationViewImpl startConfigurationView,
+			SelectionConfigurationViewImpl selectionConfigurationView,
+			TuningConfigurationViewImpl tuningConfigurationView,
+			SensitivityConfigurationViewImpl sensitivityConfigurationView,
+			FingeringConfigurationViewImpl fingeringConfigurationView,
+			TabbedPaneController tabbedPaneController) {
+		
+		this.startConfigurationView = startConfigurationView;
+		this.selectionConfigurationView = selectionConfigurationView;
+		this.tuningConfigurationView = tuningConfigurationView;
+		this.sensitivityConfigurationView = sensitivityConfigurationView;
+		this.fingeringConfigurationView = fingeringConfigurationView;
+		this.tabbedPaneController = tabbedPaneController;
+	}
 	
 	public JTabbedPane getTabbedPane() {
 		

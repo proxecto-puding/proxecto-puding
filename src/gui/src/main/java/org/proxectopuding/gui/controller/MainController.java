@@ -1,12 +1,18 @@
 package org.proxectopuding.gui.controller;
 
 import org.proxectopuding.gui.model.services.DeviceManagerService;
-import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
+
+import com.google.inject.Inject;
 
 public class MainController {
 	
-	private DeviceManagerService deviceManagerService =
-			new DeviceManagerServiceImpl();
+	private final DeviceManagerService deviceManagerService;
+	
+	@Inject
+	public MainController(DeviceManagerService deviceManagerService) {
+	
+		this.deviceManagerService = deviceManagerService;
+	}
 
 	public void findChanters() {
 		

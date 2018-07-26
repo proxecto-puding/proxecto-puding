@@ -107,25 +107,24 @@ public class ConfigurationApplicationServiceImpl
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_CUSTOM_FINGERING_OCTAVE = 4;
 	
-	// TODO Review all this static variables.
-	private static BagpipeConfigurationType bagpipeConfigurationType;
-	private static Map<String, ReadingTone> readingTones;
-	private static ReadingTone readingTone;
-	private static Map<String, TuningTone> tuningTones;
-	private static Map<String, Sample> samples;
-	private static String sample;
-	private static int tuningFrequency;
-	private static Map<String, TuningMode> tuningModes;
-	private static String tuningMode;
-	private static Map<String, PreciseTuningNote> preciseTuningNotes;
-	private static PreciseTuningNote preciseTuningNote;
-	private static int preciseTuningOctave;
-	private static Map<Integer, PreciseTuning> preciseTunings;
-	private static Map<String, FingeringNote> customFingeringNotes;
-	private static FingeringNote customFingeringNote;
-	private static int customFingeringOctave;
-	private static Map<Integer, FingeringOffset> customFingeringNumbers;
-	private static int customFingeringNumber;
+	private BagpipeConfigurationType bagpipeConfigurationType;
+	private Map<String, ReadingTone> readingTones;
+	private ReadingTone readingTone;
+	private Map<String, TuningTone> tuningTones;
+	private Map<String, Sample> samples;
+	private String sample;
+	private int tuningFrequency;
+	private Map<String, TuningMode> tuningModes;
+	private String tuningMode;
+	private Map<String, PreciseTuningNote> preciseTuningNotes;
+	private PreciseTuningNote preciseTuningNote;
+	private int preciseTuningOctave;
+	private Map<Integer, PreciseTuning> preciseTunings;
+	private Map<String, FingeringNote> customFingeringNotes;
+	private FingeringNote customFingeringNote;
+	private int customFingeringOctave;
+	private Map<Integer, FingeringOffset> customFingeringNumbers;
+	private int customFingeringNumber;
 	
 	private final I18nManager i18nManager;
 	
@@ -156,7 +155,7 @@ public class ConfigurationApplicationServiceImpl
 	public void setSelectedBagpipeConfigurationType(
 			BagpipeConfigurationType bagpipeConfigurationType) {
 		
-		ConfigurationApplicationServiceImpl.bagpipeConfigurationType =
+		this.bagpipeConfigurationType =
 				bagpipeConfigurationType;
 	}
 	
@@ -175,7 +174,7 @@ public class ConfigurationApplicationServiceImpl
 		
 		ReadingTone newReadingTone = readingTones.get(readingTone); 
 		if (newReadingTone != null) {
-			ConfigurationApplicationServiceImpl.readingTone = newReadingTone;
+			this.readingTone = newReadingTone;
 		}
 	}
 	
@@ -256,7 +255,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public void setSample(String sample) {
-		ConfigurationApplicationServiceImpl.sample = sample;
+		this.sample = sample;
 	}
 	
 	@Override
@@ -281,7 +280,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public void setTuningFrequency(int tuningFrequency) {
-		ConfigurationApplicationServiceImpl.tuningFrequency = tuningFrequency;
+		this.tuningFrequency = tuningFrequency;
 	}
 	
 	@Override
@@ -296,7 +295,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public void setTuningMode(String tuningMode) {
-		ConfigurationApplicationServiceImpl.tuningMode = tuningMode;
+		this.tuningMode = tuningMode;
 	}
 	
 	@Override
@@ -320,8 +319,7 @@ public class ConfigurationApplicationServiceImpl
 		PreciseTuningNote newPreciseTuningNote =
 				preciseTuningNotes.get(preciseTuningNote); 
 		if (newPreciseTuningNote != null) {
-			ConfigurationApplicationServiceImpl.preciseTuningNote =
-					newPreciseTuningNote;
+			this.preciseTuningNote = newPreciseTuningNote;
 		}
 	}
 	
@@ -364,8 +362,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setPreciseTuningOctave(int preciseTuningOctave) {
 		
-		ConfigurationApplicationServiceImpl.preciseTuningOctave =
-				preciseTuningOctave;
+		this.preciseTuningOctave = preciseTuningOctave;
 	}
 	
 	@Override
@@ -403,8 +400,7 @@ public class ConfigurationApplicationServiceImpl
 		FingeringNote newCustomFingeringNote =
 				customFingeringNotes.get(customFingeringNote); 
 		if (newCustomFingeringNote != null) {
-			ConfigurationApplicationServiceImpl.customFingeringNote =
-					newCustomFingeringNote;
+			this.customFingeringNote = newCustomFingeringNote;
 		}
 	}
 	
@@ -447,8 +443,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setCustomFingeringOctave(Integer customFingeringOctave) {
 		
-		ConfigurationApplicationServiceImpl.customFingeringOctave =
-				customFingeringOctave;
+		this.customFingeringOctave = customFingeringOctave;
 	}
 	
 	@Override
@@ -487,8 +482,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setCustomFingeringNumber(int customFingeringNumber) {
 		
-		ConfigurationApplicationServiceImpl.customFingeringNumber =
-				customFingeringNumber;
+		this.customFingeringNumber = customFingeringNumber;
 	}
 	
 	@Override
@@ -643,7 +637,7 @@ public class ConfigurationApplicationServiceImpl
 		sample = DEFAULT_SAMPLE;
 	}
 	
-	private static void setTuningFrequency() {
+	private void setTuningFrequency() {
 		tuningFrequency = DEFAULT_TUNING_FREQUENCY;
 	}
 	

@@ -29,6 +29,20 @@
 	  <artifactId>commons-io</artifactId>
 	  <version>2.6</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <version>4.12</version>
+	  <scope>test</scope>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+	<dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.20.1</version>
+	</dependency>
+	
 	<!-- Serial connection: option A -->
 	<!-- https://mvnrepository.com/artifact/gnu.io/rxtx -->
 	<dependency>
@@ -49,6 +63,7 @@
       <artifactId>ardulink-core-serial-jssc</artifactId>
       <version>2.1.0</version>
 	</dependency>
+	<!-- Serial connection: option C -->
 	<!-- https://mvnrepository.com/artifact/org.scream3r/jssc -->
 	<dependency>
 	  <groupId>org.scream3r</groupId>

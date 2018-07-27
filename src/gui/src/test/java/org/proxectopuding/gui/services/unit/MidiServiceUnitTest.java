@@ -3,6 +3,7 @@ package org.proxectopuding.gui.services.unit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -49,6 +50,8 @@ public class MidiServiceUnitTest {
 		// Then
 		verify(midiServer, times(1)).getCommand();
 		assertNotNull(process);
+		assertTrue(process.isAlive());
+		process.destroy();
 	}
 	
 	@Test
@@ -58,13 +61,15 @@ public class MidiServiceUnitTest {
 		when(midiServer.getCommand()).thenReturn(COMMAND);
 		
 		// When
-		Process process = midiService.restart();
+		Process process = midiService.start();
+		delay(1);
+		process = midiService.restart();
 		
 		// Then
-		verify(midiServer, times(1)).getCommand();
+		verify(midiServer, times(2)).getCommand();
 		assertNotNull(process);
-		delay(1);
-		assertFalse(process.isAlive());
+		assertTrue(process.isAlive());
+		process.destroy();
 	}
 	
 	@Test
@@ -75,6 +80,7 @@ public class MidiServiceUnitTest {
 		
 		// When
 		Process process = midiService.start();
+		delay(1);
 		midiService.stop();
 		
 		// Then

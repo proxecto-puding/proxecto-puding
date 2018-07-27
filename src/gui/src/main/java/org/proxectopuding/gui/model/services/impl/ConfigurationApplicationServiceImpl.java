@@ -18,6 +18,7 @@ import org.proxectopuding.gui.model.entities.TuningMode;
 import org.proxectopuding.gui.model.entities.TuningTone;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
+import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.utils.I18nManager;
 
 import com.google.inject.Inject;
@@ -127,11 +128,14 @@ public class ConfigurationApplicationServiceImpl
 	private int customFingeringNumber;
 	
 	private final I18nManager i18nManager;
+	private final DeviceManagerService deviceManagerService;
 	
 	@Inject
-	public ConfigurationApplicationServiceImpl(I18nManager i18nManager) {
+	public ConfigurationApplicationServiceImpl(I18nManager i18nManager,
+			DeviceManagerService deviceManagerService) {
 		
 		this.i18nManager = i18nManager;
+		this.deviceManagerService = deviceManagerService;
 		
 		setReadingTones();
 		setTuningTones();
@@ -557,20 +561,21 @@ public class ConfigurationApplicationServiceImpl
 		
 		MidiServerConfiguration configuration = new MidiServerConfiguration();
 		
-		// TODO Implement.
-//		int tuningTone = tuningTones.get(IMPLEMENTtuningTone).getValue();
-//		boolean usePureIntonationMode = tuningModes.get(tuningMode).equals(TuningMode.PURE);
-//		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
-//		boolean useContinuousVibrato = false;
-//		
-//		configuration.setTuningTone(tuningTone);
-//		configuration.setTuningOctave(tuningOctave);
-//		configuration.setTuningFrequency(tuningFrequency);
-//		configuration.setUsePureIntonationMode(usePureIntonationMode);
-//		configuration.setUseRealSamples(useRealSamples);
-//		configuration.setUseContinuousVibrato(useContinuousVibrato);
-//		configuration.setPreciseTunings(
-//				new LinkedHashSet<PreciseTuning>(preciseTunings.values()));
+		String productId = deviceManagerService.getSelectedBagpipeDevice().getProductId();
+		int tuningTone = deviceManagerService.getTuningTone(productId);
+		int tuningOctave = deviceManagerService.getTuningOctave(productId);
+		boolean usePureIntonationMode = tuningModes.get(tuningMode).equals(TuningMode.PURE);
+		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
+		boolean useContinuousVibrato = false;
+		
+		configuration.setTuningTone(tuningTone);
+		configuration.setTuningOctave(tuningOctave);
+		configuration.setTuningFrequency(tuningFrequency);
+		configuration.setUsePureIntonationMode(usePureIntonationMode);
+		configuration.setUseRealSamples(useRealSamples);
+		configuration.setUseContinuousVibrato(useContinuousVibrato);
+		configuration.setPreciseTunings(
+				new LinkedHashSet<PreciseTuning>(preciseTunings.values()));
 		
 		return configuration;
 	}

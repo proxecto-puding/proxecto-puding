@@ -53,25 +53,23 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		sendDiscoveryBeacon();
 		
-		String json = connectionManager.readData();
-		int attempts = 0;
+		String response = null;
 		BagpipeDevice device = null;
-		
-		while (json != null && !json.isEmpty() && attempts < MAX_ATTEMPTS) {
-			LOGGER.log(Level.INFO, "Attempts: {0}", attempts + 1);
+		for (int i = 0; i < MAX_ATTEMPTS; i++) {
+			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				device = gson.fromJson(json, BagpipeDevice.class);
+				response = connectionManager.readData();
+				device = gson.fromJson(response, BagpipeDevice.class);
 				if (device != null) {
 					deviceManager.addDevice(device);
 					sendAck(device.getProductId());
+					break;
 				} else {
-					LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices. Json: {0}", json);
+					LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices. Json: {0}", response);
 				}
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to add a new device to the list of known devices", e);
 			}
-			json = connectionManager.readData();
-			attempts++;
 		}
 		
 		if (deviceManager.getDevices().size() == 0) {
@@ -142,11 +140,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		config.setProductId(productId);
 		config.setType(type);
 		String request = gson.toJson(config, BagpipeConfiguration.class);
-		String response = null; 
-		int attempts = 0;
-		while (response != null && !response.isEmpty() && attempts < MAX_ATTEMPTS) {
+		String response = null;
+		for (int i = 0; i < MAX_ATTEMPTS; i++) {
+			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				attempts++;
 				connectionManager.writeData(request);
 				response = connectionManager.readData();
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
@@ -155,18 +152,13 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						type.equalsIgnoreCase(configuration.getType())) {
 					sendAck(device.getProductId());
 					deviceManager.addConfiguration(productId, configuration);
-				} else {
-					// Wrong configuration supplied.
-					response = null;
-					configuration = null;
+					break;
 				}
 			} catch (Exception e) {
 				// Wrong configuration supplied.
-				response = null;
 				String configurationType = configuration == null ? "unknown" : configuration.getType(); 
 				LOGGER.log(Level.SEVERE, "Unable to find the configuration for productId: {0}, type: {1}", new String[]{productId, configurationType});
 				LOGGER.log(Level.SEVERE, "Unable to find the configuration", e);
-				configuration = null;
 			}
 		}
 		

@@ -1,5 +1,7 @@
 package org.proxectopuding.gui.services.integration;
 
+import static org.junit.Assert.assertEquals;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -54,7 +56,12 @@ public class NotificationServiceIntegrationTest {
 		return new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				// Skip.
+				
+				// Then
+				assertEquals(SOURCE, evt.getSource());
+				assertEquals(Notification.CHANTER_SELECTED.name(),
+						evt.getPropertyName());
+				assertEquals(NEW_VALUE, evt.getNewValue());
 			}
 		};
 	}

@@ -11,10 +11,8 @@ public class SensitivityConfiguration extends ConfigurationData {
 
 	public void setBagPressure(int bagPressure) {
 		
-		bagPressure = (bagPressure % 100) + 1;
-		if (bagPressure <= 0) {
-			bagPressure += 100;
-		}
+		int pressure = bagPressure % 100;
+		pressure = pressure <= 0 ? 1 : pressure;
 		
 		this.bagPressure = bagPressure;
 	}

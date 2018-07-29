@@ -21,7 +21,12 @@ import org.mockito.stubbing.OngoingStubbing;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
+import org.proxectopuding.gui.model.entities.FingeringConfiguration;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
+import org.proxectopuding.gui.model.entities.SelectionConfiguration;
+import org.proxectopuding.gui.model.entities.SensitivityConfiguration;
+import org.proxectopuding.gui.model.entities.StartConfiguration;
+import org.proxectopuding.gui.model.entities.TuningConfiguration;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
 import org.proxectopuding.gui.model.utils.DeviceManager;
@@ -236,7 +241,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getVolume() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			int expectedVolume = ((SelectionConfiguration) expectedDevice
+					.getConfigurationByType(
+							BagpipeConfigurationType.SELECT.name())
+							.getData()).getVolume(); 
+			
+			// When
+			int volume = deviceManagerService.getVolume(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedVolume, volume);
 			
 		} catch(IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -246,8 +264,16 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setVolume() {
 		try {
-			String productId = null;
-			int volume = -1;
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			int expectedVolume = 50;
+			
+			// When
+			deviceManagerService.setVolume(PRODUCT_ID, expectedVolume);
+			
+			// Then
+			int volume = deviceManagerService.getVolume(PRODUCT_ID);
+			assertEquals(expectedVolume, volume);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -257,7 +283,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getTuningTone() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			int expectedTuningTone = ((TuningConfiguration) expectedDevice
+					.getConfigurationByType(
+							BagpipeConfigurationType.TUNING.name())
+							.getData()).getTone(); 
+			
+			// When
+			int tuningTone = deviceManagerService.getTuningTone(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -267,8 +306,16 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setTuningTone() {
 		try {
-			String productId = null;
-			int tuningTone = -1;
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			int expectedTuningTone = 1;
+			
+			// When
+			deviceManagerService.setTuningTone(PRODUCT_ID, expectedTuningTone);
+			
+			// Then
+			int tuningTone = deviceManagerService.getTuningTone(PRODUCT_ID);
+			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -278,7 +325,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getTuningOctave() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			int expectedTuningOctave = ((TuningConfiguration) expectedDevice
+					.getConfigurationByType(
+							BagpipeConfigurationType.TUNING.name())
+							.getData()).getOctave(); 
+			
+			// When
+			int tuningOctave = deviceManagerService.getTuningOctave(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -288,8 +348,16 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setTuningOctave() {
 		try {
-			String productId = null;
-			int tuningOctave = -1;
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			int expectedTuningOctave = 5;
+			
+			// When
+			deviceManagerService.setTuningOctave(PRODUCT_ID, expectedTuningOctave);
+			
+			// Then
+			int tuningOctave = deviceManagerService.getTuningOctave(PRODUCT_ID);
+			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -299,7 +367,22 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getFingeringTypesEnabled() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			List<Boolean> expectedFingeringTypesEnabled =
+					((SelectionConfiguration) expectedDevice
+							.getConfigurationByType(
+									BagpipeConfigurationType.SELECT.name())
+									.getData()).getFingeringTypes(); 
+			
+			// When
+			List<Boolean> fingeringTypesEnabled =
+					deviceManagerService.getFingeringTypesEnabled(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -309,8 +392,19 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setFingeringTypesEnabled() {
 		try {
-			String productId = null;
-			List<Boolean> fingeringTypes = ImmutableList.of();
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			List<Boolean> expectedFingeringTypesEnabled =
+					ImmutableList.of(true, true, true);
+			
+			// When
+			deviceManagerService.setFingeringTypesEnabled(PRODUCT_ID,
+					expectedFingeringTypesEnabled);
+			
+			// Then
+			List<Boolean> fingeringTypesEnabled =
+					deviceManagerService.getFingeringTypesEnabled(PRODUCT_ID);
+			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -320,7 +414,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void isBagEnabled() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			boolean expectedBagEnabled = ((SelectionConfiguration) expectedDevice
+					.getConfigurationByType(
+							BagpipeConfigurationType.SELECT.name())
+							.getData()).isBagEnabled(); 
+			
+			// When
+			boolean bagEnabled = deviceManagerService.isBagEnabled(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -330,8 +437,16 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setBagEnabled() {
 		try {
-			String productId = null;
-			boolean bagEnabled = false;
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			boolean expectedBagEnabled = false;
+			
+			// When
+			deviceManagerService.setBagEnabled(PRODUCT_ID, expectedBagEnabled);
+			
+			// Then
+			boolean bagEnabled = deviceManagerService.isBagEnabled(PRODUCT_ID);
+			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -341,7 +456,22 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getDronesEnabled() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			List<Boolean> expectedDronesEnabled =
+					((SelectionConfiguration) expectedDevice
+							.getConfigurationByType(
+									BagpipeConfigurationType.SELECT.name())
+									.getData()).getDronesEnabled(); 
+			
+			// When
+			List<Boolean> dronesEnabled =
+					deviceManagerService.getDronesEnabled(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -351,8 +481,19 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setDronesEnabled() {
 		try {
-			String productId = null;
-			List<Boolean> drones = ImmutableList.of();
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			List<Boolean> expectedDronesEnabled =
+					ImmutableList.of(true, true, true);
+			
+			// When
+			deviceManagerService.setDronesEnabled(PRODUCT_ID,
+					expectedDronesEnabled);
+			
+			// Then
+			List<Boolean> dronesEnabled =
+					deviceManagerService.getDronesEnabled(PRODUCT_ID);
+			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -362,7 +503,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getBagPressure() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			int expectedBagPressure = ((SensitivityConfiguration) expectedDevice
+					.getConfigurationByType(
+							BagpipeConfigurationType.SENSIT.name())
+							.getData()).getBagPressure();
+			
+			// When
+			int bagPressure = deviceManagerService.getBagPressure(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -372,8 +526,16 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setBagPressure() {
 		try {
-			String productId = null;
-			int bagPressure = -1;
+			// Given
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+			int expectedBagPressure = 50;
+			
+			// When
+			deviceManagerService.setBagPressure(PRODUCT_ID, expectedBagPressure);
+			
+			// Then
+			int bagPressure = deviceManagerService.getBagPressure(PRODUCT_ID);
+			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -383,7 +545,22 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getFingerings() {
 		try {
-			String productId = null;
+			// Given
+			BagpipeDevice expectedDevice = getDevice();
+			when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(expectedDevice);
+			List<FingeringOffset> expectedFingerings =
+					((FingeringConfiguration) expectedDevice
+							.getConfigurationByType(
+									BagpipeConfigurationType.FINGER.name())
+									.getData()).getFingerings(); 
+			
+			// When
+			List<FingeringOffset> fingerings =
+					deviceManagerService.getFingerings(PRODUCT_ID);
+			
+			// Then
+			verify(deviceManager, times(1)).getDevice(PRODUCT_ID);
+			assertEquals(expectedFingerings, fingerings);
 			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
@@ -393,8 +570,20 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void setFingerings() {
 		
-		String productId = null;
-		List<FingeringOffset> fingerings = ImmutableList.of();
+		// Given
+		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+		List<FingeringOffset> expectedFingerings =
+				getFingeringOffsets().stream().map(fo -> {
+					fo.setOffset(fo.getOffset()+1);	return fo;
+				}).collect(ImmutableList.toImmutableList());
+		
+		// When
+		deviceManagerService.setFingerings(PRODUCT_ID, expectedFingerings);
+		
+		// Then
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(PRODUCT_ID);
+		assertEquals(expectedFingerings, fingerings);
 	}
 	
 	// Private
@@ -403,6 +592,7 @@ public class DeviceManagerServiceUnitTest {
 		
 		BagpipeDevice device = new BagpipeDevice();
 		device.setProductId(PRODUCT_ID);
+		device.setConfigurations(getConfigurations(PRODUCT_ID));
 		return device;
 	}
 	
@@ -429,6 +619,23 @@ public class DeviceManagerServiceUnitTest {
 		
 		configuration.setProductId(productId);
 		configuration.setType(type.name());
+		switch (type) {
+			case START:
+				configuration.setData(getStartConfigurationData());
+				break;
+			case SELECT:
+				configuration.setData(getSelectionConfigurationData());
+				break;
+			case TUNING:
+				configuration.setData(getTuningConfigurationData());
+				break;
+			case SENSIT:
+				configuration.setData(getSensitivityConfigurationData());
+				break;
+			case FINGER:
+				configuration.setData(getFingeringConfigurationData());
+				break;
+		}
 		
 		return configuration;
 	}
@@ -451,5 +658,65 @@ public class DeviceManagerServiceUnitTest {
 		return getConfigurations(productId).stream()
 				.map(configuration -> gson.toJson(configuration))
 				.collect(ImmutableSet.toImmutableSet());
+	}
+	
+	private StartConfiguration getStartConfigurationData() {
+		
+		return new StartConfiguration();
+	}
+	
+	private SelectionConfiguration getSelectionConfigurationData() {
+		
+		SelectionConfiguration data = new SelectionConfiguration();
+
+		data.setVolume(100);
+		data.setBagEnabled(true);
+		data.setDronesEnabled(ImmutableList.of(true, false, false));
+		data.setFingeringTypes(ImmutableList.of(true, false, false));
+		
+		return data;
+	}
+	
+	private TuningConfiguration getTuningConfigurationData() {
+		
+		TuningConfiguration data = new TuningConfiguration();
+		
+		data.setTone(0);
+		data.setOctave(4);
+		
+		return data;
+	}
+	
+	private SensitivityConfiguration getSensitivityConfigurationData() {
+		
+		SensitivityConfiguration data = new SensitivityConfiguration();
+		
+		data.setBagPressure(100);
+		
+		return data;
+	}
+	
+	private FingeringConfiguration getFingeringConfigurationData() {
+		
+		FingeringConfiguration data = new FingeringConfiguration();
+		
+		data.setFingerings(getFingeringOffsets());
+		
+		return data;
+	}
+	
+	private List<FingeringOffset> getFingeringOffsets() {
+		
+		ImmutableList.Builder<FingeringOffset> fingerings =
+				ImmutableList.builder();
+		
+		for (int i = 0; i < 3; i++) {
+			FingeringOffset fingeringOffset = new FingeringOffset();
+			fingeringOffset.setFingering(i);
+			fingeringOffset.setOffset(i);
+			fingerings.add(fingeringOffset);
+		}
+		
+		return fingerings.build();
 	}
 }

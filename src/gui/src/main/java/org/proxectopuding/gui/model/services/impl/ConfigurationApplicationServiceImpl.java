@@ -26,19 +26,19 @@ import com.google.inject.Inject;
 public class ConfigurationApplicationServiceImpl
 		implements ConfigurationApplicationService {
 	
-	private static final String[] readingToneIds =
+	private static final String[] READING_TONE_IDS =
 		{"C", "D"};
-	private static final int[] readingToneValues =
+	private static final int[] READING_TONE_VALUES =
 		{0, 2};
-	private static final String[] readingToneTranslationIds =
+	private static final String[] READING_TONE_TRANSLATION_IDS =
 		{"readingTones.C", "readingTones.D"};
 	private static ReadingTone DEFAULT_READING_TONE;
 	
-	private static final String[] tuningToneIds =
+	private static final String[] TUNING_TONE_IDS =
 		{"C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"};
-	private static final int[] tuningToneValues =
+	private static final int[] TUNING_TONE_VALUES =
 		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-	private static final String[] tuningToneTranslationIds =
+	private static final String[] TUNING_TONE_TRANSLATION_IDS =
 		{"tuningTones.C", "tuningTones.Cs",
 		"tuningTones.D", "tuningTones.Ds",
 		"tuningTones.E",
@@ -48,11 +48,11 @@ public class ConfigurationApplicationServiceImpl
 		"tuningTones.B"};
 	private static TuningTone DEFAULT_TUNING_TONE;
 	
-	private static Integer[] tuningOctaves =
+	private static final Integer[] TUNING_OCTAVES =
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_TUNING_OCTAVE = 4;
 	
-	private static final String[] sampleTranslationIds =
+	private static final String[] SAMPLE_TRANSLATION_IDS =
 		{"samples.MIDI", "samples.galician"};
 	private static String DEFAULT_SAMPLE;
 	
@@ -66,15 +66,15 @@ public class ConfigurationApplicationServiceImpl
 	
 	private static final int DEFAULT_TUNING_FREQUENCY = 440;
 	
-	private static final String[] tuningModeTranslationIds =
+	private static final String[] TUNING_MODE_TRANSLATION_IDS =
 		{"tuningModes.tempered", "tuningModes.pure"};
 	private static String DEFAULT_TUNING_MODE;
 	
-	private static final String[] preciseTuningNoteIds =
+	private static final String[] PRECISE_TUNING_NOTE_IDS =
 		{"C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"};
-	private static final int[] preciseTuningNoteValues =
+	private static final int[] PRECISE_TUNING_NOTE_VALUES =
 		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-	private static final String[] preciseTuningNoteTranslationIds =
+	private static final String[] PRECISE_TUNING_NOTE_TRANSLATION_IDS =
 		{"preciseTuningNotes.C", "preciseTuningNotes.Cs",
 		"preciseTuningNotes.D", "preciseTuningNotes.Ds",
 		"preciseTuningNotes.E",
@@ -84,17 +84,17 @@ public class ConfigurationApplicationServiceImpl
 		"preciseTuningNotes.B"};
 	private static PreciseTuningNote DEFAULT_PRECISE_TUNING_NOTE;
 	
-	private static Integer[] preciseTuningOctaves =
+	private static final Integer[] PRECISE_TUNING_OCTAVES =
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_PRECISE_TUNING_OCTAVE = 4;
 	
 	private static final int DEFAULT_PRECISE_TUNING_CENTS = 0; 
 	
-	private static final String[] customFingeringNoteIds =
+	private static final String[] CUSTOM_FINGERING_NOTE_IDS =
 		{"C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"};
-	private static final int[] customFingeringNoteValues =
+	private static final int[] CUSTOM_FINGERING_NOTE_VALUES =
 		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-	private static final String[] customFingeringNoteTranslationIds =
+	private static final String[] CUSTOM_FINGERING_NOTE_TRANSLATION_IDS =
 		{"customFingeringNotes.C", "customFingeringNotes.Cs",
 		"customFingeringNotes.D", "customFingeringNotes.Ds",
 		"customFingeringNotes.E",
@@ -104,7 +104,7 @@ public class ConfigurationApplicationServiceImpl
 		"customFingeringNotes.B"};
 	private static FingeringNote DEFAULT_CUSTOM_FINGERING_NOTE;
 	
-	private static Integer[] customFingeringOctaves =
+	private static final Integer[] CUSTOM_FINGERING_OCTAVES =
 		{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int DEFAULT_CUSTOM_FINGERING_OCTAVE = 4;
 	
@@ -239,7 +239,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<Integer> getTuningOctaves() {
-		return new ArrayList<Integer>(Arrays.asList(tuningOctaves));
+		return new ArrayList<Integer>(Arrays.asList(TUNING_OCTAVES));
 	}
 	
 	@Override
@@ -355,7 +355,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<Integer> getPreciseTuningOctaves() {
-		return new ArrayList<Integer>(Arrays.asList(preciseTuningOctaves));
+		return new ArrayList<Integer>(Arrays.asList(PRECISE_TUNING_OCTAVES));
 	}
 	
 	@Override
@@ -436,7 +436,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<Integer> getCustomFingeringOctaves() {
-		return new ArrayList<Integer>(Arrays.asList(customFingeringOctaves));
+		return new ArrayList<Integer>(Arrays.asList(CUSTOM_FINGERING_OCTAVES));
 	}
 
 	@Override
@@ -580,6 +580,8 @@ public class ConfigurationApplicationServiceImpl
 		return configuration;
 	}
 	
+	// Private
+	
 	private void setPreciseTuning(PreciseTuningNote note, int octave,
 			int cents) {
 		
@@ -596,10 +598,10 @@ public class ConfigurationApplicationServiceImpl
 	private void setReadingTones() {
 		
 		List<String> translations =
-				i18nManager.getTranslations(readingToneTranslationIds);
+				i18nManager.getTranslations(READING_TONE_TRANSLATION_IDS);
 		
-		readingTones = ReadingTone.getTones(readingToneIds, readingToneValues,
-				readingToneTranslationIds, translations);
+		readingTones = ReadingTone.getTones(READING_TONE_IDS, READING_TONE_VALUES,
+				READING_TONE_TRANSLATION_IDS, translations);
 		
 		// Default reading tone: C
 		DEFAULT_READING_TONE = readingTones.get(translations.get(0));
@@ -609,10 +611,10 @@ public class ConfigurationApplicationServiceImpl
 	private void setTuningTones() {
 		
 		List<String> translations =
-				i18nManager.getTranslations(tuningToneTranslationIds);
+				i18nManager.getTranslations(TUNING_TONE_TRANSLATION_IDS);
 		
-		tuningTones = TuningTone.getTones(tuningToneIds, tuningToneValues,
-				tuningToneTranslationIds, translations);
+		tuningTones = TuningTone.getTones(TUNING_TONE_IDS, TUNING_TONE_VALUES,
+				TUNING_TONE_TRANSLATION_IDS, translations);
 		
 		// Default tuning tone: C
 		DEFAULT_TUNING_TONE = tuningTones.get(translations.get(0));
@@ -621,7 +623,7 @@ public class ConfigurationApplicationServiceImpl
 	private void setSamples() {
 		
 		List<String> translations =
-				i18nManager.getTranslations(sampleTranslationIds);
+				i18nManager.getTranslations(SAMPLE_TRANSLATION_IDS);
 		List<Sample> samplesList = Arrays.asList(Sample.values());
 		
 		if (translations.size() != samplesList.size()) {
@@ -649,7 +651,7 @@ public class ConfigurationApplicationServiceImpl
 	private void setTuningModes() {
 	
 		List<String> translations =
-				i18nManager.getTranslations(tuningModeTranslationIds);
+				i18nManager.getTranslations(TUNING_MODE_TRANSLATION_IDS);
 		List<TuningMode> modes = Arrays.asList(TuningMode.values());
 		
 		if (translations.size() != modes.size()) {
@@ -673,10 +675,10 @@ public class ConfigurationApplicationServiceImpl
 	private void setPreciseTuningNotes() {
 		
 		List<String> translations =
-				i18nManager.getTranslations(preciseTuningNoteTranslationIds);
+				i18nManager.getTranslations(PRECISE_TUNING_NOTE_TRANSLATION_IDS);
 		
-		preciseTuningNotes = PreciseTuningNote.getNotes(preciseTuningNoteIds,
-				preciseTuningNoteValues, preciseTuningNoteTranslationIds,
+		preciseTuningNotes = PreciseTuningNote.getNotes(PRECISE_TUNING_NOTE_IDS,
+				PRECISE_TUNING_NOTE_VALUES, PRECISE_TUNING_NOTE_TRANSLATION_IDS,
 				translations, readingTone);
 		
 		// Default precise tuning note: C, but consequent with the reading tone.
@@ -697,10 +699,10 @@ public class ConfigurationApplicationServiceImpl
 	private void setCustomFingeringNotes() {
 		
 		List<String> translations =
-				i18nManager.getTranslations(customFingeringNoteTranslationIds);
+				i18nManager.getTranslations(CUSTOM_FINGERING_NOTE_TRANSLATION_IDS);
 		
-		customFingeringNotes = FingeringNote.getNotes(customFingeringNoteIds,
-				customFingeringNoteValues, customFingeringNoteTranslationIds,
+		customFingeringNotes = FingeringNote.getNotes(CUSTOM_FINGERING_NOTE_IDS,
+				CUSTOM_FINGERING_NOTE_VALUES, CUSTOM_FINGERING_NOTE_TRANSLATION_IDS,
 				translations, readingTone);
 		
 		// Default custom fingering note: C, but consequent with the reading tone.

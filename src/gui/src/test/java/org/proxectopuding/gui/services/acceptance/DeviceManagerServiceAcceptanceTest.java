@@ -1,233 +1,121 @@
 package org.proxectopuding.gui.services.acceptance;
 
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
+import java.util.Set;
+
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
-import org.proxectopuding.gui.model.entities.FingeringOffset;
-
-import com.google.common.collect.ImmutableList;
+import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
+import org.proxectopuding.gui.model.entities.BagpipeDevice;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerGeneral;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerUnix;
+import org.proxectopuding.gui.model.services.DeviceManagerService;
+import org.proxectopuding.gui.model.services.MidiService;
+import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
+import org.proxectopuding.gui.model.services.impl.MidiServiceImpl;
+import org.proxectopuding.gui.model.utils.DeviceManager;
+import org.proxectopuding.gui.model.utils.FileDownload;
+import org.proxectopuding.gui.model.utils.FileDownloader;
+import org.proxectopuding.gui.model.utils.FileUtils;
+import org.proxectopuding.gui.model.utils.MidiUtils;
+import org.proxectopuding.gui.model.utils.OperativeSystemManager;
+import org.proxectopuding.gui.model.utils.SoundFontManager;
+import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
+import org.proxectopuding.gui.model.utils.connection.ConnectionManagerJsscImpl;
 
 public class DeviceManagerServiceAcceptanceTest {
+	
+	private FileUtils fileUtils = new FileUtils();
+	private FileDownload fileDownload = new FileDownload(fileUtils);
+	private FileDownloader fileDownloader = new FileDownloader(fileDownload);
+	private SoundFontManager soundFontManager =
+			new SoundFontManager(fileDownloader, fileUtils);
+	private OperativeSystemManager operativeSystemManager =
+			new OperativeSystemManager();
+	private MidiUtils midiUtils = new MidiUtils();
+	private MidiServerGeneral midiServerGeneral =
+			new MidiServerGeneral(soundFontManager, operativeSystemManager,
+					fileUtils, midiUtils);
+	private MidiServer midiServer = new MidiServerUnix(midiServerGeneral);
+	private MidiService midiService = new MidiServiceImpl(midiServer);
+	private ConnectionManager connectionManager =
+			new ConnectionManagerJsscImpl(operativeSystemManager, midiService);
+	private DeviceManager deviceManager = new DeviceManager();
+	private DeviceManagerService deviceManagerService =
+			new DeviceManagerServiceImpl(connectionManager, deviceManager);
 
+	/**
+	 * Feature: user configures a device
+	 */
+	
+	/**
+	 * Scenario: user selects a device
+	 * Given devices have been found
+	 * When user selects a device
+	 * Then device's configurations are loaded
+	 * And device figures out as selected
+	 */
 	@Test
-	public void findBagpipeDevices() {
+	public void selectDevice() {
 		
-	}
-	
-	@Test
-	public void getBagpipeDeviceIds() {
+		// Given
+		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
+		assertTrue(devices.size() > 0);
+		String expectedProductId = devices.iterator().next().getProductId();
 		
-	}
-	
-	@Test
-	public void getSelectedBagpipeDevice() {
+		// When
+		deviceManagerService.setSelectedBagpipeDevice(expectedProductId);
+		Set<BagpipeConfiguration> configurations =
+				deviceManagerService.findBagpipeConfigurations(expectedProductId);
 		
+		// Then
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		assertEquals(expectedProductId, device.getProductId());
+		assertEquals(BagpipeConfigurationType.values().length,
+				configurations.size());
+		configurations.forEach(configuration ->
+				assertEquals(expectedProductId, configuration.getProductId()));
 	}
 	
+	/**
+	 * Scenario: user applies a configuration
+	 * Given device is selected
+	 * And device is configured
+	 * When user applies a configuration
+	 * Then device is reconfigured
+	 */
 	@Test
-	public void setSelectedBagpipeDevice() {
+	public void applyConfiguration() {
 		
-		String productId = null;
-	}
-	
-	@Test
-	public void findBagpipeConfigurations() {
+		// Given
+		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
+		assertTrue(devices.size() > 0);
+		String expectedProductId = devices.iterator().next().getProductId();
+		deviceManagerService.setSelectedBagpipeDevice(expectedProductId);
+		Set<BagpipeConfiguration> configurations =
+				deviceManagerService.findBagpipeConfigurations(expectedProductId);
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		assertEquals(expectedProductId, device.getProductId());
+		assertEquals(BagpipeConfigurationType.values().length,
+				configurations.size());
+		configurations.forEach(configuration ->
+				assertEquals(expectedProductId, configuration.getProductId()));
+		BagpipeConfigurationType expectedConfigurationType =
+				BagpipeConfigurationType.SELECT;
+		BagpipeConfiguration expectedConfiguration = deviceManagerService
+				.getBagpipeConfiguration(expectedProductId,
+						expectedConfigurationType.name());
 		
-		String productId = null;
-	}
-	
-	@Test
-	public void findBagpipeConfigurationByProductIdAndType() {
+		// When
+		deviceManagerService.sendBagpipeConfiguration(expectedConfiguration);
 		
-		String productId = null;
-		String type = null;
-	}
-	
-	@Test
-	public void findBagpipeConfigurationByPreInitializedConfig() {
-		
-		BagpipeConfiguration configuration = null;
-	}
-	
-	@Test
-	public void sendBagpipeConfiguration() {
-		try {
-			BagpipeConfiguration configuration = null;
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getBagpipeConfiguration() {
-		
-		String productId = null;
-		String type = null;
-	}
-	
-	@Test
-	public void getVolume() {
-		try {
-			String productId = null;
-			
-		} catch(IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setVolume() {
-		try {
-			String productId = null;
-			int volume = -1;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getTuningTone() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setTuningTone() {
-		try {
-			String productId = null;
-			int tuningTone = -1;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getTuningOctave() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setTuningOctave() {
-		try {
-			String productId = null;
-			int tuningOctave = -1;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getFingeringTypesEnabled() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setFingeringTypesEnabled() {
-		try {
-			String productId = null;
-			List<Boolean> fingeringTypes = ImmutableList.of();
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void isBagEnabled() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setBagEnabled() {
-		try {
-			String productId = null;
-			boolean bagEnabled = false;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getDronesEnabled() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setDronesEnabled() {
-		try {
-			String productId = null;
-			List<Boolean> drones = ImmutableList.of();
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void getBagPressure() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void setBagPressure() {
-		try {
-			String productId = null;
-			int bagPressure = -1;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getFingerings() {
-		try {
-			String productId = null;
-			
-		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void setFingerings() {
-		
-		String productId = null;
-		List<FingeringOffset> fingerings = ImmutableList.of();
+		// Then
+		BagpipeConfiguration configuration = deviceManagerService
+				.findBagpipeConfiguration(expectedConfiguration);
+		assertEquals(expectedProductId, configuration.getProductId());
+		assertEquals(expectedConfigurationType.name(), configuration.getType());
 	}
 }

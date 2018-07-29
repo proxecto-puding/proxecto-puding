@@ -141,20 +141,73 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void findBagpipeConfigurationByProductIdAndType() {
 		
-		String productId = null;
-		String type = null;
+		// Given
+		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+		doNothing().when(connectionManager).writeData(anyString());
+		BagpipeConfigurationType type = BagpipeConfigurationType.START;
+		when(connectionManager.readData()).thenReturn(
+				getConfigurationAsJson(PRODUCT_ID, type));
+		BagpipeConfiguration expectedConfiguration =
+				getConfiguration(PRODUCT_ID, type);
+		doNothing().when(deviceManager)
+				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		
+		// When
+		BagpipeConfiguration configuration =
+				deviceManagerService.findBagpipeConfiguration(PRODUCT_ID,
+						BagpipeConfigurationType.START.name());
+		
+		// Then
+		verify(connectionManager, times(2)).writeData(anyString());
+		verify(connectionManager, times(1)).readData();
+		verify(deviceManager, times(1))
+				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		assertEquals(expectedConfiguration, configuration);
 	}
 	
 	@Test
 	public void findBagpipeConfigurationByPreInitializedConfig() {
 		
-		BagpipeConfiguration configuration = null;
+		// Given
+		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
+		doNothing().when(connectionManager).writeData(anyString());
+		BagpipeConfigurationType type = BagpipeConfigurationType.START;
+		when(connectionManager.readData()).thenReturn(
+				getConfigurationAsJson(PRODUCT_ID, type));
+		BagpipeConfiguration expectedConfiguration =
+				getConfiguration(PRODUCT_ID, type);
+		doNothing().when(deviceManager)
+				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		
+		// When
+		BagpipeConfiguration configuration = deviceManagerService
+				.findBagpipeConfiguration(expectedConfiguration);
+		
+		// Then
+		verify(connectionManager, times(2)).writeData(anyString());
+		verify(connectionManager, times(1)).readData();
+		verify(deviceManager, times(1))
+				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		assertEquals(expectedConfiguration, configuration);
 	}
 	
 	@Test
 	public void sendBagpipeConfiguration() {
 		try {
-			BagpipeConfiguration configuration = null;
+			// Given
+			BagpipeConfigurationType type = BagpipeConfigurationType.START;
+			BagpipeConfiguration configuration =
+					getConfiguration(PRODUCT_ID, type);
+			
+			// When
+			deviceManagerService.sendBagpipeConfiguration(configuration);
+			
+			// Then
+			verify(connectionManager, times(1))
+					.writeData(getConfigurationAsJson(PRODUCT_ID, type));
+			verify(deviceManager, times(1))
+					.addConfiguration(PRODUCT_ID, configuration);
+			
 		} catch (IllegalArgumentException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -163,8 +216,21 @@ public class DeviceManagerServiceUnitTest {
 	@Test
 	public void getBagpipeConfiguration() {
 		
-		String productId = null;
-		String type = null;
+		// Given
+		BagpipeConfigurationType type = BagpipeConfigurationType.START;
+		BagpipeConfiguration expectedConfiguration =
+				getConfiguration(PRODUCT_ID, type);
+		when(deviceManager.getConfiguration(PRODUCT_ID, type.name()))
+				.thenReturn(expectedConfiguration);
+		
+		// When
+		BagpipeConfiguration configuration = deviceManagerService
+				.getBagpipeConfiguration(PRODUCT_ID, type.name());
+		
+		// Then
+		verify(deviceManager, times(1))
+				.getConfiguration(PRODUCT_ID, type.name());
+		assertEquals(expectedConfiguration, configuration);
 	}
 	
 	@Test
@@ -365,6 +431,12 @@ public class DeviceManagerServiceUnitTest {
 		configuration.setType(type.name());
 		
 		return configuration;
+	}
+	
+	private String getConfigurationAsJson(String productId,
+			BagpipeConfigurationType type) {
+		
+		return gson.toJson(getConfiguration(productId, type));
 	}
 	
 	private Set<BagpipeConfiguration> getConfigurations(String productId) {

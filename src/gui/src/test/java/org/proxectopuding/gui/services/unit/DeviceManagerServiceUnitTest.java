@@ -57,19 +57,22 @@ public class DeviceManagerServiceUnitTest {
 	public void findBagpipeDevices() {
 		
 		// Given
-		doNothing().when(connectionManager).writeData(anyString());
-		when(connectionManager.readData()).thenReturn(getDeviceAsJson(), (String) null);
+		doNothing().when(connectionManager).writeData(anyString(), eq(false));
+		when(connectionManager.readData(false))
+				.thenReturn(getDeviceAsJson(), (String) null);
 		doNothing().when(deviceManager).addDevice(getDevice());
 		when(deviceManager.getDevices()).thenReturn(getDevices());
+		doNothing().when(connectionManager).disconnect();
 		
 		// When
 		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
 		
 		// Then
-		verify(connectionManager, times(2)).writeData(anyString());
-		verify(connectionManager, times(1)).readData();
+		verify(connectionManager, times(2)).writeData(anyString(), eq(false));
+		verify(connectionManager, times(1)).readData(false);
 		verify(deviceManager, times(1)).addDevice(getDevice());
 		verify(deviceManager, times(2)).getDevices();
+		verify(connectionManager, times(1)).disconnect();
 		assertEquals(getDevices(), devices);
 	}
 	
@@ -120,12 +123,14 @@ public class DeviceManagerServiceUnitTest {
 		
 		// Given
 		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
-		doNothing().when(connectionManager).writeData(anyString());
-		OngoingStubbing<String> stubbing = when(connectionManager.readData());
+		doNothing().when(connectionManager).writeData(anyString(), eq(false));
+		OngoingStubbing<String> stubbing =
+				when(connectionManager.readData(false));
 		for (String configuration : getConfigurationsAsJson(PRODUCT_ID)) {
 			stubbing = stubbing.thenReturn(configuration);
 		}
 		doNothing().when(deviceManager).addConfiguration(eq(PRODUCT_ID), any());
+		doNothing().when(connectionManager).disconnect();
 		Set<BagpipeConfiguration> expectedConfigurations =
 				getConfigurations(PRODUCT_ID);
 		when(deviceManager.getConfigurations(PRODUCT_ID))
@@ -136,9 +141,10 @@ public class DeviceManagerServiceUnitTest {
 				deviceManagerService.findBagpipeConfigurations(PRODUCT_ID);
 		
 		// Then
-		verify(connectionManager, times(10)).writeData(anyString());
-		verify(connectionManager, times(5)).readData();
+		verify(connectionManager, times(10)).writeData(anyString(), eq(false));
+		verify(connectionManager, times(5)).readData(false);
 		verify(deviceManager, times(5)).addConfiguration(eq(PRODUCT_ID), any());
+		verify(connectionManager, times(5)).disconnect();
 		verify(deviceManager, times(1)).getConfigurations(PRODUCT_ID);
 		assertEquals(expectedConfigurations, configurations);
 	}
@@ -148,14 +154,15 @@ public class DeviceManagerServiceUnitTest {
 		
 		// Given
 		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
-		doNothing().when(connectionManager).writeData(anyString());
+		doNothing().when(connectionManager).writeData(anyString(), eq(false));
 		BagpipeConfigurationType type = BagpipeConfigurationType.START;
-		when(connectionManager.readData()).thenReturn(
+		when(connectionManager.readData(false)).thenReturn(
 				getConfigurationAsJson(PRODUCT_ID, type));
 		BagpipeConfiguration expectedConfiguration =
 				getConfiguration(PRODUCT_ID, type);
 		doNothing().when(deviceManager)
 				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		doNothing().when(connectionManager).disconnect();
 		
 		// When
 		BagpipeConfiguration configuration =
@@ -163,10 +170,11 @@ public class DeviceManagerServiceUnitTest {
 						BagpipeConfigurationType.START.name());
 		
 		// Then
-		verify(connectionManager, times(2)).writeData(anyString());
-		verify(connectionManager, times(1)).readData();
+		verify(connectionManager, times(2)).writeData(anyString(), eq(false));
+		verify(connectionManager, times(1)).readData(false);
 		verify(deviceManager, times(1))
 				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		verify(connectionManager, times(1)).disconnect();
 		assertEquals(expectedConfiguration, configuration);
 	}
 	
@@ -175,24 +183,26 @@ public class DeviceManagerServiceUnitTest {
 		
 		// Given
 		when(deviceManager.getDevice(PRODUCT_ID)).thenReturn(getDevice());
-		doNothing().when(connectionManager).writeData(anyString());
+		doNothing().when(connectionManager).writeData(anyString(), eq(false));
 		BagpipeConfigurationType type = BagpipeConfigurationType.START;
-		when(connectionManager.readData()).thenReturn(
+		when(connectionManager.readData(false)).thenReturn(
 				getConfigurationAsJson(PRODUCT_ID, type));
 		BagpipeConfiguration expectedConfiguration =
 				getConfiguration(PRODUCT_ID, type);
 		doNothing().when(deviceManager)
 				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		doNothing().when(connectionManager).disconnect();
 		
 		// When
 		BagpipeConfiguration configuration = deviceManagerService
 				.findBagpipeConfiguration(expectedConfiguration);
 		
 		// Then
-		verify(connectionManager, times(2)).writeData(anyString());
-		verify(connectionManager, times(1)).readData();
+		verify(connectionManager, times(2)).writeData(anyString(), eq(false));
+		verify(connectionManager, times(1)).readData(false);
 		verify(deviceManager, times(1))
 				.addConfiguration(PRODUCT_ID, expectedConfiguration);
+		verify(connectionManager, times(1)).disconnect();
 		assertEquals(expectedConfiguration, configuration);
 	}
 	

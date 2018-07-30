@@ -24,8 +24,22 @@ public interface ConnectionManager {
 	String readData();
 	
 	/**
+	 * Read data from the serial device.
+	 * @param disconnect Indicate if ending the connection.
+	 * @return A string containing all the received data.
+	 */
+	String readData(boolean disconnect);
+	
+	/**
 	 * Write data to the serial device.
 	 * @param data Data to send.
 	 */
 	void writeData(String data);
+	
+	/**
+	 * Write data to the serial device.
+	 * @param data Data to send. 
+	 * @param disconnect Indicate if ending the connection.
+	 */
+	void writeData(String data, boolean disconnect);
 }

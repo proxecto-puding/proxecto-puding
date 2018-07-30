@@ -58,7 +58,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		for (int i = 0; i < MAX_ATTEMPTS; i++) {
 			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				response = connectionManager.readData();
+				response = connectionManager.readData(false);
 				device = gson.fromJson(response, BagpipeDevice.class);
 				if (device != null) {
 					deviceManager.addDevice(device);
@@ -75,6 +75,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		if (deviceManager.getDevices().size() == 0) {
 			LOGGER.log(Level.SEVERE, "No devices found");
 		}
+		connectionManager.disconnect();
 		
 		return deviceManager.getDevices();
 	}
@@ -144,8 +145,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		for (int i = 0; i < MAX_ATTEMPTS; i++) {
 			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				connectionManager.writeData(request);
-				response = connectionManager.readData();
+				connectionManager.writeData(request, false);
+				response = connectionManager.readData(false);
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
@@ -161,6 +162,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				LOGGER.log(Level.SEVERE, "Unable to find the configuration", e);
 			}
 		}
+		connectionManager.disconnect();
 		
 		return configuration;
 	}
@@ -563,7 +565,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 	public void sendDiscoveryBeacon() {
 		
 		LOGGER.log(Level.INFO, "Sending discovery beacon");
-		connectionManager.writeData(DISCOVERY_BEACON);
+		connectionManager.writeData(DISCOVERY_BEACON, false);
 	}
 	
 	/**
@@ -576,7 +578,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				BagpipeDevice device = new BagpipeDevice();
 				device.setProductId(productId);
 				String json = gson.toJson(device);
-				connectionManager.writeData(json);
+				connectionManager.writeData(json, false);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK for productId: {0}", productId);
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK", e);

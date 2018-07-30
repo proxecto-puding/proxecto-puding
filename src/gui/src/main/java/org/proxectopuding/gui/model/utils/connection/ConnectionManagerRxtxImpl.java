@@ -44,6 +44,7 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 		super(operativeSystemManager, midiService);
 	}
 	
+	@Override
 	public void connect() throws IOException {
 		
 		// The next line is for Raspberry Pi and 
@@ -79,6 +80,8 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 		try {
 			// Open serial port, and use class name for the appName
 			serialPort = (SerialPort) portId.open(this.getClass().getName(), CONNECTION_TIME_OUT);
+			
+			LOGGER.log(Level.INFO, "Connected to COM port: " + PORT_NAME);
 		
 			// Set port parameters
 			serialPort.setSerialPortParams(DATA_RATE,
@@ -100,16 +103,25 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 			throw new IOException(msg);
 		}
 	}
-		
+	
+	@Override
 	public synchronized void disconnect() {
 		
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
+			LOGGER.log(Level.INFO, "Disconnected from COM port: " + PORT_NAME);
 		}
 	}
 	
+	@Override
 	public String readData() {
+		
+		return readData(true);
+	}
+	
+	@Override
+	public String readData(boolean disconnect) {
 		
 		String data = null;
 		
@@ -125,23 +137,34 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to read data from the serial port", e);
 		} finally {
-			disconnect();
-			// Once we finish reading the data coming from the serial port, we
-			// restart the MIDI service with the same configuration.
-			getMidiService().restart();
+			if (disconnect) {
+				disconnect();
+				// Once we finish reading the data coming from the serial port,
+				// restart the MIDI service with the same configuration.
+				getMidiService().restart();
+			}
 		}
 		
 		return data;
 	}
 	
+	@Override
 	public void writeData(String data) {
+		
+		writeData(data, true);
+	}
+	
+	@Override
+	public void writeData(String data, boolean disconnect) {
 		try {
 			connect();
 			IOUtils.write(data.getBytes(StandardCharsets.UTF_8), output);
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to write data to the serial port", e);
 		} finally {
-			disconnect();
+			if (disconnect) {
+				disconnect();
+			}
 		}
 	}
 	

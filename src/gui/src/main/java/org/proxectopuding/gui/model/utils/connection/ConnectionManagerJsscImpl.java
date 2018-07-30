@@ -27,7 +27,13 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 		super(operativeSystemManager, midiService);
 	}
 	
+	@Override
 	public void connect() throws IOException {
+		
+		if (serialPort != null && serialPort.isOpened()) {
+			LOGGER.log(Level.INFO, "Already connected to COM port: " + PORT_NAME);
+			return;
+		}
 		
 		ImmutableList<String> portNames = ImmutableList.of();
 		try {
@@ -54,6 +60,7 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 				LOGGER.log(Level.SEVERE, msg);
 				throw new IOException(msg);
 			}
+			LOGGER.log(Level.INFO, "Connected to COM port: " + PORT_NAME);
 		
 			// Set port parameters
 			serialPort.setParams(SerialPort.BAUDRATE_9600,
@@ -71,12 +78,14 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 			throw new IOException(msg);
 		}
 	}
-		
+	
+	@Override
 	public synchronized void disconnect() {
 		
-		if (serialPort != null) {
+		if (serialPort != null && serialPort.isOpened()) {
 			try {
 				serialPort.closePort();
+				LOGGER.log(Level.INFO, "Disconnected from COM port: " + PORT_NAME);
 			} catch (Exception e) {
 				String msg = "Unable to close the serial connection";
 				LOGGER.log(Level.SEVERE, msg, e);
@@ -84,7 +93,14 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 		}
 	}
 	
+	@Override
 	public String readData() {
+		
+		return readData(true);
+	}
+	
+	@Override
+	public String readData(boolean disconnect) {
 		
 		String data = null;
 		
@@ -98,16 +114,25 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Unable to read data from the serial port", e);
 		} finally {
-			disconnect();
-			// Once we finish reading the data coming from the serial port, we
-			// restart the MIDI service with the same configuration.
-			getMidiService().restart();
+			if (disconnect) {
+				disconnect();
+				// Once we finish reading the data coming from the serial port,
+				// restart the MIDI service with the same configuration.
+				getMidiService().restart();
+			}
 		}
 		
 		return data;
 	}
 	
+	@Override
 	public void writeData(String data) {
+		
+		writeData(data, true);
+	}
+	
+	@Override
+	public void writeData(String data, boolean disconnect) {
 		try {
 			connect();
 			serialPort.writeString(data);

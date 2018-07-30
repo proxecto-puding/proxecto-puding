@@ -682,7 +682,7 @@ public class ConfigurationApplicationServiceImpl
 				translations, readingTone);
 		
 		// Default precise tuning note: C, but consequent with the reading tone.
-		int i = readingTone.getValue(); 
+		int i = readingTone.getValue();
 		DEFAULT_PRECISE_TUNING_NOTE =
 				preciseTuningNotes.get(translations.get(i));
 		preciseTuningNote = DEFAULT_PRECISE_TUNING_NOTE;

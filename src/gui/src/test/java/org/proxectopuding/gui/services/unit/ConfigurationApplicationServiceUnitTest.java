@@ -1,18 +1,55 @@
 package org.proxectopuding.gui.services.unit;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
+import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
+import org.proxectopuding.gui.model.services.DeviceManagerService;
+import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
+import org.proxectopuding.gui.model.utils.I18nManager;
 
 import com.google.common.collect.ImmutableList;
 
 public class ConfigurationApplicationServiceUnitTest {
 
+	private I18nManager i18nManager = mock(I18nManager.class);
+	private DeviceManagerService deviceManagerService =
+			mock(DeviceManagerService.class);
+	private ConfigurationApplicationService confAppService =
+			new ConfigurationApplicationServiceImpl(i18nManager,
+					deviceManagerService);
+	
+	@Before
+	public void before() {
+		
+		reset(i18nManager, deviceManagerService);
+	}
+
 	@Test
 	public void getSelectedBagpipeConfigurationType() {
+		
+		// Given
+		
+		
+		// When
+		confAppService.getSelectedBagpipeConfigurationType();
+		
+		// Then
 		
 	}
 	

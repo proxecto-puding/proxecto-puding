@@ -2,11 +2,11 @@ package org.proxectopuding.gui.services.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
@@ -198,7 +198,7 @@ public class DeviceManagerServiceIntegrationTest {
 					configuration.getType());
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -248,7 +248,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedVolume, volume);
 			
 		} catch(IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -276,7 +276,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedVolume, volume);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -303,7 +303,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -331,7 +331,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -359,7 +359,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -389,7 +389,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -419,7 +419,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -451,7 +451,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -480,7 +480,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -511,7 +511,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -541,7 +541,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -573,7 +573,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
@@ -602,7 +602,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -634,7 +634,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -664,7 +664,7 @@ public class DeviceManagerServiceIntegrationTest {
 			assertEquals(expectedFingerings, fingerings);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 

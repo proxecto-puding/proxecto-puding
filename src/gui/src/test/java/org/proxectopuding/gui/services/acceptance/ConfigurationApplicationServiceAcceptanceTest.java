@@ -1,5 +1,7 @@
 package org.proxectopuding.gui.services.acceptance;
 
+import static org.junit.Assert.fail;
+
 import java.util.List;
 
 import org.junit.Assert;
@@ -99,7 +101,7 @@ public class ConfigurationApplicationServiceAcceptanceTest {
 			int tuningTone = -1;
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 		
@@ -109,7 +111,7 @@ public class ConfigurationApplicationServiceAcceptanceTest {
 			String tuningTone = null;
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	

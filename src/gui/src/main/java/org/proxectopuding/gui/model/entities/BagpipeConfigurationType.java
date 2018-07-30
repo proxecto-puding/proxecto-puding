@@ -19,4 +19,9 @@ public enum BagpipeConfigurationType {
         return type;
     }
 
+	public static BagpipeConfigurationType from(String type) {
+		
+		return type != null ?
+				BagpipeConfigurationType.valueOf(type.toUpperCase()) : null;
+	}
 }

@@ -1,6 +1,7 @@
 package org.proxectopuding.gui.services.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -13,7 +14,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
@@ -86,7 +86,7 @@ public class ConfigurationApplicationServiceUnitTest {
 			int tuningTone = -1;
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 		
@@ -96,7 +96,7 @@ public class ConfigurationApplicationServiceUnitTest {
 			String tuningTone = null;
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	

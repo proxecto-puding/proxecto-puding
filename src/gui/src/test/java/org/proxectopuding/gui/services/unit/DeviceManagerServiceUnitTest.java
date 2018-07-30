@@ -1,6 +1,7 @@
 package org.proxectopuding.gui.services.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -14,7 +15,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.stubbing.OngoingStubbing;
@@ -224,7 +224,7 @@ public class DeviceManagerServiceUnitTest {
 					.addConfiguration(PRODUCT_ID, configuration);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -267,7 +267,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedVolume, volume);
 			
 		} catch(IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -286,7 +286,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedVolume, volume);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -309,7 +309,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -328,7 +328,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedTuningTone, tuningTone);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -351,7 +351,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -370,7 +370,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedTuningOctave, tuningOctave);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -395,7 +395,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -417,7 +417,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedFingeringTypesEnabled, fingeringTypesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -440,7 +440,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -459,7 +459,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedBagEnabled, bagEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -484,7 +484,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -506,7 +506,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedDronesEnabled, dronesEnabled);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
@@ -529,7 +529,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -548,7 +548,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedBagPressure, bagPressure);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 	
@@ -573,7 +573,7 @@ public class DeviceManagerServiceUnitTest {
 			assertEquals(expectedFingerings, fingerings);
 			
 		} catch (IllegalArgumentException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 

@@ -75,8 +75,9 @@ public class ConfigurationApplicationServiceIntegrationTest {
 	private BagpipeConfigurationType configurationType;
 	
 	@Before
-	public void beforeClass() {
+	public void before() {
 		
+		// Given
 		devices = deviceManagerService.findBagpipeDevices();
 		assertTrue(devices.size() > 0);
 		device = devices.iterator().next();
@@ -229,9 +230,6 @@ public class ConfigurationApplicationServiceIntegrationTest {
 	
 	@Test
 	public void getMidiServerConfiguration() {
-		
-		// Given
-		// TODO Implement.
 		
 		// When
 		MidiServerConfiguration midiServerConfiguration =

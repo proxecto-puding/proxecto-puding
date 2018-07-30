@@ -1,7 +1,8 @@
 package org.proxectopuding.gui.services.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -18,12 +19,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
+import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
 import org.proxectopuding.gui.model.utils.I18nManager;
-
-import com.google.common.collect.ImmutableList;
 
 public class ConfigurationApplicationServiceUnitTest {
 
@@ -33,298 +33,159 @@ public class ConfigurationApplicationServiceUnitTest {
 	private ConfigurationApplicationService confAppService =
 			new ConfigurationApplicationServiceImpl(i18nManager,
 					deviceManagerService);
+
+	// TODO Implement.
+	private String productId;
+	private BagpipeConfigurationType configurationType;
 	
 	@Before
 	public void before() {
 		
 		reset(i18nManager, deviceManagerService);
 	}
-
+	
 	@Test
 	public void getSelectedBagpipeConfigurationType() {
-		
+	
 		// Given
-		
+		BagpipeConfigurationType expectedConfigurationType = configurationType;
+		confAppService.setSelectedBagpipeConfigurationType(
+				expectedConfigurationType);
 		
 		// When
-		confAppService.getSelectedBagpipeConfigurationType();
+		BagpipeConfigurationType configurationType =
+				confAppService.getSelectedBagpipeConfigurationType();
 		
 		// Then
-		
+		assertEquals(expectedConfigurationType, configurationType);
 	}
 	
 	@Test
 	public void setSelectedBagpipeConfigurationType() {
 		
-		BagpipeConfigurationType bagpipeConfigurationType = null;
+		// Given
+		BagpipeConfigurationType expectedConfigurationType = configurationType;
+		
+		// When
+		confAppService.setSelectedBagpipeConfigurationType(
+				expectedConfigurationType);
+		
+		// Then
+		BagpipeConfigurationType configurationType =
+				confAppService.getSelectedBagpipeConfigurationType();
+		assertEquals(expectedConfigurationType, configurationType);
 	}
 	
-	@Test
-	public void getReadingTones() {
-		
-	}
-	
-	@Test
-	public void getReadingTone() {
-		
-	}
-	
-	@Test
-	public void setReadingTone() {
-		
-		String readingTone = null;
-	}
-	
-	@Test
-	public void getTuningTones() {
-		
-	}
-	
-	@Test
-	public void getTuningToneAsString() {
-		try {
-			int tuningTone = -1;
-			
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-		}
-	}
-		
-	@Test
-	public void getTuningToneAsInt() {
-		try {
-			String tuningTone = null;
-			
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-		}
-	}
-	
-	@Test
-	public void getDefaultTuningTone() {
-		
-	}
-	
-	@Test
-	public void getTuningOctaves() {
-		
-	}
-	
-	@Test
-	public void getDefaultTuningOctave() {
-		
-	}
-	
-	@Test
-	public void getSamples() {
-		
-	}
-	
-	@Test
-	public void getDefaultFingeringTypesEnabled() {
-		
-	}
-
-	@Test
-	public void getSample() {
-		
-	}
-	
-	@Test
-	public void setSample() {
-		
-		String sample = null;
-	}
-	
-	@Test
-	public void isDefaultBagEnabled() {
-		
-	}
-
-	@Test
-	public void getDefaultDronesEnabled() {
-		
-	}
-
-	@Test
-	public void getTuningFrequency() {
-		
-	}
-	
-	@Test
-	public void setTuningFrequency() {
-		
-		int tuningFrequency = -1;
-	}
-
-	@Test
-	public void getTuningModes() {
-		
-	}
-	
-	@Test
-	public void getTuningMode() {
-		
-	}
-	
-	@Test
-	public void setTuningMode() {
-		
-		String tuningMode = null;
-	}
-
-	@Test
-	public void getDefaultTuningMode() {
-		
-	}
-
-	@Test
-	public void getPreciseTuningNotes() {
-		
-	}
-
-	@Test
-	public void getPreciseTuningNote() {
-		
-	}
-
-	@Test
-	public void setPreciseTuningNoteFromString() {
-		
-		String preciseTuningNote = null;
-	}
-	
-	@Test
-	public void setPreciseTuningNoteFromInt() {
-		
-		int preciseTuningNote = -1;
-	}
-
-	@Test
-	public void resetPreciseTuningNotes() {
-		
-	}
-
-	@Test
-	public void getPreciseTuningOctaves() {
-		
-	}
-
-	@Test
-	public void getPreciseTuningOctave() {
-		
-	}
-
-	@Test
-	public void setPreciseTuningOctave() {
-		
-		int preciseTuningOctave = -1;
-	}
-
-	@Test
-	public void getPreciseTuningCents() {
-		
-	}
-
-	@Test
-	public void setPreciseTuningCents() {
-		
-		int preciseTuningCents = -1;
-	}
-	
-	@Test
-	public void getCustomFingeringNotes() {
-		
-	}
-	
-	@Test
-	public void getCustomFingeringNote() {
-		
-	}
-	
-	@Test
-	public void setCustomFingeringNoteFromString() {
-		
-		String customFingeringNote = null;
-	}
-	
-	@Test
-	public void setCustomFingeringNoteFromInt() {
-		
-		int customFingeringNote = -1;
-	}
-	
-	@Test
-	public void resetCustomFingeringNotes() {
-		
-		
-	}
-
-	@Test
-	public void getCustomFingeringOctaves() {
-		
-	}
-
-	@Test
-	public void getCustomFingeringOctave() {
-		
-	}
-
-	@Test
-	public void setCustomFingeringOctave() {
-		
-		Integer customFingeringOctave = -1;
-	}
-
 	@Test
 	public void getCustomFingeringNumbers() {
 		
-		List<FingeringOffset> fingerings = ImmutableList.of();
+		// Given
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(productId);
+		assertTrue(fingerings.size() > 0);
+		
+		// When
+		List<Integer> customFingeringNumbers =
+				confAppService.getCustomFingeringNumbers(fingerings);
+		
+		// Then
+		assertTrue(customFingeringNumbers.size() > 0);
 	}
 
 	@Test
 	public void getCustomFingeringNumber() {
 		
+		// Given
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(productId);
+		assertTrue(fingerings.size() > 0);
+		List<Integer> customFingeringNumbers =
+				confAppService.getCustomFingeringNumbers(fingerings);
+		assertTrue(customFingeringNumbers.size() > 0);
+		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
+		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
+		
+		// When
+		int customFingeringNumber = confAppService.getCustomFingeringNumber();
+		
+		// Then
+		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
 	}
 
 	@Test
 	public void setCustomFingeringNumber() {
 		
-		int customFingeringNumber = -1;
-	}
-
-	@Test
-	public void addCustomFingeringNumber() {
+		// Given
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(productId);
+		assertTrue(fingerings.size() > 0);
+		List<Integer> customFingeringNumbers =
+				confAppService.getCustomFingeringNumbers(fingerings);
+		assertTrue(customFingeringNumbers.size() > 0);
+		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
 		
-	}
-
-	@Test
-	public void getCustomFingering() {
+		// When
+		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
 		
-		int customFingeringNumber = -1;
-	}
-
-	@Test
-	public void removeCustomFingeringNumber() {
-		
-		int customFingeringNumber = -1;
+		// Then
+		int customFingeringNumber = confAppService.getCustomFingeringNumber();
+		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
 	}
 
 	@Test
 	public void isCustomFingeringSensorSelected() {
 		
-		int sensor = -1;
+		// Given
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(productId);
+		assertTrue(fingerings.size() > 0);
+		List<Integer> customFingeringNumbers =
+				confAppService.getCustomFingeringNumbers(fingerings);
+		assertTrue(customFingeringNumbers.size() > 0);
+		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
+		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
+		int sensor = 0;
+		confAppService.setCustomFingeringSensor(sensor, true);
+		
+		// When
+		boolean isCustomFingeringSensorSelected =
+				confAppService.isCustomFingeringSensorSelected(sensor);
+		
+		// Then
+		assertTrue(isCustomFingeringSensorSelected);
 	}
 	
 	@Test
 	public void setCustomFingeringSensor() {
 		
-		int sensor = -1;
-		boolean isSelected = false;
+		// Given
+		List<FingeringOffset> fingerings =
+				deviceManagerService.getFingerings(productId);
+		assertTrue(fingerings.size() > 0);
+		List<Integer> customFingeringNumbers =
+				confAppService.getCustomFingeringNumbers(fingerings);
+		assertTrue(customFingeringNumbers.size() > 0);
+		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
+		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
+		int sensor = 0;
+		
+		// When
+		confAppService.setCustomFingeringSensor(sensor, true);
+		
+		// Then
+		boolean isCustomFingeringSensorSelected =
+				confAppService.isCustomFingeringSensorSelected(sensor);
+		assertTrue(isCustomFingeringSensorSelected);
 	}
 	
 	@Test
 	public void getMidiServerConfiguration() {
 		
+		// When
+		MidiServerConfiguration midiServerConfiguration =
+				confAppService.getMidiServerConfiguration();
+		
+		// Then
+		assertNotNull(midiServerConfiguration);
 	}
 }

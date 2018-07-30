@@ -94,6 +94,7 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 			getMidiService().stop();
 			connect();
 			data = serialPort.readString();
+			LOGGER.log(Level.INFO, data);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Unable to read data from the serial port", e);
 		} finally {

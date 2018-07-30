@@ -85,6 +85,7 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 					SerialPort.DATABITS_8,
 					SerialPort.STOPBITS_1,
 					SerialPort.PARITY_NONE);
+			serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
 			
 			// Allow serial device to reset before starting communication.
 			delay(CONNECTION_TIME_OUT);
@@ -120,6 +121,7 @@ public class ConnectionManagerRxtxImpl extends ConnectionManagerAbstractImpl {
 			connect();
 			IOUtils.copy(serialPort.getInputStream(), writer, "UTF-8");
 			data = writer.toString();
+			LOGGER.log(Level.INFO, data);
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Unable to read data from the serial port", e);
 		} finally {

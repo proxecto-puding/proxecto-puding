@@ -59,7 +59,8 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 			serialPort.setParams(SerialPort.BAUDRATE_9600,
 	                 SerialPort.DATABITS_8,
 	                 SerialPort.STOPBITS_1,
-	                 SerialPort.PARITY_NONE);
+	                 SerialPort.PARITY_NONE, false, true);
+			serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
 			
 			// Allow serial device to reset before starting communication.
 			delay(CONNECTION_TIME_OUT);

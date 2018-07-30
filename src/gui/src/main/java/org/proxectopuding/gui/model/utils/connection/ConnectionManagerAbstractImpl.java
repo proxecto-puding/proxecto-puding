@@ -13,7 +13,7 @@ public abstract class ConnectionManagerAbstractImpl implements ConnectionManager
 
 	private static final String PORT_NAME_WINDOWS = "COM3";
 	private static final String PORT_NAME_MACOS = "/dev/tty.usbserial-A9007UX1";
-	private static final String PORT_NAME_UNIX = "/dev/ttyACM1";
+	private static final String PORT_NAME_UNIX = "/dev/ttyACM0";
 	// Milliseconds to block while waiting for port open
 	protected static final int CONNECTION_TIME_OUT = 2000;
 

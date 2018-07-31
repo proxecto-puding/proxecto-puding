@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
+import org.proxectopuding.gui.model.entities.SelectionConfiguration;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerGeneral;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerUnix;
@@ -108,6 +109,9 @@ public class DeviceManagerServiceAcceptanceTest {
 		BagpipeConfiguration expectedConfiguration = deviceManagerService
 				.getBagpipeConfiguration(expectedProductId,
 						expectedConfigurationType.name());
+		SelectionConfiguration expectedConfigurationData =
+				(SelectionConfiguration) expectedConfiguration.getData();
+		expectedConfigurationData.setBagEnabled(false);
 		
 		// When
 		deviceManagerService.sendBagpipeConfiguration(expectedConfiguration);
@@ -117,5 +121,9 @@ public class DeviceManagerServiceAcceptanceTest {
 				.findBagpipeConfiguration(expectedConfiguration);
 		assertEquals(expectedProductId, configuration.getProductId());
 		assertEquals(expectedConfigurationType.name(), configuration.getType());
+		SelectionConfiguration configurationData =
+				(SelectionConfiguration) configuration.getData();
+		assertEquals(expectedConfigurationData.isBagEnabled(),
+				configurationData.isBagEnabled());
 	}
 }

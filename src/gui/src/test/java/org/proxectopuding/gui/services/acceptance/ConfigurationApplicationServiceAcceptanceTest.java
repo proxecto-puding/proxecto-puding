@@ -1,18 +1,14 @@
 package org.proxectopuding.gui.services.acceptance;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
-import org.proxectopuding.gui.model.entities.FingeringOffset;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerGeneral;
@@ -66,176 +62,49 @@ public class ConfigurationApplicationServiceAcceptanceTest {
 	private ConfigurationApplicationService confAppService =
 			new ConfigurationApplicationServiceImpl(i18nManager,
 					deviceManagerService);
-
-	private Set<BagpipeDevice> devices;
-	private BagpipeDevice device;
-	private String productId;
-	private Set<BagpipeConfiguration> configurations;
-	private BagpipeConfiguration configuration;
-	private BagpipeConfigurationType configurationType;
 	
-	@Before
-	public void before() {
+	/**
+	 * Feature: user configures a device
+	 */
+	
+	/**
+	 * Scenario: user applies a configuration
+	 * Given device is selected
+	 * And device is configured
+	 * When user applies a configuration
+	 * Then device is reconfigured
+	 */
+	@Test
+	public void applyConfiguration() {
 		
 		// Given
-		devices = deviceManagerService.findBagpipeDevices();
+		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
 		assertTrue(devices.size() > 0);
-		device = devices.iterator().next();
-		productId = device.getProductId();
-		deviceManagerService.setSelectedBagpipeDevice(productId);
-		configurations = deviceManagerService
-				.findBagpipeConfigurations(productId);
+		String expectedProductId = devices.iterator().next().getProductId();
+		deviceManagerService.setSelectedBagpipeDevice(expectedProductId);
+		Set<BagpipeConfiguration> configurations =
+				deviceManagerService.findBagpipeConfigurations(expectedProductId);
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		assertEquals(expectedProductId, device.getProductId());
 		assertEquals(BagpipeConfigurationType.values().length,
 				configurations.size());
 		configurations.forEach(configuration ->
-				assertEquals(productId, configuration.getProductId()));
-		configuration = configurations.iterator().next();
-		configurationType =
-				BagpipeConfigurationType.from(configuration.getType());
-	}
-	
-	@Test
-	public void getSelectedBagpipeConfigurationType() {
-	
-		// Given
-		BagpipeConfigurationType expectedConfigurationType = configurationType;
-		confAppService.setSelectedBagpipeConfigurationType(
-				expectedConfigurationType);
+				assertEquals(expectedProductId, configuration.getProductId()));
+		int expectedTuningFrequency = 442;
+		confAppService.setTuningFrequency(expectedTuningFrequency);
 		
 		// When
-		BagpipeConfigurationType configurationType =
-				confAppService.getSelectedBagpipeConfigurationType();
-		
-		// Then
-		assertEquals(expectedConfigurationType, configurationType);
-	}
-	
-	@Test
-	public void setSelectedBagpipeConfigurationType() {
-		
-		// Given
-		BagpipeConfigurationType expectedConfigurationType = configurationType;
-		
-		// When
-		confAppService.setSelectedBagpipeConfigurationType(
-				expectedConfigurationType);
-		
-		// Then
-		BagpipeConfigurationType configurationType =
-				confAppService.getSelectedBagpipeConfigurationType();
-		assertEquals(expectedConfigurationType, configurationType);
-	}
-	
-	@Test
-	public void getCustomFingeringNumbers() {
-		
-		// Given
-		List<FingeringOffset> fingerings =
-				deviceManagerService.getFingerings(productId);
-		assertTrue(fingerings.size() > 0);
-		
-		// When
-		List<Integer> customFingeringNumbers =
-				confAppService.getCustomFingeringNumbers(fingerings);
-		
-		// Then
-		assertTrue(customFingeringNumbers.size() > 0);
-	}
-
-	@Test
-	public void getCustomFingeringNumber() {
-		
-		// Given
-		List<FingeringOffset> fingerings =
-				deviceManagerService.getFingerings(productId);
-		assertTrue(fingerings.size() > 0);
-		List<Integer> customFingeringNumbers =
-				confAppService.getCustomFingeringNumbers(fingerings);
-		assertTrue(customFingeringNumbers.size() > 0);
-		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
-		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
-		
-		// When
-		int customFingeringNumber = confAppService.getCustomFingeringNumber();
-		
-		// Then
-		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
-	}
-
-	@Test
-	public void setCustomFingeringNumber() {
-		
-		// Given
-		List<FingeringOffset> fingerings =
-				deviceManagerService.getFingerings(productId);
-		assertTrue(fingerings.size() > 0);
-		List<Integer> customFingeringNumbers =
-				confAppService.getCustomFingeringNumbers(fingerings);
-		assertTrue(customFingeringNumbers.size() > 0);
-		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
-		
-		// When
-		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
-		
-		// Then
-		int customFingeringNumber = confAppService.getCustomFingeringNumber();
-		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
-	}
-
-	@Test
-	public void isCustomFingeringSensorSelected() {
-		
-		// Given
-		List<FingeringOffset> fingerings =
-				deviceManagerService.getFingerings(productId);
-		assertTrue(fingerings.size() > 0);
-		List<Integer> customFingeringNumbers =
-				confAppService.getCustomFingeringNumbers(fingerings);
-		assertTrue(customFingeringNumbers.size() > 0);
-		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
-		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
-		int sensor = 0;
-		confAppService.setCustomFingeringSensor(sensor, true);
-		
-		// When
-		boolean isCustomFingeringSensorSelected =
-				confAppService.isCustomFingeringSensorSelected(sensor);
-		
-		// Then
-		assertTrue(isCustomFingeringSensorSelected);
-	}
-	
-	@Test
-	public void setCustomFingeringSensor() {
-		
-		// Given
-		List<FingeringOffset> fingerings =
-				deviceManagerService.getFingerings(productId);
-		assertTrue(fingerings.size() > 0);
-		List<Integer> customFingeringNumbers =
-				confAppService.getCustomFingeringNumbers(fingerings);
-		assertTrue(customFingeringNumbers.size() > 0);
-		int expectedCustomFingeringNumber = customFingeringNumbers.get(0); 
-		confAppService.setCustomFingeringNumber(expectedCustomFingeringNumber);
-		int sensor = 0;
-		
-		// When
-		confAppService.setCustomFingeringSensor(sensor, true);
-		
-		// Then
-		boolean isCustomFingeringSensorSelected =
-				confAppService.isCustomFingeringSensorSelected(sensor);
-		assertTrue(isCustomFingeringSensorSelected);
-	}
-	
-	@Test
-	public void getMidiServerConfiguration() {
-		
-		// When
-		MidiServerConfiguration midiServerConfiguration =
+		MidiServerConfiguration expectedMidiServerConfiguration =
 				confAppService.getMidiServerConfiguration();
+		assertEquals(expectedTuningFrequency,
+				expectedMidiServerConfiguration.getTuningFrequency());
+		midiService.setConfiguration(expectedMidiServerConfiguration);
+		midiService.restart();
 		
 		// Then
-		assertNotNull(midiServerConfiguration);
+		MidiServerConfiguration midiServiceConfiguration =
+				midiService.getConfiguration();
+		assertEquals(expectedTuningFrequency,
+				midiServiceConfiguration.getTuningFrequency());
 	}
 }

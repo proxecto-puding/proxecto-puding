@@ -69,27 +69,14 @@ public class ConfigurationApplicationServiceAcceptanceTest {
 	
 	/**
 	 * Scenario: user applies a configuration
-	 * Given device is selected
-	 * And device is configured
+	 * Given user change some MIDI related value
 	 * When user applies a configuration
-	 * Then device is reconfigured
+	 * Then MIDI service is reconfigured
 	 */
 	@Test
 	public void applyConfiguration() {
 		
 		// Given
-		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
-		assertTrue(devices.size() > 0);
-		String expectedProductId = devices.iterator().next().getProductId();
-		deviceManagerService.setSelectedBagpipeDevice(expectedProductId);
-		Set<BagpipeConfiguration> configurations =
-				deviceManagerService.findBagpipeConfigurations(expectedProductId);
-		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
-		assertEquals(expectedProductId, device.getProductId());
-		assertEquals(BagpipeConfigurationType.values().length,
-				configurations.size());
-		configurations.forEach(configuration ->
-				assertEquals(expectedProductId, configuration.getProductId()));
 		int expectedTuningFrequency = 442;
 		confAppService.setTuningFrequency(expectedTuningFrequency);
 		

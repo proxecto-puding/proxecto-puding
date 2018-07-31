@@ -1,14 +1,8 @@
 package org.proxectopuding.gui.services.acceptance;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
 
 import org.junit.Test;
-import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
-import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
-import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerGeneral;

@@ -561,10 +561,12 @@ public class ConfigurationApplicationServiceImpl
 		
 		MidiServerConfiguration configuration = new MidiServerConfiguration();
 		
-		String productId = deviceManagerService.getSelectedBagpipeDevice().getProductId();
+		String productId =
+				deviceManagerService.getSelectedBagpipeDevice().getProductId();
 		int tuningTone = deviceManagerService.getTuningTone(productId);
 		int tuningOctave = deviceManagerService.getTuningOctave(productId);
-		boolean usePureIntonationMode = tuningModes.get(tuningMode).equals(TuningMode.PURE);
+		boolean usePureIntonationMode =
+				tuningModes.get(tuningMode).equals(TuningMode.PURE);
 		boolean useRealSamples = !samples.get(sample).equals(Sample.MIDI);
 		boolean useContinuousVibrato = false;
 		

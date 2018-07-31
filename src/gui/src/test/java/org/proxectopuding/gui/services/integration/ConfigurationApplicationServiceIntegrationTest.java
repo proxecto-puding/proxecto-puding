@@ -133,6 +133,12 @@ public class ConfigurationApplicationServiceIntegrationTest {
 		List<FingeringOffset> fingerings =
 				deviceManagerService.getFingerings(productId);
 		assertTrue(fingerings.size() > 0);
+		FingeringOffset fingering = fingerings.iterator().next();
+		int customFingeringNote = fingering.getOffset() % 12;
+		int customFingeringOctave =
+				(fingering.getOffset() - customFingeringNote) * 12;
+		confAppService.setCustomFingeringOctave(customFingeringOctave);
+		confAppService.setCustomFingeringNote(customFingeringNote);
 		
 		// When
 		List<Integer> customFingeringNumbers =

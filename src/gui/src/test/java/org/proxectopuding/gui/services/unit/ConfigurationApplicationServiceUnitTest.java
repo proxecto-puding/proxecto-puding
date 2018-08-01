@@ -3,10 +3,6 @@ package org.proxectopuding.gui.services.unit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -167,6 +163,7 @@ public class ConfigurationApplicationServiceUnitTest {
 		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
 	}
 
+	// FIXME Fix.
 	@Test
 	public void isCustomFingeringSensorSelected() {
 		
@@ -195,6 +192,7 @@ public class ConfigurationApplicationServiceUnitTest {
 		assertTrue(isCustomFingeringSensorSelected);
 	}
 	
+	// FIXME Fix.
 	@Test
 	public void setCustomFingeringSensor() {
 		

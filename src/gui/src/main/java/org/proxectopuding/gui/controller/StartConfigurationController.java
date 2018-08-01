@@ -3,9 +3,11 @@ package org.proxectopuding.gui.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JComboBox;
 
+import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
@@ -37,13 +39,22 @@ public class StartConfigurationController {
 		return i18nService.getTranslation("startConfiguration.chanterSelection.label");
 	}
 	
+	public String getTranslationForSearchButtonText() {
+		return i18nService.getTranslation("startConfiguration.search.label");
+	}
+	
 	public String getTranslationForReadingToneLabel() {
 		return i18nService.getTranslation("startConfiguration.readingTone.label");
 	}
 	
 	public void findChanters() {
 		
-		deviceManagerService.findBagpipeDevices();
+		Set<BagpipeDevice> devices =
+				deviceManagerService.findBagpipeDevices();
+		if (devices.size() > 0) {
+			notificationService.sendNotification(this,
+					Notification.CHANTER_FOUND, devices);
+		}
 	}
 	
 	public String[] getChanters() {
@@ -71,6 +82,24 @@ public class StartConfigurationController {
 				deviceManagerService.findBagpipeConfigurations(productId);
 				notificationService.sendNotification(comboBoxChanterSelection,
 						Notification.CHANTER_SELECTED, productId);
+			}
+		};
+		
+		return actionListener;
+	}
+	
+	public ActionListener getActionListenerForSearchButton() {
+		
+		ActionListener actionListener = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent event) {
+				
+				Set<BagpipeDevice> devices =
+						deviceManagerService.findBagpipeDevices();
+				if (devices.size() > 0) {
+					notificationService.sendNotification(event.getSource(),
+							Notification.CHANTER_FOUND, devices);
+				}
 			}
 		};
 		

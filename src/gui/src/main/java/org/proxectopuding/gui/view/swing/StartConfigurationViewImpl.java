@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingUtilities;
 
 import org.proxectopuding.gui.controller.StartConfigurationController;
 import org.proxectopuding.gui.view.StartConfigurationView;
@@ -26,7 +28,13 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 	
 		this.startConfigurationController = startConfigurationController;
 		
-		startConfigurationController.findChanters();
+		// FIXME Injection problem when singleton.
+//		SwingUtilities.invokeLater(new Runnable(){
+//	        @Override
+//	        public void run(){
+	        	startConfigurationController.findChanters();
+//	        }
+//	    });
 	}
 	
 	public JPanel getStartPanel() {
@@ -39,6 +47,9 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 				getChanterSelectionComboBox();
 		panelStart.add(comboBoxChanterSelection);
 		
+		JButton btnSearch = getSearchButton();
+//		panelStart.add(btnSearch);
+		
 		JLabel lblReadingTone = getReadingToneLabel();
 		panelStart.add(lblReadingTone);
 		JComboBox<String> comboBoxReadingTone =
@@ -46,8 +57,8 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		panelStart.add(comboBoxReadingTone);
 		
 		GroupLayout gl_panelStart = getGroupLayout(panelStart,
-				lblChanterSelection, comboBoxChanterSelection, lblReadingTone,
-				comboBoxReadingTone);
+				lblChanterSelection, comboBoxChanterSelection, btnSearch,
+				lblReadingTone, comboBoxReadingTone);
 		panelStart.setLayout(gl_panelStart);
 		
 		return panelStart;
@@ -75,12 +86,23 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		ActionListener actionListener = startConfigurationController.
 				getActionListenerForChanterSelectionComboBox();
 		comboBoxChanterSelection.addActionListener(actionListener);
-		if (chanters.length > 0) {
-			String chanterId = chanters[0];
-			comboBoxChanterSelection.setSelectedItem(chanterId);
-		}
 		
 		return comboBoxChanterSelection;
+	}
+	
+	private JButton getSearchButton() {
+		
+		JButton btnSearch = new JButton();
+		
+		String text = startConfigurationController.
+				getTranslationForSearchButtonText();
+		btnSearch.setText(text);
+		
+		ActionListener actionListener = startConfigurationController.
+				getActionListenerForSearchButton();
+		btnSearch.addActionListener(actionListener);
+		
+		return btnSearch;
 	}
 	
 	private JLabel getReadingToneLabel() {
@@ -113,6 +135,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 	private GroupLayout getGroupLayout(JPanel panelStart,
 			JLabel lblChanterSelection,
 			JComboBox<String> comboBoxChanterSelection,
+			JButton btnSearch,
 			JLabel lblReadingTone,
 			JComboBox<String> comboBoxReadingTone) {
 		

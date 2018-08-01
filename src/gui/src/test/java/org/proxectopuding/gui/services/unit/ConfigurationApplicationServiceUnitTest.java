@@ -163,7 +163,6 @@ public class ConfigurationApplicationServiceUnitTest {
 		assertEquals(expectedCustomFingeringNumber, customFingeringNumber);
 	}
 
-	// FIXME Fix.
 	@Test
 	public void isCustomFingeringSensorSelected() {
 		
@@ -192,7 +191,6 @@ public class ConfigurationApplicationServiceUnitTest {
 		assertTrue(isCustomFingeringSensorSelected);
 	}
 	
-	// FIXME Fix.
 	@Test
 	public void setCustomFingeringSensor() {
 		

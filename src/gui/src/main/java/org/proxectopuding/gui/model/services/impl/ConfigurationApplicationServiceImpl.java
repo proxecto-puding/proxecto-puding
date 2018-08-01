@@ -526,8 +526,8 @@ public class ConfigurationApplicationServiceImpl
 			FingeringOffset customFingering =
 					customFingeringNumbers.get(customFingeringNumber);
 			int fingering = customFingering.getFingering();
-			// Bitwise and.
-			isSelected = ((fingering & sensor) == 1);
+			// See: http://stackoverflow.com/questions/4844342/change-bits-value-in-byte
+			isSelected = (fingering == (fingering | (1 << sensor)));
 		}
 		
 		return isSelected;

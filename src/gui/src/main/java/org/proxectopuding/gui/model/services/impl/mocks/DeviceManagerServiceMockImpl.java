@@ -39,7 +39,6 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public DeviceManagerServiceMockImpl(ConnectionManager connectionManager,
 			DeviceManager deviceManager) {
 		try {
-			LOGGER.log(Level.INFO, "Loading connection manager");
 			this.deviceManager = deviceManager;
 			this.gson = new GsonBuilder().setPrettyPrinting().create();			
 		} catch(Exception e) {
@@ -85,6 +84,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	@Override
 	public List<String> getBagpipeDeviceIds() {
 		
+		LOGGER.log(Level.INFO, "Getting bagpipe device ids");
 		List<String> ids = new ArrayList<String>();
 		
 		Set<BagpipeDevice> devices = deviceManager.getDevices();
@@ -97,11 +97,13 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	
 	@Override
 	public BagpipeDevice getSelectedBagpipeDevice() {
+		LOGGER.log(Level.INFO, "Getting selected bagpipe device");
 		return deviceManager.getSelectedDevice();
 	}
 	
 	@Override
 	public void setSelectedBagpipeDevice(String productId) {
+		LOGGER.log(Level.INFO, "Setting selected bagpipe device");
 		deviceManager.setSelectedDevice(productId);
 	}
 	
@@ -109,6 +111,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public Set<BagpipeConfiguration> findBagpipeConfigurations(
 			String productId) {
 		
+		LOGGER.log(Level.INFO, "Finding bagpipe configurations for: {0}", productId);
 		BagpipeConfigurationType[] types = BagpipeConfigurationType.values();
 		for (BagpipeConfigurationType type : types) {
 			findBagpipeConfiguration(productId, type.toString());
@@ -121,6 +124,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public BagpipeConfiguration findBagpipeConfiguration(
 			BagpipeConfiguration configuration) {
 		
+		LOGGER.log(Level.INFO, "Finding bagpipe configurations for: {0}", configuration);
 		String productId = configuration.getProductId();
 		String type = configuration.getType();
 		
@@ -131,6 +135,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public BagpipeConfiguration findBagpipeConfiguration(
 			String productId, String type) {
 		
+		LOGGER.log(Level.INFO, "Finding bagpipe configuration for: {0} {1}", new String[]{productId, type});
 		BagpipeConfiguration configuration = null;
 		
 		BagpipeDevice device = deviceManager.getDevice(productId);
@@ -175,6 +180,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void sendBagpipeConfiguration(BagpipeConfiguration configuration)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Sending bagpipe configuration: {0}", configuration);
 		if (configuration != null) {
 			String productId = configuration.getProductId();
 			try {
@@ -194,12 +200,14 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public BagpipeConfiguration getBagpipeConfiguration(
 			String productId, String type) {
 		
+		LOGGER.log(Level.INFO, "Getting bagpipe configuration for: {0} {1}", new String[]{productId, type});
 		return deviceManager.getConfiguration(productId, type);
 	}
 	
 	@Override
 	public int getVolume(String productId) throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting volume for: {0}", productId);
 		int volume = -1;
 		
 		if (productId != null) {
@@ -225,6 +233,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setVolume(String productId, int volume)
 			throws IllegalArgumentException {
 	
+		LOGGER.log(Level.INFO, "Setting volume for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -246,6 +255,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public int getTuningTone(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting tuning tone for: {0}", productId);
 		int tuningTone = -1;
 		
 		if (productId != null) {
@@ -271,6 +281,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setTuningTone(String productId, int tuningTone)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting tuning tone for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -292,6 +303,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public int getTuningOctave(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting tuning octave for: {0}", productId);
 		int tuningOctave = -1;
 		
 		if (productId != null) {
@@ -317,6 +329,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setTuningOctave(String productId, int tuningOctave)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting tuning octave for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -338,6 +351,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public List<Boolean> getFingeringTypesEnabled(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting fingering types enabled for: {0}", productId);
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
 		
 		if (productId != null) {
@@ -363,6 +377,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setFingeringTypesEnabled(String productId,
 			List<Boolean> fingeringTypes) throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting fingering types enabled for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -384,6 +399,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public Boolean isBagEnabled(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Is bag enabled for: {0}", productId);
 		Boolean isBagEnabled = null;
 		
 		if (productId != null) {
@@ -409,6 +425,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setBagEnabled(String productId, boolean bagEnabled)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting bag enabled for: {0} {1}", new Object[]{productId, bagEnabled});
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -430,6 +447,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public List<Boolean> getDronesEnabled(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting drones enabled for: {0}", productId);
 		List<Boolean> drones = new ArrayList<Boolean>();
 		
 		if (productId != null) {
@@ -455,6 +473,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setDronesEnabled(String productId, List<Boolean> drones)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting drones enabled for: {0}", new Object[]{productId, drones});
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -476,6 +495,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public int getBagPressure(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting bag pressure for: {0}", productId);
 		int bagPressure = -1;
 		
 		if (productId != null) {
@@ -501,6 +521,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public void setBagPressure(String productId, int bagPressure)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Setting bag pressure for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -522,6 +543,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	public List<FingeringOffset> getFingerings(String productId)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting fingerings for: {0}", productId);
 		List<FingeringOffset> fingerings = new ArrayList<FingeringOffset>();
 		
 		if (productId != null) {
@@ -546,6 +568,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	@Override
 	public void setFingerings(String productId, List<FingeringOffset> fingerings) {
 		
+		LOGGER.log(Level.INFO, "Setting fingerings for: {0}", productId);
 		if (productId != null) {
 			BagpipeDevice device = deviceManager.getDevice(productId);
 			if (device != null) {
@@ -569,6 +592,8 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	}
 	
 	private void sendAck(String productId) throws IllegalArgumentException {
+		
+		LOGGER.log(Level.INFO, "Sending ack to: {0}", productId);
 		if (productId != null) {
 			try {
 				BagpipeDevice device = new BagpipeDevice();

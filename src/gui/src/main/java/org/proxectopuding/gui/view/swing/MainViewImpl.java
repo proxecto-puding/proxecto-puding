@@ -48,7 +48,5 @@ public class MainViewImpl extends JFrame {
 		// Content panel.
 		JPanel contentPanel = contentPanelView.getContentPanel();
 		setContentPane(contentPanel);
-		
-		mainController.findChanters();
 	}
 }

@@ -25,6 +25,8 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 			StartConfigurationController startConfigurationController) {
 	
 		this.startConfigurationController = startConfigurationController;
+		
+		startConfigurationController.findChanters();
 	}
 	
 	public JPanel getStartPanel() {
@@ -73,6 +75,10 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		ActionListener actionListener = startConfigurationController.
 				getActionListenerForChanterSelectionComboBox();
 		comboBoxChanterSelection.addActionListener(actionListener);
+		if (chanters.length > 0) {
+			String chanterId = chanters[0];
+			comboBoxChanterSelection.setSelectedItem(chanterId);
+		}
 		
 		return comboBoxChanterSelection;
 	}

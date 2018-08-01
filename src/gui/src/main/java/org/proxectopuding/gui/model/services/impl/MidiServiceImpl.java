@@ -29,6 +29,7 @@ public class MidiServiceImpl implements MidiService {
 	@Override
 	public Process start() {
 		
+		LOGGER.log(Level.INFO, "Starting MIDI server");
 		Process process = null;
 		
 		try {
@@ -45,12 +46,14 @@ public class MidiServiceImpl implements MidiService {
 	
 	@Override
 	public Process restart() {
+		LOGGER.log(Level.INFO, "Restarting MIDI server");
 		stop();
 		return start();
 	}
 
 	@Override
 	public void stop() {
+		LOGGER.log(Level.INFO, "Stopping MIDI server");
 		if (process != null) {
 			process.destroy();
 		}
@@ -58,11 +61,13 @@ public class MidiServiceImpl implements MidiService {
 	
 	@Override
 	public MidiServerConfiguration getConfiguration() {
+		LOGGER.log(Level.INFO, "Getting MIDI server configuration");
 		return midiServer.getConfiguration();
 	}
 	
 	@Override
 	public void setConfiguration(MidiServerConfiguration configuration) {
+		LOGGER.log(Level.INFO, "Setting MIDI server configuration: {0}", configuration);
 		midiServer.setConfiguration(configuration);
 	}
 

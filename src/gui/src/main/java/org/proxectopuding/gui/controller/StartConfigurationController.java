@@ -41,6 +41,11 @@ public class StartConfigurationController {
 		return i18nService.getTranslation("startConfiguration.readingTone.label");
 	}
 	
+	public void findChanters() {
+		
+		deviceManagerService.findBagpipeDevices();
+	}
+	
 	public String[] getChanters() {
 		
 		String[] chanters = {};
@@ -101,5 +106,4 @@ public class StartConfigurationController {
 		
 		return actionListener;
 	}
-
 }

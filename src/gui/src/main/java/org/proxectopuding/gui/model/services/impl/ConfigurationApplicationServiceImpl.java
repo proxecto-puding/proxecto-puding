@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.FingeringNote;
@@ -23,8 +25,9 @@ import org.proxectopuding.gui.model.utils.I18nManager;
 
 import com.google.inject.Inject;
 
-public class ConfigurationApplicationServiceImpl
-		implements ConfigurationApplicationService {
+public class ConfigurationApplicationServiceImpl implements ConfigurationApplicationService {
+	
+	private static final Logger LOGGER = Logger.getLogger(ConfigurationApplicationServiceImpl.class.getName());
 	
 	private static final String[] READING_TONE_IDS =
 		{"C", "D"};
@@ -152,6 +155,8 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public BagpipeConfigurationType getSelectedBagpipeConfigurationType() {
+		
+		LOGGER.log(Level.INFO, "Getting selected bagpipe configuration type");
 		return bagpipeConfigurationType;
 	}
 
@@ -159,23 +164,26 @@ public class ConfigurationApplicationServiceImpl
 	public void setSelectedBagpipeConfigurationType(
 			BagpipeConfigurationType bagpipeConfigurationType) {
 		
-		this.bagpipeConfigurationType =
-				bagpipeConfigurationType;
+		LOGGER.log(Level.INFO, "Setting selected bagpipe configuration type: {0}", bagpipeConfigurationType);
+		this.bagpipeConfigurationType = bagpipeConfigurationType;
 	}
 	
 	@Override
 	public List<String> getReadingTones() {
+		LOGGER.log(Level.INFO, "Getting reading tones");
 		return new ArrayList<String>(readingTones.keySet());
 	}
 	
 	@Override
 	public String getReadingTone() {
+		LOGGER.log(Level.INFO, "Getting reading tone");
 		return readingTone.getTranslationText();
 	}
 
 	@Override
 	public void setReadingTone(String readingTone) {
 		
+		LOGGER.log(Level.INFO, "Setting reading tone: {0}", readingTone);
 		ReadingTone newReadingTone = readingTones.get(readingTone); 
 		if (newReadingTone != null) {
 			this.readingTone = newReadingTone;
@@ -184,6 +192,7 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<String> getTuningTones() {
+		LOGGER.log(Level.INFO, "Getting tuning tones");
 		return new ArrayList<String>(tuningTones.keySet());
 	}
 	
@@ -191,6 +200,7 @@ public class ConfigurationApplicationServiceImpl
 	public String getTuningTone(int tuningTone)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting tuning tone: {0}", tuningTone);
 		String tone = null;
 		
 		if (tuningTone >= 0 && tuningTone < 12) {
@@ -217,6 +227,7 @@ public class ConfigurationApplicationServiceImpl
 	public int getTuningTone(String tuningTone)
 			throws IllegalArgumentException {
 		
+		LOGGER.log(Level.INFO, "Getting tuning tone: {0}", tuningTone);
 		int tone = -1;
 		
 		if (tuningTone != null) {
@@ -234,92 +245,110 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public String getDefaultTuningTone() {
+		LOGGER.log(Level.INFO, "Getting default tuning tone");
 		return DEFAULT_TUNING_TONE.getTranslationText();
 	}
 	
 	@Override
 	public List<Integer> getTuningOctaves() {
+		LOGGER.log(Level.INFO, "Getting tuning octaves");
 		return new ArrayList<Integer>(Arrays.asList(TUNING_OCTAVES));
 	}
 	
 	@Override
 	public int getDefaultTuningOctave() {
+		LOGGER.log(Level.INFO, "Getting default tuning octave");
 		return DEFAULT_TUNING_OCTAVE;
 	}
 	
 	@Override
 	public List<String> getSamples() {
+		LOGGER.log(Level.INFO, "Getting samples");
 		return new ArrayList<String>(samples.keySet());
 	}
 	
 	@Override
 	public String getSample() {
+		LOGGER.log(Level.INFO, "Getting sample");
 		return sample;
 	}
 	
 	@Override
 	public void setSample(String sample) {
+		LOGGER.log(Level.INFO, "Setting sample: {0}", sample);
 		this.sample = sample;
 	}
 	
 	@Override
 	public List<Boolean> getDefaultFingeringTypesEnabled() {
+		LOGGER.log(Level.INFO, "Getting default fingering types enabled");
 		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_FINGERING_TYPES));
 	}
 	
 	@Override
 	public Boolean isDefaultBagEnabled() {
+		LOGGER.log(Level.INFO, "Is default bag enabled enabled");
 		return DEFAULT_BAG_ENABLED;
 	}
 	
 	@Override
 	public List<Boolean> getDefaultDronesEnabled() {
+		LOGGER.log(Level.INFO, "Getting default drones enabled");
 		return new ArrayList<Boolean>(Arrays.asList(DEFAULT_DRONES_ENABLED));
 	}
 	
 	@Override
 	public int getTuningFrequency() {
+		LOGGER.log(Level.INFO, "Getting tuning frequency");
 		return tuningFrequency;
 	}
 	
 	@Override
 	public void setTuningFrequency(int tuningFrequency) {
+		LOGGER.log(Level.INFO, "Setting tuning frequency: {0}", tuningFrequency);
 		this.tuningFrequency = tuningFrequency;
 	}
 	
 	@Override
 	public List<String> getTuningModes() {
+		LOGGER.log(Level.INFO, "Getting tuning modes");
 		return new ArrayList<String>(tuningModes.keySet());
 	}
 	
 	@Override
 	public String getTuningMode() {
+		LOGGER.log(Level.INFO, "Getting tuning mode");
 		return tuningMode;
 	}
 	
 	@Override
 	public void setTuningMode(String tuningMode) {
+		LOGGER.log(Level.INFO, "Setting tuning mode: {0}", tuningMode);
 		this.tuningMode = tuningMode;
 	}
 	
 	@Override
 	public String getDefaultTuningMode() {
+		LOGGER.log(Level.INFO, "Getting default tuning mode");
 		return DEFAULT_TUNING_MODE;
 	}
 	
 	@Override
 	public List<String> getPreciseTuningNotes() {
+		LOGGER.log(Level.INFO, "Getting precise tuning notes");
 		return new ArrayList<String>(preciseTuningNotes.keySet());
 	}
 	
 	@Override
 	public String getPreciseTuningNote() {
+		LOGGER.log(Level.INFO, "Getting precise tuning note");
 		return preciseTuningNote.getTranslationText();
 	}
 	
 	@Override
 	public void setPreciseTuningNote(String preciseTuningNote) {
 		
+		LOGGER.log(Level.INFO, "Setting precise tuning note: {0}", preciseTuningNote);
 		PreciseTuningNote newPreciseTuningNote =
 				preciseTuningNotes.get(preciseTuningNote); 
 		if (newPreciseTuningNote != null) {
@@ -330,6 +359,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setPreciseTuningNote(int preciseTuningNote) {
 		
+		LOGGER.log(Level.INFO, "Setting precise tuning note: {0}", preciseTuningNote);
 		String note = null;
 		
 		for (PreciseTuningNote n : preciseTuningNotes.values()) {
@@ -347,6 +377,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public List<String> resetPreciseTuningNotes() {
 		
+		LOGGER.log(Level.INFO, "Reseting precise tuning notes");
 		int current = preciseTuningNote.getValue();
 		setPreciseTuningNotes();
 		setPreciseTuningNote(current);
@@ -355,23 +386,27 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<Integer> getPreciseTuningOctaves() {
+		LOGGER.log(Level.INFO, "Getting precise tuning octaves");
 		return new ArrayList<Integer>(Arrays.asList(PRECISE_TUNING_OCTAVES));
 	}
 	
 	@Override
 	public int getPreciseTuningOctave() {
+		LOGGER.log(Level.INFO, "Getting precise tuning octave");
 		return preciseTuningOctave;
 	}
 	
 	@Override
 	public void setPreciseTuningOctave(int preciseTuningOctave) {
 		
+		LOGGER.log(Level.INFO, "Setting precise tuning octave: {0}", preciseTuningOctave);
 		this.preciseTuningOctave = preciseTuningOctave;
 	}
 	
 	@Override
 	public int getPreciseTuningCents() {
 
+		LOGGER.log(Level.INFO, "Getting precise tuning cents");
 		Integer key = preciseTuningNote.getValue();
 		PreciseTuning preciseTuning = preciseTunings.get(key);
 		if (preciseTuning != null) {
@@ -384,23 +419,27 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setPreciseTuningCents(int preciseTuningCents) {
 	
+		LOGGER.log(Level.INFO, "Setting precise tuning cents: {0}", preciseTuningCents);
 		setPreciseTuning(preciseTuningNote, preciseTuningOctave,
 				preciseTuningCents);
 	}
 	
 	@Override
 	public List<String> getCustomFingeringNotes() {
+		LOGGER.log(Level.INFO, "Getting custom fingering notes");
 		return new ArrayList<String>(customFingeringNotes.keySet());
 	}
 
 	@Override
 	public String getCustomFingeringNote() {
+		LOGGER.log(Level.INFO, "Getting custom fingering note");
 		return customFingeringNote.getTranslationText();
 	}
 
 	@Override
 	public void setCustomFingeringNote(String customFingeringNote) {
 		
+		LOGGER.log(Level.INFO, "Setting custom fingering note: {0}", customFingeringNote);
 		FingeringNote newCustomFingeringNote =
 				customFingeringNotes.get(customFingeringNote); 
 		if (newCustomFingeringNote != null) {
@@ -411,6 +450,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public void setCustomFingeringNote(int customFingeringNote) {
 		
+		LOGGER.log(Level.INFO, "Setting custom fingering note: {0}", customFingeringNote);
 		String note = null;
 		
 		for (FingeringNote n : customFingeringNotes.values()) {
@@ -428,6 +468,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public List<String> resetCustomFingeringNotes() {
 		
+		LOGGER.log(Level.INFO, "Reseting custom fingering notes");
 		int current = customFingeringNote.getValue();
 		setCustomFingeringNotes();
 		setCustomFingeringNote(current);
@@ -436,17 +477,20 @@ public class ConfigurationApplicationServiceImpl
 	
 	@Override
 	public List<Integer> getCustomFingeringOctaves() {
+		LOGGER.log(Level.INFO, "Getting custom fingering octaves");
 		return new ArrayList<Integer>(Arrays.asList(CUSTOM_FINGERING_OCTAVES));
 	}
 
 	@Override
 	public int getCustomFingeringOctave() {
+		LOGGER.log(Level.INFO, "Getting custom fingering octave");
 		return customFingeringOctave;
 	}
 
 	@Override
 	public void setCustomFingeringOctave(Integer customFingeringOctave) {
 		
+		LOGGER.log(Level.INFO, "Setting custom fingering octave: {0}", customFingeringOctave);
 		this.customFingeringOctave = customFingeringOctave;
 	}
 	
@@ -454,6 +498,7 @@ public class ConfigurationApplicationServiceImpl
 	public List<Integer> getCustomFingeringNumbers(
 			List<FingeringOffset> fingerings) {
 		
+		LOGGER.log(Level.INFO, "Getting custom fingering numbers: {0}", fingerings);
 		customFingeringNumbers = new LinkedHashMap<Integer, FingeringOffset>();
 		
 		if (customFingeringNote != null) {
@@ -480,18 +525,21 @@ public class ConfigurationApplicationServiceImpl
 
 	@Override
 	public int getCustomFingeringNumber() {
+		LOGGER.log(Level.INFO, "Getting custom fingering number");
 		return customFingeringNumber;
 	}
 
 	@Override
 	public void setCustomFingeringNumber(int customFingeringNumber) {
 		
+		LOGGER.log(Level.INFO, "Setting custom fingering number: {0}", customFingeringNumber);
 		this.customFingeringNumber = customFingeringNumber;
 	}
 	
 	@Override
 	public int addCustomFingeringNumber() {
 		
+		LOGGER.log(Level.INFO, "Adding custom fingering number");
 		int key = customFingeringNumbers.size() + 1;
 		FingeringOffset customFingering = new FingeringOffset();
 		// 0 - All the holes open.
@@ -508,17 +556,20 @@ public class ConfigurationApplicationServiceImpl
 
 	@Override
 	public FingeringOffset getCustomFingering(int customFingeringNumber) {
+		LOGGER.log(Level.INFO, "Getting custom fingering: {0}", customFingeringNumber);
 		return customFingeringNumbers.get(customFingeringNumber);
 	}
 
 	@Override
 	public void removeCustomFingeringNumber(int customFingeringNumber) {
+		LOGGER.log(Level.INFO, "Removing custom fingering: {0}", customFingeringNumber);
 		customFingeringNumbers.remove(customFingeringNumber);		
 	}
 	
 	@Override
 	public boolean isCustomFingeringSensorSelected(int sensor) {
 
+		LOGGER.log(Level.INFO, "Is custom fingering sensor selected: {0}", sensor);
 		boolean isSelected = false;
 		
 		if (customFingeringNumbers.size() > 0) {
@@ -537,6 +588,7 @@ public class ConfigurationApplicationServiceImpl
 	public FingeringOffset setCustomFingeringSensor(int sensor,
 			boolean isSelected) {
 		
+		LOGGER.log(Level.INFO, "Set custom fingering sensor selected: {0} {1}", new Object[]{sensor, isSelected});
 		FingeringOffset customFingering = null;
 		
 		if (customFingeringNumbers.size() > 0) {
@@ -559,6 +611,7 @@ public class ConfigurationApplicationServiceImpl
 	@Override
 	public MidiServerConfiguration getMidiServerConfiguration() {
 		
+		LOGGER.log(Level.INFO, "Getting MIDI server configuration");
 		MidiServerConfiguration configuration = new MidiServerConfiguration();
 		
 		String productId =

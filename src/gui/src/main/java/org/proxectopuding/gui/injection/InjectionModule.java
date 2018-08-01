@@ -23,6 +23,7 @@ import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
 import org.proxectopuding.gui.model.services.impl.I18nServiceImpl;
 import org.proxectopuding.gui.model.services.impl.MidiServiceImpl;
 import org.proxectopuding.gui.model.services.impl.NotificationServiceImpl;
+import org.proxectopuding.gui.model.services.impl.mocks.DeviceManagerServiceMockImpl;
 import org.proxectopuding.gui.model.utils.BrowserManager;
 import org.proxectopuding.gui.model.utils.ConfigurationManager;
 import org.proxectopuding.gui.model.utils.DeviceManager;
@@ -79,6 +80,7 @@ public class InjectionModule extends AbstractModule {
 		bind(BrowserService.class).to(BrowserServiceImpl.class);
 		bind(ConfigurationApplicationService.class).to(ConfigurationApplicationServiceImpl.class);
 		bind(DeviceManagerService.class).to(DeviceManagerServiceImpl.class);
+//		bind(DeviceManagerService.class).to(DeviceManagerServiceMockImpl.class);
 		bind(I18nService.class).to(I18nServiceImpl.class);
 		bind(MidiService.class).to(MidiServiceImpl.class);
 		bind(NotificationService.class).to(NotificationServiceImpl.class);

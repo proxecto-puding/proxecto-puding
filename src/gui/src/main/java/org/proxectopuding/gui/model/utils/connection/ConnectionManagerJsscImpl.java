@@ -135,6 +135,7 @@ public class ConnectionManagerJsscImpl extends ConnectionManagerAbstractImpl {
 	public void writeData(String data, boolean disconnect) {
 		try {
 			connect();
+			LOGGER.log(Level.INFO, data);
 			serialPort.writeString(data);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Unable to write data to the serial port", e);

@@ -1,4 +1,4 @@
-package org.proxectopuding.gui.model.services.impl;
+package org.proxectopuding.gui.model.services.impl.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,32 +13,33 @@ import org.proxectopuding.gui.model.entities.FingeringConfiguration;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
 import org.proxectopuding.gui.model.entities.SelectionConfiguration;
 import org.proxectopuding.gui.model.entities.SensitivityConfiguration;
+import org.proxectopuding.gui.model.entities.StartConfiguration;
 import org.proxectopuding.gui.model.entities.TuningConfiguration;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.utils.DeviceManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
-public class DeviceManagerServiceImpl implements DeviceManagerService {
+public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	
-	private static final Logger LOGGER = Logger.getLogger(DeviceManagerServiceImpl.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(DeviceManagerServiceMockImpl.class.getName());
 	
-	private static final String DISCOVERY_BEACON = "DBEACON";
+	private static final String PRODUCT_ID = "PRODUCT_ID";
 	private static final int MAX_ATTEMPTS = 10;
 	
-	private ConnectionManager connectionManager;
 	private DeviceManager deviceManager;
 	private Gson gson;
 	
 	@Inject
-	public DeviceManagerServiceImpl(ConnectionManager connectionManager,
+	public DeviceManagerServiceMockImpl(ConnectionManager connectionManager,
 			DeviceManager deviceManager) {
 		try {
 			LOGGER.log(Level.INFO, "Loading connection manager");
-			this.connectionManager = connectionManager;
 			this.deviceManager = deviceManager;
 			this.gson = new GsonBuilder().setPrettyPrinting().create();			
 		} catch(Exception e) {
@@ -58,7 +59,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		for (int i = 0; i < MAX_ATTEMPTS; i++) {
 			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				response = connectionManager.readData(false);
+				response = getDeviceAsJson();
+				LOGGER.log(Level.INFO, "Response: {0}", response);
 				device = gson.fromJson(response, BagpipeDevice.class);
 				if (device != null) {
 					deviceManager.addDevice(device);
@@ -75,7 +77,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		if (deviceManager.getDevices().size() == 0) {
 			LOGGER.log(Level.SEVERE, "No devices found");
 		}
-		connectionManager.disconnect();
+		LOGGER.log(Level.INFO, "connectionManager.disconnect()");
 		
 		return deviceManager.getDevices();
 	}
@@ -145,8 +147,10 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		for (int i = 0; i < MAX_ATTEMPTS; i++) {
 			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
-				connectionManager.writeData(request, false);
-				response = connectionManager.readData(false);
+				LOGGER.log(Level.INFO, "Request: {0}", request);
+				response = getConfigurationAsJson(config.getProductId(),
+						BagpipeConfigurationType.from(config.getType()));
+				LOGGER.log(Level.INFO, "Response: {0}", response);
 				configuration = gson.fromJson(response, BagpipeConfiguration.class);
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
@@ -162,7 +166,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 				LOGGER.log(Level.SEVERE, "Unable to find the configuration", e);
 			}
 		}
-		connectionManager.disconnect();
+		LOGGER.log(Level.INFO, "connectionManager.disconnect()");
 		
 		return configuration;
 	}
@@ -175,7 +179,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			String productId = configuration.getProductId();
 			try {
 				String json = gson.toJson(configuration);
-				connectionManager.writeData(json);
+				LOGGER.log(Level.INFO, "Request: {0}", json);
 				deviceManager.addConfiguration(productId, configuration);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to send the configuration for productId: {0}, type: {1}", new String[]{productId, configuration.getType()});
@@ -559,26 +563,18 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 	}
 	
-	/**
-	 * Send a discovery beacon for finding serial devices.
-	 */
 	private void sendDiscoveryBeacon() {
 		
 		LOGGER.log(Level.INFO, "Sending discovery beacon");
-		connectionManager.writeData(DISCOVERY_BEACON, false);
 	}
 	
-	/**
-	 * Send an ACK message to the target device.
-	 * @param device Target device.
-	 */
 	private void sendAck(String productId) throws IllegalArgumentException {
 		if (productId != null) {
 			try {
 				BagpipeDevice device = new BagpipeDevice();
 				device.setProductId(productId);
 				String json = gson.toJson(device);
-				connectionManager.writeData(json, false);
+				LOGGER.log(Level.INFO, "Request: {0}", json);
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK for productId: {0}", productId);
 				LOGGER.log(Level.SEVERE, "Unable to send the ACK", e);
@@ -588,4 +584,119 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		}
 	}
 
+	// Private
+	
+	private BagpipeDevice getDevice() {
+		
+		BagpipeDevice device = new BagpipeDevice();
+		device.setProductId(PRODUCT_ID);
+		device.setConfigurations(getConfigurations(PRODUCT_ID));
+		return device;
+	}
+	
+	private String getDeviceAsJson() {
+	
+		return gson.toJson(getDevice());
+	}
+	
+	private BagpipeConfiguration getConfiguration(String productId,
+			BagpipeConfigurationType type) {
+		
+		BagpipeConfiguration configuration = new BagpipeConfiguration();
+		
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
+		switch (type) {
+			case START:
+				configuration.setData(getStartConfigurationData());
+				break;
+			case SELECT:
+				configuration.setData(getSelectionConfigurationData());
+				break;
+			case TUNING:
+				configuration.setData(getTuningConfigurationData());
+				break;
+			case SENSIT:
+				configuration.setData(getSensitivityConfigurationData());
+				break;
+			case FINGER:
+				configuration.setData(getFingeringConfigurationData());
+				break;
+		}
+		
+		return configuration;
+	}
+	
+	private String getConfigurationAsJson(String productId,
+			BagpipeConfigurationType type) {
+		
+		return gson.toJson(getConfiguration(productId, type));
+	}
+	
+	private Set<BagpipeConfiguration> getConfigurations(String productId) {
+		
+		return ImmutableSet.copyOf(BagpipeConfigurationType.values()).stream()
+				.map(type -> getConfiguration(productId, type))
+				.collect(ImmutableSet.toImmutableSet());
+	}
+	
+	private StartConfiguration getStartConfigurationData() {
+		
+		return new StartConfiguration();
+	}
+	
+	private SelectionConfiguration getSelectionConfigurationData() {
+		
+		SelectionConfiguration data = new SelectionConfiguration();
+
+		data.setVolume(100);
+		data.setBagEnabled(true);
+		data.setDronesEnabled(ImmutableList.of(true, false, false));
+		data.setFingeringTypes(ImmutableList.of(true, false, false));
+		
+		return data;
+	}
+	
+	private TuningConfiguration getTuningConfigurationData() {
+		
+		TuningConfiguration data = new TuningConfiguration();
+		
+		data.setTone(0);
+		data.setOctave(4);
+		
+		return data;
+	}
+	
+	private SensitivityConfiguration getSensitivityConfigurationData() {
+		
+		SensitivityConfiguration data = new SensitivityConfiguration();
+		
+		data.setBagPressure(100);
+		
+		return data;
+	}
+	
+	private FingeringConfiguration getFingeringConfigurationData() {
+		
+		FingeringConfiguration data = new FingeringConfiguration();
+		
+		data.setFingerings(getFingeringOffsets());
+		
+		return data;
+	}
+	
+	private List<FingeringOffset> getFingeringOffsets() {
+		
+		ImmutableList.Builder<FingeringOffset> fingerings =
+				ImmutableList.builder();
+		
+		for (int i = 0; i < 3; i++) {
+			FingeringOffset fingeringOffset = new FingeringOffset();
+			fingeringOffset.setFingering(i);
+			fingeringOffset.setOffset(i);
+			fingerings.add(fingeringOffset);
+		}
+		
+		return fingerings.build();
+	}
 }

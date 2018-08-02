@@ -48,6 +48,7 @@ import org.proxectopuding.gui.view.swing.TabbedPaneViewImpl;
 import org.proxectopuding.gui.view.swing.TuningConfigurationViewImpl;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 
 public class InjectionModule extends AbstractModule {
 
@@ -77,29 +78,29 @@ public class InjectionModule extends AbstractModule {
 		bind(TuningConfigurationController.class);
 		
 		// Services
-		bind(BrowserService.class).to(BrowserServiceImpl.class);
-		bind(ConfigurationApplicationService.class).to(ConfigurationApplicationServiceImpl.class);
-		bind(DeviceManagerService.class).to(DeviceManagerServiceImpl.class);
-//		bind(DeviceManagerService.class).to(DeviceManagerServiceMockImpl.class);
-		bind(I18nService.class).to(I18nServiceImpl.class);
-		bind(MidiService.class).to(MidiServiceImpl.class);
-		bind(NotificationService.class).to(NotificationServiceImpl.class);
+		bind(BrowserService.class).to(BrowserServiceImpl.class).in(Singleton.class);
+		bind(ConfigurationApplicationService.class).to(ConfigurationApplicationServiceImpl.class).in(Singleton.class);
+//		bind(DeviceManagerService.class).to(DeviceManagerServiceImpl.class).in(Singleton.class);
+		bind(DeviceManagerService.class).to(DeviceManagerServiceMockImpl.class).in(Singleton.class);
+		bind(I18nService.class).to(I18nServiceImpl.class).in(Singleton.class);
+		bind(MidiService.class).to(MidiServiceImpl.class).in(Singleton.class);
+		bind(NotificationService.class).to(NotificationServiceImpl.class).in(Singleton.class);
 		
 		// Utils
-		bind(BrowserManager.class);
-		bind(ConfigurationManager.class);
-		bind(ConnectionManager.class).to(ConnectionManagerJsscImpl.class);
-		bind(DeviceManager.class);
-		bind(FileDownloader.class);
-		bind(FileDownload.class);
-		bind(FileUtils.class);
-		bind(I18nManager.class);
-		bind(MidiUtils.class);
-		bind(NotificationManager.class);
-		bind(OperativeSystemManager.class);
-		bind(PropertiesManager.class);
+		bind(BrowserManager.class).in(Singleton.class);
+		bind(ConfigurationManager.class).in(Singleton.class);
+		bind(ConnectionManager.class).to(ConnectionManagerJsscImpl.class).in(Singleton.class);
+		bind(DeviceManager.class).in(Singleton.class);
+		bind(FileDownloader.class).in(Singleton.class);
+		bind(FileDownload.class).in(Singleton.class);
+		bind(FileUtils.class).in(Singleton.class);
+		bind(I18nManager.class).in(Singleton.class);
+		bind(MidiUtils.class).in(Singleton.class);
+		bind(NotificationManager.class).in(Singleton.class);
+		bind(OperativeSystemManager.class).in(Singleton.class);
+		bind(PropertiesManager.class).in(Singleton.class);
 		
 		// Entities
-		bind(MidiServer.class).to(MidiServerGeneral.class);
+		bind(MidiServer.class).to(MidiServerGeneral.class).in(Singleton.class);
 	}
 }

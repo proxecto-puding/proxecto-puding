@@ -36,6 +36,8 @@ public class ContentPanelController {
 		this.confAppService = confAppService;
 		this.midiService = midiService;
 		this.notificationService = notificationService;
+		
+		startMidiServer();
 	}
 	
 	public String getTranslationForApplyButtonText() {
@@ -115,4 +117,8 @@ public class ContentPanelController {
 		notificationService.addNotificationListener(notification, listener);
 	}
 
+	private void startMidiServer() {
+		
+		midiService.start();
+	}
 }

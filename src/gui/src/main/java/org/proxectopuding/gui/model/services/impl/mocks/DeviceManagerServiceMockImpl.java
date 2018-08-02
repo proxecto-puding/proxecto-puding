@@ -20,7 +20,6 @@ import org.proxectopuding.gui.model.utils.DeviceManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
@@ -685,13 +684,6 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 			BagpipeConfigurationType type) {
 		
 		return gson.toJson(getConfiguration(productId, type));
-	}
-	
-	private Set<BagpipeConfiguration> getConfigurations(String productId) {
-		
-		return ImmutableSet.copyOf(BagpipeConfigurationType.values()).stream()
-				.map(type -> getConfiguration(productId, type))
-				.collect(ImmutableSet.toImmutableSet());
 	}
 	
 	private StartConfiguration getStartConfiguration(String productId,

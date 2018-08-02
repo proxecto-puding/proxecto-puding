@@ -239,7 +239,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.SELECT.name();
 			int expectedVolume = ((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getVolume();
+							expectedConfigurationType)).getVolume();
 			
 			// When
 			int volume = deviceManagerService.getVolume(expectedProductId);
@@ -266,7 +266,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.SELECT.name();
 			int expectedVolume = ((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getVolume();
+							expectedConfigurationType)).getVolume();
 			
 			// When
 			deviceManagerService.setVolume(expectedProductId, expectedVolume);
@@ -294,7 +294,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningTone = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getTone(); 
+							expectedConfigurationType)).getTone(); 
 			
 			// When
 			int tuningTone = deviceManagerService.getTuningTone(expectedProductId);
@@ -321,7 +321,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningTone = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getTone(); 
+							expectedConfigurationType)).getTone(); 
 			
 			// When
 			deviceManagerService.setTuningTone(expectedProductId, expectedTuningTone);
@@ -349,7 +349,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningOctave = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getOctave(); 
+							expectedConfigurationType)).getOctave(); 
 			
 			// When
 			int tuningOctave =
@@ -377,7 +377,7 @@ public class DeviceManagerServiceIntegrationTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningOctave = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getOctave();
+							expectedConfigurationType)).getOctave();
 			
 			// When
 			deviceManagerService.setTuningOctave(expectedProductId,
@@ -408,7 +408,7 @@ public class DeviceManagerServiceIntegrationTest {
 			List<Boolean> expectedFingeringTypesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingeringTypes();
 			
 			// When
@@ -438,7 +438,7 @@ public class DeviceManagerServiceIntegrationTest {
 			List<Boolean> expectedFingeringTypesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingeringTypes();
 			
 			// When
@@ -470,7 +470,7 @@ public class DeviceManagerServiceIntegrationTest {
 			boolean expectedBagEnabled =
 					((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).isBagEnabled(); 
+							expectedConfigurationType)).isBagEnabled(); 
 			
 			// When
 			boolean bagEnabled = deviceManagerService
@@ -499,7 +499,7 @@ public class DeviceManagerServiceIntegrationTest {
 			boolean expectedBagEnabled =
 					((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).isBagEnabled(); 
+							expectedConfigurationType)).isBagEnabled(); 
 			
 			// When
 			deviceManagerService.setBagEnabled(expectedProductId,
@@ -530,7 +530,7 @@ public class DeviceManagerServiceIntegrationTest {
 			List<Boolean> expectedDronesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getDronesEnabled(); 
 			
 			// When
@@ -560,7 +560,7 @@ public class DeviceManagerServiceIntegrationTest {
 			List<Boolean> expectedDronesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getDronesEnabled(); 
 			
 			// When
@@ -592,7 +592,7 @@ public class DeviceManagerServiceIntegrationTest {
 			int expectedBagPressure =
 					((SensitivityConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData())
+							expectedConfigurationType))
 							.getBagPressure();
 			
 			// When
@@ -621,7 +621,7 @@ public class DeviceManagerServiceIntegrationTest {
 			int expectedBagPressure =
 					((SensitivityConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData())
+							expectedConfigurationType))
 							.getBagPressure();
 			
 			// When
@@ -653,7 +653,7 @@ public class DeviceManagerServiceIntegrationTest {
 			List<FingeringOffset> expectedFingerings =
 					((FingeringConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingerings(); 
 			
 			// When
@@ -683,7 +683,7 @@ public class DeviceManagerServiceIntegrationTest {
 		List<FingeringOffset> expectedFingerings =
 				((FingeringConfiguration) deviceManagerService
 						.getBagpipeConfiguration(expectedProductId,
-								expectedConfigurationType).getData())
+								expectedConfigurationType))
 								.getFingerings(); 
 		
 		// When

@@ -139,7 +139,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 		assertTrue(devices.size() > 0);
 		String expectedProductId = devices.iterator().next().getProductId();
 		BagpipeConfigurationType expectedConfigurationType =
-				BagpipeConfigurationType.START;
+				BagpipeConfigurationType.SELECT;
 		
 		// When
 		BagpipeConfiguration configuration =
@@ -159,7 +159,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 		assertTrue(devices.size() > 0);
 		String expectedProductId = devices.iterator().next().getProductId();
 		BagpipeConfigurationType expectedConfigurationType =
-				BagpipeConfigurationType.START;
+				BagpipeConfigurationType.SELECT;
 		BagpipeConfiguration expectedConfiguration = new BagpipeConfiguration();
 		expectedConfiguration.setProductId(expectedProductId);
 		expectedConfiguration.setType(expectedConfigurationType.name());
@@ -184,7 +184,10 @@ public class DeviceManagerServiceIntegrationMockTest {
 					.findBagpipeConfigurations(expectedProductId);
 			assertTrue(configurations.size() > 0);
 			BagpipeConfiguration expectedConfiguration =
-					configurations.iterator().next();
+					configurations.stream().filter(configuration ->
+							BagpipeConfigurationType.SELECT.name()
+									.equalsIgnoreCase(configuration.getType()))
+					.findFirst().get();
 			
 			// When
 			deviceManagerService.sendBagpipeConfiguration(expectedConfiguration);
@@ -239,7 +242,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.SELECT.name();
 			int expectedVolume = ((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getVolume();
+							expectedConfigurationType)).getVolume();
 			
 			// When
 			int volume = deviceManagerService.getVolume(expectedProductId);
@@ -266,7 +269,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.SELECT.name();
 			int expectedVolume = ((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getVolume();
+							expectedConfigurationType)).getVolume();
 			
 			// When
 			deviceManagerService.setVolume(expectedProductId, expectedVolume);
@@ -294,7 +297,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningTone = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getTone(); 
+							expectedConfigurationType)).getTone(); 
 			
 			// When
 			int tuningTone = deviceManagerService.getTuningTone(expectedProductId);
@@ -321,7 +324,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningTone = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getTone(); 
+							expectedConfigurationType)).getTone(); 
 			
 			// When
 			deviceManagerService.setTuningTone(expectedProductId, expectedTuningTone);
@@ -349,7 +352,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningOctave = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getOctave(); 
+							expectedConfigurationType)).getOctave(); 
 			
 			// When
 			int tuningOctave =
@@ -377,7 +380,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 					BagpipeConfigurationType.TUNING.name();
 			int expectedTuningOctave = ((TuningConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).getOctave();
+							expectedConfigurationType)).getOctave();
 			
 			// When
 			deviceManagerService.setTuningOctave(expectedProductId,
@@ -408,7 +411,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			List<Boolean> expectedFingeringTypesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingeringTypes();
 			
 			// When
@@ -438,7 +441,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			List<Boolean> expectedFingeringTypesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingeringTypes();
 			
 			// When
@@ -470,7 +473,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			boolean expectedBagEnabled =
 					((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).isBagEnabled(); 
+							expectedConfigurationType)).isBagEnabled(); 
 			
 			// When
 			boolean bagEnabled = deviceManagerService
@@ -499,7 +502,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			boolean expectedBagEnabled =
 					((SelectionConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData()).isBagEnabled(); 
+							expectedConfigurationType)).isBagEnabled(); 
 			
 			// When
 			deviceManagerService.setBagEnabled(expectedProductId,
@@ -530,7 +533,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			List<Boolean> expectedDronesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getDronesEnabled(); 
 			
 			// When
@@ -560,7 +563,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			List<Boolean> expectedDronesEnabled =
 					((SelectionConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getDronesEnabled(); 
 			
 			// When
@@ -592,7 +595,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			int expectedBagPressure =
 					((SensitivityConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData())
+							expectedConfigurationType))
 							.getBagPressure();
 			
 			// When
@@ -621,7 +624,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			int expectedBagPressure =
 					((SensitivityConfiguration) deviceManagerService
 					.getBagpipeConfiguration(expectedProductId,
-							expectedConfigurationType).getData())
+							expectedConfigurationType))
 							.getBagPressure();
 			
 			// When
@@ -653,7 +656,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 			List<FingeringOffset> expectedFingerings =
 					((FingeringConfiguration) deviceManagerService
 							.getBagpipeConfiguration(expectedProductId,
-									expectedConfigurationType).getData())
+									expectedConfigurationType))
 									.getFingerings(); 
 			
 			// When
@@ -683,7 +686,7 @@ public class DeviceManagerServiceIntegrationMockTest {
 		List<FingeringOffset> expectedFingerings =
 				((FingeringConfiguration) deviceManagerService
 						.getBagpipeConfiguration(expectedProductId,
-								expectedConfigurationType).getData())
+								expectedConfigurationType))
 								.getFingerings(); 
 		
 		// When

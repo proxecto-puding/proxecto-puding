@@ -1,6 +1,6 @@
 package org.proxectopuding.gui.model.entities;
 
-public class SensitivityConfiguration extends ConfigurationData {
+public class SensitivityConfiguration extends BagpipeConfiguration {
 	
 	// From 1 to 100.
 	private int bagPressure;

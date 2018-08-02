@@ -110,7 +110,7 @@ public class DeviceManagerServiceAcceptanceTest {
 				.getBagpipeConfiguration(expectedProductId,
 						expectedConfigurationType.name());
 		SelectionConfiguration expectedConfigurationData =
-				(SelectionConfiguration) expectedConfiguration.getData();
+				(SelectionConfiguration) expectedConfiguration;
 		expectedConfigurationData.setBagEnabled(false);
 		
 		// When
@@ -122,7 +122,7 @@ public class DeviceManagerServiceAcceptanceTest {
 		assertEquals(expectedProductId, configuration.getProductId());
 		assertEquals(expectedConfigurationType.name(), configuration.getType());
 		SelectionConfiguration configurationData =
-				(SelectionConfiguration) configuration.getData();
+				(SelectionConfiguration) configuration;
 		assertEquals(expectedConfigurationData.isBagEnabled(),
 				configurationData.isBagEnabled());
 	}

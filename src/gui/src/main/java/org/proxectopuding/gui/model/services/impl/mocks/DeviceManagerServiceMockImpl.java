@@ -153,10 +153,12 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 			LOGGER.log(Level.INFO, "Attempts: {0}", i + 1);
 			try {
 				LOGGER.log(Level.INFO, "Request: {0}", request);
+				BagpipeConfigurationType configurationType =
+						BagpipeConfigurationType.from(config.getType());
 				response = getConfigurationAsJson(config.getProductId(),
-						BagpipeConfigurationType.from(config.getType()));
+						configurationType);
 				LOGGER.log(Level.INFO, "Response: {0}", response);
-				configuration = gson.fromJson(response, BagpipeConfiguration.class);
+				configuration = parseConfiguration(response, type);
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
 						type.equalsIgnoreCase(configuration.getType())) {
@@ -175,7 +177,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 		
 		return configuration;
 	}
-
+	
 	@Override
 	public void sendBagpipeConfiguration(BagpipeConfiguration configuration)
 			throws IllegalArgumentException {
@@ -217,7 +219,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				volume = selectionConfiguration.getVolume();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the volume for productId: {0}. Device not found", productId);
@@ -241,7 +243,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setVolume(volume);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the volume for productId: {0}. Device not found", productId);
@@ -265,7 +267,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningTone = tuningConfiguration.getTone();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the tuning tone for productId: {0}. Device not found", productId);
@@ -289,7 +291,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningConfiguration.setTone(tuningTone);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the tuning tone for productId: {0}. Device not found", productId);
@@ -313,7 +315,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningOctave = tuningConfiguration.getOctave();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the tuning octave for productId: {0}. Device not found", productId);
@@ -337,7 +339,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningConfiguration.setOctave(tuningOctave);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the tuning octave for productId: {0}. Device not found", productId);
@@ -361,7 +363,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				fingeringTypes = selectionConfiguration.getFingeringTypes();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the fingering types for productId: {0}. Device not found", productId);
@@ -385,7 +387,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setFingeringTypes(fingeringTypes);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the fingering types for productId: {0}. Device not found", productId);
@@ -409,7 +411,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				isBagEnabled = selectionConfiguration.isBagEnabled();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the bag for productId: {0}. Device not found", productId);
@@ -433,7 +435,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setBagEnabled(bagEnabled);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the bag for productId: {0}. Device not found", productId);
@@ -457,7 +459,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				drones = selectionConfiguration.getDronesEnabled();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the drones for productId: {0}. Device not found", productId);
@@ -481,7 +483,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setDronesEnabled(drones);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the drones for productId: {0}. Device not found", productId);
@@ -505,7 +507,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SENSIT.toString());
 				SensitivityConfiguration sensitivityConfiguration =
-						(SensitivityConfiguration) configuration.getData();
+						(SensitivityConfiguration) configuration;
 				bagPressure = sensitivityConfiguration.getBagPressure();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the bag pressure for productId: {0}. Device not found", productId);
@@ -529,7 +531,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SENSIT.toString());
 				SensitivityConfiguration sensitivityConfiguration =
-						(SensitivityConfiguration) configuration.getData();
+						(SensitivityConfiguration) configuration;
 				sensitivityConfiguration.setBagPressure(bagPressure);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the bag pressure for productId: {0}. Device not found", productId);
@@ -553,7 +555,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.FINGER.toString());
 				FingeringConfiguration fingeringConfiguration =
-						(FingeringConfiguration) configuration.getData();
+						(FingeringConfiguration) configuration;
 				fingerings = fingeringConfiguration.getFingerings();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the fingerings for productId: {0}. Device not found", productId);
@@ -576,7 +578,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.FINGER.toString());
 				FingeringConfiguration fingeringConfiguration =
-						(FingeringConfiguration) configuration.getData();
+						(FingeringConfiguration) configuration;
 				fingeringConfiguration.setFingerings(fingerings);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the fingerings for productId: {0}. Device not found", productId);
@@ -585,6 +587,8 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
 	}
+	
+	// Private
 	
 	private void sendDiscoveryBeacon() {
 		
@@ -608,6 +612,34 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
 	}
+	
+	private BagpipeConfiguration parseConfiguration(String response,
+			String type) {
+		
+		BagpipeConfiguration configuration = null;
+		
+		BagpipeConfigurationType configurationType =
+				BagpipeConfigurationType.from(type);
+		switch (configurationType) {
+			case START:
+				configuration = gson.fromJson(response, StartConfiguration.class);
+				break;
+			case SELECT:
+				configuration = gson.fromJson(response, SelectionConfiguration.class);
+				break;
+			case TUNING:
+				configuration = gson.fromJson(response, TuningConfiguration.class);
+				break;
+			case SENSIT:
+				configuration = gson.fromJson(response, SensitivityConfiguration.class);
+				break;
+			case FINGER:
+				configuration = gson.fromJson(response, FingeringConfiguration.class);
+				break;
+			}
+		
+		return configuration;
+	}
 
 	// Private
 	
@@ -626,25 +658,23 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 	private BagpipeConfiguration getConfiguration(String productId,
 			BagpipeConfigurationType type) {
 		
-		BagpipeConfiguration configuration = new BagpipeConfiguration();
+		BagpipeConfiguration configuration = null;
 		
-		configuration.setProductId(productId);
-		configuration.setType(type.name());
 		switch (type) {
 			case START:
-				configuration.setData(getStartConfigurationData());
+				configuration = getStartConfiguration(productId, type);
 				break;
 			case SELECT:
-				configuration.setData(getSelectionConfigurationData());
+				configuration = getSelectionConfiguration(productId, type);
 				break;
 			case TUNING:
-				configuration.setData(getTuningConfigurationData());
+				configuration = getTuningConfiguration(productId, type);
 				break;
 			case SENSIT:
-				configuration.setData(getSensitivityConfigurationData());
+				configuration = getSensitivityConfiguration(productId, type);
 				break;
 			case FINGER:
-				configuration.setData(getFingeringConfigurationData());
+				configuration = getFingeringConfiguration(productId, type);
 				break;
 		}
 		
@@ -664,49 +694,71 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 				.collect(ImmutableSet.toImmutableSet());
 	}
 	
-	private StartConfiguration getStartConfigurationData() {
+	private StartConfiguration getStartConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		return new StartConfiguration();
+		StartConfiguration configuration = new StartConfiguration();
+		
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
+		
+		return configuration;
 	}
 	
-	private SelectionConfiguration getSelectionConfigurationData() {
+	private SelectionConfiguration getSelectionConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		SelectionConfiguration data = new SelectionConfiguration();
+		SelectionConfiguration configuration = new SelectionConfiguration();
+		
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 
-		data.setVolume(100);
-		data.setBagEnabled(true);
-		data.setDronesEnabled(ImmutableList.of(true, false, false));
-		data.setFingeringTypes(ImmutableList.of(true, false, false));
+		configuration.setVolume(100);
+		configuration.setBagEnabled(true);
+		configuration.setDronesEnabled(ImmutableList.of(true, false, false));
+		configuration.setFingeringTypes(ImmutableList.of(true, false, false));
 		
-		return data;
+		return configuration;
 	}
 	
-	private TuningConfiguration getTuningConfigurationData() {
+	private TuningConfiguration getTuningConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		TuningConfiguration data = new TuningConfiguration();
+		TuningConfiguration configuration = new TuningConfiguration();
 		
-		data.setTone(0);
-		data.setOctave(4);
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setTone(0);
+		configuration.setOctave(4);
+		
+		return configuration;
 	}
 	
-	private SensitivityConfiguration getSensitivityConfigurationData() {
+	private SensitivityConfiguration getSensitivityConfiguration(
+			String productId, BagpipeConfigurationType type) {
 		
-		SensitivityConfiguration data = new SensitivityConfiguration();
+		SensitivityConfiguration configuration = new SensitivityConfiguration();
 		
-		data.setBagPressure(100);
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setBagPressure(100);
+		
+		return configuration;
 	}
 	
-	private FingeringConfiguration getFingeringConfigurationData() {
+	private FingeringConfiguration getFingeringConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		FingeringConfiguration data = new FingeringConfiguration();
+		FingeringConfiguration configuration = new FingeringConfiguration();
 		
-		data.setFingerings(getFingeringOffsets());
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setFingerings(getFingeringOffsets());
+		
+		return configuration;
 	}
 	
 	private List<FingeringOffset> getFingeringOffsets() {

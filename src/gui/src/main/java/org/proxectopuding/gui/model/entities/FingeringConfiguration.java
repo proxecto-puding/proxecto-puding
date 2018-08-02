@@ -2,7 +2,7 @@ package org.proxectopuding.gui.model.entities;
 
 import java.util.List;
 
-public class FingeringConfiguration extends ConfigurationData {
+public class FingeringConfiguration extends BagpipeConfiguration {
 	
 	private List<FingeringOffset> fingerings;
 

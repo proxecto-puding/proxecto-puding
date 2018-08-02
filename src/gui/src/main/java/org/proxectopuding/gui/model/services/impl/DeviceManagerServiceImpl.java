@@ -13,6 +13,7 @@ import org.proxectopuding.gui.model.entities.FingeringConfiguration;
 import org.proxectopuding.gui.model.entities.FingeringOffset;
 import org.proxectopuding.gui.model.entities.SelectionConfiguration;
 import org.proxectopuding.gui.model.entities.SensitivityConfiguration;
+import org.proxectopuding.gui.model.entities.StartConfiguration;
 import org.proxectopuding.gui.model.entities.TuningConfiguration;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.utils.DeviceManager;
@@ -152,7 +153,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			try {
 				connectionManager.writeData(request, false);
 				response = connectionManager.readData(false);
-				configuration = gson.fromJson(response, BagpipeConfiguration.class);
+				configuration = parseConfiguration(response, type);
 				if (configuration != null &&
 						productId.equalsIgnoreCase(configuration.getProductId()) &&
 						type.equalsIgnoreCase(configuration.getType())) {
@@ -213,7 +214,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				volume = selectionConfiguration.getVolume();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the volume for productId: {0}. Device not found", productId);
@@ -237,7 +238,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setVolume(volume);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the volume for productId: {0}. Device not found", productId);
@@ -261,7 +262,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningTone = tuningConfiguration.getTone();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the tuning tone for productId: {0}. Device not found", productId);
@@ -285,7 +286,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningConfiguration.setTone(tuningTone);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the tuning tone for productId: {0}. Device not found", productId);
@@ -309,7 +310,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningOctave = tuningConfiguration.getOctave();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the tuning octave for productId: {0}. Device not found", productId);
@@ -333,7 +334,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.TUNING.toString());
 				TuningConfiguration tuningConfiguration =
-						(TuningConfiguration) configuration.getData();
+						(TuningConfiguration) configuration;
 				tuningConfiguration.setOctave(tuningOctave);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the tuning octave for productId: {0}. Device not found", productId);
@@ -357,7 +358,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				fingeringTypes = selectionConfiguration.getFingeringTypes();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the fingering types for productId: {0}. Device not found", productId);
@@ -381,7 +382,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setFingeringTypes(fingeringTypes);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the fingering types for productId: {0}. Device not found", productId);
@@ -405,7 +406,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				isBagEnabled = selectionConfiguration.isBagEnabled();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the bag for productId: {0}. Device not found", productId);
@@ -429,7 +430,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setBagEnabled(bagEnabled);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the bag for productId: {0}. Device not found", productId);
@@ -453,7 +454,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				drones = selectionConfiguration.getDronesEnabled();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the drones for productId: {0}. Device not found", productId);
@@ -477,7 +478,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SELECT.toString());
 				SelectionConfiguration selectionConfiguration =
-						(SelectionConfiguration) configuration.getData();
+						(SelectionConfiguration) configuration;
 				selectionConfiguration.setDronesEnabled(drones);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the drones for productId: {0}. Device not found", productId);
@@ -501,7 +502,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SENSIT.toString());
 				SensitivityConfiguration sensitivityConfiguration =
-						(SensitivityConfiguration) configuration.getData();
+						(SensitivityConfiguration) configuration;
 				bagPressure = sensitivityConfiguration.getBagPressure();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the bag pressure for productId: {0}. Device not found", productId);
@@ -525,7 +526,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.SENSIT.toString());
 				SensitivityConfiguration sensitivityConfiguration =
-						(SensitivityConfiguration) configuration.getData();
+						(SensitivityConfiguration) configuration;
 				sensitivityConfiguration.setBagPressure(bagPressure);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the bag pressure for productId: {0}. Device not found", productId);
@@ -549,7 +550,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.FINGER.toString());
 				FingeringConfiguration fingeringConfiguration =
-						(FingeringConfiguration) configuration.getData();
+						(FingeringConfiguration) configuration;
 				fingerings = fingeringConfiguration.getFingerings();
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to get the fingerings for productId: {0}. Device not found", productId);
@@ -572,7 +573,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 						device.getConfigurationByType(
 								BagpipeConfigurationType.FINGER.toString());
 				FingeringConfiguration fingeringConfiguration =
-						(FingeringConfiguration) configuration.getData();
+						(FingeringConfiguration) configuration;
 				fingeringConfiguration.setFingerings(fingerings);
 			} else {
 				LOGGER.log(Level.SEVERE, "Unable to set the fingerings for productId: {0}. Device not found", productId);
@@ -581,6 +582,8 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
 	}
+	
+	// Private
 	
 	/**
 	 * Send a discovery beacon for finding serial devices.
@@ -611,6 +614,34 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		} else {
 			throw new IllegalArgumentException("ProductId cannot be null");
 		}
+	}
+	
+	private BagpipeConfiguration parseConfiguration(String response,
+			String type) {
+		
+		BagpipeConfiguration configuration = null;
+		
+		BagpipeConfigurationType configurationType =
+				BagpipeConfigurationType.from(type);
+		switch (configurationType) {
+			case START:
+				configuration = gson.fromJson(response, StartConfiguration.class);
+				break;
+			case SELECT:
+				configuration = gson.fromJson(response, SelectionConfiguration.class);
+				break;
+			case TUNING:
+				configuration = gson.fromJson(response, TuningConfiguration.class);
+				break;
+			case SENSIT:
+				configuration = gson.fromJson(response, SensitivityConfiguration.class);
+				break;
+			case FINGER:
+				configuration = gson.fromJson(response, FingeringConfiguration.class);
+				break;
+			}
+		
+		return configuration;
 	}
 
 }

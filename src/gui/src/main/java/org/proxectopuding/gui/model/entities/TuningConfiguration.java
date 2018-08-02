@@ -1,6 +1,6 @@
 package org.proxectopuding.gui.model.entities;
 
-public class TuningConfiguration extends ConfigurationData {
+public class TuningConfiguration extends BagpipeConfiguration {
 	
 	// From 0 to 11.
 	private int tone;

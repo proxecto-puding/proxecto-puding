@@ -226,9 +226,11 @@ public class ConfigurationApplicationServiceUnitTest {
 		when(deviceManagerService.getSelectedBagpipeDevice())
 				.thenReturn(getDevice());
 		when(deviceManagerService.getTuningTone(PRODUCT_ID))
-				.thenReturn(getTuningConfigurationData().getTone());
+				.thenReturn(getTuningConfiguration(PRODUCT_ID,
+						BagpipeConfigurationType.TUNING).getTone());
 		when(deviceManagerService.getTuningOctave(PRODUCT_ID))
-				.thenReturn(getTuningConfigurationData().getOctave());
+				.thenReturn(getTuningConfiguration(PRODUCT_ID,
+						BagpipeConfigurationType.TUNING).getOctave());
 		
 		// When
 		MidiServerConfiguration midiServerConfiguration =
@@ -254,25 +256,23 @@ public class ConfigurationApplicationServiceUnitTest {
 	private BagpipeConfiguration getConfiguration(String productId,
 			BagpipeConfigurationType type) {
 		
-		BagpipeConfiguration configuration = new BagpipeConfiguration();
+		BagpipeConfiguration configuration = null;
 		
-		configuration.setProductId(productId);
-		configuration.setType(type.name());
 		switch (type) {
 			case START:
-				configuration.setData(getStartConfigurationData());
+				configuration = getStartConfiguration(productId, type);
 				break;
 			case SELECT:
-				configuration.setData(getSelectionConfigurationData());
+				configuration = getSelectionConfiguration(productId, type);
 				break;
 			case TUNING:
-				configuration.setData(getTuningConfigurationData());
+				configuration = getTuningConfiguration(productId, type);
 				break;
 			case SENSIT:
-				configuration.setData(getSensitivityConfigurationData());
+				configuration = getSensitivityConfiguration(productId, type);
 				break;
 			case FINGER:
-				configuration.setData(getFingeringConfigurationData());
+				configuration = getFingeringConfiguration(productId, type);
 				break;
 		}
 		
@@ -286,49 +286,71 @@ public class ConfigurationApplicationServiceUnitTest {
 				.collect(ImmutableSet.toImmutableSet());
 	}
 	
-	private StartConfiguration getStartConfigurationData() {
+	private StartConfiguration getStartConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		return new StartConfiguration();
+		StartConfiguration configuration = new StartConfiguration();
+		
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
+		
+		return configuration;
 	}
 	
-	private SelectionConfiguration getSelectionConfigurationData() {
+	private SelectionConfiguration getSelectionConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		SelectionConfiguration data = new SelectionConfiguration();
+		SelectionConfiguration configuration = new SelectionConfiguration();
+		
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 
-		data.setVolume(100);
-		data.setBagEnabled(true);
-		data.setDronesEnabled(ImmutableList.of(true, false, false));
-		data.setFingeringTypes(ImmutableList.of(true, false, false));
+		configuration.setVolume(100);
+		configuration.setBagEnabled(true);
+		configuration.setDronesEnabled(ImmutableList.of(true, false, false));
+		configuration.setFingeringTypes(ImmutableList.of(true, false, false));
 		
-		return data;
+		return configuration;
 	}
 	
-	private TuningConfiguration getTuningConfigurationData() {
+	private TuningConfiguration getTuningConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		TuningConfiguration data = new TuningConfiguration();
+		TuningConfiguration configuration = new TuningConfiguration();
 		
-		data.setTone(0);
-		data.setOctave(4);
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setTone(0);
+		configuration.setOctave(4);
+		
+		return configuration;
 	}
 	
-	private SensitivityConfiguration getSensitivityConfigurationData() {
+	private SensitivityConfiguration getSensitivityConfiguration(
+			String productId, BagpipeConfigurationType type) {
 		
-		SensitivityConfiguration data = new SensitivityConfiguration();
+		SensitivityConfiguration configuration = new SensitivityConfiguration();
 		
-		data.setBagPressure(100);
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setBagPressure(100);
+		
+		return configuration;
 	}
 	
-	private FingeringConfiguration getFingeringConfigurationData() {
+	private FingeringConfiguration getFingeringConfiguration(String productId,
+			BagpipeConfigurationType type) {
 		
-		FingeringConfiguration data = new FingeringConfiguration();
+		FingeringConfiguration configuration = new FingeringConfiguration();
 		
-		data.setFingerings(getFingeringOffsets());
+		configuration.setProductId(productId);
+		configuration.setType(type.name());
 		
-		return data;
+		configuration.setFingerings(getFingeringOffsets());
+		
+		return configuration;
 	}
 	
 	private List<FingeringOffset> getFingeringOffsets() {

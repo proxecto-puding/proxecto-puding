@@ -5,8 +5,6 @@ public class BagpipeConfiguration implements Comparable<BagpipeConfiguration> {
 	private String productId;
 	private String action;
 	private String type;
-	// FIXME This doesn't work when casting to subtype after deserialization.
-	private ConfigurationData data;
 
 	public String getProductId() {
 		return productId;
@@ -32,14 +30,6 @@ public class BagpipeConfiguration implements Comparable<BagpipeConfiguration> {
 		this.type = type;
 	}
 
-	public ConfigurationData getData() {
-		return data;
-	}
-
-	public void setData(ConfigurationData data) {
-		this.data = data;
-	}
-	
 	@Override
 	public boolean equals(Object configuration) {
 		BagpipeConfiguration config = (BagpipeConfiguration) configuration;

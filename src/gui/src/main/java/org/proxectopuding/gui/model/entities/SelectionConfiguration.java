@@ -2,7 +2,7 @@ package org.proxectopuding.gui.model.entities;
 
 import java.util.List;
 
-public class SelectionConfiguration extends ConfigurationData {
+public class SelectionConfiguration extends BagpipeConfiguration {
 	
 	private int volume;
 	private List<Boolean> fingeringTypes;

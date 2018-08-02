@@ -29,6 +29,8 @@ public class ConfigurationApplicationServiceImpl implements ConfigurationApplica
 	
 	private static final Logger LOGGER = Logger.getLogger(ConfigurationApplicationServiceImpl.class.getName());
 	
+	private static final BagpipeConfigurationType DEFAULT_BAGPIPE_CONFIGURATION_TYPE =
+		BagpipeConfigurationType.START;
 	private static final String[] READING_TONE_IDS =
 		{"C", "D"};
 	private static final int[] READING_TONE_VALUES =
@@ -140,6 +142,7 @@ public class ConfigurationApplicationServiceImpl implements ConfigurationApplica
 		this.i18nManager = i18nManager;
 		this.deviceManagerService = deviceManagerService;
 		
+		setBagpipeConfigurationType();
 		setReadingTones();
 		setTuningTones();
 		setSamples();
@@ -648,6 +651,11 @@ public class ConfigurationApplicationServiceImpl implements ConfigurationApplica
 					new PreciseTuning(key, octave, cents);
 			preciseTunings.put(key, preciseTuning);
 		}
+	}
+	
+	private void setBagpipeConfigurationType() {
+		
+		bagpipeConfigurationType = DEFAULT_BAGPIPE_CONFIGURATION_TYPE;
 	}
 	
 	private void setReadingTones() {

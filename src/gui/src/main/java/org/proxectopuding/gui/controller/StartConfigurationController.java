@@ -2,6 +2,7 @@ package org.proxectopuding.gui.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Set;
 
@@ -134,5 +135,12 @@ public class StartConfigurationController {
 		};
 		
 		return actionListener;
+	}
+	
+	public void subscribe(Notification notification,
+			PropertyChangeListener propertyChangeListener) {
+		
+		notificationService.addNotificationListener(notification,
+				propertyChangeListener);
 	}
 }

@@ -1,6 +1,7 @@
 package org.proxectopuding.gui.view.swing;
 
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -11,9 +12,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingUtilities;
 
 import org.proxectopuding.gui.controller.StartConfigurationController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.StartConfigurationView;
 
 import com.google.inject.Inject;
@@ -27,14 +28,6 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 			StartConfigurationController startConfigurationController) {
 	
 		this.startConfigurationController = startConfigurationController;
-		
-		// FIXME Injection problem when singleton.
-//		SwingUtilities.invokeLater(new Runnable(){
-//	        @Override
-//	        public void run(){
-	        	startConfigurationController.findChanters();
-//	        }
-//	    });
 	}
 	
 	public JPanel getStartPanel() {
@@ -48,7 +41,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		panelStart.add(comboBoxChanterSelection);
 		
 		JButton btnSearch = getSearchButton();
-//		panelStart.add(btnSearch);
+		panelStart.add(btnSearch);
 		
 		JLabel lblReadingTone = getReadingToneLabel();
 		panelStart.add(lblReadingTone);
@@ -79,13 +72,21 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		
 		JComboBox<String> comboBoxChanterSelection = new JComboBox<String>();
 		
-		String[] chanters = startConfigurationController.getChanters();
-		ComboBoxModel<String> chanterSelectionModel =
-				new DefaultComboBoxModel<String>(chanters);
-		comboBoxChanterSelection.setModel(chanterSelectionModel);
 		ActionListener actionListener = startConfigurationController.
 				getActionListenerForChanterSelectionComboBox();
 		comboBoxChanterSelection.addActionListener(actionListener);
+		
+		PropertyChangeListener propertyChangeListener = event -> {
+			String[] chanters = startConfigurationController.getChanters();
+			ComboBoxModel<String> chanterSelectionModel =
+					new DefaultComboBoxModel<String>(chanters);
+			comboBoxChanterSelection.setModel(chanterSelectionModel);
+			if (chanters.length > 0) {
+				comboBoxChanterSelection.setSelectedItem(chanters[0]);
+			}
+		};
+		startConfigurationController.subscribe(Notification.CHANTER_FOUND,
+				propertyChangeListener);
 		
 		return comboBoxChanterSelection;
 	}
@@ -150,10 +151,13 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 							.addGroup(gl_panelStart.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelStart.createSequentialGroup()
 									.addGap(12)
-									.addComponent(comboBoxChanterSelection,
-											GroupLayout.PREFERRED_SIZE,
-											GroupLayout.DEFAULT_SIZE,
-											GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_panelStart.createParallelGroup()
+											.addComponent(comboBoxChanterSelection,
+													GroupLayout.PREFERRED_SIZE,
+													GroupLayout.DEFAULT_SIZE,
+													GroupLayout.PREFERRED_SIZE))
+											.addGap(12)
+											.addComponent(btnSearch))
 								.addComponent(lblChanterSelection)))
 						.addGroup(gl_panelStart.createSequentialGroup()
 							.addContainerGap()
@@ -174,10 +178,12 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 					.addContainerGap()
 					.addComponent(lblChanterSelection)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxChanterSelection,
-							GroupLayout.PREFERRED_SIZE,
-							GroupLayout.DEFAULT_SIZE,
-							GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelStart.createParallelGroup()
+							.addComponent(comboBoxChanterSelection,
+									GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE,
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnSearch))
 					.addGap(18)
 					.addComponent(lblReadingTone)
 					.addPreferredGap(ComponentPlacement.RELATED)

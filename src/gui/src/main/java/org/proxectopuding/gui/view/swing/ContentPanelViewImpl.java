@@ -1,6 +1,7 @@
 package org.proxectopuding.gui.view.swing;
 
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -12,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.proxectopuding.gui.controller.ContentPanelController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.ContentPanelView;
 
 import com.google.inject.Inject;
@@ -67,6 +69,13 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 				getActionListenerForApplyButton();
 		btnApply.addActionListener(actionListener);
 		
+		btnApply.setEnabled(false);
+		PropertyChangeListener propertyChangeListener = event -> {
+			btnApply.setEnabled(true);
+		};
+		contentPanelController.subscribe(Notification.CHANTER_SELECTED,
+				propertyChangeListener);
+		
 		return btnApply;
 	}
 	
@@ -82,6 +91,9 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 				getActionListenerForUndoButton();
 		btnUndo.addActionListener(actionListener);
 		
+		btnUndo.setEnabled(false);
+		// TODO Implement.
+		
 		return btnUndo;
 	}
 	
@@ -96,6 +108,9 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		ActionListener actionListener = contentPanelController.
 				getActionListenerForDefaultButton();
 		btnDefault.addActionListener(actionListener);
+		
+		btnDefault.setEnabled(false);
+		// TODO Implement.
 		
 		return btnDefault;
 	}

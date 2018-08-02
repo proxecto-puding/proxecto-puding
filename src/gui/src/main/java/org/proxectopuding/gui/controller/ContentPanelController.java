@@ -2,6 +2,7 @@ package org.proxectopuding.gui.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
@@ -11,6 +12,8 @@ import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.MidiService;
+import org.proxectopuding.gui.model.services.NotificationService;
+import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
@@ -20,17 +23,19 @@ public class ContentPanelController {
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	private final MidiService midiService;
+	private final NotificationService notificationService;
 	
 	@Inject
 	public ContentPanelController(I18nService i18nService,
 			DeviceManagerService deviceManagerService,
 			ConfigurationApplicationService confAppService,
-			MidiService midiService) {
+			MidiService midiService, NotificationService notificationService) {
 		
 		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 		this.midiService = midiService;
+		this.notificationService = notificationService;
 	}
 	
 	public String getTranslationForApplyButtonText() {
@@ -102,6 +107,12 @@ public class ContentPanelController {
 		};
 		
 		return actionListener;
+	}
+
+	public void subscribe(Notification notification,
+			PropertyChangeListener listener) {
+		
+		notificationService.addNotificationListener(notification, listener);
 	}
 
 }

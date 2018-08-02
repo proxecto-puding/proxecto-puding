@@ -48,16 +48,6 @@ public class StartConfigurationController {
 		return i18nService.getTranslation("startConfiguration.readingTone.label");
 	}
 	
-	public void findChanters() {
-		
-		Set<BagpipeDevice> devices =
-				deviceManagerService.findBagpipeDevices();
-		if (devices.size() > 0) {
-			notificationService.sendNotification(this,
-					Notification.CHANTER_FOUND, devices);
-		}
-	}
-	
 	public String[] getChanters() {
 		
 		String[] chanters = {};

@@ -5,6 +5,7 @@ public class BagpipeConfiguration implements Comparable<BagpipeConfiguration> {
 	private String productId;
 	private String action;
 	private String type;
+	// FIXME This doesn't work when casting to subtype after deserialization.
 	private ConfigurationData data;
 
 	public String getProductId() {

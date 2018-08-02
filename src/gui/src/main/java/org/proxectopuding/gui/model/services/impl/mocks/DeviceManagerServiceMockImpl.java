@@ -615,7 +615,6 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 		
 		BagpipeDevice device = new BagpipeDevice();
 		device.setProductId(PRODUCT_ID);
-		device.setConfigurations(getConfigurations(PRODUCT_ID));
 		return device;
 	}
 	

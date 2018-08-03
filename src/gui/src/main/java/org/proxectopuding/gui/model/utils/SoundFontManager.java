@@ -11,9 +11,11 @@ public class SoundFontManager {
 	
 	private static final Logger LOGGER = Logger.getLogger(SoundFontManager.class.getName());
 	
-	private static final String SOUNDFONT_URL = "https://goo.gl/uNtY5u";
-	private static final String SOUNDFONT_FILE_PATH = "sounds/FluidR3_GM.sf2";
+	private static final String SOUNDFONT_URL =
+			"https://drive.google.com/file/d/0BxNAQKTkohGMOC1jUmFGU1ZZZGc";
 	private static final String SOUNDFONT_FILE_NAME = "FluidR3_GM.sf2";
+	private static final String SOUNDFONT_FILE_PATH =
+			"sounds/" + SOUNDFONT_FILE_NAME;
 	
 	private final FileDownloader fileDownloader;
 	private final FileUtils fileUtils;

@@ -129,7 +129,8 @@ public class MidiServerGeneral implements MidiServer {
 		try {
 			if (!isSoundFontFileDownloaded()) {
 				downloadSoundFontFile();
-			} else if (!isSoundFontFileCopied()) {
+			}
+			if (!isSoundFontFileCopied()) {
 				copySoundFontFile();
 			}
 		} catch (IOException e) {

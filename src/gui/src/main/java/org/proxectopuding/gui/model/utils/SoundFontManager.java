@@ -38,7 +38,10 @@ public class SoundFontManager {
 		
 		boolean isDownloaded = false;
 		
-		if (fileDownload != null) {
+		File file = new File(SOUNDFONT_FILE_PATH);
+		isDownloaded = file.exists();
+		
+		if (fileDownload != null || !isDownloaded) {
 		
 			// Avoid using real samples when the SoundFont file is unavailable.
 			if (fileDownload.isDownloading()) {
@@ -46,7 +49,6 @@ public class SoundFontManager {
 			}
 			
 			if (fileDownload.isDownloaded()) {
-				File file = new File(SOUNDFONT_FILE_PATH);
 				isDownloaded = file.exists();
 			}
 		}

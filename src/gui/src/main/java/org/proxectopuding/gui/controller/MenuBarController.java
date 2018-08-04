@@ -2,6 +2,7 @@ package org.proxectopuding.gui.controller;
 
 import org.proxectopuding.gui.model.services.BrowserService;
 import org.proxectopuding.gui.model.services.I18nService;
+import org.proxectopuding.gui.model.services.MidiService;
 
 import com.google.inject.Inject;
 
@@ -9,13 +10,16 @@ public class MenuBarController {
 	
 	private final I18nService i18nService;
 	private final BrowserService browserService;
+	private final MidiService midiService;
 	
 	@Inject
 	public MenuBarController(I18nService i18nService,
-			BrowserService browserService) {
+			BrowserService browserService,
+			MidiService midiService) {
 		
 		this.i18nService = i18nService;
 		this.browserService = browserService;
+		this.midiService = midiService;
 	}
 	
 	public String getFileMenuLabel() {
@@ -48,7 +52,7 @@ public class MenuBarController {
 	
 	public void onExit() {
 		
-		// TODO Stop MIDI server
+		midiService.stop();
 		System.exit(0);
 	}
 	

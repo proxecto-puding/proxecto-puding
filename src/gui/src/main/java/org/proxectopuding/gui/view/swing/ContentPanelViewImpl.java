@@ -61,14 +61,16 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		
 		JButton btnApply = new JButton();
 		
-		String text = contentPanelController.
-				getTranslationForApplyButtonText();
+		String text = contentPanelController.getApplyButtonLabel();
 		btnApply.setText(text);
 		
-		ActionListener actionListener = contentPanelController.
-				getActionListenerForApplyButton();
+		// On selection
+		ActionListener actionListener = event -> {
+			contentPanelController.onApply();
+		};
 		btnApply.addActionListener(actionListener);
 		
+		// On chanter selected
 		btnApply.setEnabled(false);
 		PropertyChangeListener propertyChangeListener = event -> {
 			btnApply.setEnabled(true);
@@ -83,16 +85,21 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		
 		JButton btnUndo = new JButton();
 		
-		String text = contentPanelController.
-				getTranslationForUndoButtonText();
+		String text = contentPanelController.getUndoButtonLabel();
 		btnUndo.setText(text);
 		
-		ActionListener actionListener = contentPanelController.
-				getActionListenerForUndoButton();
+		// On selection
+		ActionListener actionListener = event -> {
+			contentPanelController.onUndo();
+		};
 		btnUndo.addActionListener(actionListener);
 		
 		btnUndo.setEnabled(false);
-		// TODO Implement.
+		PropertyChangeListener propertyChangeListener = event -> {
+			// TODO Enable
+		};
+		contentPanelController.subscribe(Notification.CHANTER_SELECTED,
+				propertyChangeListener);
 		
 		return btnUndo;
 	}
@@ -101,16 +108,21 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		
 		JButton btnDefault = new JButton();
 		
-		String text = contentPanelController.
-				getTranslationForDefaultButtonText();
+		String text = contentPanelController.getDefaultButtonLabel();
 		btnDefault.setText(text);
 		
-		ActionListener actionListener = contentPanelController.
-				getActionListenerForDefaultButton();
+		// On selection
+		ActionListener actionListener = event -> {
+			contentPanelController.onDefault();
+		};
 		btnDefault.addActionListener(actionListener);
 		
 		btnDefault.setEnabled(false);
-		// TODO Implement.
+		PropertyChangeListener propertyChangeListener = event -> {
+			// TODO Enable
+		};
+		contentPanelController.subscribe(Notification.CHANTER_SELECTED,
+				propertyChangeListener);
 		
 		return btnDefault;
 	}

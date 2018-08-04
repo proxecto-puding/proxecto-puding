@@ -1,7 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
@@ -40,75 +38,50 @@ public class ContentPanelController {
 		startMidiServer();
 	}
 	
-	public String getTranslationForApplyButtonText() {
+	public String getApplyButtonLabel() {
 		return i18nService.getTranslation("contentPanel.apply.button");
 	}
 	
-	public ActionListener getActionListenerForApplyButton() {
+	public void onApply() {
 		
-		ActionListener actionListener = new ActionListener() {
+		// Set device configuration
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
 			
-			public void actionPerformed(ActionEvent event) {
-				
-				// Set device configuration.
-				BagpipeDevice device = deviceManagerService.
-						getSelectedBagpipeDevice();
-				
-				if (device != null) {
-					
-					BagpipeConfigurationType type = confAppService.
-							getSelectedBagpipeConfigurationType();
-					String productId = device.getProductId();
-					BagpipeConfiguration bagpipeConfiguration =
-							deviceManagerService.getBagpipeConfiguration(
-									productId, type.toString());
-					deviceManagerService.sendBagpipeConfiguration(
-							bagpipeConfiguration);
-				}
-				
-				// Set MIDI server configuration.
-				MidiServerConfiguration midiServerConfiguration =
-						confAppService.getMidiServerConfiguration();
-				midiService.setConfiguration(midiServerConfiguration);
-				midiService.restart();
-			}
-		};
+			BagpipeConfigurationType type = confAppService
+					.getSelectedBagpipeConfigurationType();
+			String productId = device.getProductId();
+			BagpipeConfiguration bagpipeConfiguration =
+					deviceManagerService.getBagpipeConfiguration(
+							productId, type.toString());
+			deviceManagerService.sendBagpipeConfiguration(
+					bagpipeConfiguration);
+		}
 		
-		return actionListener;
+		// Set MIDI server configuration
+		MidiServerConfiguration midiServerConfiguration =
+				confAppService.getMidiServerConfiguration();
+		midiService.setConfiguration(midiServerConfiguration);
+		midiService.restart();
 	}
 	
-	public String getTranslationForUndoButtonText() {
+	public String getUndoButtonLabel() {
 		return i18nService.getTranslation("contentPanel.undo.button");
 	}
 	
-	public ActionListener getActionListenerForUndoButton() {
+	public void onUndo() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				// TODO Implement.
-			}
-		};
-		
-		return actionListener;
+		// TODO Implement
 	}
 	
-	public String getTranslationForDefaultButtonText() {
+	public String getDefaultButtonLabel() {
 		return i18nService.getTranslation("contentPanel.default.button");
 	}
 	
-	public ActionListener getActionListenerForDefaultButton() {
+	public void onDefault() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				// TODO Implement.
-			}
-		};
-		
-		return actionListener;
+		// TODO Implement
 	}
 
 	public void subscribe(Notification notification,

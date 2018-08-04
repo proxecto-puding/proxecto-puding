@@ -1,8 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import org.proxectopuding.gui.model.services.BrowserService;
 import org.proxectopuding.gui.model.services.I18nService;
 
@@ -21,97 +18,58 @@ public class MenuBarController {
 		this.browserService = browserService;
 	}
 	
-	public String getTranslationForFileMenu() {
+	public String getFileMenuLabel() {
 		return i18nService.getTranslation("menuBar.file");
 	}
 	
-	public String getTranslationForExitMenuItem() {
+	public String getExitMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.file.exit");
 	}
 	
-	public String getTranslationForHelpMenu() {
+	public String getHelpMenuLabel() {
 		return i18nService.getTranslation("menuBar.help");
 	}
 	
-	public String getTranslationForUserManualMenuItem() {
+	public String getUserManualMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.help.userManual");
 	}
 	
-	public String getTranslationForConfAppApiMenuItem() {
+	public String getConfAppApiMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.help.confAppApi");
 	}
 	
-	public String getTranslationForBagpipeApiMenuItem() {
+	public String getBagpipeApiMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.help.bagpipeApi");
 	}
 	
-	public String getTranslationForAboutMenuItem() {
+	public String getAboutMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.help.about");
 	}
 	
-	public ActionListener getActionListenerForExitMenuItem() {
+	public void onExit() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				System.exit(0);
-			}
-		};
-		
-		return actionListener;
+		// TODO Stop MIDI server
+		System.exit(0);
 	}
 	
-	public ActionListener getActionListenerForUserManualMenuItem() {
+	public void onOpenUserManual() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				browserService.openUserManualUrl();
-			}
-		};
-		
-		return actionListener;
+		browserService.openUserManualUrl();
 	}
 	
-	public ActionListener getActionListenerForConfAppApiMenuItem() {
+	public void openConfAppApi() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				browserService.openConfAppApiUrl();
-			}
-		};
-		
-		return actionListener;
+		browserService.openConfAppApiUrl();
 	}
 	
-	public ActionListener getActionListenerForBagpipeApiMenuItem() {
+	public void openBagpipeApi() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				browserService.openBagpipeApiUrl();
-			}
-		};
-		
-		return actionListener;
+		browserService.openBagpipeApiUrl();
 	}
 	
-	public ActionListener getActionListenerForAboutMenuItem() {
+	public void openAbout() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				browserService.openAboutUrl();
-			}
-		};
-		
-		return actionListener;
+		browserService.openAboutUrl();
 	}
 	
 }

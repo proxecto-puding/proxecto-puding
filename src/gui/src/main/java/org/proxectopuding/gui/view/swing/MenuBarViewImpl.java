@@ -51,9 +51,9 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenu mnFile = new JMenu();
 		
-		mnFile.setText(menuBarController.getTranslationForFileMenu());
-		mnFile.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(FILE_MENU_ICON_PATH)));
+		mnFile.setText(menuBarController.getFileMenuLabel());
+		mnFile.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(FILE_MENU_ICON_PATH)));
 		
 		JMenuItem mntmExit = getExitMenuItem();
 		mnFile.add(mntmExit);
@@ -65,12 +65,11 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmExit = new JMenuItem();
 		
-		mntmExit.addActionListener(
-				menuBarController.getActionListenerForExitMenuItem());
+		mntmExit.setText(menuBarController.getExitMenuItemLabel());
+		mntmExit.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(EXIT_MENU_ITEM_ICON_PATH)));
 		
-		mntmExit.setText(menuBarController.getTranslationForExitMenuItem());
-		mntmExit.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(EXIT_MENU_ITEM_ICON_PATH)));
+		mntmExit.addActionListener(event -> menuBarController.onExit());
 		
 		return mntmExit;
 	}
@@ -79,9 +78,9 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenu mnHelp = new JMenu();
 		
-		mnHelp.setText(menuBarController.getTranslationForHelpMenu());
-		mnHelp.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(HELP_MENU_ICON_PATH)));
+		mnHelp.setText(menuBarController.getHelpMenuLabel());
+		mnHelp.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(HELP_MENU_ICON_PATH)));
 		
 		JMenuItem mntmUserManual = getUserManualMenuItem();
 		mnHelp.add(mntmUserManual);
@@ -99,12 +98,12 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmUserManual = new JMenuItem(); 
 				
-		mntmUserManual.addActionListener(
-				menuBarController.getActionListenerForUserManualMenuItem());
+		mntmUserManual.setText(menuBarController.getUserManualMenuItemLabel());
+		mntmUserManual.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(USER_MANUAL_MENU_ITEM_ICON_PATH)));
 		
-		mntmUserManual.setText(menuBarController.getTranslationForUserManualMenuItem());
-		mntmUserManual.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(USER_MANUAL_MENU_ITEM_ICON_PATH)));
+		mntmUserManual.addActionListener(
+				event -> menuBarController.onOpenUserManual());
 		
 		return mntmUserManual;
 	}
@@ -113,12 +112,12 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmConfAppApi = new JMenuItem();
 		
-		mntmConfAppApi.addActionListener(
-				menuBarController.getActionListenerForConfAppApiMenuItem());
+		mntmConfAppApi.setText(menuBarController.getConfAppApiMenuItemLabel());
+		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(CONF_APP_API_MENU_ITEM_ICON_PATH)));
 		
-		mntmConfAppApi.setText(menuBarController.getTranslationForConfAppApiMenuItem());
-		mntmConfAppApi.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(CONF_APP_API_MENU_ITEM_ICON_PATH)));
+		mntmConfAppApi.addActionListener(
+				event -> menuBarController.openConfAppApi());
 		
 		return mntmConfAppApi;
 	}
@@ -127,12 +126,12 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmBagpipeApi = new JMenuItem();
 		
-		mntmBagpipeApi.addActionListener(
-				menuBarController.getActionListenerForBagpipeApiMenuItem());
+		mntmBagpipeApi.setText(menuBarController.getBagpipeApiMenuItemLabel());
+		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(BAGPIPE_API_MENU_ITEM_ICON_PATH)));
 		
-		mntmBagpipeApi.setText(menuBarController.getTranslationForBagpipeApiMenuItem());
-		mntmBagpipeApi.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(BAGPIPE_API_MENU_ITEM_ICON_PATH)));
+		mntmBagpipeApi.addActionListener(
+				event -> menuBarController.openBagpipeApi());
 		
 		return mntmBagpipeApi;
 	}
@@ -141,12 +140,11 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmAbout = new JMenuItem();
 		
-		mntmAbout.addActionListener(
-				menuBarController.getActionListenerForAboutMenuItem());
+		mntmAbout.setText(menuBarController.getAboutMenuItemLabel());
+		mntmAbout.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(ABOUT_MENU_ITEM_ICON_PATH)));
 		
-		mntmAbout.setText(menuBarController.getTranslationForAboutMenuItem());
-		mntmAbout.setIcon(new ImageIcon(this.getClass().getClassLoader().
-				getResource(ABOUT_MENU_ITEM_ICON_PATH)));
+		mntmAbout.addActionListener(event -> menuBarController.openAbout());
 		
 		return mntmAbout;
 	}

@@ -1,9 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.I18nService;
@@ -23,58 +19,45 @@ public class TabbedPaneController {
 		this.confAppService = confAppService;
 	}
 	
-	public String getTranslationForStartPanelTitle() {
+	public String getStartPanelLabel() {
 		return i18nService.getTranslation("tabbedPane.startPanel.title");
 	}
 	
-	public String getTranslationForSelectionPanelTitle() {
+	public String getSelectionPanelLabel() {
 		return i18nService.getTranslation("tabbedPane.selectionPanel.title");
 	}
 	
-	public String getTranslationForTuningPanelTitle() {
+	public String getTuningPanelLabel() {
 		return i18nService.getTranslation("tabbedPane.tuningPanel.title");
 	}
 	
-	public String getTranslationForSensitivityPanelTitle() {
+	public String getSensitivityPanelLabel() {
 		return i18nService.getTranslation("tabbedPane.sensitivityPanel.title");
 	}
 	
-	public String getTranslationForFingeringPanelTitle() {
+	public String getFingeringPanelLabel() {
 		return i18nService.getTranslation("tabbedPane.fingeringPanel.title");
 	}
 
-	public ChangeListener getChangeListenerForTabedPane() {
+	public void onTabSelected(String title) {
 		
-		ChangeListener changeListener = new ChangeListener() {
-			
-			public void stateChanged(ChangeEvent event) {
-				
-				JTabbedPane tabbedPane = (JTabbedPane) event.getSource();
-				int index = tabbedPane.getSelectedIndex();
-				String title = tabbedPane.getTitleAt(index);
-				
-				if (title != null) {
-					
-					BagpipeConfigurationType configurationType =
-							getBagpipeConfigurationType(title);
-					confAppService.setSelectedBagpipeConfigurationType(
-							configurationType);
-				}
-			}
-		};
-		
-		return changeListener;
+		if (title != null) {
+			BagpipeConfigurationType configurationType =
+					getBagpipeConfigurationType(title);
+			confAppService.setSelectedBagpipeConfigurationType(
+					configurationType);
+		}
 	}
 	
 	private BagpipeConfigurationType getBagpipeConfigurationType(String title) {
 		
 		BagpipeConfigurationType configurationType = null;
 		
-		String start = getTranslationForStartPanelTitle();
-		String selection = getTranslationForSelectionPanelTitle();
-		String tuning = getTranslationForTuningPanelTitle();
-		String sensitivity = getTranslationForSensitivityPanelTitle();
-		String fingering = getTranslationForFingeringPanelTitle();
+		String start = getStartPanelLabel();
+		String selection = getSelectionPanelLabel();
+		String tuning = getTuningPanelLabel();
+		String sensitivity = getSensitivityPanelLabel();
+		String fingering = getFingeringPanelLabel();
 		
 		if (title.equalsIgnoreCase(start)) {
 			configurationType = BagpipeConfigurationType.START;

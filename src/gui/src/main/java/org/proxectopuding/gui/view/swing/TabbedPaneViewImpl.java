@@ -39,41 +39,44 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
-		// Start panel.
+		// Start panel
 		String panelStartTitle = getStartPanelTitle();
 		JPanel panelStart = getStartPanel();
 		tabbedPane.addTab(panelStartTitle, null, panelStart, null);
 		
-		// Selection panel.
+		// Selection panel
 		String panelSelectTitle = getSelectionPanelTitle();
 		JPanel panelSelect = getSelectionPanel();
 		tabbedPane.addTab(panelSelectTitle, null, panelSelect, null);
 		
-		// Tuning panel.
+		// Tuning panel
 		String panelTuningTitle = getTuningPanelTitle();
 		JPanel panelTuning = getTuningPanel();
 		tabbedPane.addTab(panelTuningTitle, null, panelTuning, null);
 		
-		// Sensitivity panel.
+		// Sensitivity panel
 		String panelSensitTitle = getSensitivityPanelTitle();
 		JPanel panelSensit = getSensitivityPanel();
 		tabbedPane.addTab(panelSensitTitle, null, panelSensit, null);
 		
-		// Fingerings panel.
+		// Fingerings panel
 		String panelFingerTitle = getFingeringPanelTitle();
 		JPanel panelFinger = getFingeringPanel();
 		tabbedPane.addTab(panelFingerTitle, null, panelFinger, null);
 		
-		// Tab selection.
-		ChangeListener changeListener = tabbedPaneController.
-				getChangeListenerForTabedPane();
+		// Tab selection
+		ChangeListener changeListener = event -> {
+			int index = tabbedPane.getSelectedIndex();
+			String title = tabbedPane.getTitleAt(index);
+			tabbedPaneController.onTabSelected(title);
+		};
 		tabbedPane.addChangeListener(changeListener);
 		
 		return tabbedPane;
 	}
 	
 	private String getStartPanelTitle() {
-		return tabbedPaneController.getTranslationForStartPanelTitle();
+		return tabbedPaneController.getStartPanelLabel();
 	}
 	
 	private JPanel getStartPanel() {
@@ -81,7 +84,7 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	}
 	
 	private String getSelectionPanelTitle() {
-		return tabbedPaneController.getTranslationForSelectionPanelTitle();
+		return tabbedPaneController.getSelectionPanelLabel();
 	}
 	
 	private JPanel getSelectionPanel() {
@@ -89,7 +92,7 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	}
 	
 	private String getTuningPanelTitle() {
-		return tabbedPaneController.getTranslationForTuningPanelTitle();
+		return tabbedPaneController.getTuningPanelLabel();
 	}
 	
 	private JPanel getTuningPanel() {
@@ -97,7 +100,7 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	}
 	
 	private String getSensitivityPanelTitle() {
-		return tabbedPaneController.getTranslationForSensitivityPanelTitle();
+		return tabbedPaneController.getSensitivityPanelLabel();
 	}
 	
 	private JPanel getSensitivityPanel() {
@@ -105,7 +108,7 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	}
 	
 	private String getFingeringPanelTitle() {
-		return tabbedPaneController.getTranslationForFingeringPanelTitle();
+		return tabbedPaneController.getFingeringPanelLabel();
 	}
 	
 	private JPanel getFingeringPanel() {

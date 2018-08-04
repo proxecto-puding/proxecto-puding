@@ -61,8 +61,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		
 		JLabel lblChanterSelection = new JLabel();
 		
-		String text = startConfigurationController.
-				getTranslationForChanterSelectionLabel();
+		String text = startConfigurationController.getChanterSelectionLabel();
 		lblChanterSelection.setText(text);
 		
 		return lblChanterSelection;
@@ -72,11 +71,18 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		
 		JComboBox<String> comboBoxChanterSelection = new JComboBox<String>();
 		
-		ActionListener actionListener = startConfigurationController.
-				getActionListenerForChanterSelectionComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String productId = 
+					(String) comboBoxChanterSelection.getSelectedItem();
+			startConfigurationController.onChanterSelected(productId);
+		};
 		comboBoxChanterSelection.addActionListener(actionListener);
 		
+		// On chanters found
 		PropertyChangeListener propertyChangeListener = event -> {
+			
 			String[] chanters = startConfigurationController.getChanters();
 			ComboBoxModel<String> chanterSelectionModel =
 					new DefaultComboBoxModel<String>(chanters);
@@ -95,12 +101,14 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		
 		JButton btnSearch = new JButton();
 		
-		String text = startConfigurationController.
-				getTranslationForSearchButtonText();
+		String text = startConfigurationController.getSearchLabel();
 		btnSearch.setText(text);
 		
-		ActionListener actionListener = startConfigurationController.
-				getActionListenerForSearchButton();
+		// On action
+		ActionListener actionListener = event -> {
+
+			startConfigurationController.onSearch();
+		};
 		btnSearch.addActionListener(actionListener);
 		
 		return btnSearch;
@@ -110,8 +118,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		
 		JLabel lblReadingTone = new JLabel();
 		
-		String text = startConfigurationController.
-				getTranslationForReadingToneLabel();
+		String text = startConfigurationController.getReadingToneLabel();
 		lblReadingTone.setText(text);
 		
 		return lblReadingTone;
@@ -125,9 +132,13 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		ComboBoxModel<String> readingToneModel =
 				new DefaultComboBoxModel<String>(readingTones);
 		comboBoxReadingTone.setModel(readingToneModel);
-		ActionListener actionListener = 
-				startConfigurationController.
-				getActionListenerForReadingToneComboBox();
+		
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String readingTone = (String) comboBoxReadingTone.getSelectedItem();
+			startConfigurationController.onReadingToneSelected(readingTone);
+		};
 		comboBoxReadingTone.addActionListener(actionListener);
 					
 		return comboBoxReadingTone;

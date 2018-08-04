@@ -1,12 +1,8 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Set;
-
-import javax.swing.JComboBox;
 
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
@@ -36,15 +32,15 @@ public class StartConfigurationController {
 		this.notificationService = notificationService;
 	}
 
-	public String getTranslationForChanterSelectionLabel() {
+	public String getChanterSelectionLabel() {
 		return i18nService.getTranslation("startConfiguration.chanterSelection.label");
 	}
 	
-	public String getTranslationForSearchButtonText() {
+	public String getSearchLabel() {
 		return i18nService.getTranslation("startConfiguration.search.label");
 	}
 	
-	public String getTranslationForReadingToneLabel() {
+	public String getReadingToneLabel() {
 		return i18nService.getTranslation("startConfiguration.readingTone.label");
 	}
 	
@@ -58,43 +54,22 @@ public class StartConfigurationController {
 		return chanters;
 	}
 	
-	public ActionListener getActionListenerForChanterSelectionComboBox() {
+	public void onChanterSelected(String productId) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxChanterSelection =
-						(JComboBox<String>) event.getSource();
-				String productId = 
-						(String) comboBoxChanterSelection.getSelectedItem();
-				deviceManagerService.setSelectedBagpipeDevice(productId);
-				deviceManagerService.findBagpipeConfigurations(productId);
-				notificationService.sendNotification(comboBoxChanterSelection,
-						Notification.CHANTER_SELECTED, productId);
-			}
-		};
-		
-		return actionListener;
+		deviceManagerService.setSelectedBagpipeDevice(productId);
+		deviceManagerService.findBagpipeConfigurations(productId);
+		notificationService.sendNotification(this,
+				Notification.CHANTER_SELECTED, productId);
 	}
 	
-	public ActionListener getActionListenerForSearchButton() {
+	public void onSearch() {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				Set<BagpipeDevice> devices =
-						deviceManagerService.findBagpipeDevices();
-				if (devices.size() > 0) {
-					notificationService.sendNotification(event.getSource(),
-							Notification.CHANTER_FOUND, devices);
-				}
-			}
-		};
-		
-		return actionListener;
+		Set<BagpipeDevice> devices =
+				deviceManagerService.findBagpipeDevices();
+		if (devices.size() > 0) {
+			notificationService.sendNotification(this,
+					Notification.CHANTER_FOUND, devices);
+		}
 	}
 	
 	public String[] getReadingTones() {
@@ -107,24 +82,11 @@ public class StartConfigurationController {
 		return readingTones;
 	}
 	
-	public ActionListener getActionListenerForReadingToneComboBox() {
+	public void onReadingToneSelected(String readingTone) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxReadingTone =
-						(JComboBox<String>) event.getSource();
-				String readingTone = 
-						(String) comboBoxReadingTone.getSelectedItem();
-				confAppService.setReadingTone(readingTone);
-				notificationService.sendNotification(comboBoxReadingTone,
-						Notification.READING_TONE_SELECTED, readingTone);
-			}
-		};
-		
-		return actionListener;
+		confAppService.setReadingTone(readingTone);
+		notificationService.sendNotification(this,
+				Notification.READING_TONE_SELECTED, readingTone);
 	}
 	
 	public void subscribe(Notification notification,

@@ -1,17 +1,7 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
-
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.I18nService;
@@ -36,7 +26,7 @@ public class TuningConfigurationController {
 		this.notificationService = notificationService;
 	}
 
-	public String getTranslationForTuningFrequencyLabel() {
+	public String getTuningFrequencyLabel() {
 		return i18nService.getTranslation("tuningConfiguration.tuningFrequency.label");
 	}
 	
@@ -44,26 +34,16 @@ public class TuningConfigurationController {
 		return confAppService.getTuningFrequency();
 	}
 	
-	public ChangeListener getChangeListenerForTuningFrequencySpinner() {
+	public void onTuningFrequencySelected(int tuningFrequency) {
 		
-		ChangeListener changeListener = new ChangeListener() {
-			
-			public void stateChanged(ChangeEvent event) {
-				
-				JSpinner spinnerTuningFrequency = (JSpinner) event.getSource();
-				int tuningFrequency = (Integer) spinnerTuningFrequency.getValue();
-				confAppService.setTuningFrequency(tuningFrequency);
-			}
-		};
-		
-		return changeListener;
+		confAppService.setTuningFrequency(tuningFrequency);
 	}
 	
-	public String getTranslationForTuningHzLabel() {
+	public String getTuningHzLabel() {
 		return i18nService.getTranslation("tuningConfiguration.tuningHz.label");
 	}
 	
-	public String getTranslationForTuningModeLabel() {
+	public String getTuningModeLabel() {
 		return i18nService.getTranslation("tuningConfiguration.tuningMode.label");
 	}
 	
@@ -81,29 +61,16 @@ public class TuningConfigurationController {
 		return confAppService.getTuningMode();
 	}
 	
-	public ActionListener getActionListenerForTuningModeComboBox() {
+	public void onTuningModeSelected(String tuningMode) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxTuningMode =
-						(JComboBox<String>) event.getSource();
-				String tuningMode = 
-						(String) comboBoxTuningMode.getSelectedItem();
-				confAppService.setTuningMode(tuningMode);
-			}
-		};
-		
-		return actionListener;
+		confAppService.setTuningMode(tuningMode);
 	}
 	
-	public String getTranslationForPreciseTuningSettingsLabel() {
+	public String getPreciseTuningSettingsLabel() {
 		return i18nService.getTranslation("tuningConfiguration.preciseTuningSettings.label");
 	}
 	
-	public String getTranslationForPreciseTuningNoteLabel() {
+	public String getPreciseTuningNoteLabel() {
 		return i18nService.getTranslation("tuningConfiguration.preciseTuningNote.label");
 	}
 	
@@ -117,64 +84,23 @@ public class TuningConfigurationController {
 		return preciseTuningNotes;
 	}
 	
+	public void resetPreciseTuningNotes() {
+		confAppService.resetPreciseTuningNotes();
+	}
+	
 	public String getPreciseTuningNote() {
 		return confAppService.getPreciseTuningNote();
 	}
 	
-	public ActionListener getActionListenerForPreciseTuningNoteComboBox() {
+	public void onPreciseTuningNoteSelected(String preciseTuningNote) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxPreciseTuningNote =
-						(JComboBox<String>) event.getSource();
-				String preciseTuningNote = 
-						(String) comboBoxPreciseTuningNote.getSelectedItem();
-				confAppService.setPreciseTuningNote(preciseTuningNote);
-				notificationService.sendNotification(comboBoxPreciseTuningNote,
-						Notification.PRECISE_TUNING_NOTE_SELECTED,
-						preciseTuningNote);
-			}
-		};
-		
-		return actionListener;
+		confAppService.setPreciseTuningNote(preciseTuningNote);
+		notificationService.sendNotification(this,
+				Notification.PRECISE_TUNING_NOTE_SELECTED,
+				preciseTuningNote);
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener
-			getPropertyChangeListenerForPreciseTuningNoteComboBox(
-					final JComboBox<String> comboBoxPreciseTuningNote) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.READING_TONE_SELECTED.toString()
-						== propertyName) {
-					
-					confAppService.resetPreciseTuningNotes();
-					String[] preciseTuningNotes = getPreciseTuningNotes();
-					ComboBoxModel<String> preciseTuningNoteModel =
-							new DefaultComboBoxModel<String>(preciseTuningNotes);
-					comboBoxPreciseTuningNote.setModel(preciseTuningNoteModel);
-					String preciseTuningNote = getPreciseTuningNote();
-					comboBoxPreciseTuningNote.setSelectedItem(preciseTuningNote);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.READING_TONE_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForPreciseTuningOctaveLabel() {
+	public String getPreciseTuningOctaveLabel() {
 		return i18nService.getTranslation("tuningConfiguration.preciseTuningOctave.label");
 	}
 	
@@ -192,28 +118,15 @@ public class TuningConfigurationController {
 		return confAppService.getPreciseTuningOctave();
 	}
 	
-	public ActionListener getActionListenerForPreciseTuningOctaveComboBox() {
+	public void onPreciseTuningOctaveSelected(int preciseTuningOctave) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<Integer> comboBoxPreciseTuningOctave =
-						(JComboBox<Integer>) event.getSource();
-				Integer preciseTuningOctave = (Integer)
-						comboBoxPreciseTuningOctave.getSelectedItem();
-				confAppService.setPreciseTuningOctave(preciseTuningOctave);
-				notificationService.sendNotification(comboBoxPreciseTuningOctave,
-						Notification.PRECISE_TUNING_OCTAVE_SELECTED,
-						preciseTuningOctave);
-			}
-		};
-		
-		return actionListener;
+		confAppService.setPreciseTuningOctave(preciseTuningOctave);
+		notificationService.sendNotification(this,
+				Notification.PRECISE_TUNING_OCTAVE_SELECTED,
+				preciseTuningOctave);
 	}
 	
-	public String getTranslationForPreciseTuningCentsLabel() {
+	public String getPreciseTuningCentsLabel() {
 		return i18nService.getTranslation("tuningConfiguration.preciseTuningCents.label");
 	}
 	
@@ -221,54 +134,15 @@ public class TuningConfigurationController {
 		return confAppService.getPreciseTuningCents();
 	}
 	
-	public ChangeListener getChangeListenerForPreciseTuningCentsSpinner() {
+	public void onPreciseTuningCentsSelected(int preciseTuningCents) {
 		
-		ChangeListener changeListener = new ChangeListener() {
-			
-			public void stateChanged(ChangeEvent event) {
-				
-				JSpinner spinnerPreciseTuningCents = (JSpinner) event.getSource();
-				int preciseTuningCents = (Integer) spinnerPreciseTuningCents.getValue();
-				confAppService.setPreciseTuningCents(preciseTuningCents);
-			}
-		};
-		
-		return changeListener;
+		confAppService.setPreciseTuningCents(preciseTuningCents);
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener
-			getPropertyChangeListenerForPreciseTuningCentsSpinner(
-					final JSpinner spinnerPreciseTuningCents) {
+	public void subscribe(Notification notification,
+			PropertyChangeListener propertyChangeListener) {
 		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if ((Notification.READING_TONE_SELECTED.toString()
-						== propertyName) ||
-						(Notification.PRECISE_TUNING_NOTE_SELECTED.toString()
-						== propertyName) ||
-						(Notification.PRECISE_TUNING_OCTAVE_SELECTED.toString()
-								== propertyName)) {
-					
-					int preciseTuningCents = getPreciseTuningCents();
-					spinnerPreciseTuningCents.setValue(preciseTuningCents);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-			Notification.READING_TONE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-			Notification.PRECISE_TUNING_NOTE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-			Notification.PRECISE_TUNING_OCTAVE_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
+		notificationService.addNotificationListener(notification,
+				propertyChangeListener);
 	}
-	
 }

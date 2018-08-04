@@ -18,6 +18,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.TuningConfigurationController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.TuningConfigurationView;
 
 import com.google.inject.Inject;
@@ -83,8 +84,7 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblTuningFrequency = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForTuningFrequencyLabel();
+		String text = tuningConfigurationController.getTuningFrequencyLabel();
 		lblTuningFrequency.setText(text);
 		
 		return lblTuningFrequency;
@@ -101,8 +101,14 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 						MAX_TUNING_FREQ, STEP_TUNING_FREQ);
 		spinnerTuningFrequency.setModel(tuningFrequencyModel);
 		
-		ChangeListener changeListener = tuningConfigurationController.
-				getChangeListenerForTuningFrequencySpinner();
+		// On selection
+		ChangeListener changeListener = event -> {
+			
+			int newTuningFrequency =
+					(Integer) spinnerTuningFrequency.getValue();
+			tuningConfigurationController.onTuningFrequencySelected(
+					newTuningFrequency);
+		};
 		spinnerTuningFrequency.addChangeListener(changeListener);
 		
 		return spinnerTuningFrequency;
@@ -112,8 +118,7 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblTuningHz = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForTuningHzLabel();
+		String text = tuningConfigurationController.getTuningHzLabel();
 		lblTuningHz.setText(text);
 		
 		return lblTuningHz;
@@ -123,8 +128,7 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblTuningMode = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForTuningModeLabel();
+		String text = tuningConfigurationController.getTuningModeLabel();
 		lblTuningMode.setText(text);
 		
 		return lblTuningMode;
@@ -142,8 +146,12 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		String tuningMode = tuningConfigurationController.getTuningMode();
 		comboBoxTuningMode.setSelectedItem(tuningMode);
 		
-		ActionListener actionListener = tuningConfigurationController.
-				getActionListenerForTuningModeComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+
+			String newTuningMode = (String) comboBoxTuningMode.getSelectedItem();
+			tuningConfigurationController.onTuningModeSelected(newTuningMode);
+		};
 		comboBoxTuningMode.addActionListener(actionListener);
 		
 		return comboBoxTuningMode;
@@ -153,8 +161,8 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblPreciseTuningSettings = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForPreciseTuningSettingsLabel();
+		String text = tuningConfigurationController
+				.getPreciseTuningSettingsLabel();
 		lblPreciseTuningSettings.setText(text);
 		
 		return lblPreciseTuningSettings;
@@ -164,8 +172,7 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblPreciseTuningNote = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForPreciseTuningNoteLabel();
+		String text = tuningConfigurationController.getPreciseTuningNoteLabel();
 		lblPreciseTuningNote.setText(text);
 		
 		return lblPreciseTuningNote;
@@ -184,17 +191,31 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 				tuningConfigurationController.getPreciseTuningNote();
 		comboBoxPreciseTuningNote.setSelectedItem(preciseTuningNote);
 		
-		ActionListener actionListener = tuningConfigurationController.
-				getActionListenerForPreciseTuningNoteComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String newPreciseTuningNote =
+					(String) comboBoxPreciseTuningNote.getSelectedItem();
+			tuningConfigurationController.onPreciseTuningNoteSelected(
+					newPreciseTuningNote);
+		};
 		comboBoxPreciseTuningNote.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				tuningConfigurationController.
-						getPropertyChangeListenerForPreciseTuningNoteComboBox(
-								comboBoxPreciseTuningNote);
-		comboBoxPreciseTuningNote.addPropertyChangeListener(
-				propertyChangeListener);
+		// On reading tone selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			tuningConfigurationController.resetPreciseTuningNotes();
+			String[] newPreciseTuningNotes =
+					tuningConfigurationController.getPreciseTuningNotes();
+			ComboBoxModel<String> newPreciseTuningNoteModel =
+					new DefaultComboBoxModel<String>(newPreciseTuningNotes);
+			comboBoxPreciseTuningNote.setModel(newPreciseTuningNoteModel);
+			String newPreciseTuningNote =
+					tuningConfigurationController.getPreciseTuningNote();
+			comboBoxPreciseTuningNote.setSelectedItem(newPreciseTuningNote);
+		};
+		tuningConfigurationController.subscribe(
+				Notification.READING_TONE_SELECTED, propertyChangeListener);
 		
 		return comboBoxPreciseTuningNote;
 	}
@@ -203,8 +224,8 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblPreciseTuningOctave = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForPreciseTuningOctaveLabel();
+		String text = tuningConfigurationController
+				.getPreciseTuningOctaveLabel();
 		lblPreciseTuningOctave.setText(text);
 		
 		return lblPreciseTuningOctave;
@@ -224,8 +245,14 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 				tuningConfigurationController.getPreciseTuningOctave();
 		comboBoxPreciseTuningOctave.setSelectedItem(preciseTuningOctave);
 		
-		ActionListener actionListener = tuningConfigurationController.
-				getActionListenerForPreciseTuningOctaveComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			int newPreciseTuningOctave = (Integer)
+					comboBoxPreciseTuningOctave.getSelectedItem();
+			tuningConfigurationController.onPreciseTuningOctaveSelected(
+					newPreciseTuningOctave);
+		};
 		comboBoxPreciseTuningOctave.addActionListener(actionListener);
 		
 		return comboBoxPreciseTuningOctave;
@@ -235,8 +262,8 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		
 		JLabel lblPreciseTuningCents = new JLabel();
 		
-		String text = tuningConfigurationController.
-				getTranslationForPreciseTuningCentsLabel();
+		String text = tuningConfigurationController
+				.getPreciseTuningCentsLabel();
 		lblPreciseTuningCents.setText(text);
 		
 		return lblPreciseTuningCents;
@@ -255,16 +282,30 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 						STEP_PRECISE_TUNING_CENTS);
 		spinnerPreciseTuningCents.setModel(preciseTuningCentsModel);
 		
-		ChangeListener changeListener = tuningConfigurationController.
-				getChangeListenerForPreciseTuningCentsSpinner();
+		// On selection
+		ChangeListener changeListener = event -> {
+			
+			int newPreciseTuningCents =
+					(Integer) spinnerPreciseTuningCents.getValue();
+			tuningConfigurationController.onPreciseTuningCentsSelected(
+					newPreciseTuningCents);
+		};
 		spinnerPreciseTuningCents.addChangeListener(changeListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				tuningConfigurationController.
-						getPropertyChangeListenerForPreciseTuningCentsSpinner(
-								spinnerPreciseTuningCents);
-		spinnerPreciseTuningCents.addPropertyChangeListener(
+		// On reading tone, precise tuning note or precise tuning octave selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			int newPreciseTuningCents =
+					tuningConfigurationController.getPreciseTuningCents();
+			spinnerPreciseTuningCents.setValue(newPreciseTuningCents);
+		};
+		tuningConfigurationController.subscribe(
+				Notification.READING_TONE_SELECTED, propertyChangeListener);
+		tuningConfigurationController.subscribe(
+				Notification.PRECISE_TUNING_NOTE_SELECTED,
+				propertyChangeListener);
+		tuningConfigurationController.subscribe(
+				Notification.PRECISE_TUNING_OCTAVE_SELECTED,
 				propertyChangeListener);
 		
 		return spinnerPreciseTuningCents;

@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.SensitivityConfigurationController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.SensitivityConfigurationView;
 
 import com.google.inject.Inject;
@@ -23,6 +24,8 @@ public class SensitivityConfigurationViewImpl extends ViewImpl implements Sensit
 	private final int MAX_BAG_PRESSURE = 100;
 
 	private final SensitivityConfigurationController sensitivityConfigurationController;
+	
+	private int oldBagPressure = -1;
 	
 	@Inject
 	public SensitivityConfigurationViewImpl(
@@ -52,8 +55,7 @@ public class SensitivityConfigurationViewImpl extends ViewImpl implements Sensit
 		
 		JLabel lblBagPressure = new JLabel();
 		
-		String text = sensitivityConfigurationController.
-				getTranslationForBagPressureLabel();
+		String text = sensitivityConfigurationController.getBagPressureLabel();
 		lblBagPressure.setText(text);
 		
 		return lblBagPressure;
@@ -74,15 +76,40 @@ public class SensitivityConfigurationViewImpl extends ViewImpl implements Sensit
 		sliderBagPressure.setPaintLabels(true);
 		int bagPressure = sensitivityConfigurationController.getBagPressure();
 		sliderBagPressure.setValue(bagPressure);
-		ChangeListener changeListener = sensitivityConfigurationController.
-				getChangeListenerForBagPressureSlider();
+		
+		// On action
+		ChangeListener changeListener = event -> {
+
+			int newBagPressure = sliderBagPressure.getValue();
+			
+			// Set current bag pressure label
+			if (oldBagPressure != -1 &&
+					oldBagPressure != sliderBagPressure.getMinimum() &&
+					oldBagPressure != sliderBagPressure.getMaximum()) {
+				
+				labels.remove(oldBagPressure);
+			}
+			labels.put(newBagPressure,
+					new JLabel(Integer.toString(newBagPressure)));
+			sliderBagPressure.setLabelTable(labels);
+			oldBagPressure = newBagPressure;
+			
+			// Set new device bag pressure
+			if (!sliderBagPressure.getValueIsAdjusting()) {
+				sensitivityConfigurationController.onBagPressureSelected(
+					newBagPressure);
+			}
+		};
 		sliderBagPressure.addChangeListener(changeListener);
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				sensitivityConfigurationController.
-						getPropertyChangeListenerForBagPressureSlider(
-								sliderBagPressure);
-		sliderBagPressure.addPropertyChangeListener(propertyChangeListener);
+		
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			int newVolume = sensitivityConfigurationController.getBagPressure();
+			sliderBagPressure.setValue(newVolume);
+		};
+		sensitivityConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return sliderBagPressure;
 	}

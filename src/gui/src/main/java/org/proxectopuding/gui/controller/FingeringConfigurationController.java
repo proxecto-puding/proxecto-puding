@@ -41,7 +41,7 @@ public class FingeringConfigurationController {
 		this.notificationService = notificationService;
 	}
 
-	public String getTranslationForCustomFingeringNoteLabel() {
+	public String getCustomFingeringNoteLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNote.label");
 	}
 	
@@ -59,6 +59,7 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringNote();
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringNoteComboBox() {
 		
 		ActionListener actionListener = new ActionListener() {
@@ -80,7 +81,7 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	// TODO Test this because of the final modifier.
+	// TODO Refactor
 	public PropertyChangeListener
 			getPropertyChangeListenerForCustomFingeringNoteComboBox(
 					final JComboBox<String> comboBoxCustomFingeringNote) {
@@ -111,7 +112,7 @@ public class FingeringConfigurationController {
 		return propertyChangeListener;
 	}
 	
-	public String getTranslationForCustomFingeringOctaveLabel() {
+	public String getCustomFingeringOctaveLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringOctave.label");
 	}
 	
@@ -129,6 +130,7 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringOctave();
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringOctaveComboBox() {
 		
 		ActionListener actionListener = new ActionListener() {
@@ -151,7 +153,7 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	public String getTranslationForCustomFingeringNumberLabel() {
+	public String getCustomFingeringNumberLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNumber.label");
 	}
 	
@@ -178,6 +180,7 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringNumber();
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringNumberComboBox() {
 		
 		ActionListener actionListener = new ActionListener() {
@@ -200,7 +203,7 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	// TODO Test this because of the final modifier.
+	// TODO Refactor
 	public PropertyChangeListener
 			getPropertyChangeListenerForCustomFingeringNumberComboBox(
 					final JComboBox<Integer> comboBoxCustomFingeringNumber) {
@@ -250,10 +253,11 @@ public class FingeringConfigurationController {
 		return propertyChangeListener;
 	}
 	
-	public String getTranslationForCustomFingeringNewButtonText() {
+	public String getCustomFingeringNewButtonLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNew.button");
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringNewButton() {
 		
 		ActionListener actionListener = new ActionListener() {
@@ -287,10 +291,11 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	public String getTranslationForCustomFingeringRemoveButton() {
+	public String getCustomFingeringRemoveButtonLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringRemove.button");
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringRemoveButton() {
 		
 		ActionListener actionListener = new ActionListener() {
@@ -326,18 +331,19 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	public String getTranslationForSensorsLabel() {
+	public String getSensorsLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.sensors.label");
 	}
 	
-	public String getTranslationForLeftHandSensorsLabel() {
+	public String getLeftHandSensorsLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.leftHandSensors.label");
 	}
 	
-	public String getTranslationForRightHandSensorsLabel() {
+	public String getRightHandSensorsLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.rightHandSensors.label");
 	}
 	
+	// TODO Refactor
 	public ActionListener getActionListenerForCustomFingeringSensorCheckBox(
 			final int sensor) {
 		
@@ -375,7 +381,7 @@ public class FingeringConfigurationController {
 		return actionListener;
 	}
 	
-	// TODO Test this because of the final modifier.
+	// TODO Refactor
 	public PropertyChangeListener
 			getPropertyChangeListenerForCustomFingeringSensorCheckBox(
 					final int sensor, final JCheckBox checkBoxSensor) {

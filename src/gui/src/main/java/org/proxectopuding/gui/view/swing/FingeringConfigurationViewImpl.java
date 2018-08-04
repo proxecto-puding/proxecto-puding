@@ -107,7 +107,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JLabel lblCustomFingeringNote = new JLabel();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringNoteLabel();
+				getCustomFingeringNoteLabel();
 		lblCustomFingeringNote.setText(text);
 		
 		return lblCustomFingeringNote;
@@ -127,11 +127,12 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringNote();
 		comboBoxCustomFingeringNote.setSelectedItem(customFingeringNote);
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringNoteComboBox();
 		comboBoxCustomFingeringNote.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
+		// TODO Refactor
 		PropertyChangeListener propertyChangeListener = 
 				fingeringConfigurationController.
 					getPropertyChangeListenerForCustomFingeringNoteComboBox(
@@ -147,7 +148,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JLabel lblCustomFingeringOctave = new JLabel();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringOctaveLabel();
+				getCustomFingeringOctaveLabel();
 		lblCustomFingeringOctave.setText(text);
 		
 		return lblCustomFingeringOctave;
@@ -167,6 +168,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringOctave();
 		comboBoxCustomFingeringOctave.setSelectedItem(customFingeringOctave);
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringOctaveComboBox();
 		comboBoxCustomFingeringOctave.addActionListener(actionListener);
@@ -179,7 +181,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JLabel lblCustomFingeringNumber = new JLabel();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringNumberLabel();
+				getCustomFingeringNumberLabel();
 		lblCustomFingeringNumber.setText(text);
 		
 		return lblCustomFingeringNumber;
@@ -199,11 +201,12 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringNumber();
 		comboBoxCustomFingeringNumber.setSelectedItem(customFingeringNumber);
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringNumberComboBox();
 		comboBoxCustomFingeringNumber.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
+		// TODO Refactor
 		PropertyChangeListener propertyChangeListener = 
 				fingeringConfigurationController.
 					getPropertyChangeListenerForCustomFingeringNumberComboBox(
@@ -219,9 +222,10 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JButton btnCustomFingeringNew = new JButton();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringNewButtonText();
+				getCustomFingeringNewButtonLabel();
 		btnCustomFingeringNew.setText(text);
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringNewButton();
 		btnCustomFingeringNew.addActionListener(actionListener);
@@ -234,9 +238,10 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JButton btnCustomFingeringRemove = new JButton();
 		
 		String text = fingeringConfigurationController.
-				getTranslationForCustomFingeringRemoveButton();
+				getCustomFingeringRemoveButtonLabel();
 		btnCustomFingeringRemove.setText(text);
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringRemoveButton();
 		btnCustomFingeringRemove.addActionListener(actionListener);
@@ -265,8 +270,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		
 		JLabel lblSensors = new JLabel();
 		
-		String text = fingeringConfigurationController.
-				getTranslationForSensorsLabel();
+		String text = fingeringConfigurationController.getSensorsLabel();
 		lblSensors.setText(text);
 		
 		return lblSensors;
@@ -276,8 +280,8 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		
 		JLabel lblLeftHandSensors = new JLabel();
 		
-		String text = fingeringConfigurationController.
-				getTranslationForLeftHandSensorsLabel();
+		String text = fingeringConfigurationController
+				.getLeftHandSensorsLabel();
 		lblLeftHandSensors.setText(text);
 		
 		return lblLeftHandSensors;
@@ -287,8 +291,8 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		
 		JLabel lblRightHandSensors = new JLabel();
 		
-		String text = fingeringConfigurationController.
-				getTranslationForRightHandSensorsLabel();
+		String text = fingeringConfigurationController
+				.getRightHandSensorsLabel();
 		lblRightHandSensors.setText(text);
 		
 		return lblRightHandSensors;
@@ -300,11 +304,12 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		
 		checkBoxSensor.setText(String.valueOf(sensor+1));
 		
+		// TODO Refactor
 		ActionListener actionListener = fingeringConfigurationController.
 				getActionListenerForCustomFingeringSensorCheckBox(sensor);
 		checkBoxSensor.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
+		// TODO Refactor
 		PropertyChangeListener propertyChangeListener = 
 				fingeringConfigurationController.
 					getPropertyChangeListenerForCustomFingeringSensorCheckBox(

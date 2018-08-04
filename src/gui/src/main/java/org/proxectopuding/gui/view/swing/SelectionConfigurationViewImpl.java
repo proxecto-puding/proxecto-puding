@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.SelectionConfigurationController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.SelectionConfigurationView;
 
 import com.google.inject.Inject;
@@ -27,8 +28,16 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 
 	private final int MIN_VOLUME = 1;
 	private final int MAX_VOLUME = 100;
+	private final int FINGERING_TYPE_ABERTO = 0;
+	private final int FINGERING_TYPE_PECHADO = 1;
+	private final int FINGERING_TYPE_CUSTOM = 2;
+	private final int DRONE_TYPE_BASS = 0;
+	private final int DRONE_TYPE_TENOR = 1;
+	private final int DRONE_TYPE_HIGH = 2;
 	
 	private final SelectionConfigurationController selectionConfigurationController;
+	
+	private int oldVolume = -1;
 	
 	@Inject
 	public SelectionConfigurationViewImpl(
@@ -94,8 +103,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblVolume = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForVolumeLabel();
+		String text = selectionConfigurationController.getVolumeLabel();
 		lblVolume.setText(text);
 		
 		return lblVolume;
@@ -115,16 +123,37 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		int volume = selectionConfigurationController.getVolume();
 		sliderVolume.setValue(volume);
 		
-		ChangeListener changeListener = selectionConfigurationController.
-				getChangeListenerForVolumeSlider();
+		// On selection
+		ChangeListener changeListener = event -> {
+			
+			int newVolume = sliderVolume.getValue();
+			
+			// Set current volume label
+			if (oldVolume != -1 &&
+					oldVolume != sliderVolume.getMinimum() &&
+					oldVolume != sliderVolume.getMaximum()) {
+				
+				labels.remove(oldVolume);
+			}
+			labels.put(newVolume, new JLabel(Integer.toString(newVolume)));
+			sliderVolume.setLabelTable(labels);
+			oldVolume = newVolume;
+
+			// Set new device volume
+			if (!sliderVolume.getValueIsAdjusting()) {
+				selectionConfigurationController.onVolumeSelected(newVolume);
+			}
+		};
 		sliderVolume.addChangeListener(changeListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-						getPropertyChangeListenerForVolumeSlider(
-								sliderVolume);
-		sliderVolume.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			int newVolume = selectionConfigurationController.getVolume();
+			sliderVolume.setValue(newVolume);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return sliderVolume;
 	}
@@ -133,8 +162,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblTuningTone = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForTuningToneLabel();
+		String text = selectionConfigurationController.getTuningToneLabel();
 		lblTuningTone.setText(text);
 		
 		return lblTuningTone;
@@ -152,16 +180,23 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		String tuningTone = selectionConfigurationController.getTuningTone();
 		comboBoxTuningTone.setSelectedItem(tuningTone);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForTuningToneComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String newTuningTone = 
+					(String) comboBoxTuningTone.getSelectedItem();
+			selectionConfigurationController.onTuningToneSelected(newTuningTone);
+		};
 		comboBoxTuningTone.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-						getPropertyChangeListenerForTuningToneComboBox(
-								comboBoxTuningTone);
-		comboBoxTuningTone.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			String newTuningTone = selectionConfigurationController.getTuningTone();
+			comboBoxTuningTone.setSelectedItem(newTuningTone);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return comboBoxTuningTone;
 	}
@@ -170,8 +205,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblTuningOctave = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForTuningOctaveLabel();
+		String text = selectionConfigurationController.getTuningOctaveLabel();
 		lblTuningOctave.setText(text);
 		
 		return lblTuningOctave;
@@ -189,16 +223,24 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		int tuningOctave = selectionConfigurationController.getTuningOctave();
 		comboBoxTuningOctave.setSelectedItem(tuningOctave);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForTuningOctaveComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			Integer newTuningOctave = 
+					(Integer) comboBoxTuningOctave.getSelectedItem();
+			selectionConfigurationController.onTuningOctaveSelected(newTuningOctave);
+		};
 		comboBoxTuningOctave.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-						getPropertyChangeListenerForTuningOctaveComboBox(
-								comboBoxTuningOctave);
-		comboBoxTuningOctave.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			Integer newTuningOctave =
+					selectionConfigurationController.getTuningOctave();
+			comboBoxTuningOctave.setSelectedItem(newTuningOctave);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return comboBoxTuningOctave;
 	}
@@ -207,8 +249,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblSamples = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForSamplesLabel();
+		String text = selectionConfigurationController.getSamplesLabel();
 		lblSamples.setText(text);
 		
 		return lblSamples;
@@ -218,16 +259,19 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JComboBox<String> comboBoxSamples = new JComboBox<String>();
 		
-		String[] samples =
-				selectionConfigurationController.getSamples();
+		String[] samples = selectionConfigurationController.getSamples();
 		ComboBoxModel<String> samplesModel =
 				new DefaultComboBoxModel<String>(samples);
 		comboBoxSamples.setModel(samplesModel);
 		String sample = selectionConfigurationController.getSample();
 		comboBoxSamples.setSelectedItem(sample);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForSamplesComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String newSample = (String) comboBoxSamples.getSelectedItem();
+			selectionConfigurationController.onSampleSelected(newSample);
+		};
 		comboBoxSamples.addActionListener(actionListener);
 		
 		return comboBoxSamples;
@@ -237,8 +281,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblFingeringTypes = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForFingeringTypesLabel();
+		String text = selectionConfigurationController.getFingeringTypesLabel();
 		lblFingeringTypes.setText(text);
 		
 		return lblFingeringTypes;
@@ -249,23 +292,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxAberto = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForFingeringTypesAbertoCheckBox();
+				getFingeringTypesAbertoLabel();
 		chckbxAberto.setText(text);
 		
-		boolean aberto =
-				selectionConfigurationController.getFingeringTypesEnabled().get(0);
-		chckbxAberto.setSelected(aberto);
+		boolean enabled = selectionConfigurationController
+				.isFingeringTypeEnabled(FINGERING_TYPE_ABERTO);
+		chckbxAberto.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForFingeringTypesCheckBox(0);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxAberto.isSelected();
+			selectionConfigurationController
+					.onFingeringTypeSelected(FINGERING_TYPE_ABERTO, selected);
+		};
 		chckbxAberto.addActionListener(actionListener);
-		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForFingeringTypesCheckBox(0,
-							chckbxAberto);
-		chckbxAberto.addPropertyChangeListener(propertyChangeListener);
+
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean isEnabled = selectionConfigurationController
+					.isFingeringTypeEnabled(FINGERING_TYPE_ABERTO);
+			chckbxAberto.setSelected(isEnabled);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxAberto;
 	}
@@ -275,23 +326,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxPechado = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForFingeringTypesPechadoCheckBox();
+				getFingeringTypesPechadoLabel();
 		chckbxPechado.setText(text);
 		
-		boolean pechado =
-				selectionConfigurationController.getFingeringTypesEnabled().get(1);
-		chckbxPechado.setSelected(pechado);
+		boolean enabled = selectionConfigurationController
+				.isFingeringTypeEnabled(FINGERING_TYPE_PECHADO);
+		chckbxPechado.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForFingeringTypesCheckBox(1);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxPechado.isSelected();
+			selectionConfigurationController
+					.onFingeringTypeSelected(FINGERING_TYPE_PECHADO, selected);
+		};
 		chckbxPechado.addActionListener(actionListener);
-		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForFingeringTypesCheckBox(1,
-							chckbxPechado);
-		chckbxPechado.addPropertyChangeListener(propertyChangeListener);
+
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean isEnabled = selectionConfigurationController
+					.isFingeringTypeEnabled(FINGERING_TYPE_PECHADO);
+			chckbxPechado.setSelected(isEnabled);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxPechado;
 	}
@@ -301,23 +360,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxCustom = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForFingeringTypesCustomCheckBox();
+				getFingeringTypesCustomCheckLabel();
 		chckbxCustom.setText(text);
 		
-		boolean custom =
-				selectionConfigurationController.getFingeringTypesEnabled().get(2);
-		chckbxCustom.setSelected(custom);
+		boolean enabled = selectionConfigurationController
+				.isFingeringTypeEnabled(FINGERING_TYPE_CUSTOM);
+		chckbxCustom.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForFingeringTypesCheckBox(2);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxCustom.isSelected();
+			selectionConfigurationController
+					.onFingeringTypeSelected(FINGERING_TYPE_CUSTOM, selected);
+		};
 		chckbxCustom.addActionListener(actionListener);
-		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForFingeringTypesCheckBox(2,
-							chckbxCustom);
-		chckbxCustom.addPropertyChangeListener(propertyChangeListener);
+
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean isEnabled = selectionConfigurationController
+					.isFingeringTypeEnabled(FINGERING_TYPE_CUSTOM);
+			chckbxCustom.setSelected(isEnabled);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxCustom;
 	}
@@ -326,8 +393,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		
 		JLabel lblComplements = new JLabel();
 		
-		String text = selectionConfigurationController.
-				getTranslationForComplementsLabel();
+		String text = selectionConfigurationController.getComplementsLabel();
 		lblComplements.setText(text);
 		
 		return lblComplements;
@@ -335,26 +401,30 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 	
 	private JCheckBox getComplementsBagCheckBox() {
 		
-		JCheckBox chckbxBag = new JCheckBox("Fol");
+		JCheckBox chckbxBag = new JCheckBox();
 		
-		String text = selectionConfigurationController.
-				getTranslationForComplementsBagCheckBox();
+		String text = selectionConfigurationController.getComplementsBagLabel();
 		chckbxBag.setText(text);
 		
-		boolean bag =
-				selectionConfigurationController.getComplementsBagCheckBox();
-		chckbxBag.setSelected(bag);
+		boolean enabled = selectionConfigurationController.isBagEnabled();
+		chckbxBag.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForComplementsBagCheckBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxBag.isSelected();
+			selectionConfigurationController.onBagSelected(selected);
+		};
 		chckbxBag.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForComplementsBagCheckBox(
-						chckbxBag);
-		chckbxBag.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean selected = selectionConfigurationController.isBagEnabled();
+			chckbxBag.setSelected(selected);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxBag;
 	}
@@ -364,7 +434,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JLabel lblDrones = new JLabel();
 		
 		String text = selectionConfigurationController.
-				getTranslationForComplementsDronesLabel();
+				getComplementsDronesLabel();
 		lblDrones.setText(text);
 		
 		return lblDrones;
@@ -375,23 +445,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxBassDrone = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForComplementsDronesBassDroneCheckBox();
+				getComplementsDronesBassDroneLabel();
 		chckbxBassDrone.setText(text);
 		
-		boolean bass =
-				selectionConfigurationController.getDronesEnabled().get(0);
-		chckbxBassDrone.setSelected(bass);
+		boolean enabled = selectionConfigurationController
+				.isDroneEnabled(DRONE_TYPE_BASS);
+		chckbxBassDrone.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForComplementsDronesCheckBox(0);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxBassDrone.isSelected();
+			selectionConfigurationController
+					.onDroneSelected(DRONE_TYPE_BASS, selected);
+		};
 		chckbxBassDrone.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForComplementsDronesCheckBox(0,
-							chckbxBassDrone);
-		chckbxBassDrone.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean selected = selectionConfigurationController
+					.isDroneEnabled(DRONE_TYPE_BASS);
+			chckbxBassDrone.setSelected(selected);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxBassDrone;
 	}
@@ -401,23 +479,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxTenorDrone = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForComplementsDronesTenorDroneCheckBox();
+				getComplementsDronesTenorDroneLabel();
 		chckbxTenorDrone.setText(text);
 		
-		boolean tenor =
-				selectionConfigurationController.getDronesEnabled().get(1);
-		chckbxTenorDrone.setSelected(tenor);
+		boolean enabled = selectionConfigurationController
+				.isDroneEnabled(DRONE_TYPE_TENOR);
+		chckbxTenorDrone.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForComplementsDronesCheckBox(1);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxTenorDrone.isSelected();
+			selectionConfigurationController
+					.onDroneSelected(DRONE_TYPE_TENOR, selected);
+		};
 		chckbxTenorDrone.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForComplementsDronesCheckBox(1,
-							chckbxTenorDrone);
-		chckbxTenorDrone.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean selected = selectionConfigurationController
+					.isDroneEnabled(DRONE_TYPE_TENOR);
+			chckbxTenorDrone.setSelected(selected);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxTenorDrone;
 	}
@@ -427,23 +513,31 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		JCheckBox chckbxHighDrone = new JCheckBox();
 		
 		String text = selectionConfigurationController.
-				getTranslationForComplementsDronesHighDroneCheckBox();
+				getComplementsDronesHighDroneLabel();
 		chckbxHighDrone.setText(text);
 		
-		boolean high =
-				selectionConfigurationController.getDronesEnabled().get(2);
-		chckbxHighDrone.setSelected(high);
+		boolean enabled = selectionConfigurationController
+				.isDroneEnabled(DRONE_TYPE_HIGH);
+		chckbxHighDrone.setSelected(enabled);
 		
-		ActionListener actionListener = selectionConfigurationController.
-				getActionListenerForComplementsDronesCheckBox(2);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = chckbxHighDrone.isSelected();
+			selectionConfigurationController
+					.onDroneSelected(DRONE_TYPE_HIGH, selected);
+		};
 		chckbxHighDrone.addActionListener(actionListener);
 		
-		// TODO Test this because of the final modifier.
-		PropertyChangeListener propertyChangeListener = 
-				selectionConfigurationController.
-					getPropertyChangeListenerForComplementsDronesCheckBox(2,
-							chckbxHighDrone);
-		chckbxHighDrone.addPropertyChangeListener(propertyChangeListener);
+		// On chanter selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean selected = selectionConfigurationController
+					.isDroneEnabled(DRONE_TYPE_HIGH);
+			chckbxHighDrone.setSelected(selected);
+		};
+		selectionConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
 		
 		return chckbxHighDrone;
 	}

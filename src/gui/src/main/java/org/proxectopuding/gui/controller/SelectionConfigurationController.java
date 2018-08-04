@@ -1,19 +1,8 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
@@ -31,8 +20,6 @@ public class SelectionConfigurationController {
 	private final ConfigurationApplicationService confAppService;
 	private final NotificationService notificationService;
 	
-	private int oldVolume = -1;
-	
 	@Inject
 	public SelectionConfigurationController(I18nService i18nService,
 			DeviceManagerService deviceManagerService,
@@ -45,7 +32,7 @@ public class SelectionConfigurationController {
 		this.notificationService = notificationService;
 	}
 	
-	public String getTranslationForVolumeLabel() {
+	public String getVolumeLabel() {
 		return i18nService.getTranslation("selectionConfiguration.volume.label");
 	}
 	
@@ -63,72 +50,17 @@ public class SelectionConfigurationController {
 		return volume;
 	}
 	
-	public ChangeListener getChangeListenerForVolumeSlider() {
+	public void onVolumeSelected(int volume) {
 		
-		ChangeListener changeListener = new ChangeListener() {
-			
-			public void stateChanged(ChangeEvent event) {
-				
-				JSlider sliderVolume = (JSlider) event.getSource();
-				int volume = sliderVolume.getValue();
-				
-				// Update the slider cursor label.
-				@SuppressWarnings("unchecked")
-				Dictionary<Integer,JLabel> labels =
-						(Dictionary<Integer,JLabel>)
-								sliderVolume.getLabelTable();
-				if (oldVolume != -1 &&
-						oldVolume != sliderVolume.getMinimum() &&
-						oldVolume != sliderVolume.getMaximum()) {
-					
-					labels.remove(oldVolume);
-				}
-				labels.put(volume, new JLabel(Integer.toString(volume)));
-				sliderVolume.setLabelTable(labels);
-				oldVolume = volume;
-
-				// Set the new device volume.
-				if (!sliderVolume.getValueIsAdjusting()) {
-
-					BagpipeDevice selectedDevice = 
-							deviceManagerService.getSelectedBagpipeDevice();
-					if (selectedDevice != null) {
-						String productId = selectedDevice.getProductId();
-						deviceManagerService.setVolume(productId, volume);
-					}
-				}
-			}
-		};
-		
-		return changeListener;
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			deviceManagerService.setVolume(productId, volume);
+		}
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener getPropertyChangeListenerForVolumeSlider(
-			final JSlider sliderVolume) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					int volume = deviceManagerService.getVolume(productId);
-					sliderVolume.setValue(volume);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForTuningToneLabel() {
+	public String getTuningToneLabel() {
 		return i18nService.getTranslation("selectionConfiguration.tuningTone.label");
 	}
 	
@@ -161,60 +93,18 @@ public class SelectionConfigurationController {
 		return tuningTone;
 	}
 	
-	public ActionListener getActionListenerForTuningToneComboBox() {
+	public void onTuningToneSelected(String tuningTone) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxTuningTone =
-						(JComboBox<String>) event.getSource();
-				String tuningTone = 
-						(String) comboBoxTuningTone.getSelectedItem();
-				
-				BagpipeDevice selectedDevice = 
-						deviceManagerService.getSelectedBagpipeDevice();
-				if (selectedDevice != null) {
-					String productId = selectedDevice.getProductId();
-					int tone = confAppService.getTuningTone(tuningTone);
-					deviceManagerService.setTuningTone(productId, tone);
-				}
-			}
-		};
-		
-		return actionListener;
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			int tone = confAppService.getTuningTone(tuningTone);
+			deviceManagerService.setTuningTone(productId, tone);
+		}
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener 
-			getPropertyChangeListenerForTuningToneComboBox(
-					final JComboBox<String> comboBoxTuningTone) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					int tuningTone =
-							deviceManagerService.getTuningTone(productId);
-					String tone = confAppService.getTuningTone(tuningTone);
-					comboBoxTuningTone.setSelectedItem(tone);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForTuningOctaveLabel() {
+	public String getTuningOctaveLabel() {
 		return i18nService.getTranslation("selectionConfiguration.tuningOctave.label");
 	}
 	
@@ -250,58 +140,17 @@ public class SelectionConfigurationController {
 		return tuningOctave;
 	}
 	
-	public ActionListener getActionListenerForTuningOctaveComboBox() {
+	public void onTuningOctaveSelected(int tuningOctave) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<Integer> comboBoxTuningOctave =
-						(JComboBox<Integer>) event.getSource();
-				Integer tuningOctave = 
-						(Integer) comboBoxTuningOctave.getSelectedItem();
-				
-				BagpipeDevice selectedDevice = 
-						deviceManagerService.getSelectedBagpipeDevice();
-				if (selectedDevice != null) {
-					String productId = selectedDevice.getProductId();
-					deviceManagerService.setTuningOctave(productId, tuningOctave);
-				}
-			}
-		};
-		
-		return actionListener;
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			deviceManagerService.setTuningOctave(productId, tuningOctave);
+		}
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener 
-			getPropertyChangeListenerForTuningOctaveComboBox(
-					final JComboBox<Integer> comboBoxTuningOctave) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					int tuningOctave =
-							deviceManagerService.getTuningOctave(productId);
-					comboBoxTuningOctave.setSelectedItem(tuningOctave);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForSamplesLabel() {
+	public String getSamplesLabel() {
 		return i18nService.getTranslation("selectionConfiguration.samples.label");
 	}
 	
@@ -319,44 +168,31 @@ public class SelectionConfigurationController {
 		return confAppService.getSample();
 	}
 	
-	public ActionListener getActionListenerForSamplesComboBox() {
-		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxSamples =
-						(JComboBox<String>) event.getSource();
-				String sample = 
-						(String) comboBoxSamples.getSelectedItem();
-				confAppService.setSample(sample);
-			}
-		};
-		
-		return actionListener;
+	public void onSampleSelected(String sample) {
+		confAppService.setSample(sample);
 	}
 	
-	public String getTranslationForFingeringTypesLabel() {
+	public String getFingeringTypesLabel() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.label");
 	}
 	
-	public String getTranslationForFingeringTypesAbertoCheckBox() {
+	public String getFingeringTypesAbertoLabel() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
 	}
 		
-	public String getTranslationForFingeringTypesPechadoCheckBox() {
+	public String getFingeringTypesPechadoLabel() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
 	}
 	
-	public String getTranslationForFingeringTypesCustomCheckBox() {
+	public String getFingeringTypesCustomCheckLabel() {
 		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
 	}
 	
-	public List<Boolean> getFingeringTypesEnabled() {
+	public boolean isFingeringTypeEnabled(int fingeringType) {
+		
+		boolean isEnabled = false;
 		
 		List<Boolean> fingeringTypes = new ArrayList<Boolean>();
-		
 		BagpipeDevice selectedDevice = 
 				deviceManagerService.getSelectedBagpipeDevice();
 		if (selectedDevice != null) {
@@ -369,162 +205,83 @@ public class SelectionConfigurationController {
 			fingeringTypes = confAppService.getDefaultFingeringTypesEnabled();
 		}
 		
-		return fingeringTypes;
+		isEnabled = fingeringTypes.get(fingeringType);
+		
+		return isEnabled;
 	}
 	
-	// fingeringType:
-	// 0 - Aberto
-	// 1 - Pechado
-	// 2 - Custom
-	public ActionListener getActionListenerForFingeringTypesCheckBox(
-			final int fingeringType) {
-		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				JCheckBox chckbxFingeringType =
-						(JCheckBox) event.getSource();
-				boolean isSelected = chckbxFingeringType.isSelected();
-				
-				BagpipeDevice selectedDevice = 
-						deviceManagerService.getSelectedBagpipeDevice();
-				if (selectedDevice != null) {
-					String productId = selectedDevice.getProductId();
-					List<Boolean> fingeringTypes = deviceManagerService.
-							getFingeringTypesEnabled(productId);
-					fingeringTypes.set(fingeringType, isSelected);
-					deviceManagerService.setFingeringTypesEnabled(
-							productId, fingeringTypes);
-				}
-			}
-		};
-		
-		return actionListener;
-	}
-	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener 
-			getPropertyChangeListenerForFingeringTypesCheckBox(
-					final int fingeringType,
-					final JCheckBox chckbxFingeringType) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					List<Boolean> fingeringTypes =
-							deviceManagerService.getFingeringTypesEnabled(productId);
-					boolean isSelected = fingeringTypes.get(fingeringType);
-					chckbxFingeringType.setSelected(isSelected);
-				}
-			}
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForComplementsLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.label");
-	}
-	
-	public String getTranslationForComplementsBagCheckBox() {
-		return i18nService.getTranslation("selectionConfiguration.complements.bag.checkbox");
-	}
-		
-	public Boolean getComplementsBagCheckBox() {
-		
-		Boolean bag = null;
+	public void onFingeringTypeSelected(int fingeringType,
+			boolean selected) {
 		
 		BagpipeDevice selectedDevice = 
 				deviceManagerService.getSelectedBagpipeDevice();
 		if (selectedDevice != null) {
 			String productId = selectedDevice.getProductId();
-			bag = deviceManagerService.isBagEnabled(productId);
+			List<Boolean> fingeringTypesEnabled = deviceManagerService.
+					getFingeringTypesEnabled(productId);
+			fingeringTypesEnabled.set(fingeringType, selected);
+			deviceManagerService.setFingeringTypesEnabled(
+					productId, fingeringTypesEnabled);
+		}
+	}
+	
+	public String getComplementsLabel() {
+		return i18nService.getTranslation("selectionConfiguration.complements.label");
+	}
+	
+	public String getComplementsBagLabel() {
+		return i18nService.getTranslation("selectionConfiguration.complements.bag.checkbox");
+	}
+		
+	public boolean isBagEnabled() {
+		
+		Boolean isBagEnabled = null;
+		
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			isBagEnabled = deviceManagerService.isBagEnabled(productId);
 		}
 		
-		if (bag == null) {
-			bag = confAppService.isDefaultBagEnabled();
+		if (isBagEnabled == null) {
+			isBagEnabled = confAppService.isDefaultBagEnabled();
 		}
 		
-		return bag;
+		return isBagEnabled;
 	}
 	
-	public ActionListener getActionListenerForComplementsBagCheckBox() {
+	public void onBagSelected(boolean selected) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				JCheckBox chckbxBag = (JCheckBox) event.getSource();
-				boolean isSelected = chckbxBag.isSelected();
-				
-				BagpipeDevice selectedDevice = 
-						deviceManagerService.getSelectedBagpipeDevice();
-				if (selectedDevice != null) {
-					String productId = selectedDevice.getProductId();
-					deviceManagerService.setBagEnabled(productId, isSelected);
-				}
-			}
-		};
-		
-		return actionListener;
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			deviceManagerService.setBagEnabled(productId, selected);
+		}
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener
-			getPropertyChangeListenerForComplementsBagCheckBox(
-					final JCheckBox chckbxBag) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					boolean isBagEnabled =
-							deviceManagerService.isBagEnabled(productId);
-					chckbxBag.setSelected(isBagEnabled);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
-	}
-	
-	public String getTranslationForComplementsDronesLabel() {
+	public String getComplementsDronesLabel() {
 		return i18nService.getTranslation("selectionConfiguration.complements.drones.label");
 	}
 	
-	public String getTranslationForComplementsDronesBassDroneCheckBox() {
+	public String getComplementsDronesBassDroneLabel() {
 		return i18nService.getTranslation("selectionConfiguration.complements.drones.bassDrone.checkbox");
 	}
 	
-	public String getTranslationForComplementsDronesTenorDroneCheckBox() {
+	public String getComplementsDronesTenorDroneLabel() {
 		return i18nService.getTranslation("selectionConfiguration.complements.drones.tenorDrone.checkbox");
 	}
 	
-	public String getTranslationForComplementsDronesHighDroneCheckBox() {
+	public String getComplementsDronesHighDroneLabel() {
 		return i18nService.getTranslation("selectionConfiguration.complements.drones.highDrone.checkbox");
 	}
 	
-	public List<Boolean> getDronesEnabled() {
+	public boolean isDroneEnabled(int drone) {
+		
+		boolean isEnabled = false;
 		
 		List<Boolean> drones = new ArrayList<Boolean>();
-		
 		BagpipeDevice selectedDevice = 
 				deviceManagerService.getSelectedBagpipeDevice();
 		if (selectedDevice != null) {
@@ -536,66 +293,28 @@ public class SelectionConfigurationController {
 			drones = confAppService.getDefaultDronesEnabled();
 		}
 		
-		return drones;
+		isEnabled = drones.get(drone);
+		
+		return isEnabled;
 	}
 	
-	// Drones:
-	// 0 - Bass
-	// 1 - Tenor
-	// 2 - High
-	public ActionListener getActionListenerForComplementsDronesCheckBox(
-			final int drone) {
+	public void onDroneSelected(int drone, boolean selected) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				JCheckBox chckbxBassType =
-						(JCheckBox) event.getSource();
-				boolean isSelected = chckbxBassType.isSelected();
-				
-				BagpipeDevice selectedDevice = 
-						deviceManagerService.getSelectedBagpipeDevice();
-				if (selectedDevice != null) {
-					String productId = selectedDevice.getProductId();
-					List<Boolean> drones =
-							deviceManagerService.getDronesEnabled(productId);
-					drones.set(drone, isSelected);
-					deviceManagerService.setDronesEnabled(productId, drones);
-				}
-			}
-		};
-		
-		return actionListener;
+		BagpipeDevice selectedDevice = 
+				deviceManagerService.getSelectedBagpipeDevice();
+		if (selectedDevice != null) {
+			String productId = selectedDevice.getProductId();
+			List<Boolean> drones =
+					deviceManagerService.getDronesEnabled(productId);
+			drones.set(drone, selected);
+			deviceManagerService.setDronesEnabled(productId, drones);
+		}
 	}
 	
-	// TODO Test this because of the final modifier.
-	public PropertyChangeListener 
-			getPropertyChangeListenerForComplementsDronesCheckBox(
-					final int drone,
-					final JCheckBox chckbxBassType) {
+	public void subscribe(Notification notification,
+			PropertyChangeListener propertyChangeListener) {
 		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.CHANTER_SELECTED.toString() == propertyName) {
-					String productId = (String) event.getNewValue();
-					List<Boolean> fingeringTypes =
-							deviceManagerService.getDronesEnabled(productId);
-					boolean isSelected = fingeringTypes.get(drone);
-					chckbxBassType.setSelected(isSelected);
-				}
-			}
-			
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
+		notificationService.addNotificationListener(notification,
+				propertyChangeListener);
 	}
-	
 }

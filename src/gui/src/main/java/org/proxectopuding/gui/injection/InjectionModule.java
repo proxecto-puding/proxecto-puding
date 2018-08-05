@@ -37,6 +37,15 @@ import org.proxectopuding.gui.model.utils.OperativeSystemManager;
 import org.proxectopuding.gui.model.utils.PropertiesManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManagerJsscImpl;
+import org.proxectopuding.gui.view.ContentPanelView;
+import org.proxectopuding.gui.view.FingeringConfigurationView;
+import org.proxectopuding.gui.view.MainView;
+import org.proxectopuding.gui.view.MenuBarView;
+import org.proxectopuding.gui.view.SelectionConfigurationView;
+import org.proxectopuding.gui.view.SensitivityConfigurationView;
+import org.proxectopuding.gui.view.StartConfigurationView;
+import org.proxectopuding.gui.view.TabbedPaneView;
+import org.proxectopuding.gui.view.TuningConfigurationView;
 import org.proxectopuding.gui.view.swing.ContentPanelViewImpl;
 import org.proxectopuding.gui.view.swing.FingeringConfigurationViewImpl;
 import org.proxectopuding.gui.view.swing.MainViewImpl;
@@ -56,15 +65,15 @@ public class InjectionModule extends AbstractModule {
 	protected void configure() {
 		
 		// Views
-		bind(ContentPanelViewImpl.class);
-		bind(FingeringConfigurationViewImpl.class);
-		bind(MainViewImpl.class);
-		bind(MenuBarViewImpl.class);
-		bind(SelectionConfigurationViewImpl.class);
-		bind(SensitivityConfigurationViewImpl.class);
-		bind(StartConfigurationViewImpl.class);
-		bind(TabbedPaneViewImpl.class);
-		bind(TuningConfigurationViewImpl.class);
+		bind(ContentPanelView.class).to(ContentPanelViewImpl.class);
+		bind(FingeringConfigurationView.class).to(FingeringConfigurationViewImpl.class);
+		bind(MainView.class).to(MainViewImpl.class);
+		bind(MenuBarView.class).to(MenuBarViewImpl.class);
+		bind(SelectionConfigurationView.class).to(SelectionConfigurationViewImpl.class);
+		bind(SensitivityConfigurationView.class).to(SensitivityConfigurationViewImpl.class);
+		bind(StartConfigurationView.class).to(StartConfigurationViewImpl.class);
+		bind(TabbedPaneView.class).to(TabbedPaneViewImpl.class);
+		bind(TuningConfigurationView.class).to(TuningConfigurationViewImpl.class);
 		
 		// Controllers
 		bind(ContentPanelController.class);

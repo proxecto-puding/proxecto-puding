@@ -15,23 +15,25 @@ import javax.swing.border.EmptyBorder;
 import org.proxectopuding.gui.controller.ContentPanelController;
 import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.ContentPanelView;
+import org.proxectopuding.gui.view.TabbedPaneView;
 
 import com.google.inject.Inject;
 
 public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 	
-	private final TabbedPaneViewImpl tabbedPaneView;
+	private final TabbedPaneView tabbedPaneView;
 	
 	private final ContentPanelController contentPanelController;
 	
 	@Inject
-	public ContentPanelViewImpl(TabbedPaneViewImpl tabbedPaneView,
+	public ContentPanelViewImpl(TabbedPaneView tabbedPaneView,
 			ContentPanelController contentPanelController) {
 		
 		this.tabbedPaneView = tabbedPaneView;
 		this.contentPanelController = contentPanelController;
 	}
 	
+	@Override
 	public JPanel getContentPanel() {
 		
 		JPanel contentPanel = new JPanel();

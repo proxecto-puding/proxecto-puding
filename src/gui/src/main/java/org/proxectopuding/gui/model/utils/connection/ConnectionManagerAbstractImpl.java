@@ -1,7 +1,5 @@
 package org.proxectopuding.gui.model.utils.connection;
 
-import java.util.logging.Logger;
-
 import org.proxectopuding.gui.model.services.MidiService;
 import org.proxectopuding.gui.model.utils.OperativeSystemManager;
 
@@ -9,8 +7,6 @@ import com.google.inject.Inject;
 
 public abstract class ConnectionManagerAbstractImpl implements ConnectionManager {
 	
-	private static final Logger LOGGER = Logger.getLogger(ConnectionManagerAbstractImpl.class.getName());
-
 	private static final String PORT_NAME_WINDOWS = "COM3";
 	private static final String PORT_NAME_MACOS = "/dev/tty.usbserial-A9007UX1";
 	private static final String PORT_NAME_UNIX = "/dev/ttyACM0";

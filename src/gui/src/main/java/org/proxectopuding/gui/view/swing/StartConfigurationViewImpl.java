@@ -30,6 +30,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 		this.startConfigurationController = startConfigurationController;
 	}
 	
+	@Override
 	public JPanel getStartPanel() {
 		
 		JPanel panelStart = new JPanel();

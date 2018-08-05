@@ -4,18 +4,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Toolkit;
-import java.util.logging.Logger;
 
 import javax.swing.JMenuBar;
 
 import org.proxectopuding.gui.controller.MainController;
+import org.proxectopuding.gui.view.ContentPanelView;
+import org.proxectopuding.gui.view.MainView;
+import org.proxectopuding.gui.view.MenuBarView;
 
 import com.google.inject.Inject;
 
-public class MainViewImpl extends JFrame {
+public class MainViewImpl extends JFrame implements MainView {
 
-	private static final Logger LOGGER = Logger.getLogger(MainViewImpl.class.getName());
-	
 	private static final long serialVersionUID = 2067752108552203318L;
 	
 	private static final String TITLE = "Proxecto Puding";
@@ -31,8 +31,8 @@ public class MainViewImpl extends JFrame {
 	 * Create the frame.
 	 */
 	@Inject
-	public MainViewImpl(MenuBarViewImpl menuBarView,
-			ContentPanelViewImpl contentPanelView,
+	public MainViewImpl(MenuBarView menuBarView,
+			ContentPanelView contentPanelView,
 			MainController mainController) {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(

@@ -46,6 +46,7 @@ public class SelectionConfigurationViewImpl extends ViewImpl implements Selectio
 		this.selectionConfigurationController = selectionConfigurationController;
 	}
 	
+	@Override
 	public JPanel getSelectionPanel() {
 		
 		JPanel panelSelect = new JPanel();

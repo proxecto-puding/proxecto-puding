@@ -35,6 +35,7 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		this.menuBarController = menuBarController;
 	}
 	
+	@Override
 	public JMenuBar getMenuBar() {
 		
 		JMenuBar menuBar =new JMenuBar();

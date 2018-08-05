@@ -42,6 +42,7 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		this.fingeringConfigurationController = fingeringConfigurationController;
 	}
 	
+	@Override
 	public JPanel getFingeringPanel() {
 		
 		JPanel panelFinger = new JPanel();

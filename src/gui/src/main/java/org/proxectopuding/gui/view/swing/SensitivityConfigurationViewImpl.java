@@ -34,6 +34,7 @@ public class SensitivityConfigurationViewImpl extends ViewImpl implements Sensit
 		this.sensitivityConfigurationController = sensitivityConfigurationController;
 	}
 	
+	@Override
 	public JPanel getSensitivityPanel() {
 		
 		JPanel panelSensit = new JPanel();

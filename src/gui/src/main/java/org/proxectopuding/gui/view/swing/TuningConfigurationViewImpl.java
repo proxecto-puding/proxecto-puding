@@ -41,6 +41,7 @@ public class TuningConfigurationViewImpl extends ViewImpl implements TuningConfi
 		this.tuningConfigurationController = tuningConfigurationController;
 	}
 	
+	@Override
 	public JPanel getTuningPanel() {
 		
 		JPanel panelTuning = new JPanel();

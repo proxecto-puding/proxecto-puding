@@ -5,26 +5,31 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 
 import org.proxectopuding.gui.controller.TabbedPaneController;
+import org.proxectopuding.gui.view.FingeringConfigurationView;
+import org.proxectopuding.gui.view.SelectionConfigurationView;
+import org.proxectopuding.gui.view.SensitivityConfigurationView;
+import org.proxectopuding.gui.view.StartConfigurationView;
 import org.proxectopuding.gui.view.TabbedPaneView;
+import org.proxectopuding.gui.view.TuningConfigurationView;
 
 import com.google.inject.Inject;
 
 public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 	
-	private final StartConfigurationViewImpl startConfigurationView;
-	private final SelectionConfigurationViewImpl selectionConfigurationView;
-	private final TuningConfigurationViewImpl tuningConfigurationView;
-	private final SensitivityConfigurationViewImpl sensitivityConfigurationView;
-	private final FingeringConfigurationViewImpl fingeringConfigurationView;
+	private final StartConfigurationView startConfigurationView;
+	private final SelectionConfigurationView selectionConfigurationView;
+	private final TuningConfigurationView tuningConfigurationView;
+	private final SensitivityConfigurationView sensitivityConfigurationView;
+	private final FingeringConfigurationView fingeringConfigurationView;
 	
 	private final TabbedPaneController tabbedPaneController;
 	
 	@Inject
-	public TabbedPaneViewImpl(StartConfigurationViewImpl startConfigurationView,
-			SelectionConfigurationViewImpl selectionConfigurationView,
-			TuningConfigurationViewImpl tuningConfigurationView,
-			SensitivityConfigurationViewImpl sensitivityConfigurationView,
-			FingeringConfigurationViewImpl fingeringConfigurationView,
+	public TabbedPaneViewImpl(StartConfigurationView startConfigurationView,
+			SelectionConfigurationView selectionConfigurationView,
+			TuningConfigurationView tuningConfigurationView,
+			SensitivityConfigurationView sensitivityConfigurationView,
+			FingeringConfigurationView fingeringConfigurationView,
 			TabbedPaneController tabbedPaneController) {
 		
 		this.startConfigurationView = startConfigurationView;
@@ -35,6 +40,7 @@ public class TabbedPaneViewImpl extends ViewImpl implements TabbedPaneView {
 		this.tabbedPaneController = tabbedPaneController;
 	}
 	
+	@Override
 	public JTabbedPane getTabbedPane() {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

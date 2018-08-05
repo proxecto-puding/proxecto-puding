@@ -1,16 +1,7 @@
 package org.proxectopuding.gui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
-
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.entities.FingeringOffset;

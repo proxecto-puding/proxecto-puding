@@ -59,57 +59,16 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringNote();
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringNoteComboBox() {
-		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<String> comboBoxCustomFingeringNote =
-						(JComboBox<String>) event.getSource();
-				String customFingeringNote = 
-						(String) comboBoxCustomFingeringNote.getSelectedItem();
-				confAppService.setCustomFingeringNote(customFingeringNote);
-				notificationService.sendNotification(comboBoxCustomFingeringNote,
-						Notification.FINGERING_NOTE_SELECTED,
-						customFingeringNote);
-			}
-		};
-		
-		return actionListener;
+	public void resetCustomFingeringNotes() {
+		confAppService.resetCustomFingeringNotes();;
 	}
 	
-	// TODO Refactor
-	public PropertyChangeListener
-			getPropertyChangeListenerForCustomFingeringNoteComboBox(
-					final JComboBox<String> comboBoxCustomFingeringNote) {
+	public void onCustomFingeringNoteSelected(String customFingeringNote) {
 		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if (Notification.READING_TONE_SELECTED.toString()
-						== propertyName) {
-					
-					confAppService.resetCustomFingeringNotes();
-					String[] customFingeringNotes = getCustomFingeringNotes();
-					ComboBoxModel<String> customFingeringNoteModel =
-							new DefaultComboBoxModel<String>(customFingeringNotes);
-					comboBoxCustomFingeringNote.setModel(customFingeringNoteModel);
-					String customFingeringNote = getCustomFingeringNote();
-					comboBoxCustomFingeringNote.setSelectedItem(customFingeringNote);
-				}
-			}
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.READING_TONE_SELECTED, propertyChangeListener);
-		
-		return propertyChangeListener;
+		confAppService.setCustomFingeringNote(customFingeringNote);
+		notificationService.sendNotification(this,
+				Notification.FINGERING_NOTE_SELECTED,
+				customFingeringNote);
 	}
 	
 	public String getCustomFingeringOctaveLabel() {
@@ -130,27 +89,12 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringOctave();
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringOctaveComboBox() {
+	public void onCustomFingeringOctaveSelected(Integer customFingeringOctave) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<Integer> comboBoxCustomFingeringOctave =
-						(JComboBox<Integer>) event.getSource();
-				Integer customFingeringOctave = (Integer)
-						comboBoxCustomFingeringOctave.getSelectedItem();
-				confAppService.setCustomFingeringOctave(customFingeringOctave);
-				notificationService.sendNotification(
-						comboBoxCustomFingeringOctave,
-						Notification.FINGERING_OCTAVE_SELECTED,
-						customFingeringOctave);
-			}
-		};
-		
-		return actionListener;
+		confAppService.setCustomFingeringOctave(customFingeringOctave);
+		notificationService.sendNotification(this,
+				Notification.FINGERING_OCTAVE_SELECTED,
+				customFingeringOctave);
 	}
 	
 	public String getCustomFingeringNumberLabel() {
@@ -180,155 +124,64 @@ public class FingeringConfigurationController {
 		return confAppService.getCustomFingeringNumber();
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringNumberComboBox() {
+	public void onCustomFingeringNumberSelected(Integer customFingeringNumber) {
 		
-		ActionListener actionListener = new ActionListener() {
-			
-			public void actionPerformed(ActionEvent event) {
-				
-				@SuppressWarnings("unchecked")
-				JComboBox<Integer> comboBoxCustomFingeringNumber =
-						(JComboBox<Integer>) event.getSource();
-				Integer customFingeringNumber = (Integer)
-						comboBoxCustomFingeringNumber.getSelectedItem();
-				confAppService.setCustomFingeringNumber(customFingeringNumber);
-				notificationService.sendNotification(
-						comboBoxCustomFingeringNumber,
-						Notification.FINGERING_NUMBER_SELECTED,
-						customFingeringNumber);
-			}
-		};		
-		
-		return actionListener;
-	}
-	
-	// TODO Refactor
-	public PropertyChangeListener
-			getPropertyChangeListenerForCustomFingeringNumberComboBox(
-					final JComboBox<Integer> comboBoxCustomFingeringNumber) {
-		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if ((Notification.CHANTER_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NOTE_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_OCTAVE_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NUMBER_ADDED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NUMBER_REMOVED.toString()
-						== propertyName)) {
-					
-					Integer[] customFingeringNumbers =
-							getCustomFingeringNumbers();
-					ComboBoxModel<Integer> customFingeringNumberModel =
-							new DefaultComboBoxModel<Integer>(
-									customFingeringNumbers);
-					comboBoxCustomFingeringNumber.setModel(
-							customFingeringNumberModel);
-					Integer customFingeringNumber = getCustomFingeringNumber();
-					comboBoxCustomFingeringNumber.setSelectedItem(
-							customFingeringNumber);	
-				}
-			}
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NOTE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_OCTAVE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NUMBER_ADDED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NUMBER_REMOVED, propertyChangeListener);
-		
-		return propertyChangeListener;
+		confAppService.setCustomFingeringNumber(customFingeringNumber);
+		notificationService.sendNotification(this,
+				Notification.FINGERING_NUMBER_SELECTED,
+				customFingeringNumber);
 	}
 	
 	public String getCustomFingeringNewButtonLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringNew.button");
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringNewButton() {
+	public void onAddCustomFingering() {
 		
-		ActionListener actionListener = new ActionListener() {
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
 			
-			public void actionPerformed(ActionEvent event) {
-				
-				BagpipeDevice device = deviceManagerService.
-						getSelectedBagpipeDevice();
-				
-				if (device != null) {
-					
-					JButton btnCustomFingeringNew =
-							(JButton) event.getSource();
-					int customFingeringNumber =
-							confAppService.addCustomFingeringNumber();
-					FingeringOffset customFingering = confAppService.
-							getCustomFingering(customFingeringNumber);
-					String productId = device.getProductId();
-					List<FingeringOffset> fingerings = 
-							deviceManagerService.getFingerings(productId);
-					fingerings.add(customFingering);
-					deviceManagerService.setFingerings(productId, fingerings);
-					notificationService.sendNotification(
-							btnCustomFingeringNew,
-							Notification.FINGERING_NUMBER_ADDED,
-							customFingeringNumber);
-				}
-			}
-		};
-		
-		return actionListener;
+			int customFingeringNumber =
+					confAppService.addCustomFingeringNumber();
+			FingeringOffset customFingering = confAppService.
+					getCustomFingering(customFingeringNumber);
+			String productId = device.getProductId();
+			List<FingeringOffset> fingerings = 
+					deviceManagerService.getFingerings(productId);
+			fingerings.add(customFingering);
+			deviceManagerService.setFingerings(productId, fingerings);
+			notificationService.sendNotification(this,
+					Notification.FINGERING_NUMBER_ADDED,
+					customFingeringNumber);
+		}
 	}
 	
 	public String getCustomFingeringRemoveButtonLabel() {
 		return i18nService.getTranslation("fingeringConfiguration.customFingeringRemove.button");
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringRemoveButton() {
+	public void onRemoveCustomFingering() {
 		
-		ActionListener actionListener = new ActionListener() {
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
 			
-			public void actionPerformed(ActionEvent event) {
-				
-				BagpipeDevice device = deviceManagerService.
-						getSelectedBagpipeDevice();
-				
-				if (device != null) {
-					
-					JButton btnCustomFingeringRemove =
-							(JButton) event.getSource();
-					int customFingeringNumber =
-							confAppService.getCustomFingeringNumber();
-					FingeringOffset customFingering = confAppService.
-							getCustomFingering(customFingeringNumber);
-					String productId = device.getProductId();
-					List<FingeringOffset> fingerings = 
-							deviceManagerService.getFingerings(productId);
-					fingerings.remove(customFingering);
-					deviceManagerService.setFingerings(productId, fingerings);
-					confAppService.removeCustomFingeringNumber(
-							customFingeringNumber);
-					notificationService.sendNotification(
-							btnCustomFingeringRemove,
-							Notification.FINGERING_NUMBER_REMOVED,
-							customFingeringNumber);
-				}
-			}
-		};
-		
-		return actionListener;
+			int customFingeringNumber =
+					confAppService.getCustomFingeringNumber();
+			FingeringOffset customFingering = confAppService.
+					getCustomFingering(customFingeringNumber);
+			String productId = device.getProductId();
+			List<FingeringOffset> fingerings = 
+					deviceManagerService.getFingerings(productId);
+			fingerings.remove(customFingering);
+			deviceManagerService.setFingerings(productId, fingerings);
+			confAppService.removeCustomFingeringNumber(
+					customFingeringNumber);
+			notificationService.sendNotification(this,
+					Notification.FINGERING_NUMBER_REMOVED,
+					customFingeringNumber);
+		}
 	}
 	
 	public String getSensorsLabel() {
@@ -343,85 +196,38 @@ public class FingeringConfigurationController {
 		return i18nService.getTranslation("fingeringConfiguration.rightHandSensors.label");
 	}
 	
-	// TODO Refactor
-	public ActionListener getActionListenerForCustomFingeringSensorCheckBox(
-			final int sensor) {
+	public boolean isCustomFingeringSensorSelected(int sensor) {
 		
-		ActionListener actionListener = new ActionListener() {
+		return confAppService.isCustomFingeringSensorSelected(sensor);
+	}
+	
+	public void onCustomFingeringSensorSelected(int sensor, boolean selected) {
+		
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
 			
-			public void actionPerformed(ActionEvent event) {
-				
-				BagpipeDevice device = deviceManagerService.
-						getSelectedBagpipeDevice();
-				
-				if (device != null) {
-					
-					JCheckBox checkBoxSensor =
-							(JCheckBox) event.getSource();
-					
-					int customFingeringNumber =
-							confAppService.getCustomFingeringNumber();
-					FingeringOffset customFingering = confAppService.
-							getCustomFingering(customFingeringNumber);
-					String productId = device.getProductId();
-					List<FingeringOffset> fingerings = 
-							deviceManagerService.getFingerings(productId);
-					fingerings.remove(customFingering);
-					
-					boolean isSelected = checkBoxSensor.isSelected();
-					customFingering = confAppService.
-							setCustomFingeringSensor(sensor, isSelected);
-					
-					fingerings.add(customFingering);
-					deviceManagerService.setFingerings(productId, fingerings);
-				}
-			}
-		};
-		
-		return actionListener;
+			int customFingeringNumber =
+					confAppService.getCustomFingeringNumber();
+			FingeringOffset customFingering = confAppService
+					.getCustomFingering(customFingeringNumber);
+			String productId = device.getProductId();
+			List<FingeringOffset> fingerings = 
+					deviceManagerService.getFingerings(productId);
+			fingerings.remove(customFingering);
+			
+			customFingering = confAppService
+					.setCustomFingeringSensor(sensor, selected);
+			
+			fingerings.add(customFingering);
+			deviceManagerService.setFingerings(productId, fingerings);
+		}
 	}
 	
-	// TODO Refactor
-	public PropertyChangeListener
-			getPropertyChangeListenerForCustomFingeringSensorCheckBox(
-					final int sensor, final JCheckBox checkBoxSensor) {
+	public void subscribe(Notification notification,
+			PropertyChangeListener propertyChangeListener) {
 		
-		PropertyChangeListener propertyChangeListener = 
-				new PropertyChangeListener() {
-				
-			public void propertyChange(PropertyChangeEvent event) {
-				
-				String propertyName = event.getPropertyName();
-				if ((Notification.CHANTER_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NOTE_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_OCTAVE_SELECTED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NUMBER_ADDED.toString()
-						== propertyName) ||
-					(Notification.FINGERING_NUMBER_REMOVED.toString()
-						== propertyName)) {
-					
-					boolean isSelected = confAppService.
-							isCustomFingeringSensorSelected(sensor);
-					checkBoxSensor.setSelected(isSelected); 
-				}
-			}
-		};
-		
-		notificationService.addNotificationListener(
-				Notification.CHANTER_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NOTE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_OCTAVE_SELECTED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NUMBER_ADDED, propertyChangeListener);
-		notificationService.addNotificationListener(
-				Notification.FINGERING_NUMBER_REMOVED, propertyChangeListener);
-		
-		return propertyChangeListener;
+		notificationService.addNotificationListener(notification,
+				propertyChangeListener);
 	}
-	
 }

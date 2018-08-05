@@ -22,6 +22,7 @@ import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.proxectopuding.gui.controller.FingeringConfigurationController;
+import org.proxectopuding.gui.model.utils.Notification;
 import org.proxectopuding.gui.view.FingeringConfigurationView;
 
 import com.google.inject.Inject;
@@ -127,18 +128,30 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringNote();
 		comboBoxCustomFingeringNote.setSelectedItem(customFingeringNote);
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringNoteComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			String newCustomFingeringNote = 
+					(String) comboBoxCustomFingeringNote.getSelectedItem();
+			fingeringConfigurationController.onCustomFingeringNoteSelected(
+					newCustomFingeringNote);
+		};
 		comboBoxCustomFingeringNote.addActionListener(actionListener);
 		
-		// TODO Refactor
-		PropertyChangeListener propertyChangeListener = 
-				fingeringConfigurationController.
-					getPropertyChangeListenerForCustomFingeringNoteComboBox(
-							comboBoxCustomFingeringNote);
-		comboBoxCustomFingeringNote.addPropertyChangeListener(
-				propertyChangeListener);
+		// On reading tone selected
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			String[] newCustomFingeringNotes =
+					fingeringConfigurationController.getCustomFingeringNotes();
+			ComboBoxModel<String> newCustomFingeringNoteModel =
+					new DefaultComboBoxModel<String>(newCustomFingeringNotes);
+			comboBoxCustomFingeringNote.setModel(newCustomFingeringNoteModel);
+			String newCustomFingeringNote =
+					fingeringConfigurationController.getCustomFingeringNote();
+			comboBoxCustomFingeringNote.setSelectedItem(newCustomFingeringNote);
+		};
+		fingeringConfigurationController.subscribe(
+				Notification.READING_TONE_SELECTED, propertyChangeListener);
 		
 		return comboBoxCustomFingeringNote;
 	}
@@ -168,9 +181,14 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringOctave();
 		comboBoxCustomFingeringOctave.setSelectedItem(customFingeringOctave);
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringOctaveComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			Integer newCustomFingeringOctave = (Integer)
+					comboBoxCustomFingeringOctave.getSelectedItem();
+			fingeringConfigurationController.onCustomFingeringOctaveSelected(
+					newCustomFingeringOctave);
+		};
 		comboBoxCustomFingeringOctave.addActionListener(actionListener);
 		
 		return comboBoxCustomFingeringOctave;
@@ -201,18 +219,40 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				fingeringConfigurationController.getCustomFingeringNumber();
 		comboBoxCustomFingeringNumber.setSelectedItem(customFingeringNumber);
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringNumberComboBox();
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			Integer newCustomFingeringNumber = (Integer)
+					comboBoxCustomFingeringNumber.getSelectedItem();
+			fingeringConfigurationController.onCustomFingeringNumberSelected(
+					newCustomFingeringNumber);
+		};
 		comboBoxCustomFingeringNumber.addActionListener(actionListener);
 		
-		// TODO Refactor
-		PropertyChangeListener propertyChangeListener = 
-				fingeringConfigurationController.
-					getPropertyChangeListenerForCustomFingeringNumberComboBox(
-							comboBoxCustomFingeringNumber);
-		comboBoxCustomFingeringNumber.addPropertyChangeListener(
-				propertyChangeListener);
+		// On changer, fingering note or fingering octave selected
+		// or on fingering number added or removed
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			Integer[] newCustomFingeringNumbers =
+					fingeringConfigurationController.getCustomFingeringNumbers();
+			ComboBoxModel<Integer> newCustomFingeringNumberModel =
+					new DefaultComboBoxModel<Integer>(newCustomFingeringNumbers);
+			comboBoxCustomFingeringNumber.setModel(newCustomFingeringNumberModel);
+			Integer newCustomFingeringNumber =
+					fingeringConfigurationController.getCustomFingeringNumber();
+			comboBoxCustomFingeringNumber.setSelectedItem(
+					newCustomFingeringNumber);	
+		};
+		fingeringConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NOTE_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_OCTAVE_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NUMBER_ADDED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NUMBER_REMOVED, propertyChangeListener);
 		
 		return comboBoxCustomFingeringNumber;
 	}
@@ -225,9 +265,10 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				getCustomFingeringNewButtonLabel();
 		btnCustomFingeringNew.setText(text);
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringNewButton();
+		// On selection
+		ActionListener actionListener = event -> {
+			fingeringConfigurationController.onAddCustomFingering();
+		};
 		btnCustomFingeringNew.addActionListener(actionListener);
 		
 		return btnCustomFingeringNew;
@@ -241,9 +282,10 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 				getCustomFingeringRemoveButtonLabel();
 		btnCustomFingeringRemove.setText(text);
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringRemoveButton();
+		// On selection
+		ActionListener actionListener = event -> {
+			fingeringConfigurationController.onRemoveCustomFingering();
+		};
 		btnCustomFingeringRemove.addActionListener(actionListener);
 		
 		return btnCustomFingeringRemove;
@@ -303,18 +345,37 @@ public class FingeringConfigurationViewImpl extends ViewImpl implements Fingerin
 		JCheckBox checkBoxSensor = new JCheckBox();
 		
 		checkBoxSensor.setText(String.valueOf(sensor+1));
+		boolean isSelected = fingeringConfigurationController.
+				isCustomFingeringSensorSelected(sensor);
+		checkBoxSensor.setSelected(isSelected); 
 		
-		// TODO Refactor
-		ActionListener actionListener = fingeringConfigurationController.
-				getActionListenerForCustomFingeringSensorCheckBox(sensor);
+		// On selection
+		ActionListener actionListener = event -> {
+			
+			boolean selected = checkBoxSensor.isSelected();
+			fingeringConfigurationController.onCustomFingeringSensorSelected(
+					sensor, selected);
+		};
 		checkBoxSensor.addActionListener(actionListener);
 		
-		// TODO Refactor
-		PropertyChangeListener propertyChangeListener = 
-				fingeringConfigurationController.
-					getPropertyChangeListenerForCustomFingeringSensorCheckBox(
-							sensor, checkBoxSensor);
-		checkBoxSensor.addPropertyChangeListener(propertyChangeListener);
+		// On changer, fingering note or fingering octave selected
+		// or on fingering number added or removed
+		PropertyChangeListener propertyChangeListener = event -> {
+			
+			boolean selected = fingeringConfigurationController.
+					isCustomFingeringSensorSelected(sensor);
+			checkBoxSensor.setSelected(selected); 
+		};
+		fingeringConfigurationController.subscribe(
+				Notification.CHANTER_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NOTE_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_OCTAVE_SELECTED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NUMBER_ADDED, propertyChangeListener);
+		fingeringConfigurationController.subscribe(
+				Notification.FINGERING_NUMBER_REMOVED, propertyChangeListener);
 		
 		return checkBoxSensor;
 	}

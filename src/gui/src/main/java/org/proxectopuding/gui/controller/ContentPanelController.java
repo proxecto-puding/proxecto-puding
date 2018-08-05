@@ -1,7 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.beans.PropertyChangeListener;
-
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
@@ -11,29 +9,28 @@ import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.MidiService;
 import org.proxectopuding.gui.model.services.NotificationService;
-import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
-public class ContentPanelController {
+public class ContentPanelController extends Controller {
 	
 	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	private final MidiService midiService;
-	private final NotificationService notificationService;
 	
 	@Inject
 	public ContentPanelController(I18nService i18nService,
 			DeviceManagerService deviceManagerService,
 			ConfigurationApplicationService confAppService,
 			MidiService midiService, NotificationService notificationService) {
+
+		super(notificationService);
 		
 		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 		this.midiService = midiService;
-		this.notificationService = notificationService;
 		
 		startMidiServer();
 	}
@@ -83,12 +80,8 @@ public class ContentPanelController {
 		
 		// TODO Implement
 	}
-
-	public void subscribe(Notification notification,
-			PropertyChangeListener listener) {
-		
-		notificationService.addNotificationListener(notification, listener);
-	}
+	
+	// Private
 
 	private void startMidiServer() {
 		

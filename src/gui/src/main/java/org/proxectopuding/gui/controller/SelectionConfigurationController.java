@@ -1,6 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +8,14 @@ import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.NotificationService;
-import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
-public class SelectionConfigurationController {
+public class SelectionConfigurationController extends Controller {
 	
 	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
-	private final NotificationService notificationService;
 	
 	@Inject
 	public SelectionConfigurationController(I18nService i18nService,
@@ -26,10 +23,11 @@ public class SelectionConfigurationController {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
+		super(notificationService);
+		
 		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
-		this.notificationService = notificationService;
 	}
 	
 	public String getVolumeLabel() {
@@ -309,12 +307,5 @@ public class SelectionConfigurationController {
 			drones.set(drone, selected);
 			deviceManagerService.setDronesEnabled(productId, drones);
 		}
-	}
-	
-	public void subscribe(Notification notification,
-			PropertyChangeListener propertyChangeListener) {
-		
-		notificationService.addNotificationListener(notification,
-				propertyChangeListener);
 	}
 }

@@ -3,10 +3,11 @@ package org.proxectopuding.gui.controller;
 import org.proxectopuding.gui.model.services.BrowserService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.MidiService;
+import org.proxectopuding.gui.model.services.NotificationService;
 
 import com.google.inject.Inject;
 
-public class MenuBarController {
+public class MenuBarController extends Controller {
 	
 	private final I18nService i18nService;
 	private final BrowserService browserService;
@@ -14,8 +15,10 @@ public class MenuBarController {
 	
 	@Inject
 	public MenuBarController(I18nService i18nService,
-			BrowserService browserService,
-			MidiService midiService) {
+			BrowserService browserService, MidiService midiService,
+			NotificationService notificationService) {
+		
+		super(notificationService);
 		
 		this.i18nService = i18nService;
 		this.browserService = browserService;

@@ -1,6 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
@@ -10,20 +9,20 @@ import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
-public class TuningConfigurationController {
+public class TuningConfigurationController extends Controller {
 	
 	private final I18nService i18nService;
 	private final ConfigurationApplicationService confAppService;
-	private final NotificationService notificationService;
 	
 	@Inject
 	public TuningConfigurationController(I18nService i18nService,
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
+		super(notificationService);
+		
 		this.i18nService = i18nService;
 		this.confAppService = confAppService;
-		this.notificationService = notificationService;
 	}
 
 	public String getTuningFrequencyLabel() {
@@ -95,7 +94,7 @@ public class TuningConfigurationController {
 	public void onPreciseTuningNoteSelected(String preciseTuningNote) {
 		
 		confAppService.setPreciseTuningNote(preciseTuningNote);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.PRECISE_TUNING_NOTE_SELECTED,
 				preciseTuningNote);
 	}
@@ -121,7 +120,7 @@ public class TuningConfigurationController {
 	public void onPreciseTuningOctaveSelected(int preciseTuningOctave) {
 		
 		confAppService.setPreciseTuningOctave(preciseTuningOctave);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.PRECISE_TUNING_OCTAVE_SELECTED,
 				preciseTuningOctave);
 	}
@@ -137,12 +136,5 @@ public class TuningConfigurationController {
 	public void onPreciseTuningCentsSelected(int preciseTuningCents) {
 		
 		confAppService.setPreciseTuningCents(preciseTuningCents);
-	}
-	
-	public void subscribe(Notification notification,
-			PropertyChangeListener propertyChangeListener) {
-		
-		notificationService.addNotificationListener(notification,
-				propertyChangeListener);
 	}
 }

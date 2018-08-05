@@ -1,6 +1,5 @@
 package org.proxectopuding.gui.controller;
 
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
@@ -13,12 +12,11 @@ import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
-public class FingeringConfigurationController {
+public class FingeringConfigurationController extends Controller {
 	
 	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
-	private final NotificationService notificationService;
 	
 	@Inject
 	public FingeringConfigurationController(I18nService i18nService,
@@ -26,10 +24,11 @@ public class FingeringConfigurationController {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
+		super(notificationService);
+		
 		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
-		this.notificationService = notificationService;
 	}
 
 	public String getCustomFingeringNoteLabel() {
@@ -57,7 +56,7 @@ public class FingeringConfigurationController {
 	public void onCustomFingeringNoteSelected(String customFingeringNote) {
 		
 		confAppService.setCustomFingeringNote(customFingeringNote);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.FINGERING_NOTE_SELECTED,
 				customFingeringNote);
 	}
@@ -83,7 +82,7 @@ public class FingeringConfigurationController {
 	public void onCustomFingeringOctaveSelected(Integer customFingeringOctave) {
 		
 		confAppService.setCustomFingeringOctave(customFingeringOctave);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.FINGERING_OCTAVE_SELECTED,
 				customFingeringOctave);
 	}
@@ -118,7 +117,7 @@ public class FingeringConfigurationController {
 	public void onCustomFingeringNumberSelected(Integer customFingeringNumber) {
 		
 		confAppService.setCustomFingeringNumber(customFingeringNumber);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.FINGERING_NUMBER_SELECTED,
 				customFingeringNumber);
 	}
@@ -142,7 +141,7 @@ public class FingeringConfigurationController {
 					deviceManagerService.getFingerings(productId);
 			fingerings.add(customFingering);
 			deviceManagerService.setFingerings(productId, fingerings);
-			notificationService.sendNotification(this,
+			getNotificationService().sendNotification(this,
 					Notification.FINGERING_NUMBER_ADDED,
 					customFingeringNumber);
 		}
@@ -169,7 +168,7 @@ public class FingeringConfigurationController {
 			deviceManagerService.setFingerings(productId, fingerings);
 			confAppService.removeCustomFingeringNumber(
 					customFingeringNumber);
-			notificationService.sendNotification(this,
+			getNotificationService().sendNotification(this,
 					Notification.FINGERING_NUMBER_REMOVED,
 					customFingeringNumber);
 		}
@@ -213,12 +212,5 @@ public class FingeringConfigurationController {
 			fingerings.add(customFingering);
 			deviceManagerService.setFingerings(productId, fingerings);
 		}
-	}
-	
-	public void subscribe(Notification notification,
-			PropertyChangeListener propertyChangeListener) {
-		
-		notificationService.addNotificationListener(notification,
-				propertyChangeListener);
 	}
 }

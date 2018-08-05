@@ -3,17 +3,21 @@ package org.proxectopuding.gui.controller;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.I18nService;
+import org.proxectopuding.gui.model.services.NotificationService;
 
 import com.google.inject.Inject;
 
-public class TabbedPaneController {
+public class TabbedPaneController extends Controller {
 	
 	private final I18nService i18nService;
 	private final ConfigurationApplicationService confAppService;
 	
 	@Inject
 	public TabbedPaneController(I18nService i18nService,
-			ConfigurationApplicationService confAppService) {
+			ConfigurationApplicationService confAppService,
+			NotificationService notificationService) {
+		
+		super(notificationService);
 		
 		this.i18nService = i18nService;
 		this.confAppService = confAppService;

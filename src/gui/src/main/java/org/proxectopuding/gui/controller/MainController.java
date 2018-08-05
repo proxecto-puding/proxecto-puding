@@ -1,8 +1,14 @@
 package org.proxectopuding.gui.controller;
 
-public class MainController {
+import org.proxectopuding.gui.model.services.NotificationService;
+
+import com.google.inject.Inject;
+
+public class MainController extends Controller {
 	
-	public MainController() {
+	@Inject
+	public MainController(NotificationService notificationService) {
 	
+		super(notificationService);
 	}
 }

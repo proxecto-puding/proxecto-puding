@@ -13,12 +13,11 @@ import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
-public class StartConfigurationController {
+public class StartConfigurationController extends Controller {
 	
 	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
-	private final NotificationService notificationService;
 	
 	@Inject
 	public StartConfigurationController(I18nService i18nService,
@@ -26,10 +25,11 @@ public class StartConfigurationController {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 
+		super(notificationService);
+		
 		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
-		this.notificationService = notificationService;
 	}
 
 	public String getChanterSelectionLabel() {
@@ -58,7 +58,7 @@ public class StartConfigurationController {
 		
 		deviceManagerService.setSelectedBagpipeDevice(productId);
 		deviceManagerService.findBagpipeConfigurations(productId);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.CHANTER_SELECTED, productId);
 	}
 	
@@ -67,7 +67,7 @@ public class StartConfigurationController {
 		Set<BagpipeDevice> devices =
 				deviceManagerService.findBagpipeDevices();
 		if (devices.size() > 0) {
-			notificationService.sendNotification(this,
+			getNotificationService().sendNotification(this,
 					Notification.CHANTER_FOUND, devices);
 		}
 	}
@@ -85,14 +85,14 @@ public class StartConfigurationController {
 	public void onReadingToneSelected(String readingTone) {
 		
 		confAppService.setReadingTone(readingTone);
-		notificationService.sendNotification(this,
+		getNotificationService().sendNotification(this,
 				Notification.READING_TONE_SELECTED, readingTone);
 	}
 	
 	public void subscribe(Notification notification,
 			PropertyChangeListener propertyChangeListener) {
 		
-		notificationService.addNotificationListener(notification,
+		getNotificationService().addNotificationListener(notification,
 				propertyChangeListener);
 	}
 }

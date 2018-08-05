@@ -203,7 +203,7 @@ public class StartConfigurationViewImpl extends ViewImpl implements StartConfigu
 							GroupLayout.PREFERRED_SIZE,
 							GroupLayout.DEFAULT_SIZE,
 							GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(428, Short.MAX_VALUE))
+					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		
 		return gl_panelStart;

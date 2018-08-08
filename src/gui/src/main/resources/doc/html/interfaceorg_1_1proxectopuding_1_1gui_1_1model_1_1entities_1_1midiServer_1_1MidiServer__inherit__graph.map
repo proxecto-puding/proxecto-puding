@@ -1,0 +1,6 @@
+<map id="org.proxectopuding.gui.model.entities.midiServer.MidiServer" name="org.proxectopuding.gui.model.entities.midiServer.MidiServer">
+<area shape="rect" id="node2" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1midiServer_1_1MidiServerGeneral.html" title="org.proxectopuding.gui.model.entities.midi\lServer.MidiServerGeneral" alt="" coords="320,5,587,46"/>
+<area shape="rect" id="node3" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1midiServer_1_1MidiServerMacOs.html" title="org.proxectopuding.gui.model.entities.midi\lServer.MidiServerMacOs" alt="" coords="320,70,587,111"/>
+<area shape="rect" id="node4" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1midiServer_1_1MidiServerUnix.html" title="org.proxectopuding.gui.model.entities.midi\lServer.MidiServerUnix" alt="" coords="320,135,587,177"/>
+<area shape="rect" id="node5" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1midiServer_1_1MidiServerWindows.html" title="org.proxectopuding.gui.model.entities.midi\lServer.MidiServerWindows" alt="" coords="320,201,587,242"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="org.proxectopuding.gui.model.entities.Tone" name="org.proxectopuding.gui.model.entities.Tone">
+<area shape="rect" id="node3" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1ReadingTone.html" title="org.proxectopuding.gui.model.entities.\lReadingTone" alt="" coords="645,5,888,46"/>
+<area shape="rect" id="node4" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1TuningTone.html" title="org.proxectopuding.gui.model.entities.\lTuningTone" alt="" coords="645,70,888,111"/>
+<area shape="rect" id="node2" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1Note.html" title="org.proxectopuding.gui.model.entities.Note" alt="" coords="6,45,277,72"/>
+</map>

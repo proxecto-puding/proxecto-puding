@@ -1,0 +1,11 @@
+<map id="org.proxectopuding.gui.view.View" name="org.proxectopuding.gui.view.View">
+<area shape="rect" id="node2" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1ViewImpl.html" title="org.proxectopuding.gui.view.swing.\lViewImpl" alt="" coords="272,234,499,275"/>
+<area shape="rect" id="node3" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1ContentPanelViewImpl.html" title="org.proxectopuding.gui.view.swing.\lContentPanelViewImpl" alt="" coords="547,5,773,46"/>
+<area shape="rect" id="node4" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1FingeringConfigurationViewImpl.html" title="org.proxectopuding.gui.view.swing.\lFingeringConfigurationViewImpl" alt="" coords="547,70,773,111"/>
+<area shape="rect" id="node5" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1MenuBarViewImpl.html" title="org.proxectopuding.gui.view.swing.\lMenuBarViewImpl" alt="" coords="547,135,773,177"/>
+<area shape="rect" id="node6" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1SelectionConfigurationViewImpl.html" title="org.proxectopuding.gui.view.swing.\lSelectionConfigurationViewImpl" alt="" coords="547,201,773,242"/>
+<area shape="rect" id="node7" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1SensitivityConfigurationViewImpl.html" title="org.proxectopuding.gui.view.swing.\lSensitivityConfigurationViewImpl" alt="" coords="547,266,773,307"/>
+<area shape="rect" id="node8" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1StartConfigurationViewImpl.html" title="org.proxectopuding.gui.view.swing.\lStartConfigurationViewImpl" alt="" coords="547,331,773,373"/>
+<area shape="rect" id="node9" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1TabbedPaneViewImpl.html" title="org.proxectopuding.gui.view.swing.\lTabbedPaneViewImpl" alt="" coords="547,397,773,438"/>
+<area shape="rect" id="node10" href="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1TuningConfigurationViewImpl.html" title="org.proxectopuding.gui.view.swing.\lTuningConfigurationViewImpl" alt="" coords="547,462,773,503"/>
+</map>

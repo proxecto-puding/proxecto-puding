@@ -1,0 +1,7 @@
+<map id="org.proxectopuding.gui.model.entities.BagpipeConfiguration" name="org.proxectopuding.gui.model.entities.BagpipeConfiguration">
+<area shape="rect" id="node3" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1FingeringConfiguration.html" title="org.proxectopuding.gui.model.entities.\lFingeringConfiguration" alt="" coords="584,5,827,46"/>
+<area shape="rect" id="node4" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1SelectionConfiguration.html" title="org.proxectopuding.gui.model.entities.\lSelectionConfiguration" alt="" coords="584,70,827,111"/>
+<area shape="rect" id="node5" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1SensitivityConfiguration.html" title="org.proxectopuding.gui.model.entities.\lSensitivityConfiguration" alt="" coords="584,135,827,177"/>
+<area shape="rect" id="node6" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1StartConfiguration.html" title="org.proxectopuding.gui.model.entities.\lStartConfiguration" alt="" coords="584,201,827,242"/>
+<area shape="rect" id="node7" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1TuningConfiguration.html" title="org.proxectopuding.gui.model.entities.\lTuningConfiguration" alt="" coords="584,266,827,307"/>
+</map>

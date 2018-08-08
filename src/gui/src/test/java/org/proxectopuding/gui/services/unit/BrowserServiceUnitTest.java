@@ -21,6 +21,7 @@ public class BrowserServiceUnitTest {
 	private static final String BAGPIPE_API_URL = "BAGPIPE_API_URL";
 	private static final String CONF_APP_API_URL = "CONF_APP_API_URL";
 	private static final String USER_MANUAL_URL = "USER_MANUAL_URL";
+	private static final String TECHNICAL_MANUAL_URL = "TECHNICAL_MANUAL_URL";
 	
 	private BrowserManager browserManager = mock(BrowserManager.class);
 	private ConfigurationManager configurationManager =
@@ -91,6 +92,21 @@ public class BrowserServiceUnitTest {
 		
 		// Then
 		verify(browserManager, times(1)).openUri(USER_MANUAL_URL);
+	}
+	
+	@Test
+	public void openTechnicalManualUrl() {
+		
+		// Given
+		when(configurationManager.getTechnicalManualUrl()).thenReturn(TECHNICAL_MANUAL_URL);
+		doNothing().when(browserManager).openUri(TECHNICAL_MANUAL_URL);
+		browserService = new BrowserServiceImpl(browserManager, configurationManager);
+		
+		// When
+		browserService.openTechnicalManualUrl();
+		
+		// Then
+		verify(browserManager, times(1)).openUri(TECHNICAL_MANUAL_URL);
 	}
 	
 	@Test

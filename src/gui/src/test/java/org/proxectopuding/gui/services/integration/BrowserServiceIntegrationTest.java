@@ -47,6 +47,13 @@ public class BrowserServiceIntegrationTest {
 	}
 	
 	@Test
+	public void openTechnicalManualUrl() {
+		
+		// When
+		browserService.openTechnicalManualUrl();
+	}
+	
+	@Test
 	public void openUri() {
 		
 		// When

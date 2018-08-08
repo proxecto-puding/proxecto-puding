@@ -5,27 +5,31 @@ public interface BrowserService {
 	/**
 	 * Open the "About" using the default browser.
 	 */
-	public void openAboutUrl();
+	void openAboutUrl();
 	
 	/**
 	 * Open the "Bagpipe API" using the default browser.
 	 */
-	public void openBagpipeApiUrl();
+	void openBagpipeApiUrl();
 	
 	/**
 	 * Open the "Configuration Application API" using the default browser.
 	 */
-	public void openConfAppApiUrl();
+	void openConfAppApiUrl();
 	
 	/**
 	 * Open the "User Manual" using the default browser.
 	 */
-	public void openUserManualUrl();
+	void openUserManualUrl();
+	
+	/**
+	 * Open the "Technical Manual" using the default browser.
+	 */
+	void openTechnicalManualUrl();
 	
 	/**
 	 * Open the provided URI using the default browser.
 	 * @param uri URI to be shown.
 	 */
-	public void openUri(String uri);
-	
+	void openUri(String uri);
 }

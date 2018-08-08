@@ -20,6 +20,8 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 			"icons/help.png";
 	private static final String USER_MANUAL_MENU_ITEM_ICON_PATH =
 			"icons/book_open.png";
+	private static final String TECHNICAL_MANUAL_MENU_ITEM_ICON_PATH =
+			"icons/book.png";
 	private static final String CONF_APP_API_MENU_ITEM_ICON_PATH =
 			"icons/page_white_cup.png";
 	private static final String BAGPIPE_API_MENU_ITEM_ICON_PATH =
@@ -85,6 +87,8 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 		
 		JMenuItem mntmUserManual = getUserManualMenuItem();
 		mnHelp.add(mntmUserManual);
+		JMenuItem mntmTechnicalManual = getTechnicalManualMenuItem();
+		mnHelp.add(mntmTechnicalManual);
 		JMenuItem mntmConfAppApi = getConfAppApiMenuItem();
 		mnHelp.add(mntmConfAppApi);
 		JMenuItem mntmBagpipeApi = getBagpipeApiMenuItem();
@@ -107,6 +111,21 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 				event -> menuBarController.onOpenUserManual());
 		
 		return mntmUserManual;
+	}
+	
+	private JMenuItem getTechnicalManualMenuItem() {
+		
+		JMenuItem mntmTechnicalManual = new JMenuItem(); 
+				
+		mntmTechnicalManual.setText(
+				menuBarController.getTechnicalManualMenuItemLabel());
+		mntmTechnicalManual.setIcon(new ImageIcon(this.getClass().getClassLoader()
+				.getResource(TECHNICAL_MANUAL_MENU_ITEM_ICON_PATH)));
+		
+		mntmTechnicalManual.addActionListener(
+				event -> menuBarController.onOpenTechnicalManual());
+		
+		return mntmTechnicalManual;
 	}
 	
 	private JMenuItem getConfAppApiMenuItem() {

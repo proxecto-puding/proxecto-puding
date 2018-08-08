@@ -41,6 +41,10 @@ public class MenuBarController extends Controller {
 		return i18nService.getTranslation("menuBar.help.userManual");
 	}
 	
+	public String getTechnicalManualMenuItemLabel() {
+		return i18nService.getTranslation("menuBar.help.technicalManual");
+	}
+	
 	public String getConfAppApiMenuItemLabel() {
 		return i18nService.getTranslation("menuBar.help.confAppApi");
 	}
@@ -62,6 +66,11 @@ public class MenuBarController extends Controller {
 	public void onOpenUserManual() {
 		
 		browserService.openUserManualUrl();
+	}
+	
+	public void onOpenTechnicalManual() {
+		
+		browserService.openTechnicalManualUrl();
 	}
 	
 	public void openConfAppApi() {

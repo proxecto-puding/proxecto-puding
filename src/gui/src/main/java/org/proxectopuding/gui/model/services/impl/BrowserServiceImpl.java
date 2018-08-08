@@ -19,6 +19,7 @@ public class BrowserServiceImpl implements BrowserService {
 	private final String bagpipeApiUrl;
 	private final String confAppApiUrl;
 	private final String userManualUrl;
+	private final String technicalManualUrl;
 	
 	@Inject
 	public BrowserServiceImpl(BrowserManager browserManager,
@@ -30,15 +31,9 @@ public class BrowserServiceImpl implements BrowserService {
 		bagpipeApiUrl = configurationManager.getBagpipeApiUrl();
 		confAppApiUrl = configurationManager.getConfAppApiUrl();
 		userManualUrl = configurationManager.getUserManualUrl();
+		technicalManualUrl = configurationManager.getTechnicalManualUrl();
 	}
 	
-	@Override
-	public void openUri(String uri) {
-		
-		LOGGER.log(Level.INFO, "Opening uri: {0}", uri);
-		browserManager.openUri(uri);
-	}
-
 	@Override
 	public void openAboutUrl() {
 		
@@ -63,8 +58,22 @@ public class BrowserServiceImpl implements BrowserService {
 	@Override
 	public void openUserManualUrl() {
 		
-		LOGGER.log(Level.INFO, "Opening usr manual url");
+		LOGGER.log(Level.INFO, "Opening user manual url");
 		browserManager.openUri(userManualUrl);
+	}
+	
+	@Override
+	public void openTechnicalManualUrl() {
+		
+		LOGGER.log(Level.INFO, "Opening technical manual url");
+		browserManager.openUri(technicalManualUrl);
+	}
+	
+	@Override
+	public void openUri(String uri) {
+		
+		LOGGER.log(Level.INFO, "Opening uri: {0}", uri);
+		browserManager.openUri(uri);
 	}
 
 }

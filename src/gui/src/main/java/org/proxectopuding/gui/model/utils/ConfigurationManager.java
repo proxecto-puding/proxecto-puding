@@ -36,6 +36,10 @@ public class ConfigurationManager {
 		return properties.getProperty("userManualUrl");
 	}
 	
+	public String getTechnicalManualUrl() {
+		return properties.getProperty("technicalManualUrl");
+	}
+	
 	public List<String> getSupportedLanguages() {
 		
 		String propertyValue = properties.getProperty("supportedLanguages");

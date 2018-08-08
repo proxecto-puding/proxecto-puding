@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['writefiledefinitions',['WriteFileDefinitions',['../group__WriteFileDefinitions.html',1,'']]]
+  ['setfatprotectiondefinitions',['SetFatProtectionDefinitions',['../group__SetFatProtectionDefinitions.html',1,'']]],
+  ['setserialautobauddefinitions',['SetSerialAutobaudDefinitions',['../group__SetSerialAutobaudDefinitions.html',1,'']]]
 ];

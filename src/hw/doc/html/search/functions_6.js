@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['readfile',['readFile',['../classG1.html#a5f4adb12bdf0f793692ac8e97676567a',1,'G1']]],
-  ['removefile',['removeFile',['../classG1.html#acccdfb73ed14d1f61db0d10f8c99c76c',1,'G1']]]
+  ['play',['play',['../Puding_8ino.html#a6d58098c6cf63c241ed03bc797256bb1',1,'Puding.ino']]],
+  ['printdeviceversioninfo',['printDeviceVersionInfo',['../classG1.html#ad953cd3c98fa183071e67028745b5a05',1,'G1']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['setdevice',['setDevice',['../classBmp085.html#a2690ac00434427c58fe3faba86cbed40',1,'Bmp085::setDevice()'],['../classG1.html#ad8721673baa58a9f1c78c5eb1ee38b63',1,'G1::setDevice()'],['../classMpr121.html#acc6f40f016086b73603053a09b94fddc',1,'Mpr121::setDevice()']]],
-  ['setfatprotection',['setFatProtection',['../classG1.html#a08b396ed2d049bce9fe966795bc8ee02',1,'G1']]]
+  ['readfile',['readFile',['../classG1.html#a5f4adb12bdf0f793692ac8e97676567a',1,'G1::readFile()'],['../Puding_8ino.html#ac49ad86443156c781877a39166279969',1,'readFile():&#160;Puding.ino']]],
+  ['removefile',['removeFile',['../classG1.html#acccdfb73ed14d1f61db0d10f8c99c76c',1,'G1']]],
+  ['restorefile',['restoreFile',['../Puding_8ino.html#a2433f6071c68c267a1de5e33fefd3667',1,'Puding.ino']]]
 ];

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['readfile',['readFile',['../classG1.html#a5f4adb12bdf0f793692ac8e97676567a',1,'G1']]],
-  ['readfiledefinitions',['ReadFileDefinitions',['../group__ReadFileDefinitions.html',1,'']]],
-  ['removefile',['removeFile',['../classG1.html#acccdfb73ed14d1f61db0d10f8c99c76c',1,'G1']]],
-  ['removefiledefinitions',['RemoveFileDefinitions',['../group__RemoveFileDefinitions.html',1,'']]]
+  ['offsets',['offsets',['../Puding_8ino.html#a01e1385d539c3bc7cc5b72bf53e1068a',1,'Puding.ino']]],
+  ['oss',['OSS',['../Bmp085_8h.html#a787dcec9c06363bc7354929f79ec6440',1,'Bmp085.h']]]
 ];

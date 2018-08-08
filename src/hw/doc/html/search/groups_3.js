@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['listdirectorydefinitions',['ListDirectoryDefinitions',['../group__ListDirectoryDefinitions.html',1,'']]]
+  ['initdiskdrivememorycarddefinitions',['InitDiskDriveMemoryCardDefinitions',['../group__InitDiskDriveMemoryCardDefinitions.html',1,'']]]
 ];

@@ -25,7 +25,7 @@ public class MainViewImpl extends JFrame implements MainView {
 	private static final int X = 100;
 	private static final int Y = 100;
 	private static final int WIDTH = 600;
-	private static final int HEIGHT = 800;
+	private static final int HEIGHT = 768;
 	
 	/**
 	 * Create the frame.

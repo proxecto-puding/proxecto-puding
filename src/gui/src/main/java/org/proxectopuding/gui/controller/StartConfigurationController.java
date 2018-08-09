@@ -15,7 +15,6 @@ import com.google.inject.Inject;
 
 public class StartConfigurationController extends Controller {
 	
-	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	
@@ -25,23 +24,22 @@ public class StartConfigurationController extends Controller {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 	}
 
 	public String getChanterSelectionLabel() {
-		return i18nService.getTranslation("startConfiguration.chanterSelection.label");
+		return getI18nService().getTranslation("startConfiguration.chanterSelection.label");
 	}
 	
 	public String getSearchLabel() {
-		return i18nService.getTranslation("startConfiguration.search.label");
+		return getI18nService().getTranslation("startConfiguration.search.label");
 	}
 	
 	public String getReadingToneLabel() {
-		return i18nService.getTranslation("startConfiguration.readingTone.label");
+		return getI18nService().getTranslation("startConfiguration.readingTone.label");
 	}
 	
 	public String[] getChanters() {

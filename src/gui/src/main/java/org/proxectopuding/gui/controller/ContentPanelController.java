@@ -14,7 +14,6 @@ import com.google.inject.Inject;
 
 public class ContentPanelController extends Controller {
 	
-	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	private final MidiService midiService;
@@ -25,9 +24,8 @@ public class ContentPanelController extends Controller {
 			ConfigurationApplicationService confAppService,
 			MidiService midiService, NotificationService notificationService) {
 
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 		this.midiService = midiService;
@@ -36,7 +34,7 @@ public class ContentPanelController extends Controller {
 	}
 	
 	public String getApplyButtonLabel() {
-		return i18nService.getTranslation("contentPanel.apply.button");
+		return getI18nService().getTranslation("contentPanel.apply.button");
 	}
 	
 	public void onApply() {
@@ -64,7 +62,7 @@ public class ContentPanelController extends Controller {
 	}
 	
 	public String getUndoButtonLabel() {
-		return i18nService.getTranslation("contentPanel.undo.button");
+		return getI18nService().getTranslation("contentPanel.undo.button");
 	}
 	
 	public void onUndo() {
@@ -73,7 +71,7 @@ public class ContentPanelController extends Controller {
 	}
 	
 	public String getDefaultButtonLabel() {
-		return i18nService.getTranslation("contentPanel.default.button");
+		return getI18nService().getTranslation("contentPanel.default.button");
 	}
 	
 	public void onDefault() {

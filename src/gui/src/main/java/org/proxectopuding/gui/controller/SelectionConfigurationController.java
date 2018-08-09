@@ -13,7 +13,6 @@ import com.google.inject.Inject;
 
 public class SelectionConfigurationController extends Controller {
 	
-	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	
@@ -23,15 +22,14 @@ public class SelectionConfigurationController extends Controller {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 	}
 	
 	public String getVolumeLabel() {
-		return i18nService.getTranslation("selectionConfiguration.volume.label");
+		return getI18nService().getTranslation("selectionConfiguration.volume.label");
 	}
 	
 	public int getVolume() {
@@ -59,7 +57,7 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getTuningToneLabel() {
-		return i18nService.getTranslation("selectionConfiguration.tuningTone.label");
+		return getI18nService().getTranslation("selectionConfiguration.tuningTone.label");
 	}
 	
 	public String[] getTuningTones() {
@@ -103,7 +101,7 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getTuningOctaveLabel() {
-		return i18nService.getTranslation("selectionConfiguration.tuningOctave.label");
+		return getI18nService().getTranslation("selectionConfiguration.tuningOctave.label");
 	}
 	
 	public Integer[] getTuningOctaves() {
@@ -149,7 +147,7 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getSamplesLabel() {
-		return i18nService.getTranslation("selectionConfiguration.samples.label");
+		return getI18nService().getTranslation("selectionConfiguration.samples.label");
 	}
 	
 	public String[] getSamples() {
@@ -171,19 +169,19 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getFingeringTypesLabel() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.label");
+		return getI18nService().getTranslation("selectionConfiguration.fingeringTypes.label");
 	}
 	
 	public String getFingeringTypesAbertoLabel() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.fingeringTypes.aberto.checkbox");
 	}
 		
 	public String getFingeringTypesPechadoLabel() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.fingeringTypes.pechado.checkbox");
 	}
 	
 	public String getFingeringTypesCustomCheckLabel() {
-		return i18nService.getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.fingeringTypes.custom.checkbox");
 	}
 	
 	public boolean isFingeringTypeEnabled(int fingeringType) {
@@ -224,11 +222,11 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getComplementsLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.label");
+		return getI18nService().getTranslation("selectionConfiguration.complements.label");
 	}
 	
 	public String getComplementsBagLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.bag.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.complements.bag.checkbox");
 	}
 		
 	public boolean isBagEnabled() {
@@ -260,19 +258,19 @@ public class SelectionConfigurationController extends Controller {
 	}
 	
 	public String getComplementsDronesLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.drones.label");
+		return getI18nService().getTranslation("selectionConfiguration.complements.drones.label");
 	}
 	
 	public String getComplementsDronesBassDroneLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.drones.bassDrone.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.complements.drones.bassDrone.checkbox");
 	}
 	
 	public String getComplementsDronesTenorDroneLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.drones.tenorDrone.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.complements.drones.tenorDrone.checkbox");
 	}
 	
 	public String getComplementsDronesHighDroneLabel() {
-		return i18nService.getTranslation("selectionConfiguration.complements.drones.highDrone.checkbox");
+		return getI18nService().getTranslation("selectionConfiguration.complements.drones.highDrone.checkbox");
 	}
 	
 	public boolean isDroneEnabled(int drone) {

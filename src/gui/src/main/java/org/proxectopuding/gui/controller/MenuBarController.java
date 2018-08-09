@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 public class MenuBarController extends Controller {
 	
-	private final I18nService i18nService;
 	private final BrowserService browserService;
 	private final MidiService midiService;
 	
@@ -18,43 +17,42 @@ public class MenuBarController extends Controller {
 			BrowserService browserService, MidiService midiService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.browserService = browserService;
 		this.midiService = midiService;
 	}
 	
 	public String getFileMenuLabel() {
-		return i18nService.getTranslation("menuBar.file");
+		return getI18nService().getTranslation("menuBar.file");
 	}
 	
 	public String getExitMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.file.exit");
+		return getI18nService().getTranslation("menuBar.file.exit");
 	}
 	
 	public String getHelpMenuLabel() {
-		return i18nService.getTranslation("menuBar.help");
+		return getI18nService().getTranslation("menuBar.help");
 	}
 	
 	public String getUserManualMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.help.userManual");
+		return getI18nService().getTranslation("menuBar.help.userManual");
 	}
 	
 	public String getTechnicalManualMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.help.technicalManual");
+		return getI18nService().getTranslation("menuBar.help.technicalManual");
 	}
 	
 	public String getConfAppApiMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.help.confAppApi");
+		return getI18nService().getTranslation("menuBar.help.confAppApi");
 	}
 	
 	public String getBagpipeApiMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.help.bagpipeApi");
+		return getI18nService().getTranslation("menuBar.help.bagpipeApi");
 	}
 	
 	public String getAboutMenuItemLabel() {
-		return i18nService.getTranslation("menuBar.help.about");
+		return getI18nService().getTranslation("menuBar.help.about");
 	}
 	
 	public void onExit() {

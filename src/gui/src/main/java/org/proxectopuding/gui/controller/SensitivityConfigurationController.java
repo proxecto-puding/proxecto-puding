@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 public class SensitivityConfigurationController extends Controller {
 	
-	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	
 	@Inject
@@ -17,14 +16,13 @@ public class SensitivityConfigurationController extends Controller {
 			DeviceManagerService deviceManagerService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 	}
 	
 	public String getBagPressureLabel() {
-		return i18nService.getTranslation("sensitivityConfiguration.bagPressure.label");
+		return getI18nService().getTranslation("sensitivityConfiguration.bagPressure.label");
 	}
 	
 	public int getBagPressure() {

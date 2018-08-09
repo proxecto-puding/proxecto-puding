@@ -14,7 +14,6 @@ import com.google.inject.Inject;
 
 public class FingeringConfigurationController extends Controller {
 	
-	private final I18nService i18nService;
 	private final DeviceManagerService deviceManagerService;
 	private final ConfigurationApplicationService confAppService;
 	
@@ -24,15 +23,14 @@ public class FingeringConfigurationController extends Controller {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.deviceManagerService = deviceManagerService;
 		this.confAppService = confAppService;
 	}
 
 	public String getCustomFingeringNoteLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.customFingeringNote.label");
+		return getI18nService().getTranslation("fingeringConfiguration.customFingeringNote.label");
 	}
 	
 	public String[] getCustomFingeringNotes() {
@@ -62,7 +60,7 @@ public class FingeringConfigurationController extends Controller {
 	}
 	
 	public String getCustomFingeringOctaveLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.customFingeringOctave.label");
+		return getI18nService().getTranslation("fingeringConfiguration.customFingeringOctave.label");
 	}
 	
 	public Integer[] getCustomFingeringOctaves() {
@@ -88,7 +86,7 @@ public class FingeringConfigurationController extends Controller {
 	}
 	
 	public String getCustomFingeringNumberLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.customFingeringNumber.label");
+		return getI18nService().getTranslation("fingeringConfiguration.customFingeringNumber.label");
 	}
 	
 	public Integer[] getCustomFingeringNumbers() {
@@ -123,7 +121,7 @@ public class FingeringConfigurationController extends Controller {
 	}
 	
 	public String getCustomFingeringNewButtonLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.customFingeringNew.button");
+		return getI18nService().getTranslation("fingeringConfiguration.customFingeringNew.button");
 	}
 	
 	public void onAddCustomFingering() {
@@ -148,7 +146,7 @@ public class FingeringConfigurationController extends Controller {
 	}
 	
 	public String getCustomFingeringRemoveButtonLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.customFingeringRemove.button");
+		return getI18nService().getTranslation("fingeringConfiguration.customFingeringRemove.button");
 	}
 	
 	public void onRemoveCustomFingering() {
@@ -175,15 +173,15 @@ public class FingeringConfigurationController extends Controller {
 	}
 	
 	public String getSensorsLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.sensors.label");
+		return getI18nService().getTranslation("fingeringConfiguration.sensors.label");
 	}
 	
 	public String getLeftHandSensorsLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.leftHandSensors.label");
+		return getI18nService().getTranslation("fingeringConfiguration.leftHandSensors.label");
 	}
 	
 	public String getRightHandSensorsLabel() {
-		return i18nService.getTranslation("fingeringConfiguration.rightHandSensors.label");
+		return getI18nService().getTranslation("fingeringConfiguration.rightHandSensors.label");
 	}
 	
 	public boolean isCustomFingeringSensorSelected(int sensor) {

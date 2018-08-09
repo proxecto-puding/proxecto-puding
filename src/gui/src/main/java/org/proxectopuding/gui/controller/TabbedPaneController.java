@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 public class TabbedPaneController extends Controller {
 	
-	private final I18nService i18nService;
 	private final ConfigurationApplicationService confAppService;
 	
 	@Inject
@@ -17,30 +16,29 @@ public class TabbedPaneController extends Controller {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.confAppService = confAppService;
 	}
 	
 	public String getStartPanelLabel() {
-		return i18nService.getTranslation("tabbedPane.startPanel.title");
+		return getI18nService().getTranslation("tabbedPane.startPanel.title");
 	}
 	
 	public String getSelectionPanelLabel() {
-		return i18nService.getTranslation("tabbedPane.selectionPanel.title");
+		return getI18nService().getTranslation("tabbedPane.selectionPanel.title");
 	}
 	
 	public String getTuningPanelLabel() {
-		return i18nService.getTranslation("tabbedPane.tuningPanel.title");
+		return getI18nService().getTranslation("tabbedPane.tuningPanel.title");
 	}
 	
 	public String getSensitivityPanelLabel() {
-		return i18nService.getTranslation("tabbedPane.sensitivityPanel.title");
+		return getI18nService().getTranslation("tabbedPane.sensitivityPanel.title");
 	}
 	
 	public String getFingeringPanelLabel() {
-		return i18nService.getTranslation("tabbedPane.fingeringPanel.title");
+		return getI18nService().getTranslation("tabbedPane.fingeringPanel.title");
 	}
 
 	public void onTabSelected(String title) {

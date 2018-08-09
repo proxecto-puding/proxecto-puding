@@ -40,7 +40,7 @@ public class MenuBarViewImpl extends ViewImpl implements MenuBarView {
 	@Override
 	public JMenuBar getMenuBar() {
 		
-		JMenuBar menuBar =new JMenuBar();
+		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu mnFile = getFileMenu();
 		menuBar.add(mnFile);

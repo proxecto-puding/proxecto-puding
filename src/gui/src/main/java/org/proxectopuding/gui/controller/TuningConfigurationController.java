@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 
 public class TuningConfigurationController extends Controller {
 	
-	private final I18nService i18nService;
 	private final ConfigurationApplicationService confAppService;
 	
 	@Inject
@@ -19,14 +18,13 @@ public class TuningConfigurationController extends Controller {
 			ConfigurationApplicationService confAppService,
 			NotificationService notificationService) {
 		
-		super(notificationService);
+		super(i18nService, notificationService);
 		
-		this.i18nService = i18nService;
 		this.confAppService = confAppService;
 	}
 
 	public String getTuningFrequencyLabel() {
-		return i18nService.getTranslation("tuningConfiguration.tuningFrequency.label");
+		return getI18nService().getTranslation("tuningConfiguration.tuningFrequency.label");
 	}
 	
 	public int getTuningFrequency() {
@@ -39,11 +37,11 @@ public class TuningConfigurationController extends Controller {
 	}
 	
 	public String getTuningHzLabel() {
-		return i18nService.getTranslation("tuningConfiguration.tuningHz.label");
+		return getI18nService().getTranslation("tuningConfiguration.tuningHz.label");
 	}
 	
 	public String getTuningModeLabel() {
-		return i18nService.getTranslation("tuningConfiguration.tuningMode.label");
+		return getI18nService().getTranslation("tuningConfiguration.tuningMode.label");
 	}
 	
 	public String[] getTuningModes() {
@@ -66,11 +64,11 @@ public class TuningConfigurationController extends Controller {
 	}
 	
 	public String getPreciseTuningSettingsLabel() {
-		return i18nService.getTranslation("tuningConfiguration.preciseTuningSettings.label");
+		return getI18nService().getTranslation("tuningConfiguration.preciseTuningSettings.label");
 	}
 	
 	public String getPreciseTuningNoteLabel() {
-		return i18nService.getTranslation("tuningConfiguration.preciseTuningNote.label");
+		return getI18nService().getTranslation("tuningConfiguration.preciseTuningNote.label");
 	}
 	
 	public String[] getPreciseTuningNotes() {
@@ -100,7 +98,7 @@ public class TuningConfigurationController extends Controller {
 	}
 	
 	public String getPreciseTuningOctaveLabel() {
-		return i18nService.getTranslation("tuningConfiguration.preciseTuningOctave.label");
+		return getI18nService().getTranslation("tuningConfiguration.preciseTuningOctave.label");
 	}
 	
 	public Integer[] getPreciseTuningOctaves() {
@@ -126,7 +124,7 @@ public class TuningConfigurationController extends Controller {
 	}
 	
 	public String getPreciseTuningCentsLabel() {
-		return i18nService.getTranslation("tuningConfiguration.preciseTuningCents.label");
+		return getI18nService().getTranslation("tuningConfiguration.preciseTuningCents.label");
 	}
 	
 	public int getPreciseTuningCents() {

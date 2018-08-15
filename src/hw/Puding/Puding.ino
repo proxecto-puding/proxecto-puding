@@ -55,6 +55,12 @@ Mpr121 mpr121;
  */
 MIDI midi;
 
+/** @brief Indicate if the chanter has been identified by the configuration
+ * application.
+ * 
+ */
+boolean isChanterIdentified = false;
+
 /** @brief Chanter base tone.
  * 
  */
@@ -221,16 +227,17 @@ const unsigned int pechado[][2] = {(B1111111110000000, -1),
 void setup() {
   setDevice();
   delay(STARTUP_DELAY);
-  sendDeviceSerialNumber();
-  sendInitialConfiguration();
-  delay(STARTUP_DELAY);
 }
 
 /** @brief Arduino loop function.
  * 
  */
 void loop() {
-  configure();
+  if (!isChanterIdentified) {
+    isChanterIdentified = identifyChanter();
+  } else {
+    configure();
+  } 
   play();
 }
 
@@ -260,13 +267,29 @@ void configure() {
   if (!Serial.available()) {
     return;
   }
-  aJsonObject* aJsonObject = getAJsonObject();
-  if (!isMeTheTarget(aJsonObject) {
-    free(aJsonObject);
+  aJsonObject* root = getAJsonObject();
+  if (!isMeTheTarget(root) {
+    ajson.deleteItem(root);
     return;
   }
-  setConfiguration(aJsonObject);
-  free(aJsonObject);
+  if (isCurrentConfiguration(root)) {
+    sendConfiguration(root);
+  } else {
+    setConfiguration(root);
+  }  
+  ajson.deleteItem(root);
+}
+
+/** @brief Look for the discovery beacon sent by the configuration application.
+ * 
+ * @return A boolean indicating if the discovery beacon has been found.
+ */
+boolean findDiscoveryBeacon() {
+  if (!Serial.available()) {
+    return false;
+  }
+  char *data = getSerialData();
+  return String(D_BEACON).equals(String(data));
 }
 
 /** @brief Get serial data in JSON format.
@@ -274,11 +297,11 @@ void configure() {
  * @return A JSON object.
  */
 aJsonObject *getAJsonObject() {
-  aJsonObject *aJsonObject;
+  aJsonObject *root;
   char *data = getSerialData();
-  aJsonObject = ajson.parse(data);
+  root = ajson.parse(data);
   free(data);
-  return aJsonObject;
+  return root;
 }
 
 /** @brief Calculate the offset to apply to the base tone.
@@ -332,12 +355,21 @@ char *getSerialData() {
     sdata += Serial.read();
   }
   unsigned int length = sdata.length();
-  if (length == 0) {
-    return false;
-  }
   data = (char *) malloc(sizeof(char) * (length + 1));
   sdata.toCharArray(data, length + 1);
   return data;
+}
+
+/** @brief Identify the chanter to the configuration application when required.
+ * 
+ * @return A boolean indicating if the chanter has been identified.
+ */
+boolean identifyChanter() {
+  boolean received = findDiscoveryBeacon();
+  if (received) {
+    sendDeviceSerialNumber();
+  }
+  return received;
 }
 
 /** @brief Initialize the offsets.
@@ -387,20 +419,32 @@ boolean isBagPressureEnough() {
   return (bmp085.calPressure() >= minBagPressure);
 }
 
+/** @brief Check if it is asking for the current configuration.
+ * 
+ * @param root A device configuration.
+ * @return A boolean indicating if it is the current configuration.
+ */
+boolean isCurrentConfiguration(aJsonObject* root) {
+  aJsonObject* aJsonAction = ajson.getObjectItem(root, "action");
+  String action = String(aJsonAction->value.valuestring);
+  ajson.deleteItem(aJsonAction);
+  return String(ACTION_CURRENT).equals(action);
+}
+
 /** @brief Check if the destination of the configuration data is this bagpipe.
  * 
  * Each Puding bagpipe has an unique serial product identificator number.
  * This id is used to identify the bagpipe due to is possible to have more
  * than one bagpipe connected to the same receiver.
  * 
- * @param aJsonObject A JSON object.
+ * @param root A JSON object.
  * @return A boolean indicating if this bagpipe is the receiver.
  */
-boolean isMeTheTarget(aJsonObject aJsonObject) {
+boolean isMeTheTarget(aJsonObject root) {
     boolean isMeTheTarget;
-    aJsonObject* aJsonProductId = aJsonObject.getObjectItem(root, "productId");
+    aJsonObject* aJsonProductId = ajson.getObjectItem(root, "productId");
     String productId = String(aJsonProducId->value.valuestring);
-    free(aJsonProductId);
+    ajson.deleteItem(aJsonProductId);
     isMeTheTarget = String(PUDING_SN).equals(productId);
     return isMeTheTarget;
 }
@@ -469,7 +513,7 @@ void play() {
  * @return A JSON object containing the configuration.
  */
 aJsonObject *readFile(String type) {
-  aJsonObject *data;
+  aJsonObject *root;
   type += CONF_FILE_EXT;
   unsigned int length = type.length();
   char name [] = char[length + 1];
@@ -477,9 +521,9 @@ aJsonObject *readFile(String type) {
   String fdata = g1.readFile(name);
   length = fdata.length();
   char *cdata = (char *) malloc(sizeof(char) * (length + 1));
-  data = ajson.parse(cdata);
+  root = ajson.parse(cdata);
   free(cdata);
-  return data;
+  return root;
 }
 
 /** @brief Restore the configuration file related with the provided type.
@@ -510,53 +554,40 @@ void restoreFile(String action, String type) {
 /** @brief Save the configuration file related with the provided type.
  * 
  * @param type A configuration type.
- * @param data A JSON object containing the file data.
+ * @param root A JSON object containing the file data.
  */
-void saveFile(String type, aJsonObject *data) {
+void saveFile(String type, aJsonObject *root) {
   backupFile(type);
   String configFile = type + CONF_FILE_EXT;
   unsigned int cfLength = configFile.length();
   char fileName [cfLength + 1];
   configFile.toCharArray(fileName, cfLength + 1);
-  char *cdata = ajson.print(data);
+  char *cdata = ajson.print(root);
   String sdata = String(cdata);
   free(cdata);
   g1.writeFile(fileName, false, sdata);
 }
 
+/** @brief Send the current configuration to the configuration application.
+ * 
+ */
+void sendConfiguration(aJsonObject* root) {
+  
+  aJsonObject* aJsonType = ajson.getObjectItem(root, "type");
+  String type = String(aJsonType->value.valuestring);
+  ajson.deleteItem(aJsonType);
+  String configuration = getConfiguration(type);
+  Serial.write(configuration);
+}
+
 /** @brief Send the device serial number to the configuration application.
  * 
- * Wait until the correspondent ACK is received.
  */
 void sendDeviceSerialNumber() {
   aJsonObject *root = ajson.createObject();
   ajson.addStringToObject(root, "productId", PUDING_SN);
   char *croot = ajson.print(root);
   Serial.write(croot);
-  waitForAck();
-}
-
-/** @brief Send the initial configuration to the configuration application.
- * 
- * Wait until the correspondent ACK is received.
- */
-void sendInitialConfiguration() {
-  String data;
-  data = getConfiguration(String(TYPE_START));
-  Serial.write(data);
-  waitForAck();
-  data = getConfiguration(String(TYPE_SELECT));
-  Serial.write(data);
-  waitForAck();
-  data = getConfiguration(String(TYPE_TUNING));
-  Serial.write(data);
-  waitForAck();
-  data = getConfiguration(String(TYPE_SENSIT));
-  Serial.write(data);
-  waitForAck();
-  data = getConfiguration(String(TYPE_FINGER));
-  Serial.write(data);
-  waitForAck();
 }
 
 /** @brief Configure the minimum bag pressure.
@@ -573,31 +604,29 @@ void setMinBagPressure(byte bagPressure) {
 
 /** @brief Configure all the bagpipe params based on the received JSON object.
  * 
- * @param aJsonObject A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfiguration(aJsonObject *aJsonObject) {
-  aJsonObject *aJsonAction = aJsonObject.getObjectItem(root, "action");
+void setConfiguration(aJsonObject *root) {
+  aJsonObject *aJsonAction = ajson.getObjectItem(root, "action");
   String action = String(aJsonAction->value.valuestring);
-  free(aJsonAction);
+  ajson.deleteItem(aJsonAction);
   
-  aJsonObject *aJsonSubtype = aJsonObject.getObjectItem(root, "type");
+  aJsonObject *aJsonSubtype = ajson.getObjectItem(root, "type");
   String type = String(aJsonSubtype->value.valuestring);
-  free(aJsonSubtype);
+  ajson.deleteItem(aJsonSubtype);
   
-  aJsonObject *aJsonData = aJsonObject.getObjectItem(root, "data");
-  
-  setConfiguration(action, type, aJsonData);
+  setConfiguration(action, type, root);
 }
 
 /** @brief Configure all the bagpipe params based on the received JSON object.
  * 
  * @param action An action to do.
  * @param type A configuration type.
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfiguration(String action, String type, aJsonObject *data) {
+void setConfiguration(String action, String type, aJsonObject *root) {
   if (String(ACTION_NEW).equals(action)) {
-    saveFile(type, data);
+    saveFile(type, root);
   } else if (String(ACTION_REVERT).equals(action) ||
       String(ACTION_DEFAULT).equals(action) {
     restoreFile(action, type);
@@ -611,38 +640,38 @@ void setConfiguration(String action, String type, aJsonObject *data) {
  * @param type A configuration type.
  */
 void setConfiguration(String type) {
-  aJsonObject *data = readFile(type);
-  setConfigurationData(type, data);
-  free(data);
+  aJsonObject *root = readFile(type);
+  setConfigurationData(type, root);
+  ajson.deleteItem(root);
 }
 
 /** @brief Configure all the bagpipe params based on the received JSON object.
  * 
  * @param type A configuration type.
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationData(String type, aJsonObject *data) {
+void setConfigurationData(String type, aJsonObject *root) {
   if (String(TYPE_START).equals(type)) {
-    setConfigurationDataTypeStart(data);
+    setConfigurationDataTypeStart(root);
   } else if (String(TYPE_SELECT).equals(type)) {
-    setConfigurationDataTypeSelect(data);
+    setConfigurationDataTypeSelect(root);
   } else if (String(TYPE_TUNING).equals(type)) {
-    setConfigurationDataTypeTuning(data):
+    setConfigurationDataTypeTuning(root):
   } else if (String(TYPE_SENSIT).equals(type)) {
-    setConfigurationDataTypeSensit(data);
+    setConfigurationDataTypeSensit(root);
   } else if (String(TYPE_FINGER).equals(type)) {
-    setConfigurationDataTypeFinger(data);
+    setConfigurationDataTypeFinger(root);
   }
 }
 
 /** @brief Configure the bagpipe params related with the fingerings.
  * 
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationDataTypeFinger(aJsonObject *data) {
+void setConfigurationDataTypeFinger(aJsonObject *root) {
   // Reset offsets.
   initializeOffsets();
-  aJsonObject *fingeringsArray = ajson.getObjectItem(data, "fingerings");
+  aJsonObject *fingeringsArray = ajson.getObjectItem(root, "fingerings");
   unsigned char size = ajson.getArraySize(fingeringsArray);
   aJsonObject *itemObject = NULL;
   aJsonObject *fingeringObject = NULL;
@@ -674,13 +703,13 @@ void setConfigurationDataTypeFinger(aJsonObject *data) {
 
 /** @brief Configure the bagpipe params related with the selection screen.
  * 
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationDataTypeSelect(aJsonObject *data) {
-  aJsonObject *volumeObject = ajson.getObjectItem(data, "volume");
-  aJsonObject *fingeringTypesArray = ajson.getObjectItem(data, "fingeringTypes");
-  aJsonObject *bagEnabledObject = ajson.getObjectItem(data, "bagEnabled");
-  aJsonObject *dronesEnabledArray = ajson.getObjectItem(data, "dronesEnabled");
+void setConfigurationDataTypeSelect(aJsonObject *root) {
+  aJsonObject *volumeObject = ajson.getObjectItem(root, "volume");
+  aJsonObject *fingeringTypesArray = ajson.getObjectItem(root, "fingeringTypes");
+  aJsonObject *bagEnabledObject = ajson.getObjectItem(root, "bagEnabled");
+  aJsonObject *dronesEnabledArray = ajson.getObjectItem(root, "dronesEnabled");
   
   byte volume = byte(volumeObject->value.valueint);
   aJsonObject *fingeringTypeObject = NULL;
@@ -705,29 +734,29 @@ void setConfigurationDataTypeSelect(aJsonObject *data) {
 
 /** @brief Configure the bagpipe params related with the sensitivity screen.
  * 
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationDataTypeSensit(aJsonObject *data) {
-  aJsonObject *bagPressureObject = ajson.getObjectItem(data, "bagPressure");
+void setConfigurationDataTypeSensit(aJsonObject *root) {
+  aJsonObject *bagPressureObject = ajson.getObjectItem(root, "bagPressure");
   byte bagPressure = byte(bagPressureObject->value.valueint);
   setMinBagPressure(bagPressure);
 }
 
 /** @brief Configure the bagpipe params related with the start screen.
  * 
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationDataTypeStart(aJsonObject *data) {
+void setConfigurationDataTypeStart(aJsonObject *root) {
   // Skip.
 }
 
 /** @brief Configure the bagpipe params related with the tuning screen.
  * 
- * @param data A JSON object containing the configuration data.
+ * @param root A JSON object containing the configuration data.
  */
-void setConfigurationDataTypeTuning(aJsonObject *data) {
-  aJsonObject *toneObject = ajson.getObjectItem(data, "tone");
-  aJsonObject *octaveObject = ajson.getObjectItem(data, "octave");
+void setConfigurationDataTypeTuning(aJsonObject *root) {
+  aJsonObject *toneObject = ajson.getObjectItem(root, "tone");
+  aJsonObject *octaveObject = ajson.getObjectItem(root, "octave");
   
   byte tone = byte(toneObject->value.valueint);
   short octave = octaveObject->value.valueint;
@@ -766,11 +795,11 @@ void waitForAck() {
   while(!Serial.available()) {
   }
   while(true) {
-    aJsonObject* aJsonObject = getAJsonObject();
-    if (isMeTheTarget(aJsonObject) {
-      free(aJsonObject);
+    aJsonObject* root = getAJsonObject();
+    if (isMeTheTarget(root) {
+      ajson.deleteItem(root);
       return;
     }
-    free(aJsonObject);
+    ajson.deleteItem(root);
   }
 }

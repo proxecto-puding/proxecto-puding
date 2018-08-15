@@ -41,6 +41,11 @@
 #ifndef Puding_h
 #define Puding_h
 
+/** @brief Discovery beacon.
+ * 
+ */
+#define D_BEACON        "DBEACON"
+
 /** @brief Product serial number.
  * 
  */
@@ -62,6 +67,7 @@
  * 
  * Different configuration actions allowed by the bagpipes.
  * 
+ * ACTION_CURRENT refers to the current configuration.
  * ACTION_NEW refers to a new configuration.
  * ACTION_REVERT refers to undo the last changes and restore the previous
  * configuration.
@@ -69,6 +75,7 @@
  * configuration.
  * @{
  */
+#define ACTION_CURRENT  "current"
 #define ACTION_NEW      "new"
 #define ACTION_REVERT   "revert"
 #define ACTION_DEFAULT  "default"

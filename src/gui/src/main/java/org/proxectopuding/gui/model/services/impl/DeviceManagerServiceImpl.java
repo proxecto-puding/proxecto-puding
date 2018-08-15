@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
+import org.proxectopuding.gui.model.entities.BagpipeConfigurationAction;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.entities.FingeringConfiguration;
@@ -145,6 +146,7 @@ public class DeviceManagerServiceImpl implements DeviceManagerService {
 		
 		BagpipeConfiguration config = new BagpipeConfiguration();
 		config.setProductId(productId);
+		config.setAction(BagpipeConfigurationAction.CURRENT.toString());
 		config.setType(type);
 		String request = gson.toJson(config, BagpipeConfiguration.class);
 		String response = null;

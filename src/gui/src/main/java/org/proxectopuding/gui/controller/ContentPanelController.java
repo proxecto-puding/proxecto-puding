@@ -1,6 +1,7 @@
 package org.proxectopuding.gui.controller;
 
 import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
+import org.proxectopuding.gui.model.entities.BagpipeConfigurationAction;
 import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
 import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
@@ -50,8 +51,9 @@ public class ContentPanelController extends Controller {
 			BagpipeConfiguration bagpipeConfiguration =
 					deviceManagerService.getBagpipeConfiguration(
 							productId, type.toString());
-			deviceManagerService.sendBagpipeConfiguration(
-					bagpipeConfiguration);
+			bagpipeConfiguration.setAction(
+					BagpipeConfigurationAction.NEW.toString());
+			deviceManagerService.sendBagpipeConfiguration(bagpipeConfiguration);
 		}
 		
 		// Set MIDI server configuration

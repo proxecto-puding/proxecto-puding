@@ -10,6 +10,7 @@ import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.I18nService;
 import org.proxectopuding.gui.model.services.MidiService;
 import org.proxectopuding.gui.model.services.NotificationService;
+import org.proxectopuding.gui.model.utils.Notification;
 
 import com.google.inject.Inject;
 
@@ -69,7 +70,33 @@ public class ContentPanelController extends Controller {
 	
 	public void onUndo() {
 		
-		// TODO Implement
+		// Set device configuration
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
+			
+			// Ask device for previous configuration
+			BagpipeConfigurationType type = confAppService
+					.getSelectedBagpipeConfigurationType();
+			String productId = device.getProductId();
+			BagpipeConfiguration bagpipeConfiguration =
+					deviceManagerService.getBagpipeConfiguration(
+							productId, type.toString());
+			bagpipeConfiguration.setAction(
+					BagpipeConfigurationAction.RESET.toString());
+			deviceManagerService.sendBagpipeConfiguration(bagpipeConfiguration);
+			
+			// Previous configuration from device
+			deviceManagerService.findBagpipeConfiguration(productId, type.toString());
+			getNotificationService().sendNotification(this,
+					Notification.CHANTER_SELECTED, productId);
+		}
+		
+		// Set MIDI server configuration
+		MidiServerConfiguration midiServerConfiguration =
+				confAppService.getMidiServerConfiguration();
+		midiService.setConfiguration(midiServerConfiguration);
+		midiService.restart();
 	}
 	
 	public String getDefaultButtonLabel() {
@@ -78,7 +105,33 @@ public class ContentPanelController extends Controller {
 	
 	public void onDefault() {
 		
-		// TODO Implement
+		// Set device configuration
+		BagpipeDevice device = deviceManagerService.getSelectedBagpipeDevice();
+		
+		if (device != null) {
+			
+			// Ask device for default configuration
+			BagpipeConfigurationType type = confAppService
+					.getSelectedBagpipeConfigurationType();
+			String productId = device.getProductId();
+			BagpipeConfiguration bagpipeConfiguration =
+					deviceManagerService.getBagpipeConfiguration(
+							productId, type.toString());
+			bagpipeConfiguration.setAction(
+					BagpipeConfigurationAction.DEFAULT.toString());
+			deviceManagerService.sendBagpipeConfiguration(bagpipeConfiguration);
+			
+			// Default configuration from device
+			deviceManagerService.findBagpipeConfiguration(productId, type.toString());
+			getNotificationService().sendNotification(this,
+					Notification.CHANTER_SELECTED, productId);
+		}
+		
+		// Set MIDI server configuration
+		MidiServerConfiguration midiServerConfiguration =
+				confAppService.getMidiServerConfiguration();
+		midiService.setConfiguration(midiServerConfiguration);
+		midiService.restart();
 	}
 	
 	// Private

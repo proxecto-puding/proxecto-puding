@@ -98,7 +98,7 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		
 		btnUndo.setEnabled(false);
 		PropertyChangeListener propertyChangeListener = event -> {
-			// TODO Enable
+			btnUndo.setEnabled(true);
 		};
 		contentPanelController.subscribe(Notification.CHANTER_SELECTED,
 				propertyChangeListener);
@@ -121,7 +121,7 @@ public class ContentPanelViewImpl extends ViewImpl implements ContentPanelView {
 		
 		btnDefault.setEnabled(false);
 		PropertyChangeListener propertyChangeListener = event -> {
-			// TODO Enable
+			btnDefault.setEnabled(true);
 		};
 		contentPanelController.subscribe(Notification.CHANTER_SELECTED,
 				propertyChangeListener);

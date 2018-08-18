@@ -31,13 +31,8 @@
 #include <G1.h>
 #include <Mpr121.h>
 
-#include <aJson.h>
+#include <aJSON.h>
 #include <MIDI.h>
-
-/** @brief Arduino JSON library.
- * 
- */
-aJson ajson;
 
 /** @addtogroup PudingSensors
  * 
@@ -49,11 +44,6 @@ G1 g1;
 Mpr121 mpr121;
 /** @}
  */
-
-/** @brief Arduino MIDI library.
- * 
- */
-MIDI midi;
 
 /** @brief Indicate if the chanter has been identified by the configuration
  * application.
@@ -135,91 +125,91 @@ boolean fingeringTypes[DEF_FT];
  * 
  * Matrix containing the correspondent offset for all the possible "aberto" inputs.
  */
-const unsigned int aberto[][2] = {(B1111111110000000, -1),
-                                  (B1111111100000000, 0),
-                                  (B1111011110000000, 1),
-                                  (B1111111000000000, 2),
-                                  (B1111110100000000, 3),
-                                  (B1111110000000000, 4),
-                                  (B1111100000000000, 5),
-                                  (B1111100010000000, 5),
-                                  (B1111100100000000, 5),
-                                  (B1111100110000000, 5),
-                                  (B1110110000000000, 6),
-                                  (B1110100010000000, 6),
-                                  (B1110100100000000, 6),
-                                  (B1110110110000000, 6),
-                                  (B1110111000000000, 6),
-                                  (B1110111010000000, 6),
-                                  (B1110100000000000, 7),
-                                  (B1110100010000000, 7),
-                                  (B1110100100000000, 7),
-                                  (B1110100110000000, 7),
-                                  (B1101100000000000, 8),
-                                  (B1101100010000000, 8),
-                                  (B1101100100000000, 8),
-                                  (B1101100110000000, 8),
-                                  (B0110100000000000, 8),
-                                  (B0110100010000000, 8),
-                                  (B0110100100000000, 8),
-                                  (B0110100110000000, 8),
-                                  (B1100100000000000, 9),
-                                  (B1100100010000000, 9),
-                                  (B1100100100000000, 9),
-                                  (B1100100110000000, 9),
-                                  (B1010100000000000, 10),
-                                  (B1010100010000000, 10),
-                                  (B1010100100000000, 10),
-                                  (B1010100110000000, 10),
-                                  (B0100100000000000, 10),
-                                  (B0100100010000000, 10),
-                                  (B0100100100000000, 10),
-                                  (B0100100110000000, 10),
-                                  (B1000100000000000, 11),
-                                  (B1000100010000000, 11),
-                                  (B1000100100000000, 11),
-                                  (B1000100110000000, 11),
-                                  (B0111111110000000, 11),
-                                  (B0000000000000000, 12),
-                                  (B0000000010000000, 12),
-                                  (B0000000100000000, 12),
-                                  (B0000000110000000, 12),
-                                  (B1011111100000000, 12),
-                                  (B0111111100000000, 12),
-                                  (B0111011100000000, 13),
-                                  (B0111111000000000, 14),
-                                  (B0111110100000000, 15),
-                                  (B0111110000000000, 16),
-                                  (B0111100000000000, 17)};
+const unsigned int aberto[][2] = {((B11111111 * 256) + B10000000, -1),
+                                  ((B11111111 * 256) + B00000000, 0),
+                                  ((B11110111 * 256) + B10000000, 1),
+                                  ((B11111110 * 256) + B00000000, 2),
+                                  ((B11111101 * 256) + B00000000, 3),
+                                  ((B11111100 * 256) + B00000000, 4),
+                                  ((B11111000 * 256) + B00000000, 5),
+                                  ((B11111000 * 256) + B10000000, 5),
+                                  ((B11111001 * 256) + B00000000, 5),
+                                  ((B11111001 * 256) + B10000000, 5),
+                                  ((B11101100 * 256) + B00000000, 6),
+                                  ((B11101000 * 256) + B10000000, 6),
+                                  ((B11101001 * 256) + B00000000, 6),
+                                  ((B11101101 * 256) + B10000000, 6),
+                                  ((B11101110 * 256) + B00000000, 6),
+                                  ((B11101110 * 256) + B10000000, 6),
+                                  ((B11101000 * 256) + B00000000, 7),
+                                  ((B11101000 * 256) + B10000000, 7),
+                                  ((B11101001 * 256) + B00000000, 7),
+                                  ((B11101001 * 256) + B10000000, 7),
+                                  ((B11011000 * 256) + B00000000, 8),
+                                  ((B11011000 * 256) + B10000000, 8),
+                                  ((B11011001 * 256) + B00000000, 8),
+                                  ((B11011001 * 256) + B10000000, 8),
+                                  ((B01101000 * 256) + B00000000, 8),
+                                  ((B01101000 * 256) + B10000000, 8),
+                                  ((B01101001 * 256) + B00000000, 8),
+                                  ((B01101001 * 256) + B10000000, 8),
+                                  ((B11001000 * 256) + B00000000, 9),
+                                  ((B11001000 * 256) + B10000000, 9),
+                                  ((B11001001 * 256) + B00000000, 9),
+                                  ((B11001001 * 256) + B10000000, 9),
+                                  ((B10101000 * 256) + B00000000, 10),
+                                  ((B10101000 * 256) + B10000000, 10),
+                                  ((B10101001 * 256) + B00000000, 10),
+                                  ((B10101001 * 256) + B10000000, 10),
+                                  ((B01001000 * 256) + B00000000, 10),
+                                  ((B01001000 * 256) + B10000000, 10),
+                                  ((B01001001 * 256) + B00000000, 10),
+                                  ((B01001001 * 256) + B10000000, 10),
+                                  ((B10001000 * 256) + B00000000, 11),
+                                  ((B10001000 * 256) + B10000000, 11),
+                                  ((B10001001 * 256) + B00000000, 11),
+                                  ((B10001001 * 256) + B10000000, 11),
+                                  ((B01111111 * 256) + B10000000, 11),
+                                  ((B00000000 * 256) + B00000000, 12),
+                                  ((B00000000 * 256) + B10000000, 12),
+                                  ((B00000001 * 256) + B00000000, 12),
+                                  ((B00000001 * 256) + B10000000, 12),
+                                  ((B10111111 * 256) + B00000000, 12),
+                                  ((B01111111 * 256) + B00000000, 12),
+                                  ((B01110111 * 256) + B00000000, 13),
+                                  ((B01111110 * 256) + B00000000, 14),
+                                  ((B01111101 * 256) + B00000000, 15),
+                                  ((B01111100 * 256) + B00000000, 16),
+                                  ((B01111000 * 256) + B00000000, 17)};
 
 /** @brief Matrix containing all the "pechado" offsets.
  * 
  * Matrix containing the correspondent offset for all the possible "pechado" inputs.
  */
-const unsigned int pechado[][2] = {(B1111111110000000, -1),
-                                   (B1111111100000000, 0),
-                                   (B1111011100000000, 1),
-                                   (B1111111000000000, 2),
-                                   (B1111110100000000, 3),
-                                   (B1111110110000000, 4),
-                                   (B1111101100000000, 5),
-                                   (B1110110100000000, 6),
-                                   (B1110111100000000, 7),
-                                   (B1101101100000000, 8),
-                                   (B0110111100000000, 8),
-                                   (B1100111100000000, 9),
-                                   (B1010111100000000, 10),
-                                   (B0100111100000000, 10),
-                                   (B1000111100000000, 11),
-                                   (B0111111110000000, 11),
-                                   (B1011111100000000, 12),
-                                   (B0111111100000000, 12),
-                                   (B1011011100000000, 13),
-                                   (B0111011100000000, 13),
-                                   (B0111111000000000, 14),
-                                   (B0111110100000000, 15),
-                                   (B0111110000000000, 16),
-                                   (B0111100000000000, 17)};
+const unsigned int pechado[][2] = {((B11111111 * 256) + B10000000, -1),
+                                   ((B11111111 * 256) + B00000000, 0),
+                                   ((B11110111 * 256) + B00000000, 1),
+                                   ((B11111110 * 256) + B00000000, 2),
+                                   ((B11111101 * 256) + B00000000, 3),
+                                   ((B11111101 * 256) + B10000000, 4),
+                                   ((B11111011 * 256) + B00000000, 5),
+                                   ((B11101101 * 256) + B00000000, 6),
+                                   ((B11101111 * 256) + B00000000, 7),
+                                   ((B11011011 * 256) + B00000000, 8),
+                                   ((B01101111 * 256) + B00000000, 8),
+                                   ((B11001111 * 256) + B00000000, 9),
+                                   ((B10101111 * 256) + B00000000, 10),
+                                   ((B01001111 * 256) + B00000000, 10),
+                                   ((B10001111 * 256) + B00000000, 11),
+                                   ((B01111111 * 256) + B10000000, 11),
+                                   ((B10111111 * 256) + B00000000, 12),
+                                   ((B01111111 * 256) + B00000000, 12),
+                                   ((B10110111 * 256) + B00000000, 13),
+                                   ((B01110111 * 256) + B00000000, 13),
+                                   ((B01111110 * 256) + B00000000, 14),
+                                   ((B01111101 * 256) + B00000000, 15),
+                                   ((B01111100 * 256) + B00000000, 16),
+                                   ((B01111000 * 256) + B00000000, 17)};
 
 /** @brief Arduino setup function.
  * 
@@ -268,17 +258,17 @@ void configure() {
     return;
   }
   aJsonObject* root = getAJsonObject();
-  if (!isMeTheTarget(root) {
-    ajson.deleteItem(root);
+  if (!isMeTheTarget(root)) {
+    aJson.deleteItem(root);
     return;
   }
-  if (!isConfiguration(root, String(ACTION_CURRENT)) {
+  if (!isConfiguration(root, String(ACTION_CURRENT))) {
     setConfiguration(root);
   }
-  if (!isConfiguration(root, String(ACTION_NEW)) {
+  if (!isConfiguration(root, String(ACTION_NEW))) {
     sendConfiguration(root);
   }
-  ajson.deleteItem(root);
+  aJson.deleteItem(root);
 }
 
 /** @brief Look for the discovery beacon sent by the configuration application.
@@ -300,7 +290,7 @@ boolean findDiscoveryBeacon() {
 aJsonObject *getAJsonObject() {
   aJsonObject *root;
   char *data = getSerialData();
-  root = ajson.parse(data);
+  root = aJson.parse(data);
   free(data);
   return root;
 }
@@ -337,7 +327,7 @@ unsigned int getChanterOffset() {
  */
 String getConfiguration(String type) {
   String data;
-  String type += CONF_FILE_EXT;
+  type += CONF_FILE_EXT;
   unsigned int length = type.length();
   char name [length + 1];
   configFile.toCharArray(name, length + 1);
@@ -427,9 +417,9 @@ boolean isBagPressureEnough() {
  * @return A boolean indicating if it is the expected configuration.
  */
 boolean isConfiguration(aJsonObject* root, String expectedAction) {
-  aJsonObject* aJsonAction = ajson.getObjectItem(root, "action");
-  String action = String(aJsonAction->value.valuestring);
-  ajson.deleteItem(aJsonAction);
+  aJsonObject* aJsonAction = aJson.getObjectItem(root, "action");
+  String action = String(aJsonAction->valuestring);
+  aJson.deleteItem(aJsonAction);
   return expectedAction.equals(action);
 }
 
@@ -442,11 +432,11 @@ boolean isConfiguration(aJsonObject* root, String expectedAction) {
  * @param root A JSON object.
  * @return A boolean indicating if this bagpipe is the receiver.
  */
-boolean isMeTheTarget(aJsonObject root) {
+boolean isMeTheTarget(aJsonObject *root) {
     boolean isMeTheTarget;
-    aJsonObject* aJsonProductId = ajson.getObjectItem(root, "productId");
-    String productId = String(aJsonProducId->value.valuestring);
-    ajson.deleteItem(aJsonProductId);
+    aJsonObject* aJsonProductId = aJson.getObjectItem(root, "productId");
+    String productId = String(aJsonProductId->valuestring);
+    aJson.deleteItem(aJsonProductId);
     isMeTheTarget = String(PUDING_SN).equals(productId);
     return isMeTheTarget;
 }
@@ -469,42 +459,42 @@ boolean isVibratoEnabled() {
  */
 void play() {
   if (isBagEnabled && !isBagPressureEnough()) { // Stop.
-    midi.sendNoteOff(chanterNote, velocity, chanterChannel);
+    MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
     if (isVibratoEnabled()) {
-      midi.sendPitchBend(0, chanterChannel);
+      MIDI.sendPitchBend(0, chanterChannel);
     }
     if (isBassDroneEnabled) {
-      midi.sedNoteOff(bassDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
     }
     if (isTenorDroneEnabled) {
-      midi.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
     }
     if (isHighDroneEnabled) {
-      midi.sendNoteOff(highDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
     }
   }
   else { // Play.
     chanterOffset = getChanterOffset();
     if (chanterOffset != DEF_OFFSET) {
       chanterNote = baseTone + chanterOffset;
-      midi.sendNoteOn(chanterNote, velocity, chanterChannel);
+      MIDI.sendNoteOn(chanterNote, velocity, chanterChannel);
       if (isVibratoEnabled()) {
-        midi.sendPitchBend(DEF_PB, chanterChannel);
+        MIDI.sendPitchBend(DEF_PB, chanterChannel);
       }
     } else { // Stop if the new fingering is not recognized.
-      midi.sendNoteOff(chanterNote, velocity, chanterChannel);
+      MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
       if (isVibratoEnabled()) {
-        midi.sendPitchBend(0, chanterChannel);
+        MIDI.sendPitchBend(0, chanterChannel);
       }
     }
     if (isBassDroneEnabled) {
-      midi.sedNoteOn(bassDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOn(bassDroneNote, velocity, dronesChannel);
     }
     if (isTenorDroneEnabled) {
-      midi.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
     }
     if (isHighDroneEnabled) {
-      midi.sendNoteOn(highDroneNote, velocity, dronesChannel);
+      MIDI.sendNoteOn(highDroneNote, velocity, dronesChannel);
     }
   }
 }
@@ -518,12 +508,12 @@ aJsonObject *readFile(String type) {
   aJsonObject *root;
   type += CONF_FILE_EXT;
   unsigned int length = type.length();
-  char name [] = char[length + 1];
+  char name [length + 1];
   type.toCharArray(name, length + 1);
   String fdata = g1.readFile(name);
   length = fdata.length();
   char *cdata = (char *) malloc(sizeof(char) * (length + 1));
-  root = ajson.parse(cdata);
+  root = aJson.parse(cdata);
   free(cdata);
   return root;
 }
@@ -540,7 +530,7 @@ void restoreFile(String action, String type) {
   String backupFile = type;
   if (String(ACTION_REVERT).equals(action)) {
     backupFile += BAK_FILE_EXT;
-  } else if (String(ACTION_DEFAULT).equals(action) {
+  } else if (String(ACTION_DEFAULT).equals(action)) {
     backupFile += DEF_FILE_EXT;
   }
   unsigned int bfLength = backupFile.length();
@@ -564,7 +554,7 @@ void saveFile(String type, aJsonObject *root) {
   unsigned int cfLength = configFile.length();
   char fileName [cfLength + 1];
   configFile.toCharArray(fileName, cfLength + 1);
-  char *cdata = ajson.print(root);
+  char *cdata = aJson.print(root);
   String sdata = String(cdata);
   free(cdata);
   g1.writeFile(fileName, false, sdata);
@@ -575,9 +565,9 @@ void saveFile(String type, aJsonObject *root) {
  */
 void sendConfiguration(aJsonObject* root) {
   
-  aJsonObject* aJsonType = ajson.getObjectItem(root, "type");
-  String type = String(aJsonType->value.valuestring);
-  ajson.deleteItem(aJsonType);
+  aJsonObject* aJsonType = aJson.getObjectItem(root, "type");
+  String type = String(aJsonType->valuestring);
+  aJson.deleteItem(aJsonType);
   String configuration = getConfiguration(type);
   Serial.write(configuration);
 }
@@ -586,9 +576,9 @@ void sendConfiguration(aJsonObject* root) {
  * 
  */
 void sendDeviceSerialNumber() {
-  aJsonObject *root = ajson.createObject();
-  ajson.addStringToObject(root, "productId", PUDING_SN);
-  char *croot = ajson.print(root);
+  aJsonObject *root = aJson.createObject();
+  aJson.addStringToObject(root, "productId", PUDING_SN);
+  char *croot = aJson.print(root);
   Serial.write(croot);
 }
 
@@ -609,13 +599,13 @@ void setMinBagPressure(byte bagPressure) {
  * @param root A JSON object containing the configuration data.
  */
 void setConfiguration(aJsonObject *root) {
-  aJsonObject *aJsonAction = ajson.getObjectItem(root, "action");
-  String action = String(aJsonAction->value.valuestring);
-  ajson.deleteItem(aJsonAction);
+  aJsonObject *aJsonAction = aJson.getObjectItem(root, "action");
+  String action = String(aJsonAction->valuestring);
+  aJson.deleteItem(aJsonAction);
   
-  aJsonObject *aJsonSubtype = ajson.getObjectItem(root, "type");
-  String type = String(aJsonSubtype->value.valuestring);
-  ajson.deleteItem(aJsonSubtype);
+  aJsonObject *aJsonSubtype = aJson.getObjectItem(root, "type");
+  String type = String(aJsonSubtype->valuestring);
+  aJson.deleteItem(aJsonSubtype);
   
   setConfiguration(action, type, root);
 }
@@ -630,7 +620,7 @@ void setConfiguration(String action, String type, aJsonObject *root) {
   if (String(ACTION_NEW).equals(action)) {
     saveFile(type, root);
   } else if (String(ACTION_REVERT).equals(action) ||
-      String(ACTION_DEFAULT).equals(action) {
+      String(ACTION_DEFAULT).equals(action)) {
     restoreFile(action, type);
   }
   
@@ -644,7 +634,7 @@ void setConfiguration(String action, String type, aJsonObject *root) {
 void setConfiguration(String type) {
   aJsonObject *root = readFile(type);
   setConfigurationData(type, root);
-  ajson.deleteItem(root);
+  aJson.deleteItem(root);
 }
 
 /** @brief Configure all the bagpipe params based on the received JSON object.
@@ -658,7 +648,7 @@ void setConfigurationData(String type, aJsonObject *root) {
   } else if (String(TYPE_SELECT).equals(type)) {
     setConfigurationDataTypeSelect(root);
   } else if (String(TYPE_TUNING).equals(type)) {
-    setConfigurationDataTypeTuning(root):
+    setConfigurationDataTypeTuning(root);
   } else if (String(TYPE_SENSIT).equals(type)) {
     setConfigurationDataTypeSensit(root);
   } else if (String(TYPE_FINGER).equals(type)) {
@@ -673,19 +663,19 @@ void setConfigurationData(String type, aJsonObject *root) {
 void setConfigurationDataTypeFinger(aJsonObject *root) {
   // Reset offsets.
   initializeOffsets();
-  aJsonObject *fingeringsArray = ajson.getObjectItem(root, "fingerings");
-  unsigned char size = ajson.getArraySize(fingeringsArray);
+  aJsonObject *fingeringsArray = aJson.getObjectItem(root, "fingerings");
+  unsigned char size = aJson.getArraySize(fingeringsArray);
   aJsonObject *itemObject = NULL;
   aJsonObject *fingeringObject = NULL;
   aJsonObject *offsetObject = NULL;
   unsigned int fingering;
   unsigned int offset;
-  for (int i = 0: i < (int) size; i++) {
-    itemObject = ajson.getArrayItem(fingeringsArray, i);
-    fingeringObject = ajson.getObjectItem(itemObject, "fingering");
-    offsetObject = ajson.getObjectItem(itemObject, "offset");
-    fingering = (unsigned int) fingeringObject->value.valueint;
-    offset = (unsigned int) offsetObject->value.valueint;
+  for (int i = 0; i < (int) size; i++) {
+    itemObject = aJson.getArrayItem(fingeringsArray, i);
+    fingeringObject = aJson.getObjectItem(itemObject, "fingering");
+    offsetObject = aJson.getObjectItem(itemObject, "offset");
+    fingering = (unsigned int) fingeringObject->valueint;
+    offset = (unsigned int) offsetObject->valueint;
     int j = 0;
     while (j < MAX_FING) {
       // Replace.
@@ -708,23 +698,23 @@ void setConfigurationDataTypeFinger(aJsonObject *root) {
  * @param root A JSON object containing the configuration data.
  */
 void setConfigurationDataTypeSelect(aJsonObject *root) {
-  aJsonObject *volumeObject = ajson.getObjectItem(root, "volume");
-  aJsonObject *fingeringTypesArray = ajson.getObjectItem(root, "fingeringTypes");
-  aJsonObject *bagEnabledObject = ajson.getObjectItem(root, "bagEnabled");
-  aJsonObject *dronesEnabledArray = ajson.getObjectItem(root, "dronesEnabled");
+  aJsonObject *volumeObject = aJson.getObjectItem(root, "volume");
+  aJsonObject *fingeringTypesArray = aJson.getObjectItem(root, "fingeringTypes");
+  aJsonObject *bagEnabledObject = aJson.getObjectItem(root, "bagEnabled");
+  aJsonObject *dronesEnabledArray = aJson.getObjectItem(root, "dronesEnabled");
   
-  byte volume = byte(volumeObject->value.valueint);
+  byte volume = byte(volumeObject->valueint);
   aJsonObject *fingeringTypeObject = NULL;
-  for (int i = 0: i < DEF_FT; i++) {
-    fingeringTypeObject = ajson.getArrayItem(fingeringTypesArray, i);
-    fingeringTypes[i] = (fingeringType->value.valuebool == 1);
+  for (int i = 0; i < DEF_FT; i++) {
+    fingeringTypeObject = aJson.getArrayItem(fingeringTypesArray, i);
+    fingeringTypes[i] = (fingeringTypeObject->valuebool == 1);
   }
-  boolean bagEnabled = (bagEnabled->value.valuebool == 1);
+  boolean bagEnabled = (bagEnabledObject->valuebool == 1);
   boolean dronesEnabled[DEF_DN];
   aJsonObject *droneEnabledObject = NULL;
-  for (int i = 0: i < DEF_DN; i++) {
-    droneEnabledObject = ajson.getArrayItem(dronesEnabledArray, i);
-    droneEnabled[i] = (droneEnabledObject->value.valuebool == 1);
+  for (int i = 0; i < DEF_DN; i++) {
+    droneEnabledObject = aJson.getArrayItem(dronesEnabledArray, i);
+    dronesEnabled[i] = (droneEnabledObject->valuebool == 1);
   }
   
   velocity = volume;
@@ -739,8 +729,8 @@ void setConfigurationDataTypeSelect(aJsonObject *root) {
  * @param root A JSON object containing the configuration data.
  */
 void setConfigurationDataTypeSensit(aJsonObject *root) {
-  aJsonObject *bagPressureObject = ajson.getObjectItem(root, "bagPressure");
-  byte bagPressure = byte(bagPressureObject->value.valueint);
+  aJsonObject *bagPressureObject = aJson.getObjectItem(root, "bagPressure");
+  byte bagPressure = byte(bagPressureObject->valueint);
   setMinBagPressure(bagPressure);
 }
 
@@ -757,11 +747,11 @@ void setConfigurationDataTypeStart(aJsonObject *root) {
  * @param root A JSON object containing the configuration data.
  */
 void setConfigurationDataTypeTuning(aJsonObject *root) {
-  aJsonObject *toneObject = ajson.getObjectItem(root, "tone");
-  aJsonObject *octaveObject = ajson.getObjectItem(root, "octave");
+  aJsonObject *toneObject = aJson.getObjectItem(root, "tone");
+  aJsonObject *octaveObject = aJson.getObjectItem(root, "octave");
   
-  byte tone = byte(toneObject->value.valueint);
-  short octave = octaveObject->value.valueint;
+  byte tone = byte(toneObject->valueint);
+  short octave = octaveObject->valueint;
   
   // Tone is between 0-11.
   // It is the number of the semitone into a semitones scale.
@@ -779,7 +769,7 @@ void setDevice() {
   mpr121.setDevice();
   bmp085.setDevice();
   delay(STARTUP_DELAY);
-  midi.begin();
+  MIDI.begin();
 }
 
 /** @brief Configure the bagpipe allowed fingerings.
@@ -798,10 +788,10 @@ void waitForAck() {
   }
   while(true) {
     aJsonObject* root = getAJsonObject();
-    if (isMeTheTarget(root) {
-      ajson.deleteItem(root);
+    if (isMeTheTarget(root)) {
+      aJson.deleteItem(root);
       return;
     }
-    ajson.deleteItem(root);
+    aJson.deleteItem(root);
   }
 }

@@ -59,7 +59,7 @@ byte baseTone = DEF_TONE;
 /** @brief Offset related to the base tone.
  * 
  */
-unsigned int chanterOffset = DEF_OFFSET;
+short chanterOffset = DEF_OFFSET;
 
 /** @brief Chanter current note.
  * 
@@ -117,13 +117,13 @@ boolean isHighDroneEnabled = true;
 /** @brief Actual fingering inputs.
  * 
  */
-unsigned int inputs = 0;
+unsigned short inputs = 0;
 
 /** @brief Matrix containing all the offsets.
  * 
  * Matrix containing the correspondent offset for all the possible inputs.
  */
-unsigned int offsets[MAX_FING][2];
+short offsets[MAX_FING][2];
 
 /** @brief Indicate fingering types to use.
  * 
@@ -225,9 +225,9 @@ aJsonObject *getAJsonObject() {
  * 
  * @return An offset.
  */
-unsigned int getChanterOffset() {
+short getChanterOffset() {
   inputs = mpr121.getTouchAndProximityInputs();
-  unsigned int touchInputs = inputs | TI_MASK;
+  unsigned short touchInputs = inputs | TI_MASK;
   int i;
   for (i = 0; i < MAX_FING; i++) {
     // When a default offset value is reached there are not more valid
@@ -320,87 +320,87 @@ boolean identifyChanter() {
 void initializeOffsets() {
   
   // Defined as local variables as dynamic memory is not enough to store them.
-  const unsigned int aberto[][2] = {((B11111111 * 256) + B10000000, -1),
-                                    ((B11111111 * 256) + B00000000, 0),
-                                    ((B11110111 * 256) + B10000000, 1),
-                                    ((B11111110 * 256) + B00000000, 2),
-                                    ((B11111101 * 256) + B00000000, 3),
-                                    ((B11111100 * 256) + B00000000, 4),
-                                    ((B11111000 * 256) + B00000000, 5),
-                                    ((B11111000 * 256) + B10000000, 5),
-                                    ((B11111001 * 256) + B00000000, 5),
-                                    ((B11111001 * 256) + B10000000, 5),
-                                    ((B11101100 * 256) + B00000000, 6),
-                                    ((B11101000 * 256) + B10000000, 6),
-                                    ((B11101001 * 256) + B00000000, 6),
-                                    ((B11101101 * 256) + B10000000, 6),
-                                    ((B11101110 * 256) + B00000000, 6),
-                                    ((B11101110 * 256) + B10000000, 6),
-                                    ((B11101000 * 256) + B00000000, 7),
-                                    ((B11101000 * 256) + B10000000, 7),
-                                    ((B11101001 * 256) + B00000000, 7),
-                                    ((B11101001 * 256) + B10000000, 7),
-                                    ((B11011000 * 256) + B00000000, 8),
-                                    ((B11011000 * 256) + B10000000, 8),
-                                    ((B11011001 * 256) + B00000000, 8),
-                                    ((B11011001 * 256) + B10000000, 8),
-                                    ((B01101000 * 256) + B00000000, 8),
-                                    ((B01101000 * 256) + B10000000, 8),
-                                    ((B01101001 * 256) + B00000000, 8),
-                                    ((B01101001 * 256) + B10000000, 8),
-                                    ((B11001000 * 256) + B00000000, 9),
-                                    ((B11001000 * 256) + B10000000, 9),
-                                    ((B11001001 * 256) + B00000000, 9),
-                                    ((B11001001 * 256) + B10000000, 9),
-                                    ((B10101000 * 256) + B00000000, 10),
-                                    ((B10101000 * 256) + B10000000, 10),
-                                    ((B10101001 * 256) + B00000000, 10),
-                                    ((B10101001 * 256) + B10000000, 10),
-                                    ((B01001000 * 256) + B00000000, 10),
-                                    ((B01001000 * 256) + B10000000, 10),
-                                    ((B01001001 * 256) + B00000000, 10),
-                                    ((B01001001 * 256) + B10000000, 10),
-                                    ((B10001000 * 256) + B00000000, 11),
-                                    ((B10001000 * 256) + B10000000, 11),
-                                    ((B10001001 * 256) + B00000000, 11),
-                                    ((B10001001 * 256) + B10000000, 11),
-                                    ((B01111111 * 256) + B10000000, 11),
-                                    ((B00000000 * 256) + B00000000, 12),
-                                    ((B00000000 * 256) + B10000000, 12),
-                                    ((B00000001 * 256) + B00000000, 12),
-                                    ((B00000001 * 256) + B10000000, 12),
-                                    ((B10111111 * 256) + B00000000, 12),
-                                    ((B01111111 * 256) + B00000000, 12),
-                                    ((B01110111 * 256) + B00000000, 13),
-                                    ((B01111110 * 256) + B00000000, 14),
-                                    ((B01111101 * 256) + B00000000, 15),
-                                    ((B01111100 * 256) + B00000000, 16),
-                                    ((B01111000 * 256) + B00000000, 17)};
+  const short aberto[][2] = {((B11111111 * 256) + B10000000, -1),
+                              ((B11111111 * 256) + B00000000, 0),
+                              ((B11110111 * 256) + B10000000, 1),
+                              ((B11111110 * 256) + B00000000, 2),
+                              ((B11111101 * 256) + B00000000, 3),
+                              ((B11111100 * 256) + B00000000, 4),
+                              ((B11111000 * 256) + B00000000, 5),
+                              ((B11111000 * 256) + B10000000, 5),
+                              ((B11111001 * 256) + B00000000, 5),
+                              ((B11111001 * 256) + B10000000, 5),
+                              ((B11101100 * 256) + B00000000, 6),
+                              ((B11101000 * 256) + B10000000, 6),
+                              ((B11101001 * 256) + B00000000, 6),
+                              ((B11101101 * 256) + B10000000, 6),
+                              ((B11101110 * 256) + B00000000, 6),
+                              ((B11101110 * 256) + B10000000, 6),
+                              ((B11101000 * 256) + B00000000, 7),
+                              ((B11101000 * 256) + B10000000, 7),
+                              ((B11101001 * 256) + B00000000, 7),
+                              ((B11101001 * 256) + B10000000, 7),
+                              ((B11011000 * 256) + B00000000, 8),
+                              ((B11011000 * 256) + B10000000, 8),
+                              ((B11011001 * 256) + B00000000, 8),
+                              ((B11011001 * 256) + B10000000, 8),
+                              ((B01101000 * 256) + B00000000, 8),
+                              ((B01101000 * 256) + B10000000, 8),
+                              ((B01101001 * 256) + B00000000, 8),
+                              ((B01101001 * 256) + B10000000, 8),
+                              ((B11001000 * 256) + B00000000, 9),
+                              ((B11001000 * 256) + B10000000, 9),
+                              ((B11001001 * 256) + B00000000, 9),
+                              ((B11001001 * 256) + B10000000, 9),
+                              ((B10101000 * 256) + B00000000, 10),
+                              ((B10101000 * 256) + B10000000, 10),
+                              ((B10101001 * 256) + B00000000, 10),
+                              ((B10101001 * 256) + B10000000, 10),
+                              ((B01001000 * 256) + B00000000, 10),
+                              ((B01001000 * 256) + B10000000, 10),
+                              ((B01001001 * 256) + B00000000, 10),
+                              ((B01001001 * 256) + B10000000, 10),
+                              ((B10001000 * 256) + B00000000, 11),
+                              ((B10001000 * 256) + B10000000, 11),
+                              ((B10001001 * 256) + B00000000, 11),
+                              ((B10001001 * 256) + B10000000, 11),
+                              ((B01111111 * 256) + B10000000, 11),
+                              ((B00000000 * 256) + B00000000, 12),
+                              ((B00000000 * 256) + B10000000, 12),
+                              ((B00000001 * 256) + B00000000, 12),
+                              ((B00000001 * 256) + B10000000, 12),
+                              ((B10111111 * 256) + B00000000, 12),
+                              ((B01111111 * 256) + B00000000, 12),
+                              ((B01110111 * 256) + B00000000, 13),
+                              ((B01111110 * 256) + B00000000, 14),
+                              ((B01111101 * 256) + B00000000, 15),
+                              ((B01111100 * 256) + B00000000, 16),
+                              ((B01111000 * 256) + B00000000, 17)};
 
-  const unsigned int pechado[][2] = {((B11111111 * 256) + B10000000, -1),
-                                     ((B11111111 * 256) + B00000000, 0),
-                                     ((B11110111 * 256) + B00000000, 1),
-                                     ((B11111110 * 256) + B00000000, 2),
-                                     ((B11111101 * 256) + B00000000, 3),
-                                     ((B11111101 * 256) + B10000000, 4),
-                                     ((B11111011 * 256) + B00000000, 5),
-                                     ((B11101101 * 256) + B00000000, 6),
-                                     ((B11101111 * 256) + B00000000, 7),
-                                     ((B11011011 * 256) + B00000000, 8),
-                                     ((B01101111 * 256) + B00000000, 8),
-                                     ((B11001111 * 256) + B00000000, 9),
-                                     ((B10101111 * 256) + B00000000, 10),
-                                     ((B01001111 * 256) + B00000000, 10),
-                                     ((B10001111 * 256) + B00000000, 11),
-                                     ((B01111111 * 256) + B10000000, 11),
-                                     ((B10111111 * 256) + B00000000, 12),
-                                     ((B01111111 * 256) + B00000000, 12),
-                                     ((B10110111 * 256) + B00000000, 13),
-                                     ((B01110111 * 256) + B00000000, 13),
-                                     ((B01111110 * 256) + B00000000, 14),
-                                     ((B01111101 * 256) + B00000000, 15),
-                                     ((B01111100 * 256) + B00000000, 16),
-                                     ((B01111000 * 256) + B00000000, 17)};
+  const short pechado[][2] = {((B11111111 * 256) + B10000000, -1),
+                               ((B11111111 * 256) + B00000000, 0),
+                               ((B11110111 * 256) + B00000000, 1),
+                               ((B11111110 * 256) + B00000000, 2),
+                               ((B11111101 * 256) + B00000000, 3),
+                               ((B11111101 * 256) + B10000000, 4),
+                               ((B11111011 * 256) + B00000000, 5),
+                               ((B11101101 * 256) + B00000000, 6),
+                               ((B11101111 * 256) + B00000000, 7),
+                               ((B11011011 * 256) + B00000000, 8),
+                               ((B01101111 * 256) + B00000000, 8),
+                               ((B11001111 * 256) + B00000000, 9),
+                               ((B10101111 * 256) + B00000000, 10),
+                               ((B01001111 * 256) + B00000000, 10),
+                               ((B10001111 * 256) + B00000000, 11),
+                               ((B01111111 * 256) + B10000000, 11),
+                               ((B10111111 * 256) + B00000000, 12),
+                               ((B01111111 * 256) + B00000000, 12),
+                               ((B10110111 * 256) + B00000000, 13),
+                               ((B01110111 * 256) + B00000000, 13),
+                               ((B01111110 * 256) + B00000000, 14),
+                               ((B01111101 * 256) + B00000000, 15),
+                               ((B01111100 * 256) + B00000000, 16),
+                               ((B01111000 * 256) + B00000000, 17)};
   
   // All to default.
   for (int i = 0; i < MAX_FING; i++) {
@@ -409,7 +409,7 @@ void initializeOffsets() {
   int size;
   // Aberto.
   if (fingeringTypes[0]) {
-    size = sizeof(aberto)/(2*sizeof(unsigned int));
+    size = sizeof(aberto)/(2*sizeof(short));
     for (int i = 0; i < size; i++) {
       offsets[i][0] = aberto[i][0];
       offsets[i][1] = aberto[i][1];
@@ -417,7 +417,7 @@ void initializeOffsets() {
   }
   // Pechado.
   if (fingeringTypes[1]) {
-    size = sizeof(pechado)/(2*sizeof(unsigned int));
+    size = sizeof(pechado)/(2*sizeof(short));
     for (int i = 0; i < size; i++) {
       for (int j = 0; i < MAX_FING; i++) {
         // Replace.
@@ -482,7 +482,7 @@ boolean isMeTheTarget(aJsonObject *root) {
  * @return A boolean indicating if the vibrato is enabled.
  */
 boolean isVibratoEnabled() {
-  unsigned int vibrato = inputs | PI_MASK;
+  unsigned short vibrato = inputs | PI_MASK;
   return (vibrato != 0);
 }
 
@@ -516,7 +516,6 @@ void play() {
  * 
  */
 void playChanter() {
-  
   chanterOffset = getChanterOffset();
   newChanterNote = getChanterNote();
   
@@ -742,16 +741,15 @@ void setConfigurationDataTypeFinger(aJsonObject *root) {
   aJsonObject *itemObject = NULL;
   aJsonObject *fingeringObject = NULL;
   aJsonObject *offsetObject = NULL;
-  unsigned int fingering;
-  unsigned int offset;
+  short fingering;
+  short offset;
   for (int i = 0; i < (int) size; i++) {
     itemObject = aJson.getArrayItem(fingeringsArray, i);
     fingeringObject = aJson.getObjectItem(itemObject, "fingering");
     offsetObject = aJson.getObjectItem(itemObject, "offset");
-    fingering = (unsigned int) fingeringObject->valueint;
-    offset = (unsigned int) offsetObject->valueint;
-    int j = 0;
-    while (j < MAX_FING) {
+    fingering = (short) fingeringObject->valueint;
+    offset = (short) offsetObject->valueint;
+    for (int j = 0; j < MAX_FING; j++) {
       // Replace.
       if (offsets[j][0] == fingering) {
         offsets[j][1] = offset;

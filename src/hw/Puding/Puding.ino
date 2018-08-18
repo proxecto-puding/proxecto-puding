@@ -272,11 +272,12 @@ void configure() {
     ajson.deleteItem(root);
     return;
   }
-  if (isCurrentConfiguration(root)) {
-    sendConfiguration(root);
-  } else {
+  if (!isConfiguration(root, String(ACTION_CURRENT)) {
     setConfiguration(root);
-  }  
+  }
+  if (!isConfiguration(root, String(ACTION_NEW)) {
+    sendConfiguration(root);
+  }
   ajson.deleteItem(root);
 }
 
@@ -419,16 +420,17 @@ boolean isBagPressureEnough() {
   return (bmp085.calPressure() >= minBagPressure);
 }
 
-/** @brief Check if it is asking for the current configuration.
+/** @brief Check if it is asking for the expected configuration.
  * 
  * @param root A device configuration.
- * @return A boolean indicating if it is the current configuration.
+ * @param expectedAction A configuration action.
+ * @return A boolean indicating if it is the expected configuration.
  */
-boolean isCurrentConfiguration(aJsonObject* root) {
+boolean isConfiguration(aJsonObject* root, String expectedAction) {
   aJsonObject* aJsonAction = ajson.getObjectItem(root, "action");
   String action = String(aJsonAction->value.valuestring);
   ajson.deleteItem(aJsonAction);
-  return String(ACTION_CURRENT).equals(action);
+  return expectedAction.equals(action);
 }
 
 /** @brief Check if the destination of the configuration data is this bagpipe.

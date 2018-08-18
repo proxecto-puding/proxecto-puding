@@ -31,11 +31,8 @@
 
 #include <Wire.h>
 
-#include <Bmp085.h>
-#include <G1.h>
 #include <Mpr121.h>
 
-#include <aJson.h>
 #include <MIDI.h>
 
 #ifndef Puding_h
@@ -175,8 +172,8 @@
  * vice versa.
  * @{
  */
-#define TI_MASK         B0000111111111111
-#define PI_MASK         B0001000000000000
+#define TI_MASK         (B00001111 * 256) + B11111111
+#define PI_MASK         (B00010000 * 256) + B00000000
 /** @}
  */
 

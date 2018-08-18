@@ -23,7 +23,7 @@
  * Main project file.
  */
 
-#include "Puding.h"
+#include "SimplePuding.h"
 
 #include <Wire.h>
 
@@ -40,11 +40,6 @@ Mpr121 mpr121;
 /** @}
  */
 
-/** @brief Arduino MIDI library.
- * 
- */
-MIDI midi;
-
 /** @brief Chanter base tone.
  * 
  */
@@ -55,10 +50,22 @@ byte baseTone = DEF_TONE;
  */
 unsigned int chanterOffset = DEF_OFFSET;
 
-/** @brief Chanter actual note.
+/** @brief Chanter current note.
  * 
  */
 byte chanterNote = baseTone;
+byte newChanterNote = chanterNote - 1;
+
+/** @addtogroup DroneNotes
+ * 
+ * Drone current notes.
+ * @{
+ */
+byte bassDroneNote = chanterNote;
+byte tenorDroneNote = chanterNote;
+byte highDroneNote = chanterNote;
+/** @}
+ */
 
 /** @brief MIDI note velocity.
  * 
@@ -119,91 +126,91 @@ boolean fingeringTypes[DEF_FT];
  * 
  * Matrix containing the correspondent offset for all the possible "aberto" inputs.
  */
-const unsigned int aberto[][2] = {(B1111111110000000, -1),
-                                  (B1111111100000000, 0),
-                                  (B1111011110000000, 1),
-                                  (B1111111000000000, 2),
-                                  (B1111110100000000, 3),
-                                  (B1111110000000000, 4),
-                                  (B1111100000000000, 5),
-                                  (B1111100010000000, 5),
-                                  (B1111100100000000, 5),
-                                  (B1111100110000000, 5),
-                                  (B1110110000000000, 6),
-                                  (B1110100010000000, 6),
-                                  (B1110100100000000, 6),
-                                  (B1110110110000000, 6),
-                                  (B1110111000000000, 6),
-                                  (B1110111010000000, 6),
-                                  (B1110100000000000, 7),
-                                  (B1110100010000000, 7),
-                                  (B1110100100000000, 7),
-                                  (B1110100110000000, 7),
-                                  (B1101100000000000, 8),
-                                  (B1101100010000000, 8),
-                                  (B1101100100000000, 8),
-                                  (B1101100110000000, 8),
-                                  (B0110100000000000, 8),
-                                  (B0110100010000000, 8),
-                                  (B0110100100000000, 8),
-                                  (B0110100110000000, 8),
-                                  (B1100100000000000, 9),
-                                  (B1100100010000000, 9),
-                                  (B1100100100000000, 9),
-                                  (B1100100110000000, 9),
-                                  (B1010100000000000, 10),
-                                  (B1010100010000000, 10),
-                                  (B1010100100000000, 10),
-                                  (B1010100110000000, 10),
-                                  (B0100100000000000, 10),
-                                  (B0100100010000000, 10),
-                                  (B0100100100000000, 10),
-                                  (B0100100110000000, 10),
-                                  (B1000100000000000, 11),
-                                  (B1000100010000000, 11),
-                                  (B1000100100000000, 11),
-                                  (B1000100110000000, 11),
-                                  (B0111111110000000, 11),
-                                  (B0000000000000000, 12),
-                                  (B0000000010000000, 12),
-                                  (B0000000100000000, 12),
-                                  (B0000000110000000, 12),
-                                  (B1011111100000000, 12),
-                                  (B0111111100000000, 12),
-                                  (B0111011100000000, 13),
-                                  (B0111111000000000, 14),
-                                  (B0111110100000000, 15),
-                                  (B0111110000000000, 16),
-                                  (B0111100000000000, 17)};
+const unsigned int aberto[][2] = {((B11111111 * 256) + B10000000, -1),
+                                  ((B11111111 * 256) + B00000000, 0),
+                                  ((B11110111 * 256) + B10000000, 1),
+                                  ((B11111110 * 256) + B00000000, 2),
+                                  ((B11111101 * 256) + B00000000, 3),
+                                  ((B11111100 * 256) + B00000000, 4),
+                                  ((B11111000 * 256) + B00000000, 5),
+                                  ((B11111000 * 256) + B10000000, 5),
+                                  ((B11111001 * 256) + B00000000, 5),
+                                  ((B11111001 * 256) + B10000000, 5),
+                                  ((B11101100 * 256) + B00000000, 6),
+                                  ((B11101000 * 256) + B10000000, 6),
+                                  ((B11101001 * 256) + B00000000, 6),
+                                  ((B11101101 * 256) + B10000000, 6),
+                                  ((B11101110 * 256) + B00000000, 6),
+                                  ((B11101110 * 256) + B10000000, 6),
+                                  ((B11101000 * 256) + B00000000, 7),
+                                  ((B11101000 * 256) + B10000000, 7),
+                                  ((B11101001 * 256) + B00000000, 7),
+                                  ((B11101001 * 256) + B10000000, 7),
+                                  ((B11011000 * 256) + B00000000, 8),
+                                  ((B11011000 * 256) + B10000000, 8),
+                                  ((B11011001 * 256) + B00000000, 8),
+                                  ((B11011001 * 256) + B10000000, 8),
+                                  ((B01101000 * 256) + B00000000, 8),
+                                  ((B01101000 * 256) + B10000000, 8),
+                                  ((B01101001 * 256) + B00000000, 8),
+                                  ((B01101001 * 256) + B10000000, 8),
+                                  ((B11001000 * 256) + B00000000, 9),
+                                  ((B11001000 * 256) + B10000000, 9),
+                                  ((B11001001 * 256) + B00000000, 9),
+                                  ((B11001001 * 256) + B10000000, 9),
+                                  ((B10101000 * 256) + B00000000, 10),
+                                  ((B10101000 * 256) + B10000000, 10),
+                                  ((B10101001 * 256) + B00000000, 10),
+                                  ((B10101001 * 256) + B10000000, 10),
+                                  ((B01001000 * 256) + B00000000, 10),
+                                  ((B01001000 * 256) + B10000000, 10),
+                                  ((B01001001 * 256) + B00000000, 10),
+                                  ((B01001001 * 256) + B10000000, 10),
+                                  ((B10001000 * 256) + B00000000, 11),
+                                  ((B10001000 * 256) + B10000000, 11),
+                                  ((B10001001 * 256) + B00000000, 11),
+                                  ((B10001001 * 256) + B10000000, 11),
+                                  ((B01111111 * 256) + B10000000, 11),
+                                  ((B00000000 * 256) + B00000000, 12),
+                                  ((B00000000 * 256) + B10000000, 12),
+                                  ((B00000001 * 256) + B00000000, 12),
+                                  ((B00000001 * 256) + B10000000, 12),
+                                  ((B10111111 * 256) + B00000000, 12),
+                                  ((B01111111 * 256) + B00000000, 12),
+                                  ((B01110111 * 256) + B00000000, 13),
+                                  ((B01111110 * 256) + B00000000, 14),
+                                  ((B01111101 * 256) + B00000000, 15),
+                                  ((B01111100 * 256) + B00000000, 16),
+                                  ((B01111000 * 256) + B00000000, 17)};
 
 /** @brief Matrix containing all the "pechado" offsets.
  * 
  * Matrix containing the correspondent offset for all the possible "pechado" inputs.
  */
-const unsigned int pechado[][2] = {(B1111111110000000, -1),
-                                   (B1111111100000000, 0),
-                                   (B1111011100000000, 1),
-                                   (B1111111000000000, 2),
-                                   (B1111110100000000, 3),
-                                   (B1111110110000000, 4),
-                                   (B1111101100000000, 5),
-                                   (B1110110100000000, 6),
-                                   (B1110111100000000, 7),
-                                   (B1101101100000000, 8),
-                                   (B0110111100000000, 8),
-                                   (B1100111100000000, 9),
-                                   (B1010111100000000, 10),
-                                   (B0100111100000000, 10),
-                                   (B1000111100000000, 11),
-                                   (B0111111110000000, 11),
-                                   (B1011111100000000, 12),
-                                   (B0111111100000000, 12),
-                                   (B1011011100000000, 13),
-                                   (B0111011100000000, 13),
-                                   (B0111111000000000, 14),
-                                   (B0111110100000000, 15),
-                                   (B0111110000000000, 16),
-                                   (B0111100000000000, 17)};
+const unsigned int pechado[][2] = {((B11111111 * 256) + B10000000, -1),
+                                   ((B11111111 * 256) + B00000000, 0),
+                                   ((B11110111 * 256) + B00000000, 1),
+                                   ((B11111110 * 256) + B00000000, 2),
+                                   ((B11111101 * 256) + B00000000, 3),
+                                   ((B11111101 * 256) + B10000000, 4),
+                                   ((B11111011 * 256) + B00000000, 5),
+                                   ((B11101101 * 256) + B00000000, 6),
+                                   ((B11101111 * 256) + B00000000, 7),
+                                   ((B11011011 * 256) + B00000000, 8),
+                                   ((B01101111 * 256) + B00000000, 8),
+                                   ((B11001111 * 256) + B00000000, 9),
+                                   ((B10101111 * 256) + B00000000, 10),
+                                   ((B01001111 * 256) + B00000000, 10),
+                                   ((B10001111 * 256) + B00000000, 11),
+                                   ((B01111111 * 256) + B10000000, 11),
+                                   ((B10111111 * 256) + B00000000, 12),
+                                   ((B01111111 * 256) + B00000000, 12),
+                                   ((B10110111 * 256) + B00000000, 13),
+                                   ((B01110111 * 256) + B00000000, 13),
+                                   ((B01111110 * 256) + B00000000, 14),
+                                   ((B01111101 * 256) + B00000000, 15),
+                                   ((B01111100 * 256) + B00000000, 16),
+                                   ((B01111000 * 256) + B00000000, 17)};
 
 /** @brief Arduino setup function.
  * 
@@ -243,6 +250,34 @@ unsigned int getChanterOffset() {
     }
   }
   return DEF_OFFSET;
+}
+
+/** @brief Get chanter note.
+ * 
+ */
+byte getChanterNote() {
+  return baseTone + chanterOffset;
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getBassDroneNote() {
+  return baseTone - 24; // Two octaves below.
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getTenorDroneNote() {
+  return baseTone - 12; // One octave below.
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getHighDroneNote() {
+   return baseTone + 7; // Same octave dominant.
 }
 
 /** @brief Initialize the offsets.
@@ -301,44 +336,66 @@ boolean isVibratoEnabled() {
  * sensors and makes the bagpipe sound in accordance.
  */
 void play() {
-  if (isBagEnabled && !isBagPressureEnough()) { // Stop.
-    midi.sendNoteOff(chanterNote, velocity, chanterChannel);
+  playChanter();  
+  playDrones();
+}
+
+/** @brief Make the chanter sound.
+ * 
+ */
+void playChanter() {
+  
+  chanterOffset = getChanterOffset();
+  newChanterNote = getChanterNote();
+  
+  // Stop if the note changes or the new fingering is not recognized.
+  if (chanterOffset == DEF_OFFSET || newChanterNote != chanterNote) {
+    MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
     if (isVibratoEnabled()) {
-      midi.sendPitchBend(0, chanterChannel);
-    }
-    if (isBassDroneEnabled) {
-      midi.sedNoteOff(bassDroneNote, velocity, dronesChannel);
-    }
-    if (isTenorDroneEnabled) {
-      midi.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
-    }
-    if (isHighDroneEnabled) {
-      midi.sendNoteOff(highDroneNote, velocity, dronesChannel);
+      MIDI.sendPitchBend(0, chanterChannel);
     }
   }
-  else { // Play.
-    chanterOffset = getChanterOffset();
-    if (chanterOffset != DEF_OFFSET) {
-      chanterNote = baseTone + chanterOffset;
-      midi.sendNoteOn(chanterNote, velocity, chanterChannel);
-      if (isVibratoEnabled()) {
-        midi.sendPitchBend(DEF_PB, chanterChannel);
-      }
-    } else { // Stop if the new fingering is not recognized.
-      midi.sendNoteOff(chanterNote, velocity, chanterChannel);
-      if (isVibratoEnabled()) {
-        midi.sendPitchBend(0, chanterChannel);
-      }
+  
+  // Play if the note changes and the new fingering is recognized.
+  if (chanterOffset != DEF_OFFSET && newChanterNote != chanterNote) {
+    chanterNote = newChanterNote;
+    MIDI.sendNoteOn(chanterNote, velocity, chanterChannel);
+    if (isVibratoEnabled()) {
+      MIDI.sendPitchBend(DEF_PB, chanterChannel);
     }
-    if (isBassDroneEnabled) {
-      midi.sedNoteOn(bassDroneNote, velocity, dronesChannel);
+  }
+}
+
+/** @brief Make the drones sound.
+ * 
+ */
+void playDrones() {
+  if (isBassDroneEnabled) {
+    if (bassDroneNote != getBassDroneNote()) {
+      MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
+      bassDroneNote = getBassDroneNote();
+      MIDI.sendNoteOn(bassDroneNote, velocity, dronesChannel);
     }
-    if (isTenorDroneEnabled) {
-      midi.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
+  }
+  if (isTenorDroneEnabled) {
+    if (tenorDroneNote != getTenorDroneNote()) {
+      MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
     }
-    if (isHighDroneEnabled) {
-      midi.sendNoteOn(highDroneNote, velocity, dronesChannel);
+    tenorDroneNote = getTenorDroneNote();
+    MIDI.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
+  }
+  if (isHighDroneEnabled) {
+    if (highDroneNote != getHighDroneNote()) {
+      MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
     }
+    highDroneNote = getHighDroneNote();
+    MIDI.sendNoteOn(highDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
   }
 }
 
@@ -351,7 +408,7 @@ void setDevice() {
   delay(STARTUP_DELAY);
   mpr121.setDevice();
   delay(STARTUP_DELAY);
-  midi.begin();
+  MIDI.begin();
 }
 
 /** @brief Configure the bagpipe allowed fingerings.

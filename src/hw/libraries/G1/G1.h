@@ -46,6 +46,11 @@
 #ifndef G1_h
 #define G1_h
 
+/** @brief Serial port connection velocity.
+ * 
+ */
+#define SERIAL_VEL 9600
+
 /** @addtogroup CommonCommandDefinitions
  * 
  * Common command definitions.

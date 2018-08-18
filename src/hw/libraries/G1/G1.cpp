@@ -164,7 +164,7 @@ String G1::readFile(char *name) {
   acknowledge = Serial.read();
   
   if (acknowledge == CC_NAK) {
-    data = NULL;
+    data = "";
   }
   
   return data;

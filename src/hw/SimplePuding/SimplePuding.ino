@@ -379,6 +379,7 @@ void playDrones() {
   } else {
     MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
   }
+  
   if (isTenorDroneEnabled) {
     if (tenorDroneNote != getTenorDroneNote()) {
       MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
@@ -388,6 +389,7 @@ void playDrones() {
   } else {
     MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
   }
+  
   if (isHighDroneEnabled) {
     if (highDroneNote != getHighDroneNote()) {
       MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);

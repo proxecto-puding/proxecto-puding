@@ -61,10 +61,22 @@ byte baseTone = DEF_TONE;
  */
 unsigned int chanterOffset = DEF_OFFSET;
 
-/** @brief Chanter actual note.
+/** @brief Chanter current note.
  * 
  */
 byte chanterNote = baseTone;
+byte newChanterNote = chanterNote - 1;
+
+/** @addtogroup DroneNotes
+ * 
+ * Drone current notes.
+ * @{
+ */
+byte bassDroneNote = chanterNote;
+byte tenorDroneNote = chanterNote;
+byte highDroneNote = chanterNote;
+/** @}
+ */
 
 /** @brief MIDI note velocity.
  * 
@@ -320,6 +332,34 @@ unsigned int getChanterOffset() {
   return DEF_OFFSET;
 }
 
+/** @brief Get chanter note.
+ * 
+ */
+byte getChanterNote() {
+  return baseTone + chanterOffset;
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getBassDroneNote() {
+  return baseTone - 24; // Two octaves below.
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getTenorDroneNote() {
+  return baseTone - 12; // One octave below.
+}
+
+/** @brief Get bass drone note.
+ * 
+ */
+byte getHighDroneNote() {
+   return baseTone + 7; // Same octave dominant.
+}
+
 /** @brief Get the configuration specified by the type.
  * 
  * @param type A configuration type.
@@ -327,7 +367,7 @@ unsigned int getChanterOffset() {
  */
 String getConfiguration(String type) {
   String data;
-  type += CONF_FILE_EXT;
+  String configFile = type + CONF_FILE_EXT;
   unsigned int length = type.length();
   char name [length + 1];
   configFile.toCharArray(name, length + 1);
@@ -407,7 +447,7 @@ void initializeOffsets() {
  * @return A boolean indicating if the pressure is enough.
  */
 boolean isBagPressureEnough() {
-  return (bmp085.calPressure() >= minBagPressure);
+  return !isBagEnabled || (bmp085.calPressure() >= minBagPressure);
 }
 
 /** @brief Check if it is asking for the expected configuration.
@@ -458,7 +498,10 @@ boolean isVibratoEnabled() {
  * sensors and makes the bagpipe sound in accordance.
  */
 void play() {
-  if (isBagEnabled && !isBagPressureEnough()) { // Stop.
+  playChanter();  
+  playDrones();
+  
+  if (!isBagPressureEnough()) { // Stop.
     MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
     if (isVibratoEnabled()) {
       MIDI.sendPitchBend(0, chanterChannel);
@@ -473,29 +516,66 @@ void play() {
       MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
     }
   }
-  else { // Play.
-    chanterOffset = getChanterOffset();
-    if (chanterOffset != DEF_OFFSET) {
-      chanterNote = baseTone + chanterOffset;
-      MIDI.sendNoteOn(chanterNote, velocity, chanterChannel);
-      if (isVibratoEnabled()) {
-        MIDI.sendPitchBend(DEF_PB, chanterChannel);
-      }
-    } else { // Stop if the new fingering is not recognized.
-      MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
-      if (isVibratoEnabled()) {
-        MIDI.sendPitchBend(0, chanterChannel);
-      }
+}
+
+/** @brief Make the chanter sound.
+ * 
+ */
+void playChanter() {
+  
+  chanterOffset = getChanterOffset();
+  newChanterNote = getChanterNote();
+  
+  // Stop if there is not enough bag pressure, or the note changes or the new fingering is not recognized.
+  if (!isBagPressureEnough() || chanterOffset == DEF_OFFSET || newChanterNote != chanterNote) {
+    MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
+    if (isVibratoEnabled()) {
+      MIDI.sendPitchBend(0, chanterChannel);
     }
-    if (isBassDroneEnabled) {
+  }
+  
+  // Play if there is enough bag pressure, the note changes and the new fingering is recognized.
+  if (isBagPressureEnough() && chanterOffset != DEF_OFFSET && newChanterNote != chanterNote) {
+    chanterNote = newChanterNote;
+    MIDI.sendNoteOn(chanterNote, velocity, chanterChannel);
+    if (isVibratoEnabled()) {
+      MIDI.sendPitchBend(DEF_PB, chanterChannel);
+    }
+  }
+}
+
+/** @brief Make the drones sound.
+ * 
+ */
+void playDrones() {
+  if (isBagPressureEnough() && isBassDroneEnabled) {
+    if (bassDroneNote != getBassDroneNote()) {
+      MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
+      bassDroneNote = getBassDroneNote();
       MIDI.sendNoteOn(bassDroneNote, velocity, dronesChannel);
     }
-    if (isTenorDroneEnabled) {
-      MIDI.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(bassDroneNote, velocity, dronesChannel);
+  }
+  
+  if (isBagPressureEnough() && isTenorDroneEnabled) {
+    if (tenorDroneNote != getTenorDroneNote()) {
+      MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
     }
-    if (isHighDroneEnabled) {
-      MIDI.sendNoteOn(highDroneNote, velocity, dronesChannel);
+    tenorDroneNote = getTenorDroneNote();
+    MIDI.sendNoteOn(tenorDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(tenorDroneNote, velocity, dronesChannel);
+  }
+  
+  if (isBagPressureEnough() && isHighDroneEnabled) {
+    if (highDroneNote != getHighDroneNote()) {
+      MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
     }
+    highDroneNote = getHighDroneNote();
+    MIDI.sendNoteOn(highDroneNote, velocity, dronesChannel);
+  } else {
+    MIDI.sendNoteOff(highDroneNote, velocity, dronesChannel);
   }
 }
 
@@ -569,7 +649,7 @@ void sendConfiguration(aJsonObject* root) {
   String type = String(aJsonType->valuestring);
   aJson.deleteItem(aJsonType);
   String configuration = getConfiguration(type);
-  Serial.write(configuration);
+  Serial.print(configuration);
 }
 
 /** @brief Send the device serial number to the configuration application.

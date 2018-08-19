@@ -237,11 +237,7 @@ void loop() {
  */
 short getChanterOffset() {
   inputs = mpr121.getTouchAndProximityInputs();
-  Serial.print("inputs: ");
-  Serial.println(inputs, BIN);
   unsigned short touchInputs = inputs | TI_MASK;
-  Serial.print("touchInputs: ");
-  Serial.println(touchInputs, BIN);
   int i;
   for (i = 0; i < MAX_FING; i++) {
     // When a default offset value is reached there are not more valid
@@ -250,8 +246,6 @@ short getChanterOffset() {
       return offsets[i][0];
     }
     if (offsets[i][0] == touchInputs) {
-      Serial.print("offset: ");
-      Serial.println(offsets[i][1]);
       return offsets[i][1];
     }
   }
@@ -352,10 +346,24 @@ void play() {
 void playChanter() {
   
   chanterOffset = getChanterOffset();
-  delay(1000);
   newChanterNote = getChanterNote();
   
+  // Stop if the note changes or the new fingering is not recognized.
+  if (chanterOffset == DEF_OFFSET || newChanterNote != chanterNote) {
+    MIDI.sendNoteOff(chanterNote, velocity, chanterChannel);
+    if (isVibratoEnabled()) {
+      MIDI.sendPitchBend(0, chanterChannel);
+    }
+  }
   
+  // Play if the note changes and the new fingering is recognized.
+  if (chanterOffset != DEF_OFFSET && newChanterNote != chanterNote) {
+    chanterNote = newChanterNote;
+    MIDI.sendNoteOn(chanterNote, velocity, chanterChannel);
+    if (isVibratoEnabled()) {
+      MIDI.sendPitchBend(DEF_PB, chanterChannel);
+    }
+  }
 }
 
 /** @brief Make the drones sound.

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['max_5ffing',['MAX_FING',['../Puding_8h.html#ae07436514fc42fb3a5c52ddf9eb268e6',1,'Puding.h']]],
-  ['midi',['midi',['../Puding_8ino.html#a7f16f841a14dbe5e8216faabe56a2bc8',1,'Puding.ino']]],
   ['minbagpressure',['minBagPressure',['../Puding_8ino.html#a11a892f4d65f4563df6195133cb3d782',1,'Puding.ino']]],
   ['movefile',['moveFile',['../classG1.html#a3320ef29f5aea6eb8aed873c6b298c4e',1,'G1']]],
   ['mpr121',['Mpr121',['../classMpr121.html',1,'Mpr121'],['../classMpr121.html#aeecfe8ecb907006403725a2af1761b8d',1,'Mpr121::Mpr121()']]],

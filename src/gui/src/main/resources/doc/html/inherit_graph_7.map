@@ -1,8 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1Note.html" title="org.proxectopuding.gui.model.entities.Note" alt="" coords="6,77,277,104"/>
-<area shape="rect" id="node2" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1FingeringNote.html" title="org.proxectopuding.gui.model.entities.\lFingeringNote" alt="" coords="340,5,583,46"/>
-<area shape="rect" id="node3" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1PreciseTuningNote.html" title="org.proxectopuding.gui.model.entities.\lPreciseTuningNote" alt="" coords="340,70,583,111"/>
-<area shape="rect" id="node4" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1Tone.html" title="org.proxectopuding.gui.model.entities.Tone" alt="" coords="326,136,597,163"/>
-<area shape="rect" id="node5" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1ReadingTone.html" title="org.proxectopuding.gui.model.entities.\lReadingTone" alt="" coords="645,95,888,137"/>
-<area shape="rect" id="node6" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1TuningTone.html" title="org.proxectopuding.gui.model.entities.\lTuningTone" alt="" coords="645,161,888,202"/>
+<area shape="rect" id="node1" href="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1entities_1_1midiServer_1_1MidiServerConfiguration.html" title="org.proxectopuding.gui.model.entities.midi\lServer.MidiServerConfiguration" alt="" coords="5,5,272,46"/>
 </map>

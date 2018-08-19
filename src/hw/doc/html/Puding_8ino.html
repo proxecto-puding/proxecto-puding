@@ -100,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;<a class="el" href="Bmp085_8h_source.html">Bmp085.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="G1_8h_source.html">G1.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="Mpr121_8h_source.html">Mpr121.h</a>&gt;</code><br/>
-<code>#include &lt;aJson.h&gt;</code><br/>
+<code>#include &lt;aJSON.h&gt;</code><br/>
 <code>#include &lt;MIDI.h&gt;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Puding.ino:</div>
@@ -124,78 +124,105 @@ Functions</h2></td></tr>
 <tr class="memitem:ae369b3765489ee8bd0ea791c1843630f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ae369b3765489ee8bd0ea791c1843630f">configure</a> ()</td></tr>
 <tr class="memdesc:ae369b3765489ee8bd0ea791c1843630f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the chanter.  <a href="#ae369b3765489ee8bd0ea791c1843630f">More...</a><br/></td></tr>
 <tr class="separator:ae369b3765489ee8bd0ea791c1843630f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4feeea43558a7116e64b9aa769603cd"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#af4feeea43558a7116e64b9aa769603cd">findDiscoveryBeacon</a> ()</td></tr>
+<tr class="memdesc:af4feeea43558a7116e64b9aa769603cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look for the discovery beacon sent by the configuration application.  <a href="#af4feeea43558a7116e64b9aa769603cd">More...</a><br/></td></tr>
+<tr class="separator:af4feeea43558a7116e64b9aa769603cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f17f45768522b46698de6685ccc38"><td class="memItemLeft" align="right" valign="top">aJsonObject *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ae66f17f45768522b46698de6685ccc38">getAJsonObject</a> ()</td></tr>
 <tr class="memdesc:ae66f17f45768522b46698de6685ccc38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get serial data in JSON format.  <a href="#ae66f17f45768522b46698de6685ccc38">More...</a><br/></td></tr>
 <tr class="separator:ae66f17f45768522b46698de6685ccc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca3f07ef0aed37c5aca9ba01d9799b97"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aca3f07ef0aed37c5aca9ba01d9799b97">getChanterOffset</a> ()</td></tr>
-<tr class="memdesc:aca3f07ef0aed37c5aca9ba01d9799b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the offset to apply to the base tone.  <a href="#aca3f07ef0aed37c5aca9ba01d9799b97">More...</a><br/></td></tr>
-<tr class="separator:aca3f07ef0aed37c5aca9ba01d9799b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a805699c33c293cd5ba90a03a4c0000ca"><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a805699c33c293cd5ba90a03a4c0000ca">getChanterOffset</a> ()</td></tr>
+<tr class="memdesc:a805699c33c293cd5ba90a03a4c0000ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the offset to apply to the base tone.  <a href="#a805699c33c293cd5ba90a03a4c0000ca">More...</a><br/></td></tr>
+<tr class="separator:a805699c33c293cd5ba90a03a4c0000ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbcaef57ae0d91d4d68c105c3a9b1c64"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#adbcaef57ae0d91d4d68c105c3a9b1c64">getChanterNote</a> ()</td></tr>
+<tr class="memdesc:adbcaef57ae0d91d4d68c105c3a9b1c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get chanter note.  <a href="#adbcaef57ae0d91d4d68c105c3a9b1c64">More...</a><br/></td></tr>
+<tr class="separator:adbcaef57ae0d91d4d68c105c3a9b1c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f6f3498699437b8742c20359cbf26e"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ae8f6f3498699437b8742c20359cbf26e">getBassDroneNote</a> ()</td></tr>
+<tr class="memdesc:ae8f6f3498699437b8742c20359cbf26e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bass drone note.  <a href="#ae8f6f3498699437b8742c20359cbf26e">More...</a><br/></td></tr>
+<tr class="separator:ae8f6f3498699437b8742c20359cbf26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f7f6e54e6dfc9eb7d2433cd3b28d935"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a5f7f6e54e6dfc9eb7d2433cd3b28d935">getTenorDroneNote</a> ()</td></tr>
+<tr class="memdesc:a5f7f6e54e6dfc9eb7d2433cd3b28d935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bass drone note.  <a href="#a5f7f6e54e6dfc9eb7d2433cd3b28d935">More...</a><br/></td></tr>
+<tr class="separator:a5f7f6e54e6dfc9eb7d2433cd3b28d935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38aafaac14930b6203ac83f83486055c"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a38aafaac14930b6203ac83f83486055c">getHighDroneNote</a> ()</td></tr>
+<tr class="memdesc:a38aafaac14930b6203ac83f83486055c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bass drone note.  <a href="#a38aafaac14930b6203ac83f83486055c">More...</a><br/></td></tr>
+<tr class="separator:a38aafaac14930b6203ac83f83486055c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5560d9049a92cdf2f83344ebd6f2565e"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a5560d9049a92cdf2f83344ebd6f2565e">getConfiguration</a> (String type)</td></tr>
 <tr class="memdesc:a5560d9049a92cdf2f83344ebd6f2565e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration specified by the type.  <a href="#a5560d9049a92cdf2f83344ebd6f2565e">More...</a><br/></td></tr>
 <tr class="separator:a5560d9049a92cdf2f83344ebd6f2565e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac11c4a637617a24e206f8a6dca64db96"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ac11c4a637617a24e206f8a6dca64db96">getSerialData</a> ()</td></tr>
 <tr class="memdesc:ac11c4a637617a24e206f8a6dca64db96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the serial port.  <a href="#ac11c4a637617a24e206f8a6dca64db96">More...</a><br/></td></tr>
 <tr class="separator:ac11c4a637617a24e206f8a6dca64db96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ff4ed105f66efc2ae6206d3f24924a"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aa1ff4ed105f66efc2ae6206d3f24924a">identifyChanter</a> ()</td></tr>
+<tr class="memdesc:aa1ff4ed105f66efc2ae6206d3f24924a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identify the chanter to the configuration application when required.  <a href="#aa1ff4ed105f66efc2ae6206d3f24924a">More...</a><br/></td></tr>
+<tr class="separator:aa1ff4ed105f66efc2ae6206d3f24924a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c8b20713434feaa5802739e1ef0520a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a5c8b20713434feaa5802739e1ef0520a">initializeOffsets</a> ()</td></tr>
 <tr class="memdesc:a5c8b20713434feaa5802739e1ef0520a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the offsets.  <a href="#a5c8b20713434feaa5802739e1ef0520a">More...</a><br/></td></tr>
 <tr class="separator:a5c8b20713434feaa5802739e1ef0520a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e55b747b91a7c92ce43c544107bfaa7"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a2e55b747b91a7c92ce43c544107bfaa7">isBagPressureEnough</a> ()</td></tr>
 <tr class="memdesc:a2e55b747b91a7c92ce43c544107bfaa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the pressure is enough to make the chanter sound.  <a href="#a2e55b747b91a7c92ce43c544107bfaa7">More...</a><br/></td></tr>
 <tr class="separator:a2e55b747b91a7c92ce43c544107bfaa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43dc81d0510e885de520428a87f16255"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a43dc81d0510e885de520428a87f16255">isMeTheTarget</a> (aJsonObject aJsonObject)</td></tr>
-<tr class="memdesc:a43dc81d0510e885de520428a87f16255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the destination of the configuration data is this bagpipe.  <a href="#a43dc81d0510e885de520428a87f16255">More...</a><br/></td></tr>
-<tr class="separator:a43dc81d0510e885de520428a87f16255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa738d44741fe5c2596a14343f90b1809"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aa738d44741fe5c2596a14343f90b1809">isConfiguration</a> (aJsonObject *root, String expectedAction)</td></tr>
+<tr class="memdesc:aa738d44741fe5c2596a14343f90b1809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if it is asking for the expected configuration.  <a href="#aa738d44741fe5c2596a14343f90b1809">More...</a><br/></td></tr>
+<tr class="separator:aa738d44741fe5c2596a14343f90b1809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac722a96429b9c68a86c8ec52635e9b47"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ac722a96429b9c68a86c8ec52635e9b47">isMeTheTarget</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:ac722a96429b9c68a86c8ec52635e9b47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the destination of the configuration data is this bagpipe.  <a href="#ac722a96429b9c68a86c8ec52635e9b47">More...</a><br/></td></tr>
+<tr class="separator:ac722a96429b9c68a86c8ec52635e9b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6abdff546378cefcf44b990a8f1bc321"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a6abdff546378cefcf44b990a8f1bc321">isVibratoEnabled</a> ()</td></tr>
 <tr class="memdesc:a6abdff546378cefcf44b990a8f1bc321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the vibrato is enabled.  <a href="#a6abdff546378cefcf44b990a8f1bc321">More...</a><br/></td></tr>
 <tr class="separator:a6abdff546378cefcf44b990a8f1bc321"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d58098c6cf63c241ed03bc797256bb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a6d58098c6cf63c241ed03bc797256bb1">play</a> ()</td></tr>
 <tr class="memdesc:a6d58098c6cf63c241ed03bc797256bb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the bagpipe sound.  <a href="#a6d58098c6cf63c241ed03bc797256bb1">More...</a><br/></td></tr>
 <tr class="separator:a6d58098c6cf63c241ed03bc797256bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d7ac81a8c2c2ced80b8f022c057c780"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a7d7ac81a8c2c2ced80b8f022c057c780">playChanter</a> ()</td></tr>
+<tr class="memdesc:a7d7ac81a8c2c2ced80b8f022c057c780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the chanter sound.  <a href="#a7d7ac81a8c2c2ced80b8f022c057c780">More...</a><br/></td></tr>
+<tr class="separator:a7d7ac81a8c2c2ced80b8f022c057c780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d8195f2cfb1f3abe3b7facd23ce9d70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a1d8195f2cfb1f3abe3b7facd23ce9d70">playDrones</a> ()</td></tr>
+<tr class="memdesc:a1d8195f2cfb1f3abe3b7facd23ce9d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the drones sound.  <a href="#a1d8195f2cfb1f3abe3b7facd23ce9d70">More...</a><br/></td></tr>
+<tr class="separator:a1d8195f2cfb1f3abe3b7facd23ce9d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac49ad86443156c781877a39166279969"><td class="memItemLeft" align="right" valign="top">aJsonObject *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ac49ad86443156c781877a39166279969">readFile</a> (String type)</td></tr>
 <tr class="memdesc:ac49ad86443156c781877a39166279969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the bagpipe configuration from file.  <a href="#ac49ad86443156c781877a39166279969">More...</a><br/></td></tr>
 <tr class="separator:ac49ad86443156c781877a39166279969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2433f6071c68c267a1de5e33fefd3667"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a2433f6071c68c267a1de5e33fefd3667">restoreFile</a> (String action, String type)</td></tr>
 <tr class="memdesc:a2433f6071c68c267a1de5e33fefd3667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the configuration file related with the provided type.  <a href="#a2433f6071c68c267a1de5e33fefd3667">More...</a><br/></td></tr>
 <tr class="separator:a2433f6071c68c267a1de5e33fefd3667"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc3c6e9dea4bccb4e351ca500e515858"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#afc3c6e9dea4bccb4e351ca500e515858">saveFile</a> (String type, aJsonObject *data)</td></tr>
-<tr class="memdesc:afc3c6e9dea4bccb4e351ca500e515858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the configuration file related with the provided type.  <a href="#afc3c6e9dea4bccb4e351ca500e515858">More...</a><br/></td></tr>
-<tr class="separator:afc3c6e9dea4bccb4e351ca500e515858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f048546335bd6c2829011071b4cf181"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a4f048546335bd6c2829011071b4cf181">saveFile</a> (String type, aJsonObject *root)</td></tr>
+<tr class="memdesc:a4f048546335bd6c2829011071b4cf181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the configuration file related with the provided type.  <a href="#a4f048546335bd6c2829011071b4cf181">More...</a><br/></td></tr>
+<tr class="separator:a4f048546335bd6c2829011071b4cf181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2187e05f00422eeb7d3463799c6fcd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ab2187e05f00422eeb7d3463799c6fcd6">sendConfiguration</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:ab2187e05f00422eeb7d3463799c6fcd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the current configuration to the configuration application.  <a href="#ab2187e05f00422eeb7d3463799c6fcd6">More...</a><br/></td></tr>
+<tr class="separator:ab2187e05f00422eeb7d3463799c6fcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42ae005e7b79943e31f1a57630bc73b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a42ae005e7b79943e31f1a57630bc73b1">sendDeviceSerialNumber</a> ()</td></tr>
 <tr class="memdesc:a42ae005e7b79943e31f1a57630bc73b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the device serial number to the configuration application.  <a href="#a42ae005e7b79943e31f1a57630bc73b1">More...</a><br/></td></tr>
 <tr class="separator:a42ae005e7b79943e31f1a57630bc73b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bc0ad2bab930cadb7e17f1f481a0148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a8bc0ad2bab930cadb7e17f1f481a0148">sendInitialConfiguration</a> ()</td></tr>
-<tr class="memdesc:a8bc0ad2bab930cadb7e17f1f481a0148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the initial configuration to the configuration application.  <a href="#a8bc0ad2bab930cadb7e17f1f481a0148">More...</a><br/></td></tr>
-<tr class="separator:a8bc0ad2bab930cadb7e17f1f481a0148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba2c1bc728796c929abaa9f7622bd40c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aba2c1bc728796c929abaa9f7622bd40c">setMinBagPressure</a> (byte bagPressure)</td></tr>
 <tr class="memdesc:aba2c1bc728796c929abaa9f7622bd40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the minimum bag pressure.  <a href="#aba2c1bc728796c929abaa9f7622bd40c">More...</a><br/></td></tr>
 <tr class="separator:aba2c1bc728796c929abaa9f7622bd40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaa1323a757f650073c6ac85feab365a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aaaa1323a757f650073c6ac85feab365a">setConfiguration</a> (aJsonObject *aJsonObject)</td></tr>
-<tr class="memdesc:aaaa1323a757f650073c6ac85feab365a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#aaaa1323a757f650073c6ac85feab365a">More...</a><br/></td></tr>
-<tr class="separator:aaaa1323a757f650073c6ac85feab365a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7966e7ce14f525b82c94278c8d7382dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a7966e7ce14f525b82c94278c8d7382dd">setConfiguration</a> (String action, String type, aJsonObject *data)</td></tr>
-<tr class="memdesc:a7966e7ce14f525b82c94278c8d7382dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#a7966e7ce14f525b82c94278c8d7382dd">More...</a><br/></td></tr>
-<tr class="separator:a7966e7ce14f525b82c94278c8d7382dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac35f501e28d36402d6440595282b8be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ac35f501e28d36402d6440595282b8be0">setConfiguration</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:ac35f501e28d36402d6440595282b8be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#ac35f501e28d36402d6440595282b8be0">More...</a><br/></td></tr>
+<tr class="separator:ac35f501e28d36402d6440595282b8be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a289ffc04259736fe9cbca3618a2775d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a289ffc04259736fe9cbca3618a2775d9">setConfiguration</a> (String action, String type, aJsonObject *root)</td></tr>
+<tr class="memdesc:a289ffc04259736fe9cbca3618a2775d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#a289ffc04259736fe9cbca3618a2775d9">More...</a><br/></td></tr>
+<tr class="separator:a289ffc04259736fe9cbca3618a2775d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26c1ee5d29efbe2c0b50bb06899b5856"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a26c1ee5d29efbe2c0b50bb06899b5856">setConfiguration</a> (String type)</td></tr>
 <tr class="memdesc:a26c1ee5d29efbe2c0b50bb06899b5856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received type.  <a href="#a26c1ee5d29efbe2c0b50bb06899b5856">More...</a><br/></td></tr>
 <tr class="separator:a26c1ee5d29efbe2c0b50bb06899b5856"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a321ce11cb135a2e06150d1b915e9f748"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a321ce11cb135a2e06150d1b915e9f748">setConfigurationData</a> (String type, aJsonObject *data)</td></tr>
-<tr class="memdesc:a321ce11cb135a2e06150d1b915e9f748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#a321ce11cb135a2e06150d1b915e9f748">More...</a><br/></td></tr>
-<tr class="separator:a321ce11cb135a2e06150d1b915e9f748"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eb5317f93e3501e9b73d479fe26a9d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a1eb5317f93e3501e9b73d479fe26a9d7">setConfigurationDataTypeFinger</a> (aJsonObject *data)</td></tr>
-<tr class="memdesc:a1eb5317f93e3501e9b73d479fe26a9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the fingerings.  <a href="#a1eb5317f93e3501e9b73d479fe26a9d7">More...</a><br/></td></tr>
-<tr class="separator:a1eb5317f93e3501e9b73d479fe26a9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e7b2b4b3af65880088afdbfd4c3eefe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a7e7b2b4b3af65880088afdbfd4c3eefe">setConfigurationDataTypeSelect</a> (aJsonObject *data)</td></tr>
-<tr class="memdesc:a7e7b2b4b3af65880088afdbfd4c3eefe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the selection screen.  <a href="#a7e7b2b4b3af65880088afdbfd4c3eefe">More...</a><br/></td></tr>
-<tr class="separator:a7e7b2b4b3af65880088afdbfd4c3eefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71bbcb01e8dad71a52b001b038afb773"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a71bbcb01e8dad71a52b001b038afb773">setConfigurationDataTypeSensit</a> (aJsonObject *data)</td></tr>
-<tr class="memdesc:a71bbcb01e8dad71a52b001b038afb773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the sensitivity screen.  <a href="#a71bbcb01e8dad71a52b001b038afb773">More...</a><br/></td></tr>
-<tr class="separator:a71bbcb01e8dad71a52b001b038afb773"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb666c6ab7c57ff8f0913bf49a603a0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#afb666c6ab7c57ff8f0913bf49a603a0d">setConfigurationDataTypeStart</a> (aJsonObject *data)</td></tr>
-<tr class="memdesc:afb666c6ab7c57ff8f0913bf49a603a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the start screen.  <a href="#afb666c6ab7c57ff8f0913bf49a603a0d">More...</a><br/></td></tr>
-<tr class="separator:afb666c6ab7c57ff8f0913bf49a603a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4f44d795e92170a076099a033ccf948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ae4f44d795e92170a076099a033ccf948">setConfigurationDataTypeTuning</a> (aJsonObject *data)</td></tr>
-<tr class="memdesc:ae4f44d795e92170a076099a033ccf948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the tuning screen.  <a href="#ae4f44d795e92170a076099a033ccf948">More...</a><br/></td></tr>
-<tr class="separator:ae4f44d795e92170a076099a033ccf948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5499ea197e5b24fab0f9da83e222130b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a5499ea197e5b24fab0f9da83e222130b">setConfigurationData</a> (String type, aJsonObject *root)</td></tr>
+<tr class="memdesc:a5499ea197e5b24fab0f9da83e222130b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all the bagpipe params based on the received JSON object.  <a href="#a5499ea197e5b24fab0f9da83e222130b">More...</a><br/></td></tr>
+<tr class="separator:a5499ea197e5b24fab0f9da83e222130b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b28d0f5a1e1db44c8e0fac6d64e755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a76b28d0f5a1e1db44c8e0fac6d64e755">setConfigurationDataTypeFinger</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:a76b28d0f5a1e1db44c8e0fac6d64e755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the fingerings.  <a href="#a76b28d0f5a1e1db44c8e0fac6d64e755">More...</a><br/></td></tr>
+<tr class="separator:a76b28d0f5a1e1db44c8e0fac6d64e755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6dc0bad7e25913b97016fc8255e13af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aa6dc0bad7e25913b97016fc8255e13af">setConfigurationDataTypeSelect</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:aa6dc0bad7e25913b97016fc8255e13af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the selection screen.  <a href="#aa6dc0bad7e25913b97016fc8255e13af">More...</a><br/></td></tr>
+<tr class="separator:aa6dc0bad7e25913b97016fc8255e13af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06f9ab4a934a9d1a66e3f4117e0c78f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a06f9ab4a934a9d1a66e3f4117e0c78f9">setConfigurationDataTypeSensit</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:a06f9ab4a934a9d1a66e3f4117e0c78f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the sensitivity screen.  <a href="#a06f9ab4a934a9d1a66e3f4117e0c78f9">More...</a><br/></td></tr>
+<tr class="separator:a06f9ab4a934a9d1a66e3f4117e0c78f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf53f669bf91c40916ed56688dec508a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aaf53f669bf91c40916ed56688dec508a">setConfigurationDataTypeStart</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:aaf53f669bf91c40916ed56688dec508a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the start screen.  <a href="#aaf53f669bf91c40916ed56688dec508a">More...</a><br/></td></tr>
+<tr class="separator:aaf53f669bf91c40916ed56688dec508a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da2ffe4cb131630d35004d9c616420d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a1da2ffe4cb131630d35004d9c616420d">setConfigurationDataTypeTuning</a> (aJsonObject *root)</td></tr>
+<tr class="memdesc:a1da2ffe4cb131630d35004d9c616420d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bagpipe params related with the tuning screen.  <a href="#a1da2ffe4cb131630d35004d9c616420d">More...</a><br/></td></tr>
+<tr class="separator:a1da2ffe4cb131630d35004d9c616420d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f35706345add418db0f7989d7bfab4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a9f35706345add418db0f7989d7bfab4e">setDevice</a> ()</td></tr>
 <tr class="memdesc:a9f35706345add418db0f7989d7bfab4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the bagpipe.  <a href="#a9f35706345add418db0f7989d7bfab4e">More...</a><br/></td></tr>
 <tr class="separator:a9f35706345add418db0f7989d7bfab4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,9 +235,6 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa524daf1a8f50e3dca51c5ca2516ebc7"><td class="memItemLeft" align="right" valign="top">aJson&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aa524daf1a8f50e3dca51c5ca2516ebc7">ajson</a></td></tr>
-<tr class="memdesc:aa524daf1a8f50e3dca51c5ca2516ebc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arduino JSON library.  <a href="#aa524daf1a8f50e3dca51c5ca2516ebc7">More...</a><br/></td></tr>
-<tr class="separator:aa524daf1a8f50e3dca51c5ca2516ebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa5c7633539ceda56005fc3413e8d6a6c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa5c7633539ceda56005fc3413e8d6a6c"></a>
 <a class="el" href="classBmp085.html">Bmp085</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bmp085</b></td></tr>
 <tr class="separator:gaa5c7633539ceda56005fc3413e8d6a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,18 +244,30 @@ Variables</h2></td></tr>
 <tr class="memitem:ga2c4395c129053833f07820d37eca525a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2c4395c129053833f07820d37eca525a"></a>
 <a class="el" href="classMpr121.html">Mpr121</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mpr121</b></td></tr>
 <tr class="separator:ga2c4395c129053833f07820d37eca525a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f16f841a14dbe5e8216faabe56a2bc8"><td class="memItemLeft" align="right" valign="top">MIDI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a7f16f841a14dbe5e8216faabe56a2bc8">midi</a></td></tr>
-<tr class="memdesc:a7f16f841a14dbe5e8216faabe56a2bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arduino MIDI library.  <a href="#a7f16f841a14dbe5e8216faabe56a2bc8">More...</a><br/></td></tr>
-<tr class="separator:a7f16f841a14dbe5e8216faabe56a2bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac310a724b2447dae21a6bb0eeea2d743"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#ac310a724b2447dae21a6bb0eeea2d743">isChanterIdentified</a> = false</td></tr>
+<tr class="memdesc:ac310a724b2447dae21a6bb0eeea2d743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if the chanter has been identified by the configuration application.  <a href="#ac310a724b2447dae21a6bb0eeea2d743">More...</a><br/></td></tr>
+<tr class="separator:ac310a724b2447dae21a6bb0eeea2d743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeecd4afc565d36a26b883cb132221d2"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#afeecd4afc565d36a26b883cb132221d2">baseTone</a> = <a class="el" href="Puding_8h.html#a98b0db2a29d8fcf2eb1132392783079d">DEF_TONE</a></td></tr>
 <tr class="memdesc:afeecd4afc565d36a26b883cb132221d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chanter base tone.  <a href="#afeecd4afc565d36a26b883cb132221d2">More...</a><br/></td></tr>
 <tr class="separator:afeecd4afc565d36a26b883cb132221d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83ada60e5899148b8a5b932b7d67965e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a83ada60e5899148b8a5b932b7d67965e">chanterOffset</a> = <a class="el" href="Puding_8h.html#ada55f5d44ea1446b6dc58bb3576beff0">DEF_OFFSET</a></td></tr>
-<tr class="memdesc:a83ada60e5899148b8a5b932b7d67965e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset related to the base tone.  <a href="#a83ada60e5899148b8a5b932b7d67965e">More...</a><br/></td></tr>
-<tr class="separator:a83ada60e5899148b8a5b932b7d67965e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f61c1b79a9166298c6e25aca2576ffc"><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a0f61c1b79a9166298c6e25aca2576ffc">chanterOffset</a> = <a class="el" href="Puding_8h.html#ada55f5d44ea1446b6dc58bb3576beff0">DEF_OFFSET</a></td></tr>
+<tr class="memdesc:a0f61c1b79a9166298c6e25aca2576ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset related to the base tone.  <a href="#a0f61c1b79a9166298c6e25aca2576ffc">More...</a><br/></td></tr>
+<tr class="separator:a0f61c1b79a9166298c6e25aca2576ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04efda891591b77ff56267d67f9c5cb4"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a04efda891591b77ff56267d67f9c5cb4">chanterNote</a> = <a class="el" href="Puding_8ino.html#afeecd4afc565d36a26b883cb132221d2">baseTone</a></td></tr>
-<tr class="memdesc:a04efda891591b77ff56267d67f9c5cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chanter actual note.  <a href="#a04efda891591b77ff56267d67f9c5cb4">More...</a><br/></td></tr>
+<tr class="memdesc:a04efda891591b77ff56267d67f9c5cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chanter current note.  <a href="#a04efda891591b77ff56267d67f9c5cb4">More...</a><br/></td></tr>
 <tr class="separator:a04efda891591b77ff56267d67f9c5cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3e491ba4bff8f3cb4f996c5dbcd1486"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3e491ba4bff8f3cb4f996c5dbcd1486"></a>
+byte&#160;</td><td class="memItemRight" valign="bottom"><b>newChanterNote</b> = <a class="el" href="Puding_8ino.html#a04efda891591b77ff56267d67f9c5cb4">chanterNote</a> - 1</td></tr>
+<tr class="separator:ac3e491ba4bff8f3cb4f996c5dbcd1486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87f7c28bad58e5b43beb3ece8cbe4780"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga87f7c28bad58e5b43beb3ece8cbe4780"></a>
+byte&#160;</td><td class="memItemRight" valign="bottom"><b>bassDroneNote</b> = <a class="el" href="Puding_8ino.html#a04efda891591b77ff56267d67f9c5cb4">chanterNote</a></td></tr>
+<tr class="separator:ga87f7c28bad58e5b43beb3ece8cbe4780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac9aedb58d2d01245a7060c6ae765e76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaac9aedb58d2d01245a7060c6ae765e76"></a>
+byte&#160;</td><td class="memItemRight" valign="bottom"><b>tenorDroneNote</b> = <a class="el" href="Puding_8ino.html#a04efda891591b77ff56267d67f9c5cb4">chanterNote</a></td></tr>
+<tr class="separator:gaac9aedb58d2d01245a7060c6ae765e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c437dce5532faf8fd6c34c6abb976e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1c437dce5532faf8fd6c34c6abb976e4"></a>
+byte&#160;</td><td class="memItemRight" valign="bottom"><b>highDroneNote</b> = <a class="el" href="Puding_8ino.html#a04efda891591b77ff56267d67f9c5cb4">chanterNote</a></td></tr>
+<tr class="separator:ga1c437dce5532faf8fd6c34c6abb976e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeec6c2f2b98b3187ac5867535d5c6cb9"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aeec6c2f2b98b3187ac5867535d5c6cb9">velocity</a> = <a class="el" href="Puding_8h.html#adeda09a70689c292fc023c7805ac2019">DEF_VEL</a></td></tr>
 <tr class="memdesc:aeec6c2f2b98b3187ac5867535d5c6cb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">MIDI note velocity.  <a href="#aeec6c2f2b98b3187ac5867535d5c6cb9">More...</a><br/></td></tr>
 <tr class="separator:aeec6c2f2b98b3187ac5867535d5c6cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -256,21 +292,21 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isTenorDroneEnable
 <tr class="memitem:gac36b459927aeaac181cbec0f78303630"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac36b459927aeaac181cbec0f78303630"></a>
 boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled</b> = true</td></tr>
 <tr class="separator:gac36b459927aeaac181cbec0f78303630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28eb36651e18fe984a4e23bca8c78f1c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a28eb36651e18fe984a4e23bca8c78f1c">inputs</a> = 0</td></tr>
-<tr class="memdesc:a28eb36651e18fe984a4e23bca8c78f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual fingering inputs.  <a href="#a28eb36651e18fe984a4e23bca8c78f1c">More...</a><br/></td></tr>
-<tr class="separator:a28eb36651e18fe984a4e23bca8c78f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01e1385d539c3bc7cc5b72bf53e1068a"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a01e1385d539c3bc7cc5b72bf53e1068a">offsets</a> [<a class="el" href="Puding_8h.html#ae07436514fc42fb3a5c52ddf9eb268e6">MAX_FING</a>][2]</td></tr>
-<tr class="memdesc:a01e1385d539c3bc7cc5b72bf53e1068a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the offsets.  <a href="#a01e1385d539c3bc7cc5b72bf53e1068a">More...</a><br/></td></tr>
-<tr class="separator:a01e1385d539c3bc7cc5b72bf53e1068a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfaf8643d992450f6bac5efe946ac4b9"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#acfaf8643d992450f6bac5efe946ac4b9">inputs</a> = 0</td></tr>
+<tr class="memdesc:acfaf8643d992450f6bac5efe946ac4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual fingering inputs.  <a href="#acfaf8643d992450f6bac5efe946ac4b9">More...</a><br/></td></tr>
+<tr class="separator:acfaf8643d992450f6bac5efe946ac4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc546985f176883fabde21bc054052d4"><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#abc546985f176883fabde21bc054052d4">offsets</a> [<a class="el" href="Puding_8h.html#ae07436514fc42fb3a5c52ddf9eb268e6">MAX_FING</a>][2]</td></tr>
+<tr class="memdesc:abc546985f176883fabde21bc054052d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the offsets.  <a href="#abc546985f176883fabde21bc054052d4">More...</a><br/></td></tr>
+<tr class="separator:abc546985f176883fabde21bc054052d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb7b5944b2d1d25b506b33be625e4572"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#aeb7b5944b2d1d25b506b33be625e4572">fingeringTypes</a> [<a class="el" href="Puding_8h.html#aa62f3f14fcfec25eef9b8520b814cf8c">DEF_FT</a>]</td></tr>
 <tr class="memdesc:aeb7b5944b2d1d25b506b33be625e4572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate fingering types to use.  <a href="#aeb7b5944b2d1d25b506b33be625e4572">More...</a><br/></td></tr>
 <tr class="separator:aeb7b5944b2d1d25b506b33be625e4572"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a038acc83cbd7198c6a252cc0cfd04fba"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a038acc83cbd7198c6a252cc0cfd04fba">aberto</a> [][2]</td></tr>
-<tr class="memdesc:a038acc83cbd7198c6a252cc0cfd04fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the "aberto" offsets.  <a href="#a038acc83cbd7198c6a252cc0cfd04fba">More...</a><br/></td></tr>
-<tr class="separator:a038acc83cbd7198c6a252cc0cfd04fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b939a2cf5cc3592dc9c337ad31a222c"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a2b939a2cf5cc3592dc9c337ad31a222c">pechado</a> [][2]</td></tr>
-<tr class="memdesc:a2b939a2cf5cc3592dc9c337ad31a222c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the "pechado" offsets.  <a href="#a2b939a2cf5cc3592dc9c337ad31a222c">More...</a><br/></td></tr>
-<tr class="separator:a2b939a2cf5cc3592dc9c337ad31a222c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2955f061f3ac54dbf05f73c29435f81a"><td class="memItemLeft" align="right" valign="top">const short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a2955f061f3ac54dbf05f73c29435f81a">aberto</a> [][2]</td></tr>
+<tr class="memdesc:a2955f061f3ac54dbf05f73c29435f81a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the "aberto" offsets.  <a href="#a2955f061f3ac54dbf05f73c29435f81a">More...</a><br/></td></tr>
+<tr class="separator:a2955f061f3ac54dbf05f73c29435f81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9806dc521bbb0de586b0af6b74c1bba8"><td class="memItemLeft" align="right" valign="top">const short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Puding_8ino.html#a9806dc521bbb0de586b0af6b74c1bba8">pechado</a> [][2]</td></tr>
+<tr class="memdesc:a9806dc521bbb0de586b0af6b74c1bba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix containing all the "pechado" offsets.  <a href="#a9806dc521bbb0de586b0af6b74c1bba8">More...</a><br/></td></tr>
+<tr class="separator:a9806dc521bbb0de586b0af6b74c1bba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main file. </p>
@@ -318,6 +354,24 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
+<a class="anchor" id="af4feeea43558a7116e64b9aa769603cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean findDiscoveryBeacon </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Look for the discovery beacon sent by the configuration application. </p>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating if the discovery beacon has been found. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae66f17f45768522b46698de6685ccc38"></a>
 <div class="memitem">
 <div class="memproto">
@@ -336,12 +390,46 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="aca3f07ef0aed37c5aca9ba01d9799b97"></a>
+<a class="anchor" id="ae8f6f3498699437b8742c20359cbf26e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int getChanterOffset </td>
+          <td class="memname">byte getBassDroneNote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bass drone note. </p>
+
+</div>
+</div>
+<a class="anchor" id="adbcaef57ae0d91d4d68c105c3a9b1c64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte getChanterNote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get chanter note. </p>
+
+</div>
+</div>
+<a class="anchor" id="a805699c33c293cd5ba90a03a4c0000ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">short getChanterOffset </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -380,6 +468,23 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
+<a class="anchor" id="a38aafaac14930b6203ac83f83486055c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte getHighDroneNote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bass drone note. </p>
+
+</div>
+</div>
 <a class="anchor" id="ac11c4a637617a24e206f8a6dca64db96"></a>
 <div class="memitem">
 <div class="memproto">
@@ -395,6 +500,41 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 <p>Read the serial port. </p>
 <dl class="section return"><dt>Returns</dt><dd>The serial port data. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5f7f6e54e6dfc9eb7d2433cd3b28d935"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte getTenorDroneNote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bass drone note. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa1ff4ed105f66efc2ae6206d3f24924a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean identifyChanter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identify the chanter to the configuration application when required. </p>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating if the chanter has been identified. </dd></dl>
 
 </div>
 </div>
@@ -434,15 +574,51 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a43dc81d0510e885de520428a87f16255"></a>
+<a class="anchor" id="aa738d44741fe5c2596a14343f90b1809"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean isConfiguration </td>
+          <td>(</td>
+          <td class="paramtype">aJsonObject *&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>expectedAction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if it is asking for the expected configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root</td><td>A device configuration. </td></tr>
+    <tr><td class="paramname">expectedAction</td><td>A configuration action. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean indicating if it is the expected configuration. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac722a96429b9c68a86c8ec52635e9b47"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">boolean isMeTheTarget </td>
           <td>(</td>
-          <td class="paramtype">aJsonObject&#160;</td>
-          <td class="paramname"><em>aJsonObject</em></td><td>)</td>
+          <td class="paramtype">aJsonObject *&#160;</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -452,7 +628,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Each Puding bagpipe has an unique serial product identificator number. This id is used to identify the bagpipe due to is possible to have more than one bagpipe connected to the same receiver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aJsonObject</td><td>A JSON object. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object. </td></tr>
   </table>
   </dd>
 </dl>
@@ -511,6 +687,40 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 <p>Make the bagpipe sound. </p>
 <p>Function called during the playing phase which reads the data from the sensors and makes the bagpipe sound in accordance. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7d7ac81a8c2c2ced80b8f022c057c780"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void playChanter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make the chanter sound. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1d8195f2cfb1f3abe3b7facd23ce9d70"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void playDrones </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make the drones sound. </p>
 
 </div>
 </div>
@@ -575,7 +785,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="afc3c6e9dea4bccb4e351ca500e515858"></a>
+<a class="anchor" id="a4f048546335bd6c2829011071b4cf181"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -589,7 +799,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
+          <td class="paramname"><em>root</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -603,10 +813,28 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>A configuration type. </td></tr>
-    <tr><td class="paramname">data</td><td>A JSON object containing the file data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the file data. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ab2187e05f00422eeb7d3463799c6fcd6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sendConfiguration </td>
+          <td>(</td>
+          <td class="paramtype">aJsonObject *&#160;</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send the current configuration to the configuration application. </p>
 
 </div>
 </div>
@@ -624,29 +852,10 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 </div><div class="memdoc">
 
 <p>Send the device serial number to the configuration application. </p>
-<p>Wait until the correspondent ACK is received. </p>
 
 </div>
 </div>
-<a class="anchor" id="a8bc0ad2bab930cadb7e17f1f481a0148"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendInitialConfiguration </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Send the initial configuration to the configuration application. </p>
-<p>Wait until the correspondent ACK is received. </p>
-
-</div>
-</div>
-<a class="anchor" id="aaaa1323a757f650073c6ac85feab365a"></a>
+<a class="anchor" id="ac35f501e28d36402d6440595282b8be0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -654,7 +863,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfiguration </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>aJsonObject</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -663,14 +872,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure all the bagpipe params based on the received JSON object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aJsonObject</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a7966e7ce14f525b82c94278c8d7382dd"></a>
+<a class="anchor" id="a289ffc04259736fe9cbca3618a2775d9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -690,7 +899,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
+          <td class="paramname"><em>root</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -705,7 +914,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
   <table class="params">
     <tr><td class="paramname">action</td><td>An action to do. </td></tr>
     <tr><td class="paramname">type</td><td>A configuration type. </td></tr>
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
@@ -736,7 +945,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a321ce11cb135a2e06150d1b915e9f748"></a>
+<a class="anchor" id="a5499ea197e5b24fab0f9da83e222130b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -750,7 +959,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
+          <td class="paramname"><em>root</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -764,14 +973,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>A configuration type. </td></tr>
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a1eb5317f93e3501e9b73d479fe26a9d7"></a>
+<a class="anchor" id="a76b28d0f5a1e1db44c8e0fac6d64e755"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -779,7 +988,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfigurationDataTypeFinger </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -788,14 +997,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure the bagpipe params related with the fingerings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a7e7b2b4b3af65880088afdbfd4c3eefe"></a>
+<a class="anchor" id="aa6dc0bad7e25913b97016fc8255e13af"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -803,7 +1012,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfigurationDataTypeSelect </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -812,14 +1021,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure the bagpipe params related with the selection screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a71bbcb01e8dad71a52b001b038afb773"></a>
+<a class="anchor" id="a06f9ab4a934a9d1a66e3f4117e0c78f9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -827,7 +1036,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfigurationDataTypeSensit </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -836,14 +1045,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure the bagpipe params related with the sensitivity screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="afb666c6ab7c57ff8f0913bf49a603a0d"></a>
+<a class="anchor" id="aaf53f669bf91c40916ed56688dec508a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -851,7 +1060,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfigurationDataTypeStart </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -860,14 +1069,14 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure the bagpipe params related with the start screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ae4f44d795e92170a076099a033ccf948"></a>
+<a class="anchor" id="a1da2ffe4cb131630d35004d9c616420d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -875,7 +1084,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
           <td class="memname">void setConfigurationDataTypeTuning </td>
           <td>(</td>
           <td class="paramtype">aJsonObject *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -884,7 +1093,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 <p>Configure the bagpipe params related with the tuning screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>A JSON object containing the configuration data. </td></tr>
+    <tr><td class="paramname">root</td><td>A JSON object containing the configuration data. </td></tr>
   </table>
   </dd>
 </dl>
@@ -985,32 +1194,18 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a038acc83cbd7198c6a252cc0cfd04fba"></a>
+<a class="anchor" id="a2955f061f3ac54dbf05f73c29435f81a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned int aberto[][2]</td>
+          <td class="memname">const short aberto[][2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Matrix containing all the "aberto" offsets. </p>
 <p>Matrix containing the correspondent offset for all the possible "aberto" inputs. </p>
-
-</div>
-</div>
-<a class="anchor" id="aa524daf1a8f50e3dca51c5ca2516ebc7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">aJson ajson</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Arduino JSON library. </p>
 
 </div>
 </div>
@@ -1052,16 +1247,16 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
       </table>
 </div><div class="memdoc">
 
-<p>Chanter actual note. </p>
+<p>Chanter current note. </p>
 
 </div>
 </div>
-<a class="anchor" id="a83ada60e5899148b8a5b932b7d67965e"></a>
+<a class="anchor" id="a0f61c1b79a9166298c6e25aca2576ffc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int chanterOffset = <a class="el" href="Puding_8h.html#ada55f5d44ea1446b6dc58bb3576beff0">DEF_OFFSET</a></td>
+          <td class="memname">short chanterOffset = <a class="el" href="Puding_8h.html#ada55f5d44ea1446b6dc58bb3576beff0">DEF_OFFSET</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1099,12 +1294,12 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a28eb36651e18fe984a4e23bca8c78f1c"></a>
+<a class="anchor" id="acfaf8643d992450f6bac5efe946ac4b9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int inputs = 0</td>
+          <td class="memname">unsigned short inputs = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1127,17 +1322,17 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a7f16f841a14dbe5e8216faabe56a2bc8"></a>
+<a class="anchor" id="ac310a724b2447dae21a6bb0eeea2d743"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MIDI midi</td>
+          <td class="memname">boolean isChanterIdentified = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Arduino MIDI library. </p>
+<p>Indicate if the chanter has been identified by the configuration application. </p>
 
 </div>
 </div>
@@ -1155,12 +1350,12 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a01e1385d539c3bc7cc5b72bf53e1068a"></a>
+<a class="anchor" id="abc546985f176883fabde21bc054052d4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int offsets[<a class="el" href="Puding_8h.html#ae07436514fc42fb3a5c52ddf9eb268e6">MAX_FING</a>][2]</td>
+          <td class="memname">short offsets[<a class="el" href="Puding_8h.html#ae07436514fc42fb3a5c52ddf9eb268e6">MAX_FING</a>][2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1170,39 +1365,39 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 
 </div>
 </div>
-<a class="anchor" id="a2b939a2cf5cc3592dc9c337ad31a222c"></a>
+<a class="anchor" id="a9806dc521bbb0de586b0af6b74c1bba8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned int pechado[][2]</td>
+          <td class="memname">const short pechado[][2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {(B1111111110000000, -1),</div>
-<div class="line">                                   (B1111111100000000, 0),</div>
-<div class="line">                                   (B1111011100000000, 1),</div>
-<div class="line">                                   (B1111111000000000, 2),</div>
-<div class="line">                                   (B1111110100000000, 3),</div>
-<div class="line">                                   (B1111110110000000, 4),</div>
-<div class="line">                                   (B1111101100000000, 5),</div>
-<div class="line">                                   (B1110110100000000, 6),</div>
-<div class="line">                                   (B1110111100000000, 7),</div>
-<div class="line">                                   (B1101101100000000, 8),</div>
-<div class="line">                                   (B0110111100000000, 8),</div>
-<div class="line">                                   (B1100111100000000, 9),</div>
-<div class="line">                                   (B1010111100000000, 10),</div>
-<div class="line">                                   (B0100111100000000, 10),</div>
-<div class="line">                                   (B1000111100000000, 11),</div>
-<div class="line">                                   (B0111111110000000, 11),</div>
-<div class="line">                                   (B1011111100000000, 12),</div>
-<div class="line">                                   (B0111111100000000, 12),</div>
-<div class="line">                                   (B1011011100000000, 13),</div>
-<div class="line">                                   (B0111011100000000, 13),</div>
-<div class="line">                                   (B0111111000000000, 14),</div>
-<div class="line">                                   (B0111110100000000, 15),</div>
-<div class="line">                                   (B0111110000000000, 16),</div>
-<div class="line">                                   (B0111100000000000, 17)}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {((B00000001 * 256) + B11111111, -1),</div>
+<div class="line">                             ((B00000001 * 256) + B11111110, 0),</div>
+<div class="line">                             ((B00000001 * 256) + B11101110, 1),</div>
+<div class="line">                             ((B00000001 * 256) + B11111100, 2),</div>
+<div class="line">                             ((B00000001 * 256) + B11111010, 3),</div>
+<div class="line">                             ((B00000001 * 256) + B11111011, 4),</div>
+<div class="line">                             ((B00000001 * 256) + B11110110, 5),</div>
+<div class="line">                             ((B00000001 * 256) + B11011010, 6),</div>
+<div class="line">                             ((B00000001 * 256) + B11011110, 7),</div>
+<div class="line">                             ((B00000001 * 256) + B10110110, 8),</div>
+<div class="line">                             ((B00000000 * 256) + B11011110, 8),</div>
+<div class="line">                             ((B00000001 * 256) + B10011110, 9),</div>
+<div class="line">                             ((B00000001 * 256) + B01011110, 10),</div>
+<div class="line">                             ((B00000000 * 256) + B10011110, 10),</div>
+<div class="line">                             ((B00000001 * 256) + B00011110, 11),</div>
+<div class="line">                             ((B00000000 * 256) + B11111111, 11),</div>
+<div class="line">                             ((B00000001 * 256) + B01111110, 12),</div>
+<div class="line">                             ((B00000000 * 256) + B11111110, 12),</div>
+<div class="line">                             ((B00000001 * 256) + B01101110, 13),</div>
+<div class="line">                             ((B00000000 * 256) + B11101110, 13),</div>
+<div class="line">                             ((B00000000 * 256) + B11111100, 14),</div>
+<div class="line">                             ((B00000000 * 256) + B11111010, 15),</div>
+<div class="line">                             ((B00000000 * 256) + B11111000, 16),</div>
+<div class="line">                             ((B00000000 * 256) + B11110000, 17)}</div>
 </div><!-- fragment -->
 <p>Matrix containing all the "pechado" offsets. </p>
 <p>Matrix containing the correspondent offset for all the possible "pechado" inputs. </p>
@@ -1226,7 +1421,7 @@ boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isHighDroneEnabled
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 8 2018 15:49:59 for Proxecto Puding - HW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 19 2018 23:04:50 for Proxecto Puding - HW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

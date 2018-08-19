@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['play',['play',['../Puding_8ino.html#a6d58098c6cf63c241ed03bc797256bb1',1,'Puding.ino']]],
-  ['printdeviceversioninfo',['printDeviceVersionInfo',['../classG1.html#ad953cd3c98fa183071e67028745b5a05',1,'G1']]]
+  ['movefile',['moveFile',['../classG1.html#a3320ef29f5aea6eb8aed873c6b298c4e',1,'G1']]],
+  ['mpr121',['Mpr121',['../classMpr121.html#aeecfe8ecb907006403725a2af1761b8d',1,'Mpr121']]]
 ];

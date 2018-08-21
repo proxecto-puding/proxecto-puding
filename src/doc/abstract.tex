@@ -1,0 +1,33 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+\thispagestyle{empty}
+O obxectivo último deste proxecto foi a creación dunha gaita MIDI baseada en
+software e hardware libre, que tivo coma obxecto a simulación o máis fielmente
+posible dunha gaita galega, así como a recolleita e realización das esixencias
+do usuario dado que, a día de hoxe, non existe ningunha gaita MIDI no mercado
+que cumpra coas mesmas na súa totalidade.\\
+
+O proxecto comezou analizando as gaitas MIDI xa existentes no mercado,
+recollendo as opinións tanto de expertos coma dos usuarios xerais, para logo
+plasmalos nun deseño que, finalmente, nos permitiu implementar o controlador
+MIDI correspondente.\\
+
+Para iso fíxose uso da plataforma Arduino (hardware libre modular), empregando
+tanto placas base (Uno, Fio), coma módulos externos (sensores de presión e
+capacitivos, ou de almacenamento) ou superpostos (ZigBee) que se comunican
+entre si empregando protocolos moi variados segundo as súas necesidades (I2C,
+UART, ZigBee, USB, MIDI, etc.). Todo este hardware está programado en C/C++,
+Processing/Wiring e Arduino.\\
+
+Para o control de dito hardware e do sintetizador faise uso dunha aplicación de
+configuración gráfica multiplataforma escrita en Java e Swing, que explota toda
+a potencionalidade dos mesmos, facendo que a simulación sexa o máis completa
+posible.\\
+
+Así mesmo, para poder empregar mostras de son no canto de son puramente MIDI,
+procedeuse a gravar unha serie de mostras de alta calidade, para logo crear un
+banco de son SoundFont coas mesmas.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,92 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble                                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,a4paper,twoside,openright,openbib]{report}
+
+\usepackage{estilo_pfc}
+
+\author{Alejo Pacín Jul}
+\date{20/09/2011}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Body                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Definición de comandos               %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \newcommand{\paginaenblanco}{\mbox{}\thispagestyle{empty}\newpage}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Preliminares documento               %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \dominitoc
+
+ \include{cover}
+ \paginaenblanco
+ \include{draft}
+ \paginaenblanco
+ \include{director-agreement}
+ \paginaenblanco
+ \include{dedication}
+ \paginaenblanco
+ \include{gratefulnesses}
+ \paginaenblanco
+ \include{abstract}
+ \paginaenblanco
+ \include{keywords}
+ \paginaenblanco
+
+ \pagenumbering{roman}
+ \setcounter{page}{1}
+
+ \tableofcontents
+ \listoffigures
+ \listoftables
+ \clearpage
+ \mbox{}
+ \clearpage
+
+ \pagenumbering{arabic}
+ \setcounter{page}{1}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Capítulos                            %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \include{introduction}
+ \include{contextualization}
+ \include{planning}
+ \include{viability}
+ \include{requirements}
+ \include{design}
+ \include{implementation}
+ \include{conclusions}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Apéndices, glosarios y bibliografía  %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \appendix
+ \include{appendix}
+
+ \include{planning-full}
+ \include{poll}
+ \include{arduino}
+ \include{xbee}
+ \include{fritzing}
+ \include{acronym-glossary}
+ \include{term-glossary}
+
+ \nocite*
+ \bibliography{bibliography}
+ \bibliographystyle{unsrt}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,4 +1,4 @@
 /.project
 /.directory
-gui/.classpath
-gui/.settings/org.eclipse.jdt.core.prefs
+.classpath
+.settings/org.eclipse.jdt.core.prefs

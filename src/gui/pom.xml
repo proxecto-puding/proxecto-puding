@@ -45,11 +45,13 @@
 	
 	<!-- Serial connection: option A -->
 	<!-- https://mvnrepository.com/artifact/gnu.io/rxtx -->
+	<!-- 
 	<dependency>
       <groupId>gnu.io</groupId>
       <artifactId>rxtx</artifactId>
       <version>2.1.7</version>
 	</dependency>
+	 -->
 	<!-- Serial connection: option B -->
 	<!-- https://mvnrepository.com/artifact/org.ardulink/ardulink-core-base -->
 	<dependency>

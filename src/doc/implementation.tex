@@ -118,11 +118,11 @@ producto, pasando por un prototipo operacional.
    Desta maneira, dividiuse a montaxe completa en varias submontaxes:
    
    \begin{itemize}
-    \item Router \ref{figura:Router}.
-    \item Receptor \ref{figura:Receptor}.
-    \item Sensor de presión \ref{figura:SensorPresion}.
-    \item Sensores capacitivos \ref{figura:SensoresCapacitivos}.
-    \item Lector de tarxetas \ref{figura:LectorTarxetas}.
+    \item Router (figura \ref{figura:Router}).
+    \item Receptor (figura \ref{figura:Receptor}).
+    \item Sensor de presión (figura \ref{figura:SensorPresion}).
+    \item Sensores capacitivos (figura \ref{figura:SensoresCapacitivos}).
+    \item Lector de tarxetas (figura \ref{figura:LectorTarxetas}).
    \end{itemize}
    
    A primeira montaxe foi a do router por resultar a máis sinxela, xa que
@@ -137,11 +137,9 @@ producto, pasando por un prototipo operacional.
    decidiu deixarse coma último punto da integración hardware por razóns de
    escalibidade e fiabilidade. \\
    
-   % TODO Insertar imaxes todo de aquí para abaixo.
-   
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/router.jpg}
+    \includegraphics[scale=0.15,keepaspectratio=true]{./imagenes/router.jpg}
     % router.jpg: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Router}
     \label{figura:Router}
@@ -158,7 +156,7 @@ producto, pasando por un prototipo operacional.
   
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/receptor.jpg}
+    \includegraphics[scale=0.15,keepaspectratio=true]{./imagenes/receptor.jpg}
     % receptor.jpg: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Receptor}
     \label{figura:Receptor}
@@ -210,20 +208,20 @@ producto, pasando por un prototipo operacional.
   
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/sensor-presion.jpg}
+    \includegraphics[scale=0.2,keepaspectratio=true]{./imagenes/sensor-presion.jpg}
     % sensor-presion.jpg: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Sensor de presión}
     \label{figura:SensorPresion}
    \end{figure}
    
-   Ademáis de definir a súa interface pública
-   \ref{figura:InterfaceSensorPresion} para a obtención da presión e un
-   ficheiro de proba \ref{figura:TestSensorPresion} para validar a
+   Ademáis de definir a súa interface pública (figura 
+   \ref{figura:InterfaceSensorPresion}) para a obtención da presión e un
+   ficheiro de proba (figura \ref{figura:TestSensorPresion}) para validar a
    implementación completa posterior. \\
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/interface-sensor-presion.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/interface-sensor-presion.png}
     % interface-sensor-presion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Interface do sensor de presión}
     \label{figura:InterfaceSensorPresion}
@@ -231,16 +229,16 @@ producto, pasando por un prototipo operacional.
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/test-sensor-presion.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-sensor-presion.png}
     % test-sensor-presion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Ficheiro de proba do sensor de presión}
     \label{figura:TestSensorPresion}
    \end{figure}
    
    O turno seguinte foi para os sensores capacitivos. Neste caso, o que
-   precisamos saber é cáles están acesos en cada momento, de maneira que poidamos
-   facer \textit{pattern matching} contra a configuración da gaita e saber se
-   teriamos algún son asociado a dita dixitación, para posteriormente
+   precisamos saber é cáles están acesos en cada momento, de maneira que
+   poidamos facer \textit{pattern matching} contra a configuración da gaita e
+   saber se teriamos algún son asociado a dita dixitación, para posteriormente
    reproducilo. \\
    
    Como se pode ver na imaxe, conectouse a unha placa Arduino Uno empregando
@@ -248,20 +246,20 @@ producto, pasando por un prototipo operacional.
   
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/sensores-capacitivos.jpg}
+    \includegraphics[scale=0.2,keepaspectratio=true]{./imagenes/sensores-capacitivos.jpg}
     % sensores-capacitivos.jpg: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Sensores capacitivos}
     \label{figura:SensoresCapacitivos}
    \end{figure}
    
-   Ademáis de definir a súa interface pública
-   \ref{figura:InterfaceSensoresCapacitivos} para a obtención da dixitación e un
-   ficheiro de proba \ref{figura:TestSensoresCapacitivos} para validar a
-   implementación completa posterior. \\
+   Ademáis de definir a súa interface pública (figura 
+   \ref{figura:InterfaceSensoresCapacitivos}) para a obtención da dixitación e
+   un ficheiro de proba (figura \ref{figura:TestSensoresCapacitivos}) para
+   validar a implementación completa posterior. \\
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/interface-sensores-capacitivos.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/interface-sensores-capacitivos.png}
     % interface-sensores-capacitivos.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Interface dos sensores capacitivos}
     \label{figura:InterfaceSensoresCapacitivos}
@@ -269,7 +267,7 @@ producto, pasando por un prototipo operacional.
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/test-sensores-capacitivos.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-sensores-capacitivos.png}
     % test-sensores-capacitivos.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Ficheiro de proba dos sensores capacitivos}
     \label{figura:TestSensoresCapacitivos}
@@ -285,20 +283,20 @@ producto, pasando por un prototipo operacional.
   
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/lector-tarxetas.jpg}
+    \includegraphics[scale=0.2,keepaspectratio=true]{./imagenes/lector-tarxetas.jpg}
     % lector-tarxetas.jpg: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Lector de tarxetas}
     \label{figura:LectorTarxetas}
    \end{figure}
    
-   Ademáis de definir a súa interface pública
-   \ref{figura:InterfaceLectorTarxetas} para a obtención da configuración e un
-   ficheiro de proba \ref{figura:TestLectorTarxetas} para validar a
+   Ademáis de definir a súa interface pública (figura 
+   \ref{figura:InterfaceLectorTarxetas}) para a obtención da configuración e un
+   ficheiro de proba (figura \ref{figura:TestLectorTarxetas}) para validar a
    implementación completa posterior. \\
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/interface-lector-tarxetas.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/interface-lector-tarxetas.png}
     % interface-lector-tarxetas.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Interface do lector de tarxetas}
     \label{figura:InterfaceLectorTarxetas}
@@ -306,7 +304,7 @@ producto, pasando por un prototipo operacional.
    
    \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/test-lector-tarxetas.png}
+    \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-lector-tarxetas.png}
     % test-lector-tarxetas.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
     \caption{Ficheiro de proba do lector de tarxetas}
     \label{figura:TestLectorTarxetas}
@@ -328,6 +326,9 @@ producto, pasando por un prototipo operacional.
    validación do mesmo.
 
   \subsubsection{Prototipo software}
+  
+  Para a o prototipo software operacional tiramos do prototipo deseñado na fase
+  anterior e dos diagramas UML relacionados.
 
    \paragraph{Desenvolvemento do prototipo}
 

@@ -135,7 +135,7 @@ producto, pasando por un prototipo operacional.
    A nivel de sinatura de servizos, ó funcionar coma un simple router
    automatizado, non tiña máis que probar a transmisión correcta de datos, que
    decidiu deixarse coma último punto da integración hardware por razóns de
-   escalibidade e fiabilidade. \\
+   fiabilidade na transmisión dos mesmos. \\
    
    \begin{figure}[htbp]
     \centering
@@ -151,7 +151,7 @@ producto, pasando por un prototipo operacional.
    
    Polo mesmo motivo que o anterior, deixouse para máis adiante coma o último
    punto ou nivel de integración, pois resulta máis robusto probar e medir
-   primeiro de maneira cableada e logo escalar ó modo sen fíos e poder comparar
+   primeiro de maneira cableada e logo pasar ó modo sen fíos e poder comparar
    medicións e resultados. \\
   
    \begin{figure}[htbp]
@@ -331,8 +331,147 @@ producto, pasando por un prototipo operacional.
   anterior e dos diagramas UML relacionados.
 
    \paragraph{Desenvolvemento do prototipo}
+   
+   No tocante ó desenvolvemento do software, contamos con dúas partes ben
+   diferenciadas:
+   
+   \begin{itemize}
+    \item O firmware do dispositivo.
+    \item E a aplicación de configuración.
+   \end{itemize}
+   
+   Como o firmware do dispositivo xa o tratamos na sección anterior, neste
+   apartado centrarémonos no desenvolvemento dun prototipo operacional da
+   aplicación de configuración. \\
+   
+   Como xa comentamos anteriormente, para ilo tiramos dos deseños das pantallas
+   e do UML do prototipo da fase de deseño. Combinando os mesmos e facendo uso
+   da lóxica de negocio obtida na fase de análise, chegouse a un deseño UML máis
+   detallado (figura \ref{figura:DesenoNivelIntermedio}, onde se incluíron os
+   servizos necesarios para dar cobertura a dita lóxica. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, angle=90, keepaspectratio=true]{./imagenes/deseno-ni.png}
+    % deseno-ni.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Deseño de nivel intermedio}
+    \label{figura:DesenoNivelIntermedio}
+   \end{figure}
+   
+   Ditos servizos son:
+   
+   \begin{itemize}
+    \item O servizo de dispositivos, encargado de xestionar todo o relacionado
+        cos dispositivos hardware en uso: detección, comunicación, etc.
+    \item O servizo de configuración, encargado de xestionar todo o relacionado
+        coa mesma.
+   \end{itemize}
+   
+   Aplicando BDD e baseándonos na interacción do usuario coas pantallas fóronse
+   definindo os distintos casos de uso e a representación conceptual das
+   das entidades do modelo para o seu uso polos distintos servizos. \\
+   
+   A interface do servizo de dispositivos quedou como reflexan as figuras
+   \ref{figura:ServizoDispositivos1} a \ref{figura:ServizoDispositivos4}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-dispositivos-1.png}
+    % servizo-dispositivos-1.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de dispositivos}
+    \label{figura:ServizoDispositivos1}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-dispositivos-2.png}
+    % servizo-dispositivos-2.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de dispositivos}
+    \label{figura:ServizoDispositivos2}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-dispositivos-3.png}
+    % servizo-dispositivos-3.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de dispositivos}
+    \label{figura:ServizoDispositivos3}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-dispositivos-4.png}
+    % servizo-dispositivo-4s.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de dispositivos}
+    \label{figura:ServizoDispositivos4}
+   \end{figure}
+   
+   A interface do servizo de configuración quedou como reflexan as figuras
+   \ref{figura:ServizoConfiguracion1} a \ref{figura:ServizoConfiguracion7}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-1.png} \\
+    % servizo-configuracion-1.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion1}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-2.png} \\
+    % servizo-configuracion-2.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion2}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-3.png} \\
+    % servizo-configuracion-3.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion3}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-4.png} \\
+    % servizo-configuracion-4.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion4}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-5.png} \\
+    % servizo-configuracion-5.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion5}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-6.png} \\
+    % servizo-configuracion-6.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion6}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/servizo-configuracion-7.png} \\
+    % servizo-configuracion71.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de configuración}
+    \label{figura:ServizoConfiguracion7}
+   \end{figure}
 
    \paragraph{Gravación das mostras}
+   
+   Debido á cantidade de horas a invertir neste apartado, entre a gravación das
+   mostras e a xeración da fonte de son e á dispoñibilidade de outras fontes xa
+   dispoñibles públicamente, aínda que de menor calidade, decidiuse adiar este
+   apartado a unha fase posterior dada a pouca relevancia académica do mesmo e
+   invertir ditas horas en apartados de maior calado.
 
 \section{Desenvolvemento e validación do seguinte nivel do producto}
 

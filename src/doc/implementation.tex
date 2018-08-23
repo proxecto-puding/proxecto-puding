@@ -646,6 +646,85 @@ producto, pasando por un prototipo operacional.
    \end{itemize}
 
   \subsubsection{Codificación}
+  
+  Como se comentou con anterioridade, debido á metodoloxía empregada (BDD/TDD),
+  a codificación tanto do firmware coma da aplicación de configuración foi o
+  último paso de todos, dado que primeiramente se definiron as probas. \\
+  
+  Unha vez tivemos definidas as probas, para o que fomos en sentido
+  \textit{top-down} ata o nivel de servizo, cambiamos o sentido a
+  \textit{bottom-up} para facer a implementación dos mesmos en ámbolos casos.
+  
+   \paragraph{Hardware}
+   
+   A codificación do firmware do hardware levouse a cabo por partes e de menor
+   a maior dificultade:
+   
+   \begin{itemize}
+    \item Sensor de presión.
+    \item Sensores capacitivos.
+    \item Lector de tarxetas.
+    \item Receptor: configuración e reproducción MIDI.
+   \end{itemize}
+   
+   Aínda que a maior dificultade común a todas elas foi a complexidade da
+   documentación e a falta dun entorno de desenvolvemento serio. \\
+   
+   Comezando polo \textbf{sensor de presión}, este caso é a excepción que 
+   confirma a regra. Ó ser unha peza desenvolvida por Bosh (compañía moi seria
+   en canto a desenvolvemento de sensores), a folla de especificacións
+   \cite{Bmp085DataSheet} é impecable. \\
+   
+    O proceso consistiu en:
+    
+    \begin{itemize}
+    \item Solicitar a lectura da presión.
+    \item Definir e ler os rexistros da ROM onde se almacenan os coeficientes de
+        calibración do disposito.
+    \item Definir e ler os rexistros da ROM onde se almacenan os coeficientes de
+        calibración do disposito.
+    \item Ler a temperatura sen compensar (4.5 ms).
+    \item Definir o modo de lectura da presión e ler a presión sen compensar.
+        Como nos interesaba a velocidade e o baixo consumo máis que a precisión,
+        optouse polo modo de ultra baixo consumo (4.5 ms), co que se obteñen
+        valores bastante desviados, pero como o que precisamos a nivel de lóxica
+        de negocio é un valor umbral (ou dous se optamos por un comparador con
+        histérese), que o valor sexa máis ou menos real non é o importante.
+    \item Calcular a temperatura real aplicando os coeficientes de calibración.
+    \item Calcular a presión real aplicando os coeficientes de calibración.
+    \item Devolver a presión real, que é o valor que realmente nos interesa,
+        invertindo un tempo de arredor de 9 ms, que está por debaixo dos 100 ms
+        que se adoitan considerar como tempo real duro para intrumentación MIDI
+        e incluso por debaixo dos 10 ms que se considera o óptimo e que serían
+        imperceptibles.
+   \end{itemize}
+   
+   Dado que tanto as direccións dos rexistros dos coeficientes de calibración e
+   a aplicación dos mesmos e o pseudo-código especificado
+   \ref{figura:Bmp085PseudoCodigo} estaban moi ben explicados, foi relativamente
+   sinxelo facer funcionar o sensor e que pasase as probas definidas
+   anteriormente. Os resultados das mesmas comentaranse no apartado de probas
+   unitarias. \\
+   
+   Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
+   baixo nivel en C de arredor de 500 líneas. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/bmp085-pseudocodigo.png}
+    % servizo-midi.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Pseudo-código do sensor de presión}
+    \label{figura:Bmp085PseudoCodigo}
+   \end{figure}
+   
+   Continuando polos \textbf{sensores capacitivos}, % TODO
+   
+   Seguindo polo \textbf{lector de tarxetas}, % TODO
+   
+   E rematando polo \textbf{receptor}, que á súa vez se divide entre a lóxica
+   de configuración e a de reproducción. % TODO
+   
+   \paragraph{Software}
 
  \subsection{Probas de unidade}
 

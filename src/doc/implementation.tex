@@ -781,10 +781,60 @@ producto, pasando por un prototipo operacional.
    Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
    baixo nivel en C de arredor de 500 líneas. \\
    
-   Seguindo polo \textbf{lector de tarxetas}, % TODO
+   Seguindo polo \textbf{lector de tarxetas}, a documentación proporcionada por
+   4D Systems \cite{MicroDriveG1} é claramente escasa e incompleta. En xeral,
+   especifica relativamente ben os casos \textit{happy path}, ou o camiño
+   típico, pero en moitos casos non especifica qué pasa en caso de erro ou a
+   descrición resulta ambigua, casos que cando falamos de hardware, son custosos
+   cando non imposibles de reproducir de maneira forzada, o cal dificulta unha
+   implementación completa e correcta do firmware. \\
+   
+   O proceso consistiu en:
+    
+   \begin{itemize}
+    \item Inicializar a comunicación por porto serie.
+    \item Esperar a que o dispositivo arrinque (500 ms).
+    \item Esperar a que o dispositivo detecte a velocidade do porto serie.
+    \item Ler ou escribir información na tarxeta de memoria.
+   \end{itemize}
+   
+   A complexidade deste módulo residiu principalmente na incertidume na que nos
+   movemos todo o rato debido á falta de documentación, que nos obrigou a estar
+   probando cada pequeno paso que dabamos e a tomar decisións un pouco drásticas
+   para cubrirnos en saúde. \\
+   
+   Basicamente, as operacións que precisamos principalmente de todas as
+   dispoñibles, serían as de lectura e escritura dun ficheiro. \\
+   
+   Como exemplo, a documentación di que se poden ler/escribir datos en bloques
+   de 1 a 50/100 bytes (con/sen ACK), pero non indica en ningún momento qué pasa
+   co último bloque se o tamaño total non é múltiplo do tamaño de bloque. \\
+   
+   Neste caso concreto, por exemplo, optamos pola opción máis segura pero menos
+   eficiente de todas: ACKs por bloques de 1 byte. Como o tamaño dos ficheiros
+   é de poucos centos de bytes, a penalización apenas é perceptible. \\
+   
+   % TODO Revisar este punto despois de pasar as probas.
+   
+   Feita funcionar a lectura/escritura de ficheiros e que pasasen as probas
+   definidas anteriormente, os resultados das mesmas comentaranse no apartado de
+   probas unitarias. \\
+   
+   Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
+   baixo nivel en C de arredor de 700 líneas. \\
    
    E rematando polo \textbf{receptor}, que á súa vez se divide entre a lóxica
-   de configuración e a de reproducción. % TODO
+   de configuración e a de reproducción. \\
+   
+   Feitos funcionar os outros módulos, era o momento de implementar a lóxica de
+   negocio da capa inmediatamente superior, é dicir, a do receptor, onde se
+   empregrarían o módulo do lector de tarxetas para a configuración e os módulos
+   de presión e capacitivos para a reproducción. \\
+   
+   % TODO Pendente de redactar.
+   
+   Finalmente, entre documentación, código e probas, obtivemos un módulo de
+   baixo nivel en C de arredor de 1100 líneas.
    
    \paragraph{Software}
 

@@ -717,7 +717,69 @@ producto, pasando por un prototipo operacional.
     \label{figura:Bmp085PseudoCodigo}
    \end{figure}
    
-   Continuando polos \textbf{sensores capacitivos}, % TODO
+   Continuando polos \textbf{sensores capacitivos}, a folla de especificacións
+   \cite{MPR121}, de Freescale neste caso, tamén é de calidade, polo que
+   facilitou o desenvolvemento. \\
+   
+   O proceso consistiu en:
+    
+    \begin{itemize}
+    \item Solicitar a lectura da presión mediante I2C.
+    \item Definir e ler os rexistros da ROM onde se almacenan as configuracións
+        e e valores medidos do disposito.
+    \item Ler os valores dos sensores.
+    \item Devolver os valores medidos.
+   \end{itemize}
+   
+   A configuración dos rexistros foi de lonxe a parte máis complexa e tediosa.
+   Houbo que configurar medio cento de rexistros agrupados nunha decena de
+   grupos funcionais e facelo nunha orde concreta, antes de poder facer calquera
+   outra operación. \\
+   
+   En xeral, precisamos obter o valor dos 9 bits/sensores menos significativos
+   da placa (que empregaremos para as dixitacións), máis o 13º, sensor virtual
+   de presencia (que empregaremos para o vibrato). \\
+   
+   A lectura dos valores dos sensores realízase primeiro en bruto, sendo pasados
+   a continuación por tres filtros de distinto tipo, como se pode apreciar na
+   figura \ref{figura:Mpr121Medicion}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/mpr121-medicion.png}
+    % mpr121-medicion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Medición dos sensores capacitivos}
+    \label{figura:Mpr121Medicion}
+   \end{figure}
+   
+   O sensor de proximidade é un sensor virtual que calcula o seu valor en
+   función do valor dos outros 12 sensores físicos, de maneira que podemos
+   empregalo para calcular pequenas variacións ou vibracións dos son en función
+   de se hai outros dedos próximos ós sensores que non están sendo empregados
+   na dixitación. \\
+   
+   Outro punto moi importante que descubrimos na folla de especificacións é que
+   os sensores son auto-calibrables, polo que o requisito sobre o axuste da
+   sensibilidade do sensores, logo de facer probas con distinta xente e vendo
+   que os valores eran correctos, quedou cuberto pola parte hardware sen
+   necesidade de cubrilo dende o software de configuración, motivo polo que se
+   revisou a pantalla de configuración da sensibilidade do punteiro, eliminando
+   a sección de configuración da sensibilidade dos sensores e quedando como se
+   amosa na figura \ref{figura:ConfiguracionSensibilidade}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/configuracion-sensibilidade.png}
+    % configuracion-sensibilidade.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Configuración da sensibilidade do punteiro}
+    \label{figura:ConfiguracionSensibilidade}
+   \end{figure}
+   
+   Feitos funcionar os sensores e que pasasen as probas definidas anteriormente,
+   os resultados das mesmas comentaranse no apartado de probas unitarias. \\
+   
+   Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
+   baixo nivel en C de arredor de 500 líneas. \\
    
    Seguindo polo \textbf{lector de tarxetas}, % TODO
    

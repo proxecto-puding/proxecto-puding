@@ -841,6 +841,7 @@ void setConfigurationDataTypeTuning(aJsonObject *root) {
  * Initialize the comunication ports and the configuration parameters.
  */
 void setDevice() {
+  initializeOffsets();
   Serial.begin(SERIAL_VEL);
   delay(STARTUP_DELAY);
   g1.setDevice();

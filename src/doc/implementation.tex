@@ -673,7 +673,7 @@ producto, pasando por un prototipo operacional.
    Comezando polo \textbf{sensor de presión}, este caso é a excepción que 
    confirma a regra. Ó ser unha peza desenvolvida por Bosh (compañía moi seria
    en canto a desenvolvemento de sensores), a folla de especificacións
-   \cite{Bmp085DataSheet} é impecable. \\
+   \cite{BMP085} é impecable. \\
    
     O proceso consistiu en:
     
@@ -707,7 +707,7 @@ producto, pasando por un prototipo operacional.
    unitarias. \\
    
    Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
-   baixo nivel en C de arredor de 500 líneas. \\
+   baixo nivel en C de arredor de 500 liñas. \\
    
    \begin{figure}[htbp]
     \centering
@@ -779,7 +779,7 @@ producto, pasando por un prototipo operacional.
    os resultados das mesmas comentaranse no apartado de probas unitarias. \\
    
    Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
-   baixo nivel en C de arredor de 500 líneas. \\
+   baixo nivel en C de arredor de 500 liñas. \\
    
    Seguindo polo \textbf{lector de tarxetas}, a documentación proporcionada por
    4D Systems \cite{MicroDriveG1} é claramente escasa e incompleta. En xeral,
@@ -821,7 +821,7 @@ producto, pasando por un prototipo operacional.
    probas unitarias. \\
    
    Finalmente, entre documentación, código e probas, obtivemos un módulo de moi
-   baixo nivel en C de arredor de 700 líneas. \\
+   baixo nivel en C de arredor de 700 liñas. \\
    
    E rematando polo \textbf{receptor}, que á súa vez se divide entre a lóxica
    de configuración e a de reproducción. \\
@@ -831,12 +831,148 @@ producto, pasando por un prototipo operacional.
    empregrarían o módulo do lector de tarxetas para a configuración e os módulos
    de presión e capacitivos para a reproducción. \\
    
-   % TODO Pendente de redactar.
+   Cabe dicir que tampouco foi tarefa fácil, dado que a documentación oficial de
+   Arduino deixa moito que desexar. Conta coa información básica máis ou menos
+   ben estructurada, pero en canto se quere ir un pouco máis alá, a única opción
+   é consultar os foros técnicos ou aplicar o proceso de proba-erro. Moitas das
+   dúbidas que se plantexan nos foros e que se ve que son bastante repetitivas
+   poderían pasar a formar parte da documentación oficial coma proceso de
+   mellora. \\
    
-   Finalmente, entre documentación, código e probas, obtivemos un módulo de
-   baixo nivel en C de arredor de 1100 líneas.
+   Comezamos pola parte de reproducción, que a priori semellaba máis sinxela a
+   nivel de comunicación, aínda que requería da consulta de máis sensores. \\
+   
+   O proceso consistiu en:
+    
+   \begin{itemize}
+    \item Configurar o dispositivo. Cargar os módulos e mapear as dixitacións.
+    \item Ler os valores dos módulos (presión e sensores capacitivos activos).
+    \item Determinar se a nota e os bordóns deben soar ou non en función do
+        valor do sensor de presión.
+    \item Calcular a nota a reproducir en función da dixitación equivalente ós
+        sensores activos.
+    \item Enviar o comando MIDI correspondente para reproducir o parar nota e
+        bordóns.
+   \end{itemize}
+   
+   Para o primeiro o punto, definíronse un par de matrices que conteñen as
+   dixitacións típicas da gaita galega (aberto -figura
+   \ref{figura:MatrizAberto}- e pechado -figura \ref{figura:MatrizPechado}-),
+   sendo a primeira parte a representación binaria equivalente dos valores
+   aportados polos sensores capacitivos e a segunda o desprazamento en semitonos
+   respecto da nota base ou tonalidade na que se está tocando. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/matriz-aberto.png}
+    % matriz-aberto.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Matriz de dixitación aberta}
+    \label{figura:MatrizAberto}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/matriz-pechado.png}
+    % matriz-pechado.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Matriz de dixitación pechada}
+    \label{figura:MatrizPechado}
+   \end{figure}
+   
+   Para o segundo punto simplemente lemos os valores dos sensores coma durante
+   as probas. \\
+   
+   Para determinar se deben soar ou non nota e bordóns, comparamos o valor
+   obtido de presión co umbral definido como límite. Neste caso poderiamos
+   incluso facer un comparador con histérese definindo un límite alto e un
+   límite baixo, en función de se estamos enchendo ou baleirando o fol, pero non
+   o vimos preciso. \\
+   
+   Para calcular a nota e os bordóns, partimos da nota base ou tonalidade e
+   aplicamos o desprazamento en semitonos obtido da matriz xeral de dixitacións
+   co que obtemos a nota a reproducir (no caso dos bordóns, o desprazamento é
+   sempre fixo). \\
+   
+   Para xerar o comando MIDI a enviar ó servidor MIDI, o que fixemos foi facer
+   uso dunha librería referenciada entre as da documentación de Arduino
+   \ref{MIDILibrary}. Desta librería empregamos basicamente tres comandos:
+   
+   \begin{itemize}
+    \item Note On.
+    \item Note Off.
+    \item Send pitch bend. Este último empregouse xunto co sensor de proximidade
+        para saber cándo aplicar unha pequena variación na nota que se denomina
+        vibrato.
+   \end{itemize}
+   
+   Lista a parte de reproducción, continuamos coa parte de configuración. \\
+   
+   O proceso consistiu en:
+    
+   \begin{itemize}
+    \item Ler a configuración almacenada no dispositivo xa cargado previamente.
+    \item Configurar o dispositivo en función da última configuración gardada
+        lida no paso anterior.
+    \item Comprobar se a aplicación de configuración nos pide que nos
+        identifiquemos.
+    \item Comprobar se a aplicación nos solicita a configuración actual, previa
+        ou por defecto e enviala no seu caso.
+    \item Comprobar se a aplicación nos envía unha nova configuración.
+   \end{itemize}
+   
+   Para o intercambio e almacenamento da configuración precisábase un formato
+   lixeiro pero ó mesmo tempo facilmente lexible e modificable, polo que se
+   optou por empregar JSON. \\
+   
+   O tratamento de JSON en Arduino está todavía un pouco verde. No momento no
+   que se avaliou a dispoñibilidade de librerías para o seu tratamento a máis
+   coñecida era \textit{aJSON} \cite{aJSON} cuxo desenvolvemento parece morto
+   a día de hoxe e que aínda conta con decenas de incidencias abertas. \\
+   
+   Actualmente, a máis empregada aínda que tamén con decenas de incidencias
+   abertas é \textit{Arduino Json} \cite{ArduinoJson}. Pero como a
+   implementación se fixo antes de que isto ocorrese, empregouse aJSON. \\
+   
+   Como xa comentamos anteriormente, cada dispositivo garda a súa propia
+   configuración. A nivel de implementación, garda un ficheiro por cada tipo de
+   configuración (selección, sensibilidade, etc.) e de acción (actual, previa ou
+   por defecto), de maneira que cada dispositivo conta con máis dunha ducia de
+   pequenos ficheiros de configuración almacenados. \\
+   
+   Cada un deses ficheiros de configuración non é máis ca un ficheiro de texto
+   plano que contén unha tipo de configuración en formato JSON (figura
+   \ref{figura:FicheiroJson}). \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/ficheiro-json.png}
+    % ficheiro-json.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Ficheiro de configuración en formato JSON}
+    \label{figura:FicheiroJson}
+   \end{figure}
+   
+   Os fluxos de identificación e configuración comentaranse na parte software,
+   xa que é máis doado entendelos relacionándoos coa interación do usuario sobre
+   as pantallas. \\
+   
+   Finalmente, entre documentación e código, obtivemos un módulo de baixo nivel
+   en C de arredor de 1100 liñas. \\
+   
+   Sen embargo, á hora de querer cargar o código na placa atopámonos con
+   problemas, que explicaremos no apartado de indicencias, e que fixeron que
+   tiveramos que, logo de aplicar o análise de riscos e alternativas, optaramos
+   por empregar unha versión simplificada, de arredor de 700 liñas. \\
+   
+   As probas de integración da parte hardware leváronse a cabo xunto coa parte
+   software, motivo polo que se postergan os resultados obtidos ata a
+   finalización da aplicación de configuración que, ademáis de xestionar a mesma
+   é a encargada de levantar o servidor MIDI cos parámetros correctos.
    
    \paragraph{Software}
+   
+   Lista a implementación da parte hardware, tocoulle o turno á parte
+   software. \\
+   
+   % TODO Redactar.
 
  \subsection{Probas de unidade}
 

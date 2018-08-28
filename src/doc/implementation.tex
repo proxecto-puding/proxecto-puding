@@ -1029,7 +1029,7 @@ producto, pasando por un prototipo operacional.
    \end{itemize}
    
    Os diagramas de fluxo dos casos anteriores poden apreciarse nas figuras
-   \ref{figura:DeteccionDispositivos} a \ref{EnvioConfiguracion}.
+   \ref{figura:DeteccionDispositivos} a \ref{EnvioConfiguracion}. \\
    
    \begin{figure}[htbp]
     \centering
@@ -1055,12 +1055,175 @@ producto, pasando por un prototipo operacional.
     \label{figura:EnvioConfiguracion}
    \end{figure}
    
-   % TODO Redactar.
-
+   No diagrama de detección de dispositivos (figura
+   \ref{figura:DeteccionDispositivos}) podemos apreciar como cando o usuario
+   busca dispositivos se envía unha baliza de recoñecemento que chega a todos
+   os dispositivos conectados ó router mediante broadcasting. Dita baliza indica
+   ós dispostivos que deben identificarse. \\
+   
+   Unha vez identificados pola aplicación e seleccionado un deles polo usuario,
+   recupérase a configuración do mesmo, indicando na petición o identificador do
+   dispositivo, que queremos a configuración actual e o tipo en cada caso
+   (figura \ref{figura:RecuperacionConfiguracion}). \\
+   
+   Cando o usuario precise axustar algún parámetro, enviará a nova configuración
+   ó dispositivo, indicando na petición o identificador do dispositivo, que é
+   unha nova configuración e o tipo en cada caso, que acto seguido será aplicada
+   polo dispositivo, segundo se amosa na figura
+   \ref{figura:EnvioConfiguracion}. \\
+   
+   O \textbf{servizo de configuración} é o encargado de xestionar todo o
+   relacionado coa configuración da aplicación, servindo de ponte entre esta e
+   outros servizos coma o de dispositivos ou o MIDI. \\
+   
+   Encárgase de cousas como de precargar os datos de configuración dos menús
+   da aplicación ou de xerar a configuración do servidor MIDI en función dos
+   valores da configuración actual. \\
+   
+   En canto á precarga dos datos de configuración dos menús da aplicación, a
+   dificultade estribaba en que é dependente da tonalidade de lectura do usuario
+   polo que para as mesmas claves/notas, temos valores/nomes distintos en
+   función da tonalidade na que o usuario teña configurada a aplicación. \\
+   
+   A xeración da configuración para o servidor MIDI non reviste máis
+   complexidade que a de facer un mapeo dos valores da configuración dos que
+   depende o mesmo para funcionar o máis precisamente posible (figura
+   \ref{figura:MapeoConfiguracionServidorMIDI}). \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/mapeo-conf-servidor-midi.png}
+    % mapeo-conf-servidor-midi.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Mapeo da configuración do servidor MIDI}
+    \label{figura:MapeoConfiguracionServidorMIDI}
+   \end{figure}
+   
+   O \textbf{servizo de internacionalización} é o encargado de proporcionar as
+   mensaxes da aplicación no idioma do usuario. \\
+   
+   Actualmente adopta o idioma do sistema e conta con soporte para galego e
+   inglés (por defecto). \\
+   
+   O \textbf{servizo de notificacións}, encargado de xestionar a comunciación
+   entre as distintas partes da interface mediante eventos. \\
+   
+   Basicamente trátase dun patrón observador cun conxunto de notificacións
+   predefinidas (figura \ref{figura:Notificacions}) ás que se pode subscribir
+   calquera compoñente da aplicación que o precise. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/notificacions.png}
+    % notificacions.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Notificacións}
+    \label{figura:Notificacions}
+   \end{figure}
+   
+   Resulta moi útil e simplifica enormemente a actualización de valores entre
+   pestanas da aplicación. \\
+   
+   O \textbf{servizo de navegación web}, xestiona a apertura da documentación da
+   aplicación (web do proxecto, manual de usuario, APIs, etc.) directamente no
+   navegador do sistema (figura \ref{figura:Navegador}). \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/navegador.png}
+    % navegador.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo de navegación web}
+    \label{figura:Navegador}
+   \end{figure}
+   
+   O \textbf{servizo MIDI}, xestiona todo o relacionado coas operacións sobre o
+   servidor MIDI: configurar, levantar e parar o servidor. \\
+   
+   Neste caso, o que se buscou foi contar cunha representación única xenérica do
+   servidor MIDI e da súa configuración que logo se particularizou segundo o
+   sistema operativo anfitrión e o servidor MIDI particular mediante o uso dun
+   patrón estratexia. \\
+   
+   Para o servidor MIDI, aínda que poderiamos ter aplicado un distinto para cada
+   sistema operativo, optamos por buscar e empregar o mesmo para todos, de ser
+   posible, particularizando logo o comando de execución para cada sistema
+   operativo segundo o caso. \\
+   
+   A opción escollida foi \textbf{Timidity} \cite{Timidity}, un sintetizador
+   MIDI de amplo uso e con soporte para gran cantidade de sistemas
+   operativos. \\
+   
+   Como alternativa dispoñemos de FluidSynth \cite{FluidSynth}, máis moderno,
+   pero con menos funcionalidades relacionadas co proxecto ca Timidity, motivo
+   polo que apostamos por este último. \\
+   
+   Timidity conta con soporte para uso de fontes de son alternativas (son real),
+   táboas de frecuencias personalizadas (afinación natural e axuste fino por
+   nota), vibrato continuo, etc., tal e como se pode comprobar na figura
+   \ref{figura:Timidity}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/timidity.png}
+    % timidity.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Servizo MIDI: sistemas UNIX}
+    \label{figura:Timidity}
+   \end{figure}
+   
+   Como partes interesantes desta implementación, destacar por unha banda o
+   xestor de descargas de fontes de son, dado que para fontes de son realistas
+   o peso é demasiado elevado como para almacenala no propio repositorio da
+   aplicación e, ademáis, gañamos poder manter actualizada a fonte de son en
+   todos os clientes. \\
+   
+   Tamén é destacable o cálculo da táboa de frecuencias para afinación natural.
+   É teoría musical, pero que precisamos plasmar na nosa implementación de
+   maneira programática. \\
+   
+   A nivel código non deixa de ser unha relación matemática entre a tonalidade
+   base e o resto da súa escala musical. \\
+   
+   No caso dunha escala temperada, estas relacións as mesmas para toda a escala,
+   é dicir, se un tono se divide en 9 comas, os semitonos están equiespaciados a
+   razón de 4,5 comas por semitono \cite{AfinacionTemperada}. \\
+   
+   No caso dunha escala natural (tamén chamada xusta ou pura), os semitonos
+   están espaciados a razón de 4 ou 5 comas segundo o caso
+   \cite{AfinacionNatural}. \\
+   
+   Isto fai que os harmónicos (ou frecuencias harmónicas) producidos por cada
+   nota varíen moito dun tipo de escala ó outro e, polo tanto, a mesma escala
+   reproducida cunha afinación ou a outra soe de maneira moi distinta. \\
+   
+   Dentro da propia afinación xusta, existen moitas variantes xa dende os tempos
+   de Pitágoras pero, en xeral, o que se busca é obter o maior número de tríadas
+   posibles que xeren intervalos consonantes, é dicir, que os harmónicos ou
+   frecuencias harmónicas xerados polas tres notas do acorde ou tríada, sexan
+   consonantes entre si \cite{Escalas}. \\
+   
+   As relacións máis empregadas para a afinación xusta son as da figura
+   \ref{figura:AfinacionNatural}. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6, keepaspectratio=true]{./imagenes/afinacion-natural.png}
+    % afinacion-natural.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Relacións afinación xusta}
+    \label{figura:AfinacionNatural}
+   \end{figure}
+   
+   Finalmente, entre documentación, código (de alto, medio e baixo nivel) e
+   probas (de unidade, integración e aceptación), obtivemos unha aplicación de
+   arredor de 15000 liñas de código en Java. \\
+   
+   A parte de probas será reflexada con detalle na sección correspondente.
+   
  \subsection{Probas de unidade}
+ 
+ % TODO Redactar.
 
  \subsection{Integración e probas}
 
  \subsection{Probas de aceptación}
+ 
+ \subsection{Documentación}
 
  \subsection{Implantación}

@@ -972,6 +972,89 @@ producto, pasando por un prototipo operacional.
    Lista a implementación da parte hardware, tocoulle o turno á parte
    software. \\
    
+   En xeral, para toda a implementación e as probas da aplicación empregouse
+   (ou está en trámites de actualizarse pouco a pouco) inxección de dependencias
+   (mediante \textit{Guice} \ref{Guice}), obxectos inmutables (mediante
+   \textit{Guava} \ref{Guava}) e programación funcional (mediante expresións
+   lambda de Java 8). \\
+   
+   Se lembramos dos apartados anteriores, tiñamos pendente a implementación da
+   capa de servizos hacia abaixo. Concretamente:
+   
+   \begin{itemize}
+    \item O servizo de dispositivos.
+    \item O servizo de configuración.
+    \item O servizo de internacionalización.
+    \item O servizo de notificacións.
+    \item O servizo de navegación web.
+    \item E o servizo MIDI.
+   \end{itemize}
+   
+   O \textbf{servizo de dispositivos} é o encargado de xestionar todo o
+   relacionado cos dispositivos hardware en uso: detección, comunicación,
+   etc. \\
+   
+   Para poder comunicarnos cos dispositivos a través do router XBee, que se
+   conecta ó ordenador mediante USB, precisabamos dunha librería de comunicación
+   serie para Java. \\
+   
+   A base de buscar e de falar con xente do mundillo, demos coa librería RXTX de
+   GNU \cite{RXTX}, ó parecer, a única dispoñible daquelas e constatamos que a
+   comunicación serie é un dos grandes olvidados en Java. \\
+   
+   A instalación da mesma foi farragosa e o seu uso infructuoso, pois non fomos
+   quen de conseguir conectividade, polo cal a implementación final quedou en
+   espera a falta de alternativas. \\
+   
+   Finalmente, uns anos despois, apareceu unha nova librería,
+   \textit{Java Simple Serial Connector} ou \textit{jSSC} \cite{jSSC} que, lonxe
+   de ser perfecta, ofrece menos dificultades tanto para a súa instalación coma
+   para o seu uso. En todo caso, leva parada hai moitos anos. \\
+   
+   Ademáis da librería de comunicación serie, era precisa unha librería para o
+   tratamento de JSON, pois era o formato a empregar durante as
+   comunicacións. \\
+   
+   Neste caso, a elección estivo bastante clara dende un principio. A librería 
+   \textit{Gson} \cite{Gson} foi a escollida, por ser amplamente empregada no
+   mundo Java. \\
+   
+   Tendo claras xa as librerías, a outra parte interesante é o fluxo de datos
+   entre a aplicación e os dispositivos. Concretamente para os casos de:
+   
+   \begin{itemize}
+    \item Detección de dispositivos.
+    \item Recuperación da configuración dun dispositivo.
+    \item Envío dunha nova configuración a un dispositivo.
+   \end{itemize}
+   
+   Os diagramas de fluxo dos casos anteriores poden apreciarse nas figuras
+   \ref{figura:DeteccionDispositivos} a \ref{EnvioConfiguracion}.
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.5, keepaspectratio=true]{./imagenes/df-find-devices.png}
+    % df-find-devices.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Detección de dispositivos}
+    \label{figura:DeteccionDispositivos}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.5, keepaspectratio=true]{./imagenes/df-select-device.png}
+    % df-select-device.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Recuperación da configuración dun dispositivo}
+    \label{figura:RecuperacionConfiguracion}
+   \end{figure}
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.5, keepaspectratio=true]{./imagenes/df-apply-config.png}
+    % df-apply-config.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+    \caption{Envío dunha nova configuración a un dispositivo}
+    \label{figura:EnvioConfiguracion}
+   \end{figure}
+   
    % TODO Redactar.
 
  \subsection{Probas de unidade}

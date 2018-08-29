@@ -39,21 +39,25 @@ public class MidiServerGeneral implements MidiServer {
 		checkSoundFontFile();
 	}
 	
+	@Override
 	public boolean isSoundFontFileDownloaded() throws IOException {
 		
 		return soundFontManager.isSoundFontFileDownloaded();
 	}
 	
+	@Override
 	public void downloadSoundFontFile() {
 		
 		soundFontManager.downloadSoundFontFile();
 	}
 	
+	@Override
 	public boolean isSoundFontFileCopied() {
 		
 		return soundFontManager.isSoundFontFileCopied(tempConfigFilePath);
 	}
 	
+	@Override
 	public String copySoundFontFile() throws IOException {
 		
 		try {
@@ -64,15 +68,18 @@ public class MidiServerGeneral implements MidiServer {
 		}
 	}
 	
+	@Override
 	public MidiServerConfiguration getConfiguration() {
 		return configuration;
 	}
 	
+	@Override
 	public void setConfiguration(MidiServerConfiguration configuration) {
 		
 		this.configuration = configuration;
 	}
 	
+	@Override
 	public List<String> getCommand() {
 		
 		return midiServer.getCommand();

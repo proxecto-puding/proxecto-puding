@@ -1,8 +1,14 @@
 package org.proxectopuding.gui.services.acceptance;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
 
 import org.junit.Test;
+import org.proxectopuding.gui.model.entities.BagpipeConfiguration;
+import org.proxectopuding.gui.model.entities.BagpipeConfigurationType;
+import org.proxectopuding.gui.model.entities.BagpipeDevice;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServer;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 import org.proxectopuding.gui.model.entities.midiServer.MidiServerGeneral;
@@ -71,6 +77,16 @@ public class ConfigurationApplicationServiceAcceptanceTest {
 	public void applyConfiguration() {
 		
 		// Given
+		Set<BagpipeDevice> devices = deviceManagerService.findBagpipeDevices();
+		assertTrue(devices.size() > 0);
+		String expectedProductId = devices.iterator().next().getProductId();
+		deviceManagerService.setSelectedBagpipeDevice(expectedProductId);
+		Set<BagpipeConfiguration> configurations =
+				deviceManagerService.findBagpipeConfigurations(expectedProductId);
+		assertEquals(BagpipeConfigurationType.values().length,
+				configurations.size());
+		configurations.forEach(configuration ->
+				assertEquals(expectedProductId, configuration.getProductId()));
 		int expectedTuningFrequency = 442;
 		confAppService.setTuningFrequency(expectedTuningFrequency);
 		

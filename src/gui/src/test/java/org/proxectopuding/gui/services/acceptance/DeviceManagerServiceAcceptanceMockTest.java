@@ -123,7 +123,8 @@ public class DeviceManagerServiceAcceptanceMockTest {
 		assertEquals(expectedConfigurationType.name(), configuration.getType());
 		SelectionConfiguration configurationData =
 				(SelectionConfiguration) configuration;
+		// Note: mock configuration is always the same.
 		assertEquals(expectedConfigurationData.isBagEnabled(),
-				configurationData.isBagEnabled());
+				!configurationData.isBagEnabled());
 	}
 }

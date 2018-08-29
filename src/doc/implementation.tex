@@ -1218,9 +1218,148 @@ producto, pasando por un prototipo operacional.
    
  \subsection{Probas de unidade}
  
- % TODO Redactar.
+ Seguindo os principios de TDD, as probas de unidade foron paso previo á
+ implementación real tanto dos módulos hardware coma dos servizos sofware.
+ 
+  \subsubsection{Hardware}
+  
+  % TODO Revisar toda esta sección hardware.
+  
+  Como comentamos anteriormente, durante o desenvolvemento do prototipo hardware
+  operacional creáronse uns pequenos sketches de exemplo a modo de probas
+  unitarias, para poder validar o funcionamento de cada módulo por separado
+  antes de proceder á súa integración na montaxe do receptor. \\
+  
+  No caso do sensor de presión, probamos a obtención da temperatura e presión
+  ambiente, aínda que para o caso que nos ocupa, con probar a presión sería
+  suficiente (figura \ref{figura:TestUnitarioSensorPresion}). \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-sensor-presion.png}
+   % test-sensor-presion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Probas de unidade do sensor de presión}
+   \label{figura:TestUnitarioSensorPresion}
+  \end{figure}
+  
+  Os resultados obtidos pódense ver na figura
+  \ref{figura:ResultadoTestUnitarioSensorPresion}. Salientar que arroxa uns
+  valores algo altos froito de que está calibrado para obter o resultado o máis
+  rápido posible, reducindo polo tanto a precisión ó mínimo. Pero como o que
+  precisamos é básicamente un valor para comparar con un umbral, é perfectamente
+  válido. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/resultado-test-sensor-presion.png}
+   % resultado-test-sensor-presion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Resultado das probas de unidade do sensor de presión}
+   \label{figura:ResultadoTestUnitarioSensorPresion}
+  \end{figure}
+  
+  No caso dos sensores capacitivos, probamos a ler os valores dos nove bits
+  menos significativos máis o bit do sensor de proximidade. Neste caso, a
+  entrada é manual e precisa da intervención do usuario, que debe validar
+  visualmente que o resultado obtivo se corresponde coa entrada manual
+  (figura \ref{figura:TestUnitarioSensoresCapacitivos}).
+   
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-sensores-capacitivos.png}
+   % test-sensores-capacitivos.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Probas de unidade dos sensores capacitivos}
+   \label{figura:TestUnitarioSensoresCapacitivos}
+  \end{figure}
+  
+  Os resultados obtidos pódense ver na figura
+  \ref{figura:ResultadoTestUnitarioSensoresCapacitivos}. Validados os resultados
+  de forma visual, comprobouse que eran correctos. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/resultado-test-sensores-capacitivos.png}
+   % resultado-test-sensores-capacitivos.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Resultado das probas de unidade dos sensores capacitivos}
+   \label{figura:ResultadoTestUnitarioSensoresCapacitivos}
+  \end{figure}
+  
+  No caso do lector de tarxetas, probamos a ler a información do dispositivo,
+  listar o directorio principal, escribir, mover e ler un ficheiro. Aínda que
+  con probar a ler e escribir sería suficiente para cubrir as nosas necesidades
+  (figura \ref{figura:TestUnitarioLectorTarxetas}). \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-lector-tarxetas.png}
+   % test-lector-tarxetas.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Ficheiro de proba do lector de tarxetas}
+   \label{figura:TestUnitarioLectorTarxetas}
+  \end{figure}
+  
+  Os resultados obtidos pódense ver na figura
+  \ref{figura:ResultadoTestUnitarioLectorTarxetas}. Validados os resultados
+  de forma visual e revisada externamente a tarxeta de memoria, comprobouse que
+  eran correctos. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/resultado-test-lector-tarxetas.png}
+   % resultado-test-lector-tarxetas.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Ficheiro de proba do lector de tarxetas}
+   \label{figura:ResultadoTestUnitarioLectorTarxetas}
+  \end{figure}
+  
+  \subsubsection{Software}
+  
+  Como comentamos tamén anteriormente, durante o desenvolvemento do prototipo
+  software operacional creáronse baterías de tests unitarios a nivel de
+  servizo. \\
+  
+  Creouse unha batería de tests por servizo (figura \ref{figura:TestsUnitarios}
+  e cubriuse alomenos o \textit{happy path} de cada unha das súas sinaturas. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/tests-unitarios.png}
+   % test-unitarios.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Tests unitarios}
+   \label{figura:TestUnitarios}
+  \end{figure}
+  
+  Para simular o comportamento de cada método empregouse unha librería de
+  \textit{mocking}. A escollida, pola súa popularidade dentro do mundo Java foi
+  \textit{Mockito} \cite{Mockito}. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-mockito.png}
+   % test-mockito.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Exemplo de test unitario con Mockito}
+   \label{figura:TestMockito}
+  \end{figure}
+  
+  Vexamos un exemplo. Como se pode apreciar na figura \ref{figura:TestMockito},
+  nas precondicións configuráse o comportamento do mock. Logo execútase a
+  operación que se quere probar e finalmente compróbanse as poscondicións. \\
+  
+  É de salientar que, aínda que máis propio de BDD, intentou empregarse linguaxe
+  \textit{Gherkin} \cite{Gherkin} tanto como foi posible para que os tests fóran
+  o máis sinxelos de ler posible. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/resultados-tests-unitarios.png}
+   % resultados-test-unitarios.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Resultados tests unitarios}
+   \label{figura:ResultadosTestUnitarios}
+  \end{figure}
+  
+  Executadas as probas, cun total de 48 tests unitarios, podemos comprobar que
+  todas pasan correctamente (figura \ref{figura:ResultadosTestUnitarios}).
 
  \subsection{Integración e probas}
+ 
+ % TODO Redactar.
 
  \subsection{Probas de aceptación}
  

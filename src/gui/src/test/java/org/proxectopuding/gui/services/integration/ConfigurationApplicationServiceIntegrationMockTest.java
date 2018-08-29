@@ -21,8 +21,8 @@ import org.proxectopuding.gui.model.services.ConfigurationApplicationService;
 import org.proxectopuding.gui.model.services.DeviceManagerService;
 import org.proxectopuding.gui.model.services.MidiService;
 import org.proxectopuding.gui.model.services.impl.ConfigurationApplicationServiceImpl;
-import org.proxectopuding.gui.model.services.impl.DeviceManagerServiceImpl;
 import org.proxectopuding.gui.model.services.impl.MidiServiceImpl;
+import org.proxectopuding.gui.model.services.impl.mocks.DeviceManagerServiceMockImpl;
 import org.proxectopuding.gui.model.utils.ConfigurationManager;
 import org.proxectopuding.gui.model.utils.DeviceManager;
 import org.proxectopuding.gui.model.utils.FileDownload;
@@ -36,7 +36,7 @@ import org.proxectopuding.gui.model.utils.SoundFontManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManager;
 import org.proxectopuding.gui.model.utils.connection.ConnectionManagerJsscImpl;
 
-public class ConfigurationApplicationServiceIntegrationTest {
+public class ConfigurationApplicationServiceIntegrationMockTest {
 	
 	private FileUtils fileUtils = new FileUtils();
 	private FileDownload fileDownload = new FileDownload(fileUtils);
@@ -55,7 +55,7 @@ public class ConfigurationApplicationServiceIntegrationTest {
 			new ConnectionManagerJsscImpl(operativeSystemManager, midiService);
 	private DeviceManager deviceManager = new DeviceManager();
 	private DeviceManagerService deviceManagerService =
-			new DeviceManagerServiceImpl(connectionManager, deviceManager);
+			new DeviceManagerServiceMockImpl(connectionManager, deviceManager);
 	
 	private PropertiesManager propertiesManager = new PropertiesManager();
 	private ConfigurationManager configurationManager =

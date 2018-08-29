@@ -761,7 +761,7 @@ public class DeviceManagerServiceMockImpl implements DeviceManagerService {
 		for (int i = 0; i < 3; i++) {
 			FingeringOffset fingeringOffset = new FingeringOffset();
 			fingeringOffset.setFingering(i);
-			fingeringOffset.setOffset(i);
+			fingeringOffset.setOffset(i + 48);
 			fingerings.add(fingeringOffset);
 		}
 		

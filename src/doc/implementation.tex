@@ -1402,7 +1402,7 @@ producto, pasando por un prototipo operacional.
   
  Executadas as probas, cun total de 133 tests de integración, podemos comprobar
  que non todas pasan correctamente
- (figura \ref{figura:ResultadosTestintegracion}). \\
+ (figura \ref{figura:ResultadosTestIntegracion}). \\
  
  Concretamente, se nos fixamos en ditos resultados, as que non pasan son as
  que precisan conectividade co dispositivo. Isto débese a unha incidencia que se
@@ -1462,8 +1462,79 @@ producto, pasando por un prototipo operacional.
  
  \subsection{Probas de aceptación}
  
- % TODO Redactar.
+ Durante o desenvolvemento do prototipo software operacional creáronse baterías
+ de tests de aceptación a nivel de servizo. \\
+ 
+ Creouse unha batería de tests por servizo (figura \ref{figura:TestsIntegracion}
+ e cubriuse alomenos o \textit{happy path} de cada unha das súas sinaturas. \\
+  
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/tests-aceptacion.png}
+  % test-aceptacion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Tests de aceptación}
+  \label{figura:TestsAceptacion}
+ \end{figure}
+ 
+ As probas de aceptación fixéronse en todo momento seguindo os principios de
+ BDD, deseñando os tests en base á interacción do usuario coa aplicación e
+ especificando os mesmos empregando linguaxe Gherkin. \\
+ 
+ Vexamos un exemplo. Como se pode apreciar na figura \ref{figura:TestAceptacion},
+ créanse as precondicións, logo execútase a operación que se quere probar e
+ finalmente compróbanse as poscondicións. \\
+ 
+ Se nos fixamos na documentación da suite e do test, vemos como están
+ especificados en linguaxe Gherkin, onde a suite é proba unha funcionalidade
+ onde se poden dar varios escenarios, que é o que se describe e proba nos
+ tests. \\
+ 
+ Desta maneira, os propios tests de aceptación poden servir de contrato entre
+ partes, xa que os requisitos se poden especificar en base a funcionalidades con
+ distintos escenarios e, se os tests de aceptación pasan, cúmprese co
+ contrato asinado. \\
+  
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-aceptacion.png}
+  % test-aceptacion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Exemplo de test de aceptación}
+  \label{figura:TestAceptacion}
+ \end{figure}
+ 
+ A aproximación dos tests de aceptación foi a mesma que a dos de integración,
+ tendo o hardware conectado ó pc executando a aplicación. \\
+ 
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.6,keepaspectratio=true]{./imagenes/resultados-tests-aceptacion.png}
+  % resultados-test-aceptacion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Resultados tests aceptación}
+  \label{figura:ResultadosTestAceptacion}
+ \end{figure}
+  
+ Executadas as probas, cun total de 11 tests de aceptación, podemos comprobar
+ que non todas pasan correctamente
+ (figura \ref{figura:ResultadosTestAceptacion}). \\
+ 
+ Concretamente, se nos fixamos en ditos resultados, as que non pasan son, ó
+ igual que no caso dos tests de integración, as que precisan conectividade co
+ dispositivo, polo mesmo motivo. \\
+ 
+ Para as suites de tests que fallan, para intentar paliar este problema,
+ desenvolvéronse uns tests de aceptación alternativos (co sufixo Mock), no que
+ se simula o intercambio de información en formato JSON co dispositivo, de
+ maneira que alomenos poidamos verificar e validar a aplicación de configuración
+ incluíndo a serialización e deserialización da información, tal e como se faría
+ cun dispositivo real. É dicir, contamos cun dispositivo simulado en Java que
+ emite e recibe información en formato JSON, tal coma o identificador ou os
+ distintos tipos de configuración. \\
+ 
+ Executadas as probas, cun total de 11 tests de aceptación, puidemos validar os
+ casos de uso da aplicación.
  
  \subsection{Documentación}
+ 
+ % TODO Redactar.
 
  \subsection{Implantación}

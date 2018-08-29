@@ -34,6 +34,42 @@ public class MidiServerUnix implements MidiServer {
 	}
 	
 	@Override
+	public boolean isSoundFontFileDownloaded() throws IOException {
+		
+		return midiServer.isSoundFontFileDownloaded();
+	}
+	
+	@Override
+	public void downloadSoundFontFile() {
+		
+		midiServer.downloadSoundFontFile();
+	}
+	
+	@Override
+	public boolean isSoundFontFileCopied() {
+		
+		return midiServer.isSoundFontFileCopied();
+	}
+	
+	@Override
+	public String copySoundFontFile() throws IOException {
+		
+		return midiServer.copySoundFontFile();
+	}
+
+	@Override
+	public MidiServerConfiguration getConfiguration() {
+		
+		return midiServer.getConfiguration();
+	}
+	
+	@Override
+	public void setConfiguration(MidiServerConfiguration configuration) {
+		
+		midiServer.setConfiguration(configuration);
+	}
+	
+	@Override
 	public List<String> getCommand() {
 		
 		List<String> command = new ArrayList<String>();

@@ -1359,9 +1359,110 @@ producto, pasando por un prototipo operacional.
 
  \subsection{Integración e probas}
  
- % TODO Redactar.
-
+ Durante o desenvolvemento do prototipo software operacional creáronse baterías
+ de tests de integración a nivel de servizo. \\
+ 
+ Creouse unha batería de tests por servizo (figura \ref{figura:TestsIntegracion}
+ e cubriuse alomenos o \textit{happy path} de cada unha das súas sinaturas. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/tests-integracion.png}
+   % test-integracion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Tests de integración}
+   \label{figura:TestsIntegracion}
+  \end{figure}
+  
+  Vexamos un exemplo. Como se pode apreciar na figura \ref{figura:TestIntegracion},
+  créanse as precondicións, logo execútase a operación que se quere probar e
+  finalmente compróbanse as poscondicións. \\
+  
+  \begin{figure}[htbp]
+   \centering
+   \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-integracion.png}
+   % test-integracion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+   \caption{Exemplo de test de integración}
+   \label{figura:TestIntegracion}
+  \end{figure}
+  
+  É de salientar que, aínda que máis propio de BDD, intentou empregarse linguaxe
+  \textit{Gherkin} \cite{Gherkin} tanto como foi posible para que os tests fóran
+  o máis sinxelos de ler posible. \\
+ 
+ Aquí a aproximación consistiu en executar os tests tendo o hardware conectado ó
+ pc executando a aplicación. \\
+ 
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.6,keepaspectratio=true]{./imagenes/resultados-tests-integracion.png}
+  % resultados-test-integracion.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Resultados tests integracion}
+  \label{figura:ResultadosTestIntegracion}
+ \end{figure}
+  
+ Executadas as probas, cun total de 133 tests de integración, podemos comprobar
+ que non todas pasan correctamente
+ (figura \ref{figura:ResultadosTestintegracion}). \\
+ 
+ Concretamente, se nos fixamos en ditos resultados, as que non pasan son as
+ que precisan conectividade co dispositivo. Isto débese a unha incidencia que se
+ deu durante o desenvolvemento e que xa comentamos anteriormente, que nos levou
+ a ter que empregar unha versión simplificada do firmware do dispositivo. Dita
+ incidencia detallarase na sección correspondente. \\
+ 
+ Para as suites de tests que fallan, para intentar paliar este problema,
+ desenvolvéronse uns tests de integración alternativos (co sufixo Mock), no que
+ se simula o intercambio de información en formato JSON co dispositivo, de
+ maneira que alomenos poidamos verificar e validar a aplicación de configuración
+ incluíndo a serialización e deserialización da información, tal e como se faría
+ cun dispositivo real. É dicir, contamos cun dispositivo simulado en Java que
+ emite e recibe información en formato JSON, tal coma o identificador ou os
+ distintos tipos de configuración. \\
+ 
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/tests-integracion-conectividade.png}
+  % tests-integracion-conectividade.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Tests de integración da conectividade}
+  \label{figura:TestsIntegracionConectividade}
+ \end{figure}
+  
+ Así mesmo, para probar que a conectividade co dispositivo funciona e polo
+ tanto a librería serie en Java cumpría co seu cometido (dado que coa primeira
+ escollida tamén tivemos problemas), desenvolvéronse un par de tests extra de
+ integración da conectividade e os seus sketches asociados (figura
+ \ref{figura:TestsIntegracionConectividade}). \\
+  
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.8,keepaspectratio=true]{./imagenes/test-integracion-conectividade.png}
+  % test-integracion-conectividade.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Tests de integración da conectividade}
+  \label{figura:TestIntegracionConectividade}
+ \end{figure}
+ 
+ Na figura \ref{figura:TestIntegracionConectividade} podemos apreciar o segundo
+ dos mesmos e o máis complexo, que trata de xogar ó ping-pong cunha cadea de
+ texto entre a aplicación e o dispositivo. \\
+ 
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.45,angle=90,keepaspectratio=true]{./imagenes/resultados-tests-integracion-conectividade.png}
+  % resultados-tests-integracion-conectividade.png: 640x480 pixel, 72dpi, 22.58x16.93 cm, bb=0 0 640 480
+  \caption{Resultados dos tests de integración da conectividade}
+  \label{figura:ResultadosTestsIntegracionConectividade}
+ \end{figure}
+ 
+ Tal e como se pode comprobar na figura
+ \ref{figura:ResultadosTestsIntegracionConectividade}, as probas pasaron
+ correctamente. \\
+ 
+ Executadas as probas, cun total de 135 tests de integración, puidemos validar a
+ aplicación de configuración e a conectividade co dispositivo hardware.
+ 
  \subsection{Probas de aceptación}
+ 
+ % TODO Redactar.
  
  \subsection{Documentación}
 

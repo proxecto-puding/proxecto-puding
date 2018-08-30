@@ -226,6 +226,153 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
     (hackeando o XML a man), procedeuse á súa incorporación ó proxecto. Así
     mesmo, notificouse o erro ós desenvolvedores da aplicación, contribuíndo a
     versión corrixida ó repositorio do proxecto \cite{ContribucionFritzing}.
+    
+ \subsection{Implementación}
+ 
+  \subsubsection{Ensamblado e codificación}
+  
+   Durante a fase de ensamblado e codificación, unha vez tiñamos toda a
+   codificación da parte hardware lista para probar, xurdiu un problema co que
+   non contabamos en absoluto: a falta de memoria RAM da placa para executar o
+   firmware programado. \\
+   
+   Todo ía ben e xa tiñamos codificado e compilando os tres módulos dos
+   periféricos, e o software de integración de todos eles e que conforma o
+   simulador do punteiro en si, pero cando fomos compilar todo o conxunto,
+   previo á súa carga na placa Arduino Uno, o IDE díxonos que a compilación
+   estaba ben, pero que o tamaño do executable excedía o máximo da memoria RAM
+   nun 9\% e propúñanos intentar reducir o número de variables globais para
+   intentar mitigalo (figura \ref{figura:ConsumoMemoria}). \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6,keepaspectratio=true]{./imagenes/consumo-memoria.png}
+    % consumo-memoria.png: 1024x696 pixel, 72dpi, 36.12x24.55 cm, bb=0 0 1024 696
+    \caption{Consumo de memoria}
+    \label{figura:ConsumoMemoria}
+   \end{figure}
+   
+   A primeira aproximación foi avaliar as variables globais da aplicación para
+   ver o número delas, os seus tipos e se eran susceptibles de eliminación. \\
+   
+   E viuse que eran moi pouquiñas, que os tipos eran básicos e que non eran
+   eliminables. Salvo un par de delas, que son concretamente as matrices
+   constantes que conteñen as relacións predefinidas entre dixitación e
+   desprazamento en semitonos desde a nota base. As coñecidas como dixitación
+   aberta e pechada. \\
+   
+   O primeiro que nos chamou a atención foi que, sendo constantes, se
+   almacenasen en RAM e non en ROM. Buscando a causa, a explicación é que a
+   arquitectura empregada por Arduino, coas memorias separadas, fai que este
+   tipo de variables constantes vaian parar á RAM. \\
+   
+   Vendo que non era posible que acabasen na memoria reservada a datos fixos,
+   analizáronse os valores e vendo que nos chegaban 2 bytes para representalos,
+   cambiáronse de tipo int a short, pero sorprendentemente a nivel compilación
+   non se gañou nada. \\
+   
+   O último que probamos foi a movelas como variables locais á única función
+   onde se empregaban, gañando temporalmente un 6\% de espacio de memoria, pero
+   todavía insuficiente. \\
+   
+   Cómpre explicar que estas dúas matrices se empregan para cargar noutra matriz
+   de dixitacións globais todas aquelas dixitacións que o usuario queira
+   empregar, puidendo ser aberta, pechada ou personalizada a vontade, polo que
+   hai que ter en conta que a memoria necesaria pode subir ata outro 10\% só
+   tendo en conta esta matriz global. E aínda teriamos que deixar marxe para o
+   resto de variables locais que, se facemos unha similitude con outros sistemas
+   similares, podemos estimar nun 20\% extra. Polo que de maneira estimada e
+   aproximada, estamos nun -36\% de memoria RAM dispoñible. \\
+   
+   Compilando o firmware coa última versión do IDE de Arduino instalada no
+   equipo de implantación, conseguiu reducirse o consumo de memoria nun 3\%
+   (senón por melloras do compilador, probablemente polo cambio de int a short
+   que poida que si aplique ben nesta nova versión), pero seguía sendo
+   insuficiente. No mellor dos casos, estamos falando dun -28\% de memoria
+   dispoñible. \\
+   
+   Aclarar neste punto que, tanto a placa Arduino Uno como a Arduino Fio,
+   contan exactamente coa mesma arquitectura e cantidade de memoria; no caso da
+   RAM, 2K. \\
+   
+   Visto que non había maneira de salvar a restricción de memoria de maneira
+   programática e avaliando as alternativas definidas ó inicio da iteración,
+   decidiuse que a mellor opción era recortar módulos para alomenos ter algo
+   funcional. \\
+   
+   Feitas contas e postos a escoller, a reproducción primaba sobre a
+   configuración, polo que se prescindiu do lector de tarxetas, en detrimento
+   tamén da aplicación de configuración. \\
+   
+   E posto que tampouco estaba claro como ía evolucionar o consumo de memoria
+   das variables locais no tempo e que o IDE non proporciona dita información
+   de ningunha maneira, por precaución, decidiuse prescindir tamén do sensor de
+   presión e incorporalo posteriormente se había posibilidade. \\
+   
+   Polo que se prodeceu ó desenvolvemento dunha versión simplificada paralela
+   que, unha vez rematada, arroxou un consumo de memoria mínimo do 72\% (figura
+   \ref{figura:ConsumoMemoriaSimplficada}), que nos deixa exactamente no mínimo
+   de RAM libre que teorizamos que nos faría falta para as variables globais
+   non inicializadas previamente e as variables locais. \\
+   
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.55,keepaspectratio=true]{./imagenes/consumo-memoria-simplificada.png}
+    % consumo-memoria-simplificada.png: 1024x696 pixel, 72dpi, 36.12x24.55 cm, bb=0 0 1024 696
+    \caption{Consumo de memoria da versión simplificada}
+    \label{figura:ConsumoMemoriaSimplificada}
+   \end{figure}
+   
+  \subsubsection{Integración e probas}
+  
+  Foito do problema comentado no punto inmediantamente anterior, dado que se
+  anularon o sensor de presión e o lector de tarxetas, non foi posible probar
+  e integrar a aplicación de configuración co dispositivo hardware, porque a fin
+  de contas, non había hardware contra o que probar dita funcionalidade. \\
+  
+  Para mitigalo, tal e como se comentou durante a fase de probas, o que se fixo
+  foi crear un simulador software o máis fiel posible ó dispositivo hardware a
+  nivel de comportamento, de maneira que pudieramos validar tanto o fluxo de
+  datos coma o seu formato.
+  
+  \subsubsection{Implantación}
+  
+  Por se os continuos problemas cos que nos atopamos durante o desenvolvemento
+  do proxecto non fosen suficientes, a día 16 de agosto de 2018 o equipo co que
+  se estaba a desenvolver o proxecto derramouse sen previo aviso, dificultando
+  moito a finaliación do mesmo, pois estamos a falar de tres semanas vista ó
+  límite de depósito da memoria, sen tempo case para maniobrar. \\
+  
+  Intentando tomar vantaxe do problema e logo de mercar un equipo novo de
+  urxencia e preparalo para o seu uso, decidiuse empregalo tamén como banco de
+  probas para unha implantación limpa. \\
+  
+  Durante todo o desenvolvemento do proxecto, logo dos múltiples problemas
+  ocasionados por pequenas actualizacións do entorno de traballo, decidiuse
+  mantelo estable durante a execución do mesmo, facendo que en última instancia
+  contaramos cun sistema operativo, unha máquina virtual de Java e uns entornos
+  de desenvolvemento totalmente desfasados, pero estables. \\
+  
+  De aí que, ó facer unha nova implantación de cero e aproveitando para probar
+  coas últimas versións de todo o anterior, moitas das cales ían xa por varias
+  versións maiores posteriores, se presentasen problemas novos. \\
+  
+  O proxecto foi incialmente pensado para OpenJDK 6 e posteriormente actualizado
+  a OpenJDK 8 para aproveitar as novas funcionalidades de Java en aras de
+  simplificar o desenvolvemento, pero a versión actual da instalada no equipo é
+  a 11. \\
+  
+  A priori non deu problemas, ata que probamos a executar os tests do servizo de
+  navegación web, que non funcionaban. Buscando a causa pola rede, semella que
+  OpenJDK en versións posteriores á 8, rompeu varios enlaces simbólicos e outras
+  partes relacionadas que afectan á carga das librerías de accesibilidade e que
+  fai que a librería nativa do JDK que se emprega habitualmente para interactuar
+  co escritorio independentemente do sistema operativo rompa en sistemas UNIX,
+  polo que non permitía abrir o navegador web. \\
+  
+  Como solución de emerxencia mentres non arranxan a incidencia, que xa está
+  notificada, engadiuse unha implementación alternativa en caso de erro facendo
+  uso dunha librería equivalente da Apache Foundation.
 
 \section{Conclusións finais}
 

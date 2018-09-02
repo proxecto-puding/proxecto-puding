@@ -77,6 +77,8 @@ public class MidiServerUnix implements MidiServer {
 		// Executable.
 		command.add(EXECUTABLE_PATH);
 		// MIDI port name.
+		// TODO Remove this line when the original portName sends MIDI.
+		portName = this.getClass().getClassLoader().getResource("midi/chantada.midi").getPath();
 		command.add(portName);
 		
 		if (getConfiguration() != null) {

@@ -56,7 +56,7 @@
 /** @brief Startup delay.
  * 
  */
-#define STARTUP_DELAY 5000
+#define STARTUP_DELAY 1000
 
 /** @addtogroup PudingConfigurationActions
  * 
@@ -180,13 +180,13 @@
 /** @brief Default amount of fingering types.
  * 
  */
-#define DEF_FT          3
+#define DEF_FT          1
 
 /** @brief Maximum amount of fingerings.
  * 
  * Maximum quantity of fingering definitions supported by the chanter.
  */
-#define MAX_FING        128
+#define MAX_FING        80
 
 /** @brief Default offset.
  * 

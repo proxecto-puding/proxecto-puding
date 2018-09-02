@@ -317,7 +317,7 @@ aJsonObject *getAJsonObject() {
  */
 short getChanterOffset() {
   inputs = mpr121.getTouchAndProximityInputs();
-  unsigned short touchInputs = inputs | TI_MASK;
+  unsigned short touchInputs = inputs & TI_MASK;
   int i;
   for (i = 0; i < MAX_FING; i++) {
     // When a default offset value is reached there are not more valid
@@ -488,7 +488,7 @@ boolean isMeTheTarget(aJsonObject *root) {
  * @return A boolean indicating if the vibrato is enabled.
  */
 boolean isVibratoEnabled() {
-  unsigned short vibrato = inputs | PI_MASK;
+  unsigned short vibrato = inputs & PI_MASK;
   return (vibrato != 0);
 }
 

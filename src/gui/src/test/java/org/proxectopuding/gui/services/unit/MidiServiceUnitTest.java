@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableList;
 
 public class MidiServiceUnitTest {
 	
+	private static final String PORT_NAME = "";
 	private static final List<String> COMMAND = ImmutableList.of("echo");
 	private static final MidiServerConfiguration CONFIGURATION =
 			new MidiServerConfiguration();
@@ -42,13 +43,13 @@ public class MidiServiceUnitTest {
 	public void start() {
 		
 		// Given
-		when(midiServer.getCommand()).thenReturn(COMMAND);
+		when(midiServer.getCommand(PORT_NAME)).thenReturn(COMMAND);
 		
 		// When
 		Process process = midiService.start();
 		
 		// Then
-		verify(midiServer, times(1)).getCommand();
+		verify(midiServer, times(1)).getCommand(PORT_NAME);
 		assertNotNull(process);
 		assertTrue(process.isAlive());
 		process.destroy();
@@ -58,7 +59,7 @@ public class MidiServiceUnitTest {
 	public void restart() {
 		
 		// Given
-		when(midiServer.getCommand()).thenReturn(COMMAND);
+		when(midiServer.getCommand(PORT_NAME)).thenReturn(COMMAND);
 		
 		// When
 		Process process = midiService.start();
@@ -66,7 +67,7 @@ public class MidiServiceUnitTest {
 		process = midiService.restart();
 		
 		// Then
-		verify(midiServer, times(2)).getCommand();
+		verify(midiServer, times(2)).getCommand(PORT_NAME);
 		assertNotNull(process);
 		assertTrue(process.isAlive());
 		process.destroy();
@@ -76,7 +77,7 @@ public class MidiServiceUnitTest {
 	public void stop() {
 		
 		// Given
-		when(midiServer.getCommand()).thenReturn(COMMAND);
+		when(midiServer.getCommand(PORT_NAME)).thenReturn(COMMAND);
 		
 		// When
 		Process process = midiService.start();
@@ -84,7 +85,7 @@ public class MidiServiceUnitTest {
 		midiService.stop();
 		
 		// Then
-		verify(midiServer, times(1)).getCommand();
+		verify(midiServer, times(1)).getCommand(PORT_NAME);
 		assertNotNull(process);
 		delay(1);
 		assertFalse(process.isAlive());

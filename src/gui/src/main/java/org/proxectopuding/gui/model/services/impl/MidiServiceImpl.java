@@ -18,6 +18,7 @@ public class MidiServiceImpl implements MidiService {
 	private final MidiServer midiServer;
 	private ProcessBuilder processBuilder;
 	private Process process;
+	private String portName = "";
 	
 	@Inject
 	public MidiServiceImpl(MidiServer midiServer) {
@@ -25,15 +26,20 @@ public class MidiServiceImpl implements MidiService {
 		this.midiServer = midiServer;
 		this.processBuilder = new ProcessBuilder();
 	}
+	
+	@Override
+	public void setPortName(String portName) {
+		this.portName = portName;
+	}
 
 	@Override
 	public Process start() {
 		
 		LOGGER.log(Level.INFO, "Starting MIDI server");
-		Process process = null;
 		
 		try {
-			List<String> command = midiServer.getCommand();
+			List<String> command = midiServer.getCommand(portName);
+			LOGGER.log(Level.INFO, "Command: " + command);
 			processBuilder = processBuilder.command(command);
 			process = processBuilder.start();
 		} catch (IOException e) {
@@ -56,6 +62,7 @@ public class MidiServiceImpl implements MidiService {
 		LOGGER.log(Level.INFO, "Stopping MIDI server");
 		if (process != null) {
 			process.destroy();
+			LOGGER.log(Level.INFO, "MIDI server stopped");
 		}
 	}
 	

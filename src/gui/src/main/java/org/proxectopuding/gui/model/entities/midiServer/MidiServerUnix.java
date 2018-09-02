@@ -70,12 +70,14 @@ public class MidiServerUnix implements MidiServer {
 	}
 	
 	@Override
-	public List<String> getCommand() {
+	public List<String> getCommand(String portName) {
 		
 		List<String> command = new ArrayList<String>();
 		
 		// Executable.
 		command.add(EXECUTABLE_PATH);
+		// MIDI port name.
+		command.add(portName);
 		
 		if (getConfiguration() != null) {
 			// Real samples.

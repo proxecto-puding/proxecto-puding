@@ -23,6 +23,7 @@ public abstract class ConnectionManagerAbstractImpl implements ConnectionManager
 		
 		setPortName(operativeSystemManager);
 		this.midiService = midiService;
+		this.midiService.setPortName(PORT_NAME);
 	}
 	
 	/**

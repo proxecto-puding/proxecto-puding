@@ -58,9 +58,10 @@ public interface MidiServer {
 	/**
 	 * Generate a list of strings containing the command and the parameters
 	 * needed to execute the MIDI server with the current configuration.
+	 * @param portName MIDI port name.
 	 * @return A command list.
 	 */
-	List<String> getCommand();
+	List<String> getCommand(String portName);
 	
 	
 }

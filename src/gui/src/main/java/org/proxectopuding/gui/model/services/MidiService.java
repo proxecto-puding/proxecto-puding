@@ -5,6 +5,12 @@ import org.proxectopuding.gui.model.entities.midiServer.MidiServerConfiguration;
 public interface MidiService {
 	
 	/**
+	 * Set MIDI port name.
+	 * @param portName MIDI port name.
+	 */
+	public void setPortName(String portName);
+	
+	/**
 	 * Start the MIDI service.
 	 * @return The process within the MIDI service is running.
 	 */
@@ -32,5 +38,4 @@ public interface MidiService {
 	 * @param configuration A MIDI server configuration.
 	 */
 	public void setConfiguration(MidiServerConfiguration configuration);
-	
 }

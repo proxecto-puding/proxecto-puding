@@ -80,9 +80,9 @@ public class MidiServerGeneral implements MidiServer {
 	}
 	
 	@Override
-	public List<String> getCommand() {
+	public List<String> getCommand(String portName) {
 		
-		return midiServer.getCommand();
+		return midiServer.getCommand(portName);
 	}
 	
 	/**

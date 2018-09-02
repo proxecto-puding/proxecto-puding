@@ -37,8 +37,6 @@ G1 g1;
 void setup()
 {
   g1.setDevice();
-  Serial.begin(SERIAL_VEL);
-  
 }
 
 void loop()

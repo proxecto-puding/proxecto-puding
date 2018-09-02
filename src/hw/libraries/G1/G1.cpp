@@ -55,7 +55,8 @@ unsigned long G1::getFileSize(char *name) {
   Serial.write(byte(RDF_CH));
   Serial.write(byte(RDF_HS));
   Serial.write(name);
-  while (Serial.available() < 4) { // TODO Test what happens if no file available.
+  // TODO Test what happens if no file available.
+  while (Serial.available() < 4) {
   }
   for (int i = 0; i < 4; i++) {
     size = (size << 8) | (unsigned long) Serial.read();
@@ -63,7 +64,8 @@ unsigned long G1::getFileSize(char *name) {
   Serial.write(byte(CC_NAK));
   while (Serial.available() < 1) {
   }
-  Serial.read(); // TODO Test if after NAK retuns ACK.
+  // TODO Test if after NAK retuns ACK.
+  Serial.read();
   
   return size;
 }
@@ -77,7 +79,7 @@ boolean G1::initDiskDriveMemoryCard() {
   }
   acknowledge = Serial.read();
   
-  return (acknowledge == CC_ACK);
+  return (acknowledge == byte(CC_ACK));
 }
 
 boolean G1::listDirectory(char *name) {
@@ -90,11 +92,11 @@ boolean G1::listDirectory(char *name) {
   while (true) {
     if (Serial.available() > 0) {
       b = Serial.read();
-      if (b == CC_ACK) {
+      if (b == byte(CC_ACK)) {
         Serial.println(list);
         return true;
       }
-      else if (b == CC_NAK) {
+      else if (b == byte(CC_NAK)) {
         return false;
       }
       else {
@@ -145,7 +147,8 @@ String G1::readFile(char *name) {
   Serial.write(byte(RDF_CH));
   Serial.write(byte(RDF_HS));
   Serial.write(name); // Terminator included.
-  while (Serial.available() < 4) { // TODO Test what happens if no file available.
+  // TODO Test what happens if no file available.
+  while (Serial.available() < 4) {
   }
   for (int i = 0; i < 4; i++) {
     size = (size << 8) | (unsigned long) Serial.read();
@@ -159,11 +162,12 @@ String G1::readFile(char *name) {
     }
     data += char(Serial.read());
   }
-  while (Serial.available() < 1) { // TODO Test if after NAK returns ACK.
+  // TODO Test if after NAK returns ACK.
+  while (Serial.available() < 1) {
   }
   acknowledge = Serial.read();
   
-  if (acknowledge == CC_NAK) {
+  if (acknowledge == byte(CC_NAK)) {
     data = "";
   }
   
@@ -180,7 +184,15 @@ boolean G1::removeFile(char *name) {
   }
   acknowledge = Serial.read();
   
-  return (acknowledge == CC_ACK);
+  return (acknowledge == byte(CC_ACK));
+}
+
+void resetDevice() {
+  pinMode(RESET_PIN, OUTPUT);
+  digitalWrite(RESET_PIN, LOW);
+  // Active Low pulse greater than 2 micro-seconds will reset the module.
+  delay(10);
+  digitalWrite(RESET_PIN, HIGH);
 }
 
 void G1::setDevice() {
@@ -203,9 +215,11 @@ void G1::setFatProtection(boolean enable) {
 }
 
 void G1::setHostSerial() {
+  resetDevice();
+  // Allow up to 500ms delay after power-up or reser for the uDRIVE to settle.
+  // Within 100ms of powering up, the host should make sure it has its Tx line pulled HIGH.
+  delay(1000);
   Serial.begin(SERIAL_VEL);
-  // Serial.write(HIGH); // TODO Test this. Auto-baud ask for TX pulled HIGH.
-  delay(500); // To avoid unestable device state.
   while (Serial.available() > 0) {
     Serial.read(); // Flush RX buffer
   }
@@ -219,7 +233,7 @@ boolean G1::setSerialAutoBaud() {
   }
   acknowledge = Serial.read();
   
-  return (acknowledge == CC_ACK);
+  return (acknowledge == byte(CC_ACK));
 }
 
 boolean G1::writeFile(char *name, boolean append, String data) {
@@ -230,12 +244,12 @@ boolean G1::writeFile(char *name, boolean append, String data) {
   
   Serial.write(byte(CC_EC));
   Serial.write(byte(WF_CH));
-  options = WF_HS | WF_PM;
+  options = byte(WF_HS) | byte(WF_PM);
   if(append) {
-    options |= WF_AMA;
+    options |= byte(WF_AMA);
   }
   else {
-    options |= WF_AMN;
+    options |= byte(WF_AMN);
   }
   Serial.write(byte(options));
   Serial.write(name);
@@ -246,7 +260,7 @@ boolean G1::writeFile(char *name, boolean append, String data) {
   while (Serial.available() < 1) {
   }
   acknowledge = Serial.read();
-  if (acknowledge == CC_NAK) {
+  if (acknowledge == byte(CC_NAK)) {
     return false;
   }
   s = 0;
@@ -255,12 +269,12 @@ boolean G1::writeFile(char *name, boolean append, String data) {
     while (Serial.available() < 1) {
     }
     acknowledge = Serial.read();
-    if (acknowledge == CC_ACK)
+    if (acknowledge == byte(CC_ACK))
       s++;
   }
   while (Serial.available() < 1) {
   }
   acknowledge = Serial.read();
   
-  return (acknowledge == CC_ACK);
+  return (acknowledge == byte(CC_ACK));
 }

@@ -51,6 +51,11 @@
  */
 #define SERIAL_VEL 9600
 
+/** @brief Reset pin.
+ * 
+ */
+#define RESET_PIN 2
+
 /** @addtogroup CommonCommandDefinitions
  * 
  * Common command definitions.

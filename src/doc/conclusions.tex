@@ -119,7 +119,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
      \centering
      \includegraphics[scale=3.0,keepaspectratio=true]{./imagenes/xbee-explorer.jpg}
      % xbee-explorer.jpg: 188x188 pixel, 300dpi, 1.59x1.59 cm, bb=0 0 45 45
-     \caption{XBee Explorer USB}
+     \caption{XBee Explorer USB.}
      \label{figura:XBeeExplorer2}
     \end{figure}
 
@@ -176,11 +176,11 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
      \centering
      \includegraphics[scale=0.3,keepaspectratio=true]{./imagenes/moco.jpg}
      % moco.jpg: 1024x696 pixel, 72dpi, 36.12x24.55 cm, bb=0 0 1024 696
-     \caption{Moco}
+     \caption{Moco.}
      \label{figura:Moco2}
     \end{figure}
 
-    Ademais, polo que se pode ler ó final do artigo:
+    Ademais, polo que se pode ler ó final do artigo \\
 
     \begin{quotation}
      \slshape
@@ -188,7 +188,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
      or 32u4 board, like Adafruit’s 32u4 breakout board.
     \end{quotation}
 
-    Vemos que dito firmware tamén funciona co chip 16u2 (que simplemente é un
+    vemos que dito firmware tamén funciona co chip 16u2 (que simplemente é un
     8u2 con máis memoria) e co 32u4 (que é o máis recente), polo que
     actualmente funciona con tódalas placas \textit{Arduino} lanzadas dende o
     \textit{Arduino Uno r2}. \\
@@ -248,7 +248,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
     \centering
     \includegraphics[scale=0.6,keepaspectratio=true]{./imagenes/consumo-memoria.png}
     % consumo-memoria.png: 1024x696 pixel, 72dpi, 36.12x24.55 cm, bb=0 0 1024 696
-    \caption{Consumo de memoria}
+    \caption{Consumo de memoria.}
     \label{figura:ConsumoMemoria}
    \end{figure}
    
@@ -293,7 +293,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
    
    Aclarar neste punto que, tanto a placa Arduino Uno como a Arduino Fio,
    contan exactamente coa mesma arquitectura e cantidade de memoria; no caso da
-   RAM, 2K. \\
+   RAM, 2KB. \\
    
    Visto que non había maneira de salvar a restricción de memoria de maneira
    programática e avaliando as alternativas definidas ó inicio da iteración,
@@ -311,7 +311,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
    
    Polo que se prodeceu ó desenvolvemento dunha versión simplificada paralela
    que, unha vez rematada, arroxou un consumo de memoria mínimo do 72\% (figura
-   \ref{figura:ConsumoMemoriaSimplficada}), que nos deixa exactamente no mínimo
+   \ref{figura:ConsumoMemoriaSimplificada}), que nos deixa exactamente no mínimo
    de RAM libre que teorizamos que nos faría falta para as variables globais
    non inicializadas previamente e as variables locais. \\
    
@@ -319,7 +319,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
     \centering
     \includegraphics[scale=0.55,keepaspectratio=true]{./imagenes/consumo-memoria-simplificada.png}
     % consumo-memoria-simplificada.png: 1024x696 pixel, 72dpi, 36.12x24.55 cm, bb=0 0 1024 696
-    \caption{Consumo de memoria da versión simplificada}
+    \caption{Consumo de memoria da versión simplificada.}
     \label{figura:ConsumoMemoriaSimplificada}
    \end{figure}
    
@@ -404,23 +404,19 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
   \item E que empregase exclusivamente hardware e software libre.
  \end{itemize}
  
- % TODO Revisar este punto.
- 
- Destes obxectivos, actualmente cumprimos dous e estamos en condicións de
- cumprir o terceiro. \\
+ Destes obxectivos, actualmente estamos en condicións de cumprir o primeiro,
+ cumprimos parcialmente o segundo e cumprimos escrupulosamente o terceiro. \\
  
  Tamén se prantexaron obxectivos secundarios pero non por iso menos importantes:
  
  \begin{itemize}
-  \item Realizar un estudio de viabilidade que amosara o que realmente demanda o
+  \item Realizar un estudo de viabilidade que amosara o que realmente demanda o
     mercado.
   \item Estudar a fondo as tecnoloxías implicadas no proxecto e determinar se
     son aplicables ó mesmo.
   \item E demostrar que o uso de hardware/software libre é viable para este tipo
     de proxectos.
  \end{itemize}
- 
- % TODO Revisar este punto.
  
  Estes obxectivos cumprímolos todos, aínda que o terceiro podería ser
  matizable. \\
@@ -440,7 +436,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
    Documentación & 400 páxinas \\
    \hline
   \end{tabular}
-  \caption{Resumo do proxecto}
+  \caption{Resumo do proxecto.}
   \label{tabla:ResumoProxecto}
  \end{table}
  
@@ -456,12 +452,13 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
  
  \section{Traballo futuro}
  
- % TODO Revisar este punto.
- 
  Sendo un proxecto que toca tantas disciplinas, resulta relativamente sinxelo
  atopar liñas de traballo futuro polas que poder evolucionalo. \\
  
- Como máis prioritaria, substituír a placa Arduino Uno/Fio actual por outra da
+ Como máis prioritaria, facer funcionar o lector de tarxetas, sexa empregando
+ este modelo ou outra alternativa máis moderna e axeitada. \\
+ 
+ A continuación, substituír a placa Arduino Uno/Fio actual por outra da
  mesma familia que teña unha cantidade de memoria que nos permita executar a
  versión completa do firmware. Preferentemente con soporte para XBee e
  integrable no punteiro. \\
@@ -470,7 +467,7 @@ aprenderon delas, ata as oportunidades de mellora ou futuras liñas de traballo.
  versións máis actuais: o sensor de presión, os sensores capacitivos, o lector
  de tarxetas ou a placa do receptor están actualmente marcados como
  discontinuados polos fabricantes, que optaron por renovar os modelos, aínda que
- a día de hoxe podemos atopar aínda unidades á venda. \\
+ a día de hoxe podemos atopar aínda unidades á venda dalgún deles. \\
  
  Actualizar a interface de Swing a JavaFX debería ser a seguinte prioridade.
  Cando se comezou co proxecto JavaFX nin sequera existía como primeira versión

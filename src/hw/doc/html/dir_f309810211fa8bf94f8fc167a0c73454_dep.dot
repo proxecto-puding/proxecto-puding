@@ -1,0 +1,8 @@
+digraph "/home/xuco/eclipse-workspace/proxecto-puding/src/hw/Puding" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_f309810211fa8bf94f8fc167a0c73454 [shape=box, label="Puding", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_f309810211fa8bf94f8fc167a0c73454.html"];
+  dir_bc0718b08fb2015b8e59c47b2805f60c [shape=box label="libraries" fillcolor="white" style="filled" color="red" URL="dir_bc0718b08fb2015b8e59c47b2805f60c.html"];
+  dir_f309810211fa8bf94f8fc167a0c73454->dir_bc0718b08fb2015b8e59c47b2805f60c [headlabel="6", labeldistance=1.5 headhref="dir_000004_000000.html"];
+}

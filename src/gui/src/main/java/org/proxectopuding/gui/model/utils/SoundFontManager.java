@@ -41,7 +41,7 @@ public class SoundFontManager {
 		File file = new File(SOUNDFONT_FILE_PATH);
 		isDownloaded = file.exists();
 		
-		if (fileDownload != null || !isDownloaded) {
+		if (fileDownload != null && !isDownloaded) {
 		
 			// Avoid using real samples when the SoundFont file is unavailable.
 			if (fileDownload.isDownloading()) {

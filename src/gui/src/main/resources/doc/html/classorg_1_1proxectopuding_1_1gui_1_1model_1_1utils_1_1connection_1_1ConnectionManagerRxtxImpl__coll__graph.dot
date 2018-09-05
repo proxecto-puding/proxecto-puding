@@ -1,0 +1,10 @@
+digraph "org.proxectopuding.gui.model.utils.connection.ConnectionManagerRxtxImpl"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node3 [label="org.proxectopuding.gui.model.utils.connection.\lConnectionManagerRxtxImpl",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="org.proxectopuding.gui.model.utils.connection.\lConnectionManagerAbstractImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1model_1_1utils_1_1connection_1_1ConnectionManagerAbstractImpl.html"];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="org.proxectopuding.gui.model.utils.connection.\lConnectionManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1model_1_1utils_1_1connection_1_1ConnectionManager.html"];
+}

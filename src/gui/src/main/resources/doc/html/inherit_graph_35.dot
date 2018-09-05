@@ -1,0 +1,41 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node70 [label="org.proxectopuding.gui.view.\lContentPanelView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1ContentPanelView.html"];
+  Node70 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="org.proxectopuding.gui.view.swing.\lContentPanelViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1ContentPanelViewImpl.html"];
+  Node49 [label="org.proxectopuding.gui.view.\lFingeringConfigurationView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1FingeringConfigurationView.html"];
+  Node49 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="org.proxectopuding.gui.view.swing.\lFingeringConfigurationViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1FingeringConfigurationViewImpl.html"];
+  Node42 [label="org.proxectopuding.gui.view.\lMenuBarView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1MenuBarView.html"];
+  Node42 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="org.proxectopuding.gui.view.swing.\lMenuBarViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1MenuBarViewImpl.html"];
+  Node16 [label="org.proxectopuding.gui.view.\lSelectionConfigurationView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1SelectionConfigurationView.html"];
+  Node16 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="org.proxectopuding.gui.view.swing.\lSelectionConfigurationViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1SelectionConfigurationViewImpl.html"];
+  Node15 [label="org.proxectopuding.gui.view.\lSensitivityConfigurationView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1SensitivityConfigurationView.html"];
+  Node15 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="org.proxectopuding.gui.view.swing.\lSensitivityConfigurationViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1SensitivityConfigurationViewImpl.html"];
+  Node13 [label="org.proxectopuding.gui.view.\lStartConfigurationView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1StartConfigurationView.html"];
+  Node13 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="org.proxectopuding.gui.view.swing.\lStartConfigurationViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1StartConfigurationViewImpl.html"];
+  Node12 [label="org.proxectopuding.gui.view.\lTabbedPaneView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1TabbedPaneView.html"];
+  Node12 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="org.proxectopuding.gui.view.swing.\lTabbedPaneViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1TabbedPaneViewImpl.html"];
+  Node11 [label="org.proxectopuding.gui.view.\lTuningConfigurationView",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1TuningConfigurationView.html"];
+  Node11 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="org.proxectopuding.gui.view.swing.\lTuningConfigurationViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1TuningConfigurationViewImpl.html"];
+  Node0 [label="org.proxectopuding.gui.view.View",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceorg_1_1proxectopuding_1_1gui_1_1view_1_1View.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="org.proxectopuding.gui.view.swing.\lViewImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classorg_1_1proxectopuding_1_1gui_1_1view_1_1swing_1_1ViewImpl.html"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

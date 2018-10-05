@@ -50,25 +50,6 @@
 			<artifactId>commons-exec</artifactId>
 			<version>1.3</version>
 		</dependency>
-
-		<!-- Serial connection: option A -->
-		<!-- https://mvnrepository.com/artifact/gnu.io/rxtx -->
-		<!-- <dependency> <groupId>gnu.io</groupId> <artifactId>rxtx</artifactId> 
-			<version>2.1.7</version> </dependency> -->
-		<!-- Serial connection: option B -->
-		<!-- https://mvnrepository.com/artifact/org.ardulink/ardulink-core-base -->
-		<dependency>
-			<groupId>org.ardulink</groupId>
-			<artifactId>ardulink-core-base</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.ardulink/ardulink-core-serial-jssc -->
-		<dependency>
-			<groupId>org.ardulink</groupId>
-			<artifactId>ardulink-core-serial-jssc</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-		<!-- Serial connection: option C -->
 		<!-- https://mvnrepository.com/artifact/org.scream3r/jssc -->
 		<dependency>
 			<groupId>org.scream3r</groupId>
